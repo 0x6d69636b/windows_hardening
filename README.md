@@ -1,1 +1,1 @@
-# windows_hardening
+# Windows Hardening
