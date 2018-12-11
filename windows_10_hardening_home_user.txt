@@ -5,15 +5,17 @@ Bit Locker
 ==========
 [ ] Enable Bit Locker
 
+
 Antivirus
 =========
 [ ] Enable Windows Defender
 
+
 Group Policies
 ==============
-
 CIS Microsoft Windows 10 Enterprise RTM (Release 1507) Benchmark
 https://benchmarks.cisecurity.org/tools2/windows/CIS_Microsoft_Windows_10_Enterprise_RTM_Release_1507_Benchmark_v1.0.0.pdf
+
 
 Account Policies
 ----------------
@@ -25,6 +27,7 @@ Computer Configuration\Policies\Windows Settings\Security Settings\Account Polic
 
 [ ] Set 'Reset account lockout counter after' to '15 or more minute(s)
 Computer Configuration\Policies\Windows Settings\Security Settings\Account Policies\Account Lockout Policy\Reset account lockout counter after
+
 
 Local Policies
 --------------
@@ -99,6 +102,7 @@ Computer Configuration\Policies\Windows Settings\Security Settings\Local Policie
 [ ] Set 'User Account Control: Admin Approval Mode for the Built-in Administrator account' to 'Enabled'
 Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\User Account Control: Admin Approval Mode for the Built-in Administrator account
 
+
 Windows Firewall With Advanced Security
 ---------------------------------------
 [ ] Set 'Windows Firewall: Domain: Firewall state' to 'On (recommended)'
@@ -106,6 +110,7 @@ Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firew
 
 [ ] Set 'Windows Firewall: Domain: Inbound connections' to 'Block (default)'
 Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\*\Inbound connections
+
 
 Control Panel
 -------------
@@ -280,18 +285,23 @@ User Configuration\Policies\Administrative Templates\System\Internet Communicati
 [ ] Set 'Always install with elevated privileges' to 'Disabled'
 User Configuration\Policies\Administrative Templates\Windows Components\Windows Installer\Always install with elevated privileges
 
+
 Settings
 ========
+Based on Windows 10 Pro 1803
 
 System
 ------
 Notification & actions
-[ ] Show me tips about Windows to 'Off'
-[ ] Show notification on the lock to 'Off'
-[ ] Show alarms, reminders, and incoming VoIP calls on the lock screen 'Off'
+[ ] Show notification on the lock screen to 'Off'
+[ ] Show reminders and incoming VoIP calls on the lock screen to 'Off'
+[ ] Show me the Windows welcome experience after updtaes and occasionally when I sign in to highlight what's new and suggested to 'Off'
+[ ] Get tips, tricks, and suggestions as you use Windows to 'Off'
 
-Offline maps
-[ ] Automatically update maps to 'Off'
+Shared experiences
+[ ] Nearby sharing to 'Off'
+[ ] Shared across devices to 'Off'
+
 
 Devices
 -------
@@ -301,25 +311,33 @@ Typing
 AutoPlay
 [ ] Use AutoPlay for all media and devices to 'Off'
 
+
 Network & Internet
 ------------------
+Wi-Fi
+[ ] Random hardware addresses to 'On'
+[ ] Let me use Online Sign-Up to get connected to 'Off'
+
 Ethernet
 [ ] Change Adapter Options -> Disable File and Printer Sharing for Microsoft Networks & Disable NetBIOS (Advanced TCP/IP Settings)
+
 
 Personalization
 ---------------
 Start
+[ ] Show more tiles on Start to 'Off'
 [ ] Occasionally show suggestions in Start to 'Off'
 
-Time & Language
----------------
-Region & language
-[ ] Remove French
 
 Privacy
 -------
 General
-[ ] Set everything to 'Off' (except SmartScreen)
+[ ] Set everything to 'Off'
+
+Diagnostic data
+[ ] Set to 'Basic'
+[ ] Set everything to 'Off'
+[ ] Windows should ask for my feedback to 'Never'
 
 Location
 [ ] Set everything to 'Off'
@@ -342,36 +360,43 @@ Call History
 Email
 [ ] Set everything to 'Off'
 
+Tasks
+[ ] Set everything to 'Off'
+
 Messaging
 [ ] Set everything to 'Off'
 
 Radio
 [ ] Set everything to 'Off'
 
-Sync with devices
+Other devices
 [ ] Set everything to 'Off'
 
-Feedback & diagnostics
-[ ] Windows should ask for my feedback to 'Never'
-
-Background apps
+App diagnostics
 [ ] Set everything to 'Off'
+
+Automatic file downloads
+[ ] Do not allow downloads
+
 
 Update & Security
 -----------------
-Windows Update
-[ ] Choose how updates are delivered to 'Off'
+Windows Update -> Delivery Optimization
+[ ] Allow downloads from other PCs to 'Off'
 
 Windows Defender
-[ ] Cloud-based Protection to 'Off'
 [ ] Automatic sample submission to 'Off'
 
+
 SMB v1
-------
+======
 [ ] Disable / Deinstall SMBv1
 
+
 Office Hardening
-----------------
+================
+Source: https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-exploit-guard/enable-attack-surface-reduction
+
 [ ] Set 'Configure Attack surface reduction rules' to 'Enabled'
 Windows components > Windows Defender Antivirus > Windows Defender Exploit Guard > Attack surface reduction
 
@@ -383,6 +408,13 @@ D4F940AB-401B-4EFC-AADC-AD5F3C50688A	Block Office applications from creating chi
 D3E037E1-3EB8-44C8-A917-57927947596D	Impede JavaScript and VBScript to launch executables
 5BEB7EFE-FD9A-4556-801D-275E5FFC04CC	Block execution of potentially obfuscated scripts
 92E97FA1-2EDF-4476-BDD6-9DD0B4DDDC7B	Block Win32 imports from Macro code in Office	
+01443614-cd74-433a-b99e-2ecdc07bfc25	Block executable files from running unless they meet a prevalence, age, or trusted list criteria	
+c1db55ab-c21a-4637-bb3f-a12568109d35	Use advanced protection against ransomware
+9e6c4e1f-7d60-472f-ba1a-a39ef669e4b2	Block credential stealing from the Windows local security authority subsystem (lsass.exe)
+d1e49aac-8f56-4280-b9ba-993a6d77406c	Block process creations originating from PSExec and WMI commands
+b2b3f03d-6a65-4f7b-a9c7-1c7ef74a9ba4	Block untrusted and unsigned processes that run from USB
+26190899-1602-49e8-8b27-eb1d0a1ce869	Block Office communication applications from creating child processes
+7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c	Block Adobe Reader from creating child processes
 	
 [ ] Apply Registry Settings
 https://gist.githubusercontent.com/wdormann/732bb88d9b5dd5a66c9f1e1498f31a1b/raw/69c9d9d14b386d8f178e59a046804501ec1ee304/disable_ddeauto.reg
@@ -429,5 +461,9 @@ Windows Registry Editor Version 5.00
  "DDEAllowed"=dword:00000000
  "DDECleaned"=dword:00000001
  "Options"=dword:00000117
-	
-	
+
+
+Monitoring
+==========
+[ ] Install Sysmon (https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon)
+[ ] Use your on configuration (mine is based on https://github.com/SwiftOnSecurity/sysmon-config)
