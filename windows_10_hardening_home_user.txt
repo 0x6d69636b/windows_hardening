@@ -393,6 +393,11 @@ SMB v1
 [ ] Disable / Deinstall SMBv1
 
 
+Services
+========
+[ ] Stop and disable service "Connected User Experiences and Telemetry" (DiagTrack) for privacy reasons
+
+
 Office Hardening
 ================
 Source: https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-exploit-guard/enable-attack-surface-reduction
