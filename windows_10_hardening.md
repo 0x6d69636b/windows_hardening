@@ -60,6 +60,7 @@
 * Set _Network security: Minimum session security for NTLM SSP based (including secure RPC) clients_ to **Require NTLMv2 session security, Require 128-bit encryption**
 * Set _Network security: Minimum session security for NTLM SSP based (including secure RPC) servers_ to **Require NTLMv2 session security, Require 128-bit encryption**
 * Set _Network security: Restrict NTLM: Audit Incoming NTLM Traffic_ to **Enable auditing for all accounts**
+* Set _Network security: Restrict NTLM: Audit NTLM authentication in this domain to **Enable all**
 * Set _Network security: Restrict NTLM: Outgoing NTLM traffic to remote servers_ to **Audit all**
 
 ##### Security Options
@@ -79,34 +80,33 @@
 * _Log successful connections_: **Yes**
 
 ### Windows Settings\Security Settings\Advanced Audit Policy Configuration
-* _Account Logon/Audit Credential Validation_: **Success and Failure**
-* _Account Management/Audit Security Group Management_: **Success**
-* _Account Management/Audit User Account Management_: **Success and Failure**
-* _Detailed Tracking/Audit PNP Activity_: **Success**
-* _Detailed Tracking/Audit Process Creation_: **Success**
-* _Logon/Logoff/Audit Account Lockout_: **Failure**
-* _Logon/Logoff/Audit Group Membership_: **Success**
-* _Logon/Logoff/Audit Logon_: **Success and Failure**
-* _Logon/Logoff/Audit Other Logon/Logoff Events_: **Success and Failure**
-* _Logon/Logoff/Audit Special Logon_: **Success**
-* _Object Access/Audit Detailed File Share_: **Failure**
-* _Object Access/Audit File Share_: **Success and Failure**
-* _Object Access/Audit Other Object Access Events_: **Success and Failure**
-* _Object Access/Audit Removable Storage_: **Success and Failure**
-* _Policy Change/Audit Audit Policy Change_: **Success**
-* _Policy Change/Audit Authentication Policy Change_: **Success**
-* _Policy Change/Audit MPSSVC Rule-Level Policy Change_: **Success and Failure**
-* _Policy Change/Audit Other Policy Change Events_: **Failure**
-* _Privilege Use/Audit Sensitive Privilege Use_: **Success and Failure**
-* _System/Audit Other System Events_: **Success and Failure**
-* _System/Audit Security State Change_: **Success**
-* _System/Audit Security System Extension_: **Success**
-* _System/Audit System Integrity_: **Success and Failure**
+* _Account Logon\Audit Credential Validation_: **Success and Failure**
+* _Account Management\Audit Security Group Management_: **Success**
+* _Account Management\Audit User Account Management_: **Success and Failure**
+* _Detailed Tracking\Audit PNP Activity_: **Success**
+* _Detailed Tracking\Audit Process Creation_: **Success**
+* _Logon/Logoff\Audit Account Lockout_: **Failure**
+* _Logon/Logoff\Audit Group Membership_: **Success**
+* _Logon/Logoff\Audit Logon_: **Success and Failure**
+* _Logon/Logoff\Audit Other Logon/Logoff Events_: **Success and Failure**
+* _Logon/Logoff\Audit Special Logon_: **Success**
+* _Object Access\Audit Detailed File Share_: **Failure**
+* _Object Access\Audit File Share_: **Success and Failure**
+* _Object Access\Audit Other Object Access Events_: **Success and Failure**
+* _Object Access\Audit Removable Storage_: **Success and Failure**
+* _Policy Change\Audit Audit Policy Change_: **Success**
+* _Policy Change\Audit Authentication Policy Change_: **Success**
+* _Policy Change\Audit MPSSVC Rule-Level Policy Change_: **Success and Failure**
+* _Policy Change\Audit Other Policy Change Events_: **Failure**
+* _Privilege Use\Audit Sensitive Privilege Use_: **Success and Failure**
+* _System\Audit Other System Events_: **Success and Failure**
+* _System\Audit Security State Change_: **Success**
+* _System\Audit Security System Extension_: **Success**
+* _System\Audit System Integrity_: **Success and Failure**
 
 ### Administrative Templates\Control Panel
 #### Personalization
 * Set _Prevent enabling lock screen camera_ to **Enabled**
-_Computer Configuration\Policies\Administrative Templates\Control Panel\Personalization\Prevent enabling lock screen camera_
 
 ### Administrative Templates\Network
 #### DNS Client
@@ -137,7 +137,7 @@ _Computer Configuration\Policies\Administrative Templates\Control Panel\Personal
 	**Note**: Not required if Kernel DMA protection is active (check with `msinfo32.exe`)
 * Set _Device Installation Restrictions\Prevent installation of devices using drivers that match these device setup classes_ to **Enabled**
 	* Set _Also apply to matching devices that are already installed_ to **True**
-	* GUID = **{d48179be-ec20-11d1-b6b8-00c04fa372a7}** (Plug and Play device setup class GUID)
+	* GUID = **{d48179be-ec20-11d1-b6b8-00c04fa372a7}** (Plug and Play device setup class GUID for an SBP-2 drive)
 
 #### Device Guard
 **Warning**: Besides Virtualization Based Security, no other virtualization solution like VMware Workstation can be used at the moment.
@@ -196,7 +196,7 @@ _Computer Configuration\Policies\Administrative Templates\Control Panel\Personal
 #### Troubleshooting and Diagnostics
 * Set _Windows Performance PerfTrack\Enable/Disable PerfTrack_ to **Disabled**
 
-### User Profiles
+#### User Profiles
 * Set _Turn of the advertising ID_ to **Enabled**
 
 #### Windows Time Service
@@ -248,6 +248,7 @@ _Computer Configuration\Policies\Administrative Templates\Control Panel\Personal
 
 #### Data Collection and Preview Builds
 * Set _Allow Telemetry_ to **Enabled: 0 - Security [Enterprise Only]** or **Enabled: 1 - Basic**
+* Set _Allow device name to be sent in Windows diagnostic data_ to **Disabled**
 
 #### Delivery Optimization
 * Set _Download Mode_ to **Disabled**
@@ -283,7 +284,7 @@ _Computer Configuration\Policies\Administrative Templates\Control Panel\Personal
 * Set _Allow search and Cortana to use location_ to **Disabled**
 * Set _Set what information is shared in Search_ to **Enabled: Anonymous info**
 
-#### Windows Defender
+#### Windows Defender Antivirus
 * Set _Turn off Windows Defender Antivirus_ to **Disabled**
 * Set _Configure detection for potentially unwanted applications_ to **Audit Mode**
 * Set _MAPS\Join Microsoft MAPS_ to **Disabled**
@@ -455,7 +456,7 @@ _Computer Configuration\Policies\Administrative Templates\Control Panel\Personal
 
 #### Start
 * Set _Show more tiles on Start_ to **Off**
-* Set _Occasionally show suggestions in Start_ to **Off**
+* Set _Show suggestions occasionally in Start_ to **Off**
 
 ### Search
 #### Permissions & History
