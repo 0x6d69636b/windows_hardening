@@ -92,6 +92,7 @@
 * _Logon/Logoff\Audit Special Logon_: **Success**
 * _Object Access\Audit Detailed File Share_: **Failure**
 * _Object Access\Audit File Share_: **Success and Failure**
+* _Object Access\Kernel Object_: **Success and Failure**
 * _Object Access\Audit Other Object Access Events_: **Success and Failure**
 * _Object Access\Audit Removable Storage_: **Success and Failure**
 * _Policy Change\Audit Audit Policy Change_: **Success**
