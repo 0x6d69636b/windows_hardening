@@ -95,6 +95,7 @@
 * _Object Access\Kernel Object_: **Success and Failure**
 * _Object Access\Audit Other Object Access Events_: **Success and Failure**
 * _Object Access\Audit Removable Storage_: **Success and Failure**
+* _Object Access\Audit SAM_: **Success and Failure**
 * _Policy Change\Audit Audit Policy Change_: **Success**
 * _Policy Change\Audit Authentication Policy Change_: **Success**
 * _Policy Change\Audit MPSSVC Rule-Level Policy Change_: **Success and Failure**
