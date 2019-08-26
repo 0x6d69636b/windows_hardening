@@ -306,6 +306,7 @@
 	* b2b3f03d-6a65-4f7b-a9c7-1c7ef74a9ba4 - Block untrusted and unsigned processes that run from USB
 	* 26190899-1602-49e8-8b27-eb1d0a1ce869 - Block Office communication applications from creating child processes
 	* 7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c - Block Adobe Reader from creating child processes
+	* e6db77e5-3df2-4cf1-b95a-636979351e5b - Block persistence through WMI event subscription
 
 #### Windows Defender SmartScreen
 * Set _Explorer\Configure Windows Defender SmartScreen_ to **Enabled: Warn and prevent bypass**
