@@ -29,6 +29,7 @@
 #### User Rights Assignment
 * Set _Access this computer from the network_ to **Administrators**
 * Set _Allow log on locally_ to **Administrators, Users**
+* Remove **Administrators** from _Debug programs_ (SeDebugPrivilege)
 * Set _Deny access to this computer from the network_ to include **Guests, Local account**
 * Set _Deny log on as a batch job_ to include **Guests**
 * Set _Deny log on as a service_ to include **Guests**
