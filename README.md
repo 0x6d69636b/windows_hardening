@@ -6,7 +6,7 @@ This is a hardening checklist that can be used in private and business environme
 The settings should be seen as security and privacy recommendation and should be carefully checked whether they will affect the operation of your infrastructure or impact the usability of key functions. It is important to weigh security against usability.
 
 ## Last Update
-Based on Windows 10 Pro 1903
+Based on Windows 10 Pro 1909
 
 ## Sources
 * [CIS Microsoft Windows 10 Enterprise (Release 1803) Benchmark v1.5.0](https://benchmarks.cisecurity.org/tools2/windows/)

@@ -291,7 +291,6 @@
 #### Windows Defender Antivirus
 * Set _Turn off Windows Defender Antivirus_ to **Disabled**
 * Set _Configure detection for potentially unwanted applications_ to **Audit Mode**
-* Set _MAPS\Join Microsoft MAPS_ to **Disabled**
 * Set _Windows Defender Exploit Guard\Attack Surface Reduction\Configure Attack Surface Reduction rules_ to **Enabled**
 	* Apply these rules (Set 'Value' to '1' (Block Mode)
 	* be9ba2d9-53ea-4cdc-84e5-9b1eeee46550 - Block executable content from email client and webmail
@@ -469,6 +468,8 @@
 
 ### Privacy
 
+The basic recommendation is to deactivate all access. However, this should not limit the functionality, e.g. if an app needs the microphone, access should be granted. Be careful with the settings for __background apps_ as well, disabling anything can lead to unexpected behaviour.
+
 #### General
 * Set everything to **Off**
 
@@ -478,11 +479,13 @@
 #### Inking & typing personalization
 * Set everything to **Off**
 
-#### Diagnostic data
+#### Diagnostics & feedback
 * Set _Diagnostic data_ to **Basic** (Already managed by Group policy) 
 * Set _Improve inking and typing_ to **Off** (Already managed by Group policy)
 * Set _Tailored experiences_ to **Off**
+* Set _View diagnostic data_ to **Off**
 * Set _Windows should ask for my feedback_ to **Never**
+* Set _Recommended troubleshooting_ to **Ask me before fixing problems**
 
 #### Activity history
 * Set everything to **Off**
@@ -502,7 +505,7 @@
 #### Notifications
 * Set everything to **Off**
 
-#### Account Info
+#### Account info
 * Set everything to **Off**
 
 #### Contacts
@@ -514,7 +517,7 @@
 #### Phone calls
 * Set everything to **Off**
 
-#### Call History
+#### Call history
 * Set everything to **Off**
 
 #### Email
@@ -541,6 +544,18 @@
 #### Automatic file downloads
 * Set _Allow downloads_ to **Do not allow**
 
+#### Documents
+* Set everything to **Off**
+
+#### Pictures
+* Set everything to **Off**
+
+#### Videos
+* Set everything to **Off**
+
+#### File system
+* Set everything to **Off**
+
 ### Update & Security
 
 #### Delivery Optimization
@@ -548,6 +563,7 @@
 
 ## Windows Security
 ### Virus & threat protection
+* Set _Cloud-delivered protection_ to **On** (only works if _Join MAPS_ is not disabled)
 * Set _Automatic sample submission_ to **Off**
 * Set _Controlled folder access_ to **On**
 
