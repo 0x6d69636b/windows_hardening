@@ -468,7 +468,7 @@
 
 ### Privacy
 
-The basic recommendation is to deactivate all access. However, this should not limit the functionality, e.g. if an app needs the microphone, access should be granted. Be careful with the settings for __background apps_ as well, disabling anything can lead to unexpected behaviour.
+The basic recommendation is to deactivate all access. However, this should not limit the functionality, e.g. if an app needs the microphone, access should be granted. Be careful with the settings for _background apps_ as well, disabling anything can lead to unexpected behaviour.
 
 #### General
 * Set everything to **Off**
@@ -570,3 +570,41 @@ The basic recommendation is to deactivate all access. However, this should not l
 ## Monitoring
 * Install [Sysmon](https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon)
 	* Use your on configuration, mine is based on [SwiftOnSecurity/sysmon-config](https://github.com/SwiftOnSecurity/sysmon-config)
+
+## Firewall Rules
+Add the following rules to _Computer Configuration\Windows Settings\Security Settings\Windows Defender Firewall with Advanced Security\Connection Security Rules_
+
+### Inbound Rules
+#### Basic
+* GPO-Block-TCP-NetBIOS: Custom Rule; All programs; Protocol: TCP; Local ports: 137-139; any IP addresses; Block; All profiles
+* GPO-Block-TCP-RDP: Custom Rule; All programs; Protocol: TCP; Local ports: 3389; any IP addresses; Block; All profiles
+* GPO-Block-TCP-RPC: Custom Rule; All programs; Protocol: TCP; Local ports: 135, 593; any IP addresses; Block; All profiles
+* GPO-Block-TCP-SMB: Custom Rule; All programs; Protocol: TCP; Local ports: 445; any IP addresses; Block; All profiles
+* GPO-Block-TCP-WinRM: Custom Rule; All programs; Protocol: TCP; Local ports: 5985, 5986; any IP addresses; Block; All profiles
+* GPO-Block-UDP-NetBIOS: Custom Rule; All programs; Protocol: UDP; Local ports: 137-139; any IP addresses; Block; All profiles
+* GPO-Block-UDP-RPC: Custom Rule; All programs; Protocol: UDP; Local ports: 135, 593; any IP addresses; Block; All profiles
+
+#### Optional
+* GPO-Block-TCP-VMware-HTTPS: Custom Rule; All programs; Protocol: TCP; Local ports: 443; any IP addresses; Block; All profiles;
+* GPO-Block-TCP-VMware-authd: Custom Rule; All programs; Protocol: TCP; Local ports: 902, 912; any IP addresses; Block; All profiles;
+
+### Outbound Rules
+Quote @cryps1s: _While not the most glamorous of defensive strategies, those applications are commonly abused by default behaviors for process migration and injection techniques._
+
+#### Basic
+* GPO-Block-calc: Custom Rule; %SystemRoot%\System32\calc.exe; any protocols ; any ports; any IP addresses; Block; All profiles
+* GPO-Block-calc: Custom Rule; %SystemRoot%\Syswow64\calc.exe; any protocols ; any ports; any IP addresses; Block; All profiles
+* GPO-Block-certutil: Custom Rule; %SystemRoot%\System32\certutil.exe; any protocols ; any ports; any IP addresses; Block; All profiles
+* GPO-Block-certutil: Custom Rule; %SystemRoot%\Syswow64\certutil.exe; any protocols ; any ports; any IP addresses; Block; All profiles
+* GPO-Block-conhost: Custom Rule; %SystemRoot%\System32\conhost.exe; any protocols ; any ports; any IP addresses; Block; All profiles
+* GPO-Block-conhost: Custom Rule; %SystemRoot%\Syswow64\conhost.exe; any protocols ; any ports; any IP addresses; Block; All profiles
+* GPO-Block-cscript: Custom Rule; %SystemRoot%\System32\cscript.exe; any protocols ; any ports; any IP addresses; Block; All profiles
+* GPO-Block-cscript: Custom Rule; %SystemRoot%\Syswow64\cscript.exe; any protocols ; any ports; any IP addresses; Block; All profiles
+* GPO-Block-mshta: Custom Rule; %SystemRoot%\System32\mshta.exe; any protocols ; any ports; any IP addresses; Block; All profiles
+* GPO-Block-mshta: Custom Rule; %SystemRoot%\Syswow64\mshta.exe; any protocols ; any ports; any IP addresses; Block; All profiles
+* GPO-Block-notepad: Custom Rule; %SystemRoot%\System32\notepad.exe; any protocols ; any ports; any IP addresses; Block; All profiles
+* GPO-Block-notepad: Custom Rule; %SystemRoot%\Syswow64\notepad.exe; any protocols ; any ports; any IP addresses; Block; All profiles
+* GPO-Block-RunScriptHelper: Custom Rule; %SystemRoot%\System32\RunScriptHelper.exe; any protocols ; any ports; any IP addresses; Block; All profiles
+* GPO-Block-RunScriptHelper: Custom Rule; %SystemRoot%\Syswow64\RunScriptHelper.exe; any protocols ; any ports; any IP addresses; Block; All profiles
+* GPO-Block-wscript: Custom Rule; %SystemRoot%\System32\wscript.exe; any protocols ; any ports; any IP addresses; Block; All profiles
+* GPO-Block-wscript: Custom Rule; %SystemRoot%\Syswow64\wscript.exe; any protocols ; any ports; any IP addresses; Block; All profiles

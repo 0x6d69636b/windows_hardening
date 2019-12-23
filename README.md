@@ -21,3 +21,4 @@ Based on Windows 10 Pro 1909
 * [DDE registry settings](https://gist.githubusercontent.com/wdormann/732bb88d9b5dd5a66c9f1e1498f31a1b/raw/69c9d9d14b386d8f178e59a046804501ec1ee304/disable_ddeauto.reg)
 * [Sysmon](https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon)
 * [SwiftOnSecurity/sysmon-config](https://github.com/SwiftOnSecurity/sysmon-config)
+* [Dane Stuckey - @cryps1s Endpoint Isolation with the Windows Firewall](https://medium.com/@cryps1s/endpoint-isolation-with-the-windows-firewall-462a795f4cfb)
