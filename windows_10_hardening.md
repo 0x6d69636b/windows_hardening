@@ -569,7 +569,7 @@ The basic recommendation is to deactivate all access. However, this should not l
 
 ## Monitoring
 * Install [Sysmon](https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon)
-	* Use your on configuration, mine is based on [SwiftOnSecurity/sysmon-config](https://github.com/SwiftOnSecurity/sysmon-config)
+	* Use your own configuration, mine is based on [SwiftOnSecurity/sysmon-config](https://github.com/SwiftOnSecurity/sysmon-config)
 
 ## Firewall Rules
 Add the following rules to _Computer Configuration\Windows Settings\Security Settings\Windows Defender Firewall with Advanced Security_
