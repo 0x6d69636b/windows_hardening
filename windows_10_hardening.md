@@ -576,35 +576,213 @@ Add the following rules to _Computer Configuration\Windows Settings\Security Set
 
 ### Inbound Rules
 #### Basic
-* _GPO-Block-TCP-NetBIOS_: Custom Rule; All programs; Protocol: TCP; Local ports: 137-139; any IP addresses; Block; All profiles
-* _GPO-Block-TCP-RDP_: Custom Rule; All programs; Protocol: TCP; Local ports: 3389; any IP addresses; Block; All profiles
-* _GPO-Block-TCP-RPC_: Custom Rule; All programs; Protocol: TCP; Local ports: 135, 593; any IP addresses; Block; All profiles
-* _GPO-Block-TCP-SMB_: Custom Rule; All programs; Protocol: TCP; Local ports: 445; any IP addresses; Block; All profiles
-* _GPO-Block-TCP-WinRM_: Custom Rule; All programs; Protocol: TCP; Local ports: 5985, 5986; any IP addresses; Block; All profiles
-* _GPO-Block-UDP-NetBIOS_: Custom Rule; All programs; Protocol: UDP; Local ports: 137-139; any IP addresses; Block; All profiles
-* _GPO-Block-UDP-RPC_: Custom Rule; All programs; Protocol: UDP; Local ports: 135, 593; any IP addresses; Block; All profiles
+
+* GPO-Block-TCP-NetBIOS
+  * Custom Rule
+  * All programs
+  * Protocol: TCP
+  * Local ports: 137-139
+  * Any IP addresses
+  * Block
+  * All profiles
+* GPO-Block-TCP-RDP
+  * Custom Rule
+  * All programs
+  * Protocol: TCP
+  * Local ports: 3389
+  * Any IP addresses
+  * Block
+  * All profiles
+* GPO-Block-TCP-RPC
+  * Custom Rule
+  * All programs
+  * Protocol: TCP
+  * Local ports: 135, 593
+  * Any IP addresses
+  * Block
+  * All profiles
+* GPO-Block-TCP-SMB
+  * Custom Rule
+  * All programs
+  * Protocol: TCP
+  * Local ports: 445
+  * Any IP addresses
+  * Block
+  * All profiles
+* GPO-Block-TCP-WinRM
+  * Custom Rule
+  * All programs
+  * Protocol: TCP
+  * Local ports: 5985, 5986
+  * Any IP addresses
+  * Block
+  * All profiles
+* GPO-Block-UDP-NetBIOS
+  * Custom Rule
+  * All programs
+  * Protocol: UDP
+  * Local ports: 137-139
+  * Any IP addresses
+  * Block
+  * All profiles
+* GPO-Block-UDP-RPC
+  * Custom Rule
+  * All programs
+  * Protocol: UDP
+  * Local ports: 135, 593
+  * Any IP addresses
+  * Block
+  * All profiles
 
 #### Optional
-* _GPO-Block-TCP-VMware-HTTPS_: Custom Rule; All programs; Protocol: TCP; Local ports: 443; any IP addresses; Block; All profiles;
-* _GPO-Block-TCP-VMware-authd_: Custom Rule; All programs; Protocol: TCP; Local ports: 902, 912; any IP addresses; Block; All profiles;
+
+* GPO-Block-TCP-VMware-HTTPS
+  * Custom Rule
+  * All programs
+  * Protocol: TCP
+  * Local ports: 443
+  * Any IP addresses
+  * Block
+  * All profiles
+* _GPO-Block-TCP-VMware-authd_
+  * Custom Rule
+  * All programs
+  * Protocol: TCP
+  * Local ports: 902, 912
+  * Any IP addresses
+  * Block
+  * All profiles
 
 ### Outbound Rules
 Quote @cryps1s: _While not the most glamorous of defensive strategies, those applications are commonly abused by default behaviors for process migration and injection techniques._
 
 #### Basic
-* _GPO-Block-calc_: Custom Rule; _%SystemRoot%\System32\calc.exe_; any protocols ; any ports; any IP addresses; Block; All profiles
-* _GPO-Block-calc_: Custom Rule; _%SystemRoot%\Syswow64\calc.exe_; any protocols ; any ports; any IP addresses; Block; All profiles
-* _GPO-Block-certutil_: Custom Rule; _%SystemRoot%\System32\certutil.exe_; any protocols ; any ports; any IP addresses; Block; All profiles
-* _GPO-Block-certutil_: Custom Rule; _%SystemRoot%\Syswow64\certutil.exe_; any protocols ; any ports; any IP addresses; Block; All profiles
-* _GPO-Block-conhost_: Custom Rule; _%SystemRoot%\System32\conhost.exe_; any protocols ; any ports; any IP addresses; Block; All profiles
-* _GPO-Block-conhost_: Custom Rule; _%SystemRoot%\Syswow64\conhost.exe_; any protocols ; any ports; any IP addresses; Block; All profiles
-* _GPO-Block-cscript_: Custom Rule; _%SystemRoot%\System32\cscript.exe_; any protocols ; any ports; any IP addresses; Block; All profiles
-* _GPO-Block-cscript_: Custom Rule; _%SystemRoot%\Syswow64\cscript.exe_; any protocols ; any ports; any IP addresses; Block; All profiles
-* _GPO-Block-mshta_: Custom Rule; _%SystemRoot%\System32\mshta.exe_; any protocols ; any ports; any IP addresses; Block; All profiles
-* _GPO-Block-mshta_: Custom Rule; _%SystemRoot%\Syswow64\mshta.exe_; any protocols ; any ports; any IP addresses; Block; All profiles
-* _GPO-Block-notepad_: Custom Rule; _%SystemRoot%\System32\notepad.exe_; any protocols ; any ports; any IP addresses; Block; All profiles
-* _GPO-Block-notepad_: Custom Rule; _%SystemRoot%\Syswow64\notepad.exe_; any protocols ; any ports; any IP addresses; Block; All profiles
-* _GPO-Block-RunScriptHelper_: Custom Rule; _%SystemRoot%\System32\RunScriptHelper.exe_; any protocols ; any ports; any IP addresses; Block; All profiles
-* _GPO-Block-RunScriptHelper_: Custom Rule; _%SystemRoot%\Syswow64\RunScriptHelper.exe_; any protocols ; any ports; any IP addresses; Block; All profiles
-* _GPO-Block-wscript_: Custom Rule; _%SystemRoot%\System32\wscript.exe_; any protocols ; any ports; any IP addresses; Block; All profiles
-* _GPO-Block-wscript_: Custom Rule; _%SystemRoot%\Syswow64\wscript.exe_; any protocols ; any ports; any IP addresses; Block; All profiles
+
+* GPO-Block-calc_
+  * Custom Rule;
+  * _%SystemRoot%\System32\calc.exe_
+  * Any protocols
+  * Any ports
+  * Any IP addresses
+  * Block
+  * All profiles
+* GPO-Block-calc_
+  * Custom Rule
+  * _%SystemRoot%\Syswow64\calc.exe_
+  * Any protocols
+  * Any ports
+  * Any IP addresses
+  * Block
+  * All profiles
+* GPO-Block-certutil
+  * Custom Rule
+  * _%SystemRoot%\System32\certutil.exe_
+  * Any protocols
+  * Any ports
+  * Any IP addresses
+  * Block
+  * All profiles
+* GPO-Block-certutil
+  * Custom Rule
+  * _%SystemRoot%\Syswow64\certutil.exe_
+  * Any protocols
+  * Any ports
+  * Any IP addresses
+  * Block
+  * All profiles
+* GPO-Block-conhost
+  * Custom Rule
+  * _%SystemRoot%\System32\conhost.exe_
+  * Any protocols
+  * Any ports
+  * Any IP addresses
+  * Block
+  * All profiles
+* GPO-Block-conhost
+  * Custom Rule
+  * _%SystemRoot%\Syswow64\conhost.exe_
+  * Any protocols
+  * Any ports
+  * Any IP addresses
+  * Block
+  * All profiles
+* GPO-Block-cscript
+  * Custom Rule
+  * _%SystemRoot%\System32\cscript.exe_
+  * Any protocols
+  * Any ports
+  * Any IP addresses
+  * Block
+  * All profiles
+* GPO-Block-cscript
+  * Custom Rule
+  * _%SystemRoot%\Syswow64\cscript.exe_
+  * Any protocols
+  * Any ports
+  * Any IP addresses
+  * Block
+  * All profiles
+* GPO-Block-mshta
+  * Custom Rule
+  * _%SystemRoot%\System32\mshta.exe_
+  * Any protocols
+  * Any ports
+  * Any IP addresses
+  * Block
+  * All profiles
+* GPO-Block-mshta
+  * Custom Rule
+  * _%SystemRoot%\Syswow64\mshta.exe_
+  * Any protocols
+  * Any ports
+  * Any IP addresses
+  * Block
+  * All profiles
+* GPO-Block-notepad
+  * Custom Rule
+  * _%SystemRoot%\System32\notepad.exe_
+  * Any protocols
+  * Any ports
+  * Any IP addresses
+  * Block
+  * All profiles
+* GPO-Block-notepad
+  * Custom Rule
+  * _%SystemRoot%\Syswow64\notepad.exe_
+  * Any protocols
+  * Any ports
+  * Any IP addresses
+  * Block
+  * All profiles
+* GPO-Block-RunScriptHelper
+  * Custom Rule
+  * _%SystemRoot%\System32\RunScriptHelper.exe_
+  * Any protocols
+  * Any ports
+  * Any IP addresses
+  * Block
+  * All profiles
+* GPO-Block-RunScriptHelper
+  * Custom Rule
+  * _%SystemRoot%\Syswow64\RunScriptHelper.exe_
+  * Any protocols
+  * Any ports
+  * Any IP addresses
+  * Block
+  * All profiles
+* GPO-Block-wscript
+  * Custom Rule
+  * _%SystemRoot%\System32\wscript.exe_
+  * Any protocols
+  * Any ports
+  * Any IP addresses
+  * Block
+  * All profiles
+* GPO-Block-wscript
+  * Custom Rule
+  * _%SystemRoot%\Syswow64\wscript.exe_
+  * Any protocols
+  * Any ports
+  * Any IP addresses
+  * Block
+  * All profiles
