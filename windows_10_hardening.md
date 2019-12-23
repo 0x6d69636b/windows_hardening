@@ -644,7 +644,7 @@ Add the following rules to _Computer Configuration\Windows Settings\Security Set
   * Any IP addresses
   * Block
   * All profiles
-* _GPO-Block-TCP-VMware-authd_
+* GPO-Block-TCP-VMware-authd
   * Custom Rule
   * All programs
   * Protocol: TCP
@@ -658,7 +658,7 @@ Quote @cryps1s: _While not the most glamorous of defensive strategies, those app
 
 #### Basic
 
-* GPO-Block-calc_
+* GPO-Block-calc
   * Custom Rule;
   * _%SystemRoot%\System32\calc.exe_
   * Any protocols
@@ -666,7 +666,7 @@ Quote @cryps1s: _While not the most glamorous of defensive strategies, those app
   * Any IP addresses
   * Block
   * All profiles
-* GPO-Block-calc_
+* GPO-Block-calc
   * Custom Rule
   * _%SystemRoot%\Syswow64\calc.exe_
   * Any protocols
