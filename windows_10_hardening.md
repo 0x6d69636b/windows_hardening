@@ -427,7 +427,7 @@
 #### Notification & actions
 * Set _Show notification on the lock screen_ to **Off** (Already managed by Group policy)
 * Set _Show reminders and incoming VoIP calls on the lock screen_ to **Off**
-* Set _Show me the Windows welcome experience after updtaes and occasionally when I sign in to highlight what's new and suggested_ to **Off**
+* Set _Show me the Windows welcome experience after updates and occasionally when I sign in to highlight what's new and suggested_ to **Off**
 * Set _Get tips, tricks, and suggestions as you use Windows_ to **Off**
 
 #### Shared experiences
