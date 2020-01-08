@@ -41,7 +41,7 @@
 
 ##### Interactive Logon
 * Set _Interactive logon: Do not require CTRL+ALT+DEL_ to **Disabled**
-* Set _Interactive logon: Don't display last user name_ to **Enabled**
+* Set _Interactive logon: Don't display last signed-in_ to **Enabled**
 * Set _Interactive logon: Don't display username at sign-in_ to **Enabled**
 
 ##### Microsoft Network Client/Server
