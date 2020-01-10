@@ -64,7 +64,7 @@
 * Set _Network security: Restrict NTLM: Audit NTLM authentication_ in this domain to **Enable all**
 * Set _Network security: Restrict NTLM: Outgoing NTLM traffic to remote servers_ to **Audit all**
 
-##### Security Options
+##### Shutdown
 * Set _Shutdown: Allow system to be shut down without having to log on_ to **Disabled**
 
 ##### User Account Control
@@ -152,7 +152,7 @@
 	* Set _Secure Lunch Configuration_ to **Enabled**
 
 #### Early Launch Antimalware
-* Set _Boot-Start Driver Initialization Policy_ to **Good, unknown and bad but critical**
+* Set _Boot-Start Driver Initialization Policy_ to **Enabled: Good, unknown and bad but critical**
 
 #### Group Policy 
 * Set _Configure registry policy processing_ To **Enabled**
@@ -167,7 +167,7 @@
 * Set _Internet Communication settings\Turn off Windows Customer Experience Improvement Program_ to **Enabled**
 
 #### Kernel DMA Protection
-* Set _Enumeration policy for external devices incompatible with Kernel DMA Protection_ to **Block all**
+* Set _Enumeration policy for external devices incompatible with Kernel DMA Protection_ to **Enabled: Block all**
 
 #### Logon
 * Set _Turn on convenience PIN sign-in_ to **Disabled**
@@ -175,7 +175,7 @@
 * Set _Do not display network selection UI_ to **Enabled**
 
 #### Mitigation Options
-* Set _Untrusted Font Blocking_ to **Block untrusted fonts and log events**
+* Set _Untrusted Font Blocking_ to **Enabled: Block untrusted fonts and log events**
 
 #### OS Policies
 * Set _Allow Clipboard synchronization across devices_ to **Disabled**
@@ -183,8 +183,8 @@
 #### Power Management
 * Set _Sleep Settings\Require a password when a computer wakes (plugged in)_ to **Enabled**
 * Set _Sleep Settings\Allow standby states (S1-S3) when sleeping (on battery)_ to **Disabled**
-* Set _Allow standby states (S1-S3) when sleeping (plugged in)_ to **Disabled**
-* Set _Require a password when a computer wakes (on battery)_ to **Enabled**
+* Set _Sleep Settings\Allow standby states (S1-S3) when sleeping (plugged in)_ to **Disabled**
+* Set _Sleep Settings\Require a password when a computer wakes (on battery)_ to **Enabled**
 
 #### Remote Assistance
 * Set _Configure Offer Remote Assistance_ to **Disabled**
@@ -204,8 +204,8 @@
 * Set _Turn of the advertising ID_ to **Enabled**
 
 #### Windows Time Service
-* Set _Enable Windows NTP Client_ to **Enabled**
-* Set _Enable Windows NTP Server_ to **Disabled**
+* Set _Time Providers\Enable Windows NTP Client_ to **Enabled**
+* Set _Time Providers\Enable Windows NTP Server_ to **Disabled**
 
 ### Administrative Templates\Windows Components
 #### App Package Deployment
@@ -215,7 +215,7 @@
 * Set _Let Windows apps activate with voice while the system is locked_ to **Enabled: Force Deny**
 
 #### App runtime
-* Set _Block launching Windows Store apps with Windows Runtime API access from hosted content._ to **Enabled**
+* Set _Block launching Universal Windows apps with Windows Runtime API access from hosted content_ to **Enabled**
 
 #### Application Compatibility
 * Set _Turn off Application Telemetry_ to **Enabled**
@@ -238,7 +238,7 @@
 	* Set _Configure TPM startup key_ to **Do not allow startup key with TPM**
 	* Set _Configure TPM startup key and PIN_ to **Do not allow startup key and PIN with TPM**
 * Set _Operating System Drives\Allow enhanced PINs for startup_ to **Enabled**
-* Set _Configure use of hardware-based encryption for operating system drives_ to **Enabled**
+* Set _Operating System Drives\Configure use of hardware-based encryption for operating system drives_ to **Enabled**
 	* Set _Use BitLocker software-based encryption when hardware encryption is not available_ to **True**
 
 #### Cloud Content
@@ -260,7 +260,7 @@
 #### Event Log Service
 * Set _Application\Specify the maximum log file size (KB)_ to **Enabled: 32768**
 * Set _Security\Specify the maximum log file size (KB)_ to **Enabled: 196608**
-* Set _System: Specify the maximum log file size (KB)_ to **Enabled: 32768**
+* Set _System\Specify the maximum log file size (KB)_ to **Enabled: 32768**
 
 #### File Explorer
 * Set _Allow the use of remote paths in file shortcut icons_ to **Disabled**
@@ -278,7 +278,7 @@
 * Set _Remote Desktop Session Host\Device and Resource Redirection\Do not allow drive redirection_ to **Enabled**
 * Set _Remote Desktop Session Host\Security\Always prompt for password upon connection_ to **Enabled**
 * Set _Remote Desktop Session Host\Security\Require secure RPC communication_ to **Enabled**
-* Set _Remote Desktop Session Host\Security\Set client connection encryption level_ to **High Level**
+* Set _Remote Desktop Session Host\Security\Set client connection encryption level_ to **Enabled: High Level**
 
 #### Search
 * Set _Allow Cloud Search_ to **Disabled**
@@ -290,7 +290,7 @@
 
 #### Windows Defender Antivirus
 * Set _Turn off Windows Defender Antivirus_ to **Disabled**
-* Set _Configure detection for potentially unwanted applications_ to **Audit Mode**
+* Set _Configure detection for potentially unwanted applications_ to **Enabled: Audit Mode**
 * Set _Windows Defender Exploit Guard\Attack Surface Reduction\Configure Attack Surface Reduction rules_ to **Enabled**
 	* Apply these rules (Set 'Value' to '1' (Block Mode)
 	* be9ba2d9-53ea-4cdc-84e5-9b1eeee46550 - Block executable content from email client and webmail
@@ -365,11 +365,11 @@
 ## Registry
 ### NetBIOS
 * Set _NetBT NodeType configuration_ to **P-node**
-	* Add **NodeType=dword:00000002** to _HKLM\SYSTEM\CurrentControlSet\Services\NetBT\Parameters_
+	* Add **NodeType=dword:00000002** to _HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NetBT\Parameters_
 
 ### Security Modules - WDigest
 * Set _WDigest Authentication_ to **Disabled**
-	* Add **UseLogonCredential=dword:00000000** to _HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest_
+	* Add **UseLogonCredential=dword:00000000** to _HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest_
 
 ### LSASS
 * Set _LSASS Audit Mode_ to **Enabled**
