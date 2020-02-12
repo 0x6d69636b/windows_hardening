@@ -84,6 +84,7 @@
 * _Account Logon\Audit Credential Validation_: **Success and Failure**
 * _Account Management\Audit Security Group Management_: **Success**
 * _Account Management\Audit User Account Management_: **Success and Failure**
+* _Detailed Tracking\Audit DPAPI Activity_: **Success and Failure**
 * _Detailed Tracking\Audit PNP Activity_: **Success**
 * _Detailed Tracking\Audit Process Creation_: **Success**
 * _Logon/Logoff\Audit Account Lockout_: **Failure**
