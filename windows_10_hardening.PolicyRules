@@ -1,0 +1,487 @@
+<PolicyRules>
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#basic-hardening
+Basic Hardening - Disable SMBv1
+for further information see: https://docs.microsoft.com/en-us/windows-server/storage/file-server/troubleshoot/detect-enable-and-disable-smbv1-v2-v3 
+if those registry keys are not set, it could also be that SMBv1 is not installed on the system: https://docs.microsoft.com/en-us/windows-server/storage/file-server/troubleshoot/smbv1-not-installed-by-default-in-windows -->
+<ComputerConfig><Key>SYSTEM\CurrentControlSet\Services\mrxsmb10</Key><Value>Start</Value><RegType>REG_DWORD</RegType><RegData>4</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SYSTEM\CurrentControlSet\Services\LanmanWorkstation</Key><Value>DependOnService</Value><RegType>REG_MULTI_SZ</RegType><RegData>Bowser,MRxSmb20,NSI</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters</Key><Value>SMB1</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#windows-settingssecurity-settingsaccount-policies
+Local Computer Policy - Computer Configuration\Windows Settings\Security Settings\Account Policies -->
+<SecurityTemplate Section="System Access"><LineItem>LockoutDuration=15</LineItem><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></SecurityTemplate>
+<SecurityTemplate Section="System Access"><LineItem>LockoutBadCount=10</LineItem><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></SecurityTemplate>
+<SecurityTemplate Section="System Access"><LineItem>ResetLockoutCount=15</LineItem><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></SecurityTemplate>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#audit-policy
+Local Computer Policy - Computer Configuration\Windows Settings\Security Settings\Local Policies\Audit Policy
+for the meaning of the Event Audit numbers see: https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-gpsb/01f8e057-f6a8-4d6e-8a00-99bcd241b403 
+Hint: Once Advanced Audit Policy Configuration settings are set these settings here will be irrelevant and will be set back to 0 = No Auditing -->
+<SecurityTemplate Section="Event Audit"><LineItem>AuditAccountLogon=2</LineItem><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></SecurityTemplate>
+<SecurityTemplate Section="Event Audit"><LineItem>AuditAccountManage=3</LineItem><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></SecurityTemplate>
+<SecurityTemplate Section="Event Audit"><LineItem>AuditDSAccess=0</LineItem><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></SecurityTemplate>
+<SecurityTemplate Section="Event Audit"><LineItem>AuditLogonEvents=2</LineItem><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></SecurityTemplate>
+<SecurityTemplate Section="Event Audit"><LineItem>AuditObjectAccess=2</LineItem><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></SecurityTemplate>
+<SecurityTemplate Section="Event Audit"><LineItem>AuditPolicyChange=3</LineItem><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></SecurityTemplate>
+<SecurityTemplate Section="Event Audit"><LineItem>AuditPrivilegeUse=3</LineItem><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></SecurityTemplate>
+<SecurityTemplate Section="Event Audit"><LineItem>AuditProcessTracking=0</LineItem><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></SecurityTemplate>
+<SecurityTemplate Section="Event Audit"><LineItem>AuditSystemEvents=3</LineItem><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></SecurityTemplate>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#user-rights-assignment
+Local Computer Policy - Computer Configuration\Windows Settings\Security Settings\Local Policies\User Rights Assignment
+for the meaning of the SID see: https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-dtyp/81d92bba-d22b-4a8c-908a-554ab29148ab -->
+<SecurityTemplate Section="Privilege Rights"><LineItem>SeNetworkLogonRight=*S-1-5-32-544</LineItem><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></SecurityTemplate>
+<SecurityTemplate Section="Privilege Rights"><LineItem>SeInteractiveLogonRight=*S-1-5-32-544,*S-1-5-32-545</LineItem><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></SecurityTemplate>
+<SecurityTemplate Section="Privilege Rights"><LineItem>SeDebugPrivilege=Check that Administrator is not in here</LineItem><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></SecurityTemplate>
+<SecurityTemplate Section="Privilege Rights"><LineItem>SeDenyNetworkLogonRight=*S-1-5-113,*S-1-5-32-546</LineItem><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></SecurityTemplate>
+<SecurityTemplate Section="Privilege Rights"><LineItem>SeDenyBatchLogonRight=*S-1-5-32-546</LineItem><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></SecurityTemplate>
+<SecurityTemplate Section="Privilege Rights"><LineItem>SeDenyServiceLogonRight=*S-1-5-32-546</LineItem><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></SecurityTemplate>
+<SecurityTemplate Section="Privilege Rights"><LineItem>SeDenyRemoteInteractiveLogonRight=*S-1-5-113,*S-1-5-32-546</LineItem><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></SecurityTemplate>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#accounts
+Local Computer Policy - Computer Configuration\Windows Settings\Security Settings\Local Policies\Security Options\Accounts
+Users can't add or log on with Microsoft accounts = 3 https://community.spiceworks.com/how_to/46008-how-to-block-microsoft-accounts-in-windows-8-without-server-2012 -->
+<ComputerConfig><Key>SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</Key><Value>NoConnectedUser</Value><RegType>REG_DWORD</RegType><RegData>3</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#interactive-logon
+Local Computer Policy - Computer Configuration\Windows Settings\Security Settings\Local Policies\Security Options\Interactive Logon -->
+<ComputerConfig><Key>SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</Key><Value>DisableCAD</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</Key><Value>DontDisplayLastUserName</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</Key><Value>DontDisplayUserName</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#microsoft-network-clientserver
+Local Computer Policy - Computer Configuration\Windows Settings\Security Settings\Local Policies\Security Options\Microsoft Network Client/Server -->
+<ComputerConfig><Key>SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters</Key><Value>RequireSecuritySignature</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters</Key><Value>EnableSecuritySignature</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SYSTEM\CurrentControlSet\Services\LanManServer\Parameters</Key><Value>RequireSecuritySignature</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SYSTEM\CurrentControlSet\Services\LanManServer\Parameters</Key><Value>EnableSecuritySignature</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#network-access
+Local Computer Policy - Computer Configuration\Windows Settings\Security Settings\Local Policies\Security Options\Network Access -->
+<ComputerConfig><Key>SYSTEM\CurrentControlSet\Control\Lsa</Key><Value>RestrictAnonymous</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SYSTEM\CurrentControlSet\Control\Lsa</Key><Value>DisableDomainCreds</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#network-security
+Local Computer Policy - Computer Configuration\Windows Settings\Security Settings\Local Policies\Security Options\Network Security
+for the meaning of LmCompatibilityLevel see: https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/network-security-lan-manager-authentication-level
+Require NTLMv2 session security, Require 128-bit encryption = 537395200 (0x20080000) -->
+<ComputerConfig><Key>SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0</Key><Value>allownullsessionfallback</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SYSTEM\CurrentControlSet\Control\Lsa</Key><Value>LmCompatibilityLevel</Value><RegType>REG_DWORD</RegType><RegData>5</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SYSTEM\CurrentControlSet\Services\LDAP</Key><Value>LDAPClientIntegrity</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0</Key><Value>NTLMMinClientSec</Value><RegType>REG_DWORD</RegType><RegData>537395200</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0</Key><Value>NTLMMinServerSec</Value><RegType>REG_DWORD</RegType><RegData>537395200</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0</Key><Value>AuditReceivingNTLMTraffic</Value><RegType>REG_DWORD</RegType><RegData>2</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SYSTEM\CurrentControlSet\Services\Netlogon\Parameters</Key><Value>AuditNTLMInDomain</Value><RegType>REG_DWORD</RegType><RegData>7</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0</Key><Value>RestrictSendingNTLMTraffic</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#shutdown
+Local Computer Policy - Computer Configuration\Windows Settings\Security Settings\Local Policies\Security Options\Shutdown -->
+<ComputerConfig><Key>SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</Key><Value>ShutdownWithoutLogon</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#user-account-control
+Local Computer Policy - Computer Configuration\Windows Settings\Security Settings\Local Policies\Security Options\User Account Control -->
+<ComputerConfig><Key>SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</Key><Value>FilterAdministratorToken</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</Key><Value>ConsentPromptBehaviorAdmin</Value><RegType>REG_DWORD</RegType><RegData>2</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</Key><Value>ConsentPromptBehaviorUser</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#windows-settingssecurity-settingswindows-firewall-with-advanced-security
+Local Computer Policy - Computer Configuration\Windows Settings\Security Settings\Windows Firewall With Advanced Security -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile</Key><Value>EnableFirewall</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile</Key><Value>DefaultInboundAction</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile</Key><Value>DefaultOutboundAction</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging</Key><Value>LogFileSize</Value><RegType>REG_DWORD</RegType><RegData>16384</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging</Key><Value>LogDroppedPackets</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging</Key><Value>LogSuccessfulConnections</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile</Key><Value>EnableFirewall</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile</Key><Value>DefaultInboundAction</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile</Key><Value>DefaultOutboundAction</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging</Key><Value>LogFileSize</Value><RegType>REG_DWORD</RegType><RegData>16384</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging</Key><Value>LogDroppedPackets</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging</Key><Value>LogSuccessfulConnections</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile</Key><Value>EnableFirewall</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile</Key><Value>DefaultInboundAction</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile</Key><Value>DefaultOutboundAction</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging</Key><Value>LogFileSize</Value><RegType>REG_DWORD</RegType><RegData>16384</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging</Key><Value>LogDroppedPackets</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging</Key><Value>LogSuccessfulConnections</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#windows-settingssecurity-settingsadvanced-audit-policy-configuration
+Local Computer Policy - Computer Configuration\Windows Settings\Security Settings\Advanced Audit Policy Configuration
+for the GUID see: https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-gpac/77878370-0712-47cd-997d-b07053429f6d
+for the Setting values see: https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-gpac/21ad2e80-3011-48ef-be13-cc11ff7bfeb1 
+Hint: Once Advanced Audit Policy Configuration settings are set the settings in Local Policies\Audit Policy are set back to No Auditing -->
+<AuditSubcategory><GUID>{0CCE923F-69AE-11D9-BED3-505054503030}</GUID><Name>Credential Validation</Name><Setting>3</Setting><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></AuditSubcategory>
+<AuditSubcategory><GUID>{0CCE9237-69AE-11D9-BED3-505054503030}</GUID><Name>Security Group Management</Name><Setting>1</Setting><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></AuditSubcategory>
+<AuditSubcategory><GUID>{0CCE9235-69AE-11D9-BED3-505054503030}</GUID><Name>User Account Management</Name><Setting>3</Setting><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></AuditSubcategory>
+<AuditSubcategory><GUID>{0CCE922D-69AE-11D9-BED3-505054503030}</GUID><Name>DPAPI Activity</Name><Setting>3</Setting><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></AuditSubcategory>
+<AuditSubcategory><GUID>{0CCE9248-69AE-11D9-BED3-505054503030}</GUID><Name>PNP Activity</Name><Setting>1</Setting><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></AuditSubcategory>
+<AuditSubcategory><GUID>{0CCE922B-69AE-11D9-BED3-505054503030}</GUID><Name>Process Creation</Name><Setting>1</Setting><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></AuditSubcategory>
+<AuditSubcategory><GUID>{0CCE9217-69AE-11D9-BED3-505054503030}</GUID><Name>Account Lockout</Name><Setting>2</Setting><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></AuditSubcategory>
+<AuditSubcategory><GUID>{0CCE9249-69AE-11D9-BED3-505054503030}</GUID><Name>Group Membership</Name><Setting>1</Setting><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></AuditSubcategory>
+<AuditSubcategory><GUID>{0CCE9215-69AE-11D9-BED3-505054503030}</GUID><Name>Logon</Name><Setting>3</Setting><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></AuditSubcategory>
+<AuditSubcategory><GUID>{0CCE921C-69AE-11D9-BED3-505054503030}</GUID><Name>Other Logon/Logoff Events</Name><Setting>3</Setting><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></AuditSubcategory>
+<AuditSubcategory><GUID>{0CCE921B-69AE-11D9-BED3-505054503030}</GUID><Name>Special Logon</Name><Setting>1</Setting><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></AuditSubcategory>
+<AuditSubcategory><GUID>{0CCE9244-69AE-11D9-BED3-505054503030}</GUID><Name>Detailed File Share</Name><Setting>2</Setting><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></AuditSubcategory>
+<AuditSubcategory><GUID>{0CCE9224-69AE-11D9-BED3-505054503030}</GUID><Name>File Share</Name><Setting>3</Setting><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></AuditSubcategory>
+<AuditSubcategory><GUID>{0CCE921F-69AE-11D9-BED3-505054503030}</GUID><Name>Kernel Object</Name><Setting>3</Setting><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></AuditSubcategory>
+<AuditSubcategory><GUID>{0CCE9227-69AE-11D9-BED3-505054503030}</GUID><Name>Other Object Access Events</Name><Setting>3</Setting><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></AuditSubcategory>
+<AuditSubcategory><GUID>{0CCE9245-69AE-11D9-BED3-505054503030}</GUID><Name>Removable Storage</Name><Setting>3</Setting><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></AuditSubcategory>
+<AuditSubcategory><GUID>{0CCE9220-69AE-11D9-BED3-505054503030}</GUID><Name>SAM</Name><Setting>3</Setting><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></AuditSubcategory>
+<AuditSubcategory><GUID>{0CCE922F-69AE-11D9-BED3-505054503030}</GUID><Name>Audit Policy Change</Name><Setting>1</Setting><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></AuditSubcategory>
+<AuditSubcategory><GUID>{0CCE9230-69AE-11D9-BED3-505054503030}</GUID><Name>Authentication Policy Change</Name><Setting>1</Setting><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></AuditSubcategory>
+<AuditSubcategory><GUID>{0CCE9232-69AE-11D9-BED3-505054503030}</GUID><Name>MPSSVC Rule-Level Policy Change</Name><Setting>3</Setting><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></AuditSubcategory>
+<AuditSubcategory><GUID>{0CCE9234-69AE-11D9-BED3-505054503030}</GUID><Name>Other Policy Change Events</Name><Setting>2</Setting><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></AuditSubcategory>
+<AuditSubcategory><GUID>{0CCE9228-69AE-11D9-BED3-505054503030}</GUID><Name>Sensitive Privilege Use</Name><Setting>3</Setting><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></AuditSubcategory>
+<AuditSubcategory><GUID>{0CCE9214-69AE-11D9-BED3-505054503030}</GUID><Name>Other System Events</Name><Setting>3</Setting><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></AuditSubcategory>
+<AuditSubcategory><GUID>{0CCE9210-69AE-11D9-BED3-505054503030}</GUID><Name>Security State Change</Name><Setting>1</Setting><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></AuditSubcategory>
+<AuditSubcategory><GUID>{0CCE9211-69AE-11D9-BED3-505054503030}</GUID><Name>Security System Extension</Name><Setting>1</Setting><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></AuditSubcategory>
+<AuditSubcategory><GUID>{0CCE9212-69AE-11D9-BED3-505054503030}</GUID><Name>System Integrity</Name><Setting>3</Setting><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></AuditSubcategory>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#personalization
+Local Computer Policy - Computer Configuration\Administrative Templates\Control Panel\Personalization -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\Personalization</Key><Value>NoLockScreenCamera</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#dns-client
+Local Computer Policy - Computer Configuration\Administrative Templates\Network\DNS Client -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows NT\DNSClient</Key><Value>EnableMulticast</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#lanman-workstation
+Local Computer Policy - Computer Configuration\Administrative Templates\Network\Lanman Workstation -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\LanmanWorkstation</Key><Value>AllowInsecureGuestAuth</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#microsoft-peer-to-peer-networking-services
+Local Computer Policy - Computer Configuration\Administrative Templates\Network\Microsoft Peer-to-Peer Networking Services -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Peernet</Key><Value>Disabled</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#wlan-service
+Local Computer Policy - Computer Configuration\Administrative Templates\Network\WLAN Service -->
+<ComputerConfig><Key>SOFTWARE\Microsoft\wcmsvc\wifinetworkmanager\config</Key><Value>AutoConnectAllowedOEM</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#notifications
+Local Computer Policy - Computer Configuration\Administrative Templates\Start Menu and Taskbar\Notifications -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\PushNotifications</Key><Value>NoCloudApplicationNotification</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#credentials-delegation
+Local Computer Policy - Computer Configuration\Administrative Templates\System\Credentials Delegation -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\CredentialsDelegation</Key><Value>AllowDefaultCredentials</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\CredentialsDelegation</Key><Value>ConcatenateDefaults_AllowDefault</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\CredSSP\Parameters</Key><Value>AllowEncryptionOracle</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#device-installation
+Local Computer Policy - Computer Configuration\Administrative Templates\System\Device Installation -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Restrictions</Key><Value>DenyDeviceIDs</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Restrictions</Key><Value>DenyDeviceIDsRetroactive</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Restrictions\DenyDeviceIDs</Key><Value>1</Value><RegType>REG_SZ</RegType><RegData>PCI\CC_0C0010</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Restrictions\DenyDeviceIDs</Key><Value>2</Value><RegType>REG_SZ</RegType><RegData>PCI\CC_0C0A</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Restrictions</Key><Value>DenyDeviceClasses</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Restrictions</Key><Value>DenyDeviceClassesRetroactive</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Restrictions\DenyDeviceClasses</Key><Value>1</Value><RegType>REG_SZ</RegType><RegData>{d48179be-ec20-11d1-b6b8-00c04fa372a7}</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#device-guard
+Local Computer Policy - Computer Configuration\Administrative Templates\System\Device Guard
+for the Registry Keys and their values regarding device guard see: https://docs.microsoft.com/en-us/windows/security/threat-protection/device-guard/enable-virtualization-based-protection-of-code-integrity
+Warning: Besides Virtualization Based Security, no other virtualization solution like VMware Workstation can be used at the moment! -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\DeviceGuard</Key><Value>EnableVirtualizationBasedSecurity</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\DeviceGuard</Key><Value>RequirePlatformSecurityFeatures</Value><RegType>REG_DWORD</RegType><RegData>3</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\DeviceGuard</Key><Value>Locked</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity</Key><Value>Enabled</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity</Key><Value>Locked</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\DeviceGuard</Key><Value>LsaCfgFlags</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\DeviceGuard</Key><Value>ConfigureSystemGuardLaunch</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<!-- for 1511 and earlier use this version
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\DeviceGuard</Key><Value>EnableVirtualizationBasedSecurity</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\DeviceGuard</Key><Value>RequirePlatformSecurityFeatures</Value><RegType>REG_DWORD</RegType><RegData>3</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\DeviceGuard</Key><Value>HypervisorEnforcedCodeIntegrity</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\DeviceGuard</Key><Value>LsaCfgFlags</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\DeviceGuard</Key><Value>ConfigureSystemGuardLaunch</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+-->
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#early-launch-antimalware
+Local Computer Policy - Computer Configuration\Administrative Templates\System\Early Launch Antimalware -->
+<ComputerConfig><Key>SYSTEM\CurrentControlSet\Policies\EarlyLaunch</Key><Value>DriverLoadPolicy</Value><RegType>REG_DWORD</RegType><RegData>3</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#group-policy
+Local Computer Policy - Computer Configuration\Administrative Templates\System\Group Policy -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\Group Policy\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}</Key><Value>NoGPOListChanges</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\Group Policy\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}</Key><Value>NoBackgroundPolicy</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#internet-communication-management
+Local Computer Policy - Computer Configuration\Administrative Templates\System\Internet Communication Management -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Messenger\Client</Key><Value>CEIP</Value><RegType>REG_DWORD</RegType><RegData>2</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows NT\Printers</Key><Value>DisableWebPnPDownload</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\PCHealth\ErrorReporting</Key><Value>DoReport</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer</Key><Value>NoWebServices</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\SQMClient\Windows</Key><Value>CEIPEnable</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#kernel-dma-protection
+Local Computer Policy - Computer Configuration\Administrative Templates\System\Kernel DMA Protection -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\Kernel DMA Protection</Key><Value>DeviceEnumerationPolicy</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#logon
+Local Computer Policy - Computer Configuration\Administrative Templates\System\Logon -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\System</Key><Value>AllowDomainPINLogon</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\System</Key><Value>DisableLockScreenAppNotifications</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\System</Key><Value>DontDisplayNetworkSelectionUI</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#mitigation-options
+Local Computer Policy - Computer Configuration\Administrative Templates\System\Mitigation Options 
+for the value see: https://support.microsoft.com/en-us/help/3053676/windows-10-technical-preview-adds-a-feature-that-blocks-untrusted-font -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows NT\MitigationOptions</Key><Value>MitigationOptions_FontBocking</Value><RegType>REG_SZ</RegType><RegData>1000000000000</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#os-policies
+Local Computer Policy - Computer Configuration\Administrative Templates\System\OS Policies -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\System</Key><Value>AllowCrossDeviceClipboard</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#power-management
+Local Computer Policy - Computer Configuration\Administrative Templates\System\Power Management
+for the GUID see: https://docs.microsoft.com/en-us/windows-hardware/customize/power-settings/sleep-settings-allow-sleep-states and https://docs.microsoft.com/en-us/windows-hardware/customize/power-settings/no-subgroup-settings-prompt-for-password-on-resume -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Power\PowerSettings\0e796bdb-100d-47d6-a2d5-f7d2daa51f51</Key><Value>ACSettingIndex</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Power\PowerSettings\abfc2519-3608-4c2a-94ea-171b0ed546ab</Key><Value>DCSettingIndex</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Power\PowerSettings\abfc2519-3608-4c2a-94ea-171b0ed546ab</Key><Value>ACSettingIndex</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Power\PowerSettings\0e796bdb-100d-47d6-a2d5-f7d2daa51f51</Key><Value>DCSettingIndex</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#remote-assistance
+Local Computer Policy - Computer Configuration\Administrative Templates\System\Remote Assistance -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services</Key><Value>fAllowUnsolicited</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services</Key><Value>fAllowToGetHelp</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#remote-procedure-call
+Local Computer Policy - Computer Configuration\Administrative Templates\System\Remote Procedure Call -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows NT\Rpc</Key><Value>EnableAuthEpResolution</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows NT\Rpc</Key><Value>RestrictRemoteClients</Value><RegType>REG_DWORD</RegType><RegData>2</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#service-control-manager-settings
+Local Computer Policy - Computer Configuration\Administrative Templates\System\Service Control Manager Settings -->
+<ComputerConfig><Key>SYSTEM\CurrentControlSet\Control\SCMConfig</Key><Value>EnableSvchostMitigationPolicy</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#troubleshooting-and-diagnostics
+Local Computer Policy - Computer Configuration\Administrative Templates\System\Troubleshooting and Diagnostics -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\WDI\{9c5a40da-b965-4fc3-8781-88dd50a6299d}</Key><Value>ScenarioExecutionEnabled</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#user-profiles
+Local Computer Policy - Computer Configuration\Administrative Templates\System\User Profiles -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo</Key><Value>DisabledByGroupPolicy</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#windows-time-service
+Local Computer Policy - Computer Configuration\Administrative Templates\System\Windows Time Service -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\W32time\TimeProviders\NtpClient</Key><Value>Enabled</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\W32time\TimeProviders\NtpServer</Key><Value>Enabled</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#app-package-deployment
+Local Computer Policy - Computer Configuration\Administrative Templates\Windows Components\App Package Deployment -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\AppModel\StateManager</Key><Value>AllowSharedLocalAppData</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#app-privacy
+Local Computer Policy - Computer Configuration\Administrative Templates\Windows Components\App Privacy -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\AppPrivacy</Key><Value>LetAppsActivateWithVoiceAboveLock</Value><RegType>REG_DWORD</RegType><RegData>2</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#app-runtime
+Local Computer Policy - Computer Configuration\Administrative Templates\Windows Components\App runtime -->
+<ComputerConfig><Key>SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</Key><Value>BlockHostedAppAccessWinRT</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#application-compatibility
+Local Computer Policy - Computer Configuration\Administrative Templates\Windows Components\Application Compatibility -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\AppCompat</Key><Value>AITEnable</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#autoplay-policies
+Local Computer Policy - Computer Configuration\Administrative Templates\Windows Components\AutoPlay Policies 
+for value of NoDriveTypeAutoRun see: https://support.microsoft.com/en-us/help/967715/how-to-disable-the-autorun-functionality-in-windows -->
+<ComputerConfig><Key>SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer</Key><Value>NoDriveTypeAutoRun</Value><RegType>REG_DWORD</RegType><RegData>255</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\Explorer</Key><Value>NoAutoplayfornonVolume</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer</Key><Value>NoAutorun</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#biometrics
+Local Computer Policy - Computer Configuration\Administrative Templates\Windows Components\Biometrics -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Biometrics</Key><Value>Enabled</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#bitlocker-drive-encryption
+Local Computer Policy - Computer Configuration\Administrative Templates\Windows Components\BitLocker Drive Encryption -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\FVE</Key><Value>DisableExternalDMAUnderLock</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\FVE</Key><Value>OSAllowSecureBootForIntegrity</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\FVE</Key><Value>UseAdvancedStartup</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\FVE</Key><Value>EnableBDEWithNoTPM</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\FVE</Key><Value>UseTPM</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\FVE</Key><Value>UseTPMPIN</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\FVE</Key><Value>UseTPMKey</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\FVE</Key><Value>UseTPMKeyPIN</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\FVE</Key><Value>UseEnhancedPin</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\FVE</Key><Value>OSHardwareEncryption</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\FVE</Key><Value>OSAllowSoftwareEncryptionFailover</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#cloud-content
+Local Computer Policy - Computer Configuration\Administrative Templates\Windows Components\Cloud Content -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\CloudContent</Key><Value>DisableSoftLanding</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\CloudContent</Key><Value>DisableWindowsConsumerFeatures</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#credential-user-interface
+Local Computer Policy - Computer Configuration\Administrative Templates\Windows Components\Credential User Interface -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\CredUI</Key><Value>DisablePasswordReveal</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\CredUI</Key><Value>EnableSecureCredentialPrompting</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\CredUI</Key><Value>EnumerateAdministrators</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#data-collection-and-preview-builds
+Local Computer Policy - Computer Configuration\Administrative Templates\Windows Components\Data Collection and Preview Builds -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\DataCollection</Key><Value>AllowTelemetry</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\DataCollection</Key><Value>AllowDeviceNameInTelemetry</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#delivery-optimization
+Local Computer Policy - Computer Configuration\Administrative Templates\Windows Components\Delivery Optimization -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization</Key><Value>DODownloadMode</Value><RegType></RegType><RegData>[[[delete]]]</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#event-log-service
+Local Computer Policy - Computer Configuration\Administrative Templates\Windows Components\Event Log Service -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\EventLog\Application</Key><Value>MaxSize</Value><RegType>REG_DWORD</RegType><RegData>32768</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\EventLog\Security</Key><Value>MaxSize</Value><RegType>REG_DWORD</RegType><RegData>196608</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\EventLog\System</Key><Value>MaxSize</Value><RegType>REG_DWORD</RegType><RegData>32768</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#file-explorer
+Local Computer Policy - Computer Configuration\Administrative Templates\Windows Components\File Explorer -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\Explorer</Key><Value>EnableShellShortcutIconRemotePath</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\System</Key><Value>EnableSmartScreen</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\System</Key><Value>ShellSmartScreenLevel</Value><RegType>REG_SZ</RegType><RegData>Block</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#homegroup
+Local Computer Policy - Computer Configuration\Administrative Templates\Windows Components\HomeGroup -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\HomeGroup</Key><Value>DisableHomeGroup</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#onedrive
+Local Computer Policy - Computer Configuration\Administrative Templates\Windows Components\OneDrive -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\OneDrive</Key><Value>DisableFileSyncNGSC</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#remote-desktop-services
+Local Computer Policy - Computer Configuration\Administrative Templates\Windows Components\Remote Desktop Services -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services</Key><Value>DisablePasswordSaving</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services</Key><Value>fDenyTSConnections</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services</Key><Value>fDisableCdm</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services</Key><Value>fPromptForPassword</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services</Key><Value>fEncryptRPCTraffic</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services</Key><Value>MinEncryptionLevel</Value><RegType>REG_DWORD</RegType><RegData>3</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#search
+Local Computer Policy - Computer Configuration\Administrative Templates\Windows Components\Search -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\Windows Search</Key><Value>AllowCloudSearch</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\Windows Search</Key><Value>AllowCortana</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\Windows Search</Key><Value>AllowCortanaAboveLock</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\Windows Search</Key><Value>AllowIndexingEncryptedStoresOrItems</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\Windows Search</Key><Value>AllowSearchToUseLocation</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\Windows Search</Key><Value>ConnectedSearchPrivacy</Value><RegType>REG_DWORD</RegType><RegData>3</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#windows-defender-antivirus
+Local Computer Policy - Computer Configuration\Administrative Templates\Windows Components\Windows Defender Antivirus -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows Defender</Key><Value>DisableAntiSpyware</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows Defender</Key><Value>PUAProtection</Value><RegType>REG_DWORD</RegType><RegData>2</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR</Key><Value>ExploitGuard_ASR_Rules</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\Rules</Key><Value>be9ba2d9-53ea-4cdc-84e5-9b1eeee46550</Value><RegType>REG_SZ</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\Rules</Key><Value>d4f940ab-401b-4efc-aadc-ad5f3c50688a</Value><RegType>REG_SZ</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\Rules</Key><Value>3b576869-a4ec-4529-8536-b80a7769e899</Value><RegType>REG_SZ</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\Rules</Key><Value>75668c1f-73b5-4cf0-bb93-3ecf5cb7cc84</Value><RegType>REG_SZ</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\Rules</Key><Value>d3e037e1-3eb8-44c8-a917-57927947596d</Value><RegType>REG_SZ</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\Rules</Key><Value>5beb7efe-fd9a-4556-801d-275e5ffc04cc</Value><RegType>REG_SZ</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\Rules</Key><Value>92e97fa1-2edf-4476-bdd6-9dd0b4dddc7b</Value><RegType>REG_SZ</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\Rules</Key><Value>01443614-cd74-433a-b99e-2ecdc07bfc25</Value><RegType>REG_SZ</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\Rules</Key><Value>c1db55ab-c21a-4637-bb3f-a12568109d35</Value><RegType>REG_SZ</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\Rules</Key><Value>9e6c4e1f-7d60-472f-ba1a-a39ef669e4b2</Value><RegType>REG_SZ</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\Rules</Key><Value>d1e49aac-8f56-4280-b9ba-993a6d77406c</Value><RegType>REG_SZ</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\Rules</Key><Value>b2b3f03d-6a65-4f7b-a9c7-1c7ef74a9ba4</Value><RegType>REG_SZ</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\Rules</Key><Value>26190899-1602-49e8-8b27-eb1d0a1ce869</Value><RegType>REG_SZ</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\Rules</Key><Value>7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c</Value><RegType>REG_SZ</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\Rules</Key><Value>e6db77e5-3df2-4cf1-b95a-636979351e5b</Value><RegType>REG_SZ</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#windows-defender-smartscreen
+Local Computer Policy - Computer Configuration\Administrative Templates\Windows Components\Windows Defender SmartScreen
+registry key is already configured with https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#file-explorer -->
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#windows-error-reporting
+Local Computer Policy - Computer Configuration\Administrative Templates\Windows Components\Windows Error Reporting -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting</Key><Value>Disabled</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#windows-game-recording-and-broadcasting
+Local Computer Policy - Computer Configuration\Administrative Templates\Windows Components\Windows Game Recording and Broadcasting -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\GameDVR</Key><Value>AllowGameDVR</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#windows-ink-workspace
+Local Computer Policy - Computer Configuration\Administrative Templates\Windows Components\Windows Ink Workspace -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\WindowsInkWorkspace</Key><Value>AllowWindowsInkWorkspace</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#windows-installer
+Local Computer Policy - Computer Configuration\Administrative Templates\Windows Components\Windows Installer -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\Installer</Key><Value>AlwaysInstallElevated</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\Installer</Key><Value>EnableUserControl</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\Installer</Key><Value>SafeForScripting</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#windows-logon-options
+Local Computer Policy - Computer Configuration\Administrative Templates\Windows Components\Windows Logon Options -->
+<ComputerConfig><Key>SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</Key><Value>DisableAutomaticRestartSignOn</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#windows-powershell
+Local Computer Policy - Computer Configuration\Administrative Templates\Windows Components\Windows PowerShell -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging</Key><Value>EnableScriptBlockLogging</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\PowerShell\Transcription</Key><Value>EnableTranscripting</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#windows-remote-management-winrm
+Local Computer Policy - Computer Configuration\Administrative Templates\Windows Components\Windows Remote Management (WinRM) -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\WinRM\Client</Key><Value>AllowBasic</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\WinRM\Client</Key><Value>AllowUnencryptedTraffic</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\WinRM\Client</Key><Value>AllowDigest</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\WinRM\Service</Key><Value>AllowAutoConfig</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\WinRM\Service</Key><Value>AllowBasic</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\WinRM\Service</Key><Value>AllowUnencryptedTraffic</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\WinRM\Service</Key><Value>DisableRunAs</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#windows-remote-shell
+Local Computer Policy - Computer Configuration\Administrative Templates\Windows Components\Windows Remote Shell -->
+<ComputerConfig><Key>SOFTWARE\Policies\Microsoft\Windows\WinRM\Service\WinRS</Key><Value>AllowRemoteShellAccess</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#notifications-1
+Local Computer Policy - User Configuration\Administrative Templates\Start Menu and Taskbar\Notifications -->
+<UserConfig><Key>SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\PushNotifications</Key><Value>NoToastApplicationNotificationOnLockScreen</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></UserConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#internet-communication-management-1
+Local Computer Policy - User Configuration\Administrative Templates\System\Internet Communication Management -->
+<UserConfig><Key>SOFTWARE\Policies\Microsoft\Assistance\Client\1.0</Key><Value>NoImplicitFeedback</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></UserConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#cloud-content-1
+Local Computer Policy - User Configuration\Administrative Templates\Windows Components\Cloud Content -->
+<UserConfig><Key>SOFTWARE\Policies\Microsoft\Windows\CloudContent</Key><Value>DisableTailoredExperiencesWithDiagnosticData</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></UserConfig>
+<UserConfig><Key>SOFTWARE\Policies\Microsoft\Windows\CloudContent</Key><Value>DisableThirdPartySuggestions</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></UserConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#windows-installer-1
+Local Computer Policy - User Configuration\Administrative Templates\Windows Components\Windows Installer -->
+<UserConfig><Key>SOFTWARE\Policies\Microsoft\Windows\Installer</Key><Value>AlwaysInstallElevated</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></UserConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#netbios
+Registry - NetBIOS -->
+<ComputerConfig><Key>SYSTEM\CurrentControlSet\Services\NetBT\Parameters</Key><Value>NodeType</Value><RegType>REG_DWORD</RegType><RegData>2</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#registry
+Registry - Security Modules - WDigest -->
+<ComputerConfig><Key>SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest</Key><Value>UseLogonCredential</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#lsass
+Registry - LSASS -->
+<ComputerConfig><Key>SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\LSASS.exe</Key><Value>AuditLevel</Value><RegType>REG_DWORD</RegType><RegData>8</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+<ComputerConfig><Key>SYSTEM\CurrentControlSet\Control\Lsa</Key><Value>RunAsPPL</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></ComputerConfig>
+
+<!-- https://github.com/0x6d69636b/windows_hardening/blob/master/windows_10_hardening.md#office-hardening
+Registry - Office Hardening
+Carefull this is version specific! -->
+<UserConfig><Key>SOFTWARE\Microsoft\Office\16.0\Word\Options</Key><Value>DontUpdateLinks</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></UserConfig>
+<UserConfig><Key>SOFTWARE\Microsoft\Office\15.0\Word\Options</Key><Value>DontUpdateLinks</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></UserConfig>
+<UserConfig><Key>SOFTWARE\Microsoft\Office\14.0\Word\Options</Key><Value>DontUpdateLinks</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></UserConfig>
+<UserConfig><Key>SOFTWARE\Microsoft\Office\16.0\Word\Options\WordMail</Key><Value>DontUpdateLinks</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></UserConfig>
+<UserConfig><Key>SOFTWARE\Microsoft\Office\15.0\Word\Options\WordMail</Key><Value>DontUpdateLinks</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></UserConfig>
+<UserConfig><Key>SOFTWARE\Microsoft\Office\14.0\Word\Options\WordMail</Key><Value>DontUpdateLinks</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></UserConfig>
+<UserConfig><Key>SOFTWARE\Microsoft\Office\16.0\OneNote\Options</Key><Value>DisableEmbeddedFiles</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></UserConfig>
+<UserConfig><Key>SOFTWARE\Microsoft\Office\15.0\OneNote\Options</Key><Value>DisableEmbeddedFiles</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></UserConfig>
+<UserConfig><Key>SOFTWARE\Microsoft\Office\16.0\Excel\Options</Key><Value>DontUpdateLinks</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></UserConfig>
+<UserConfig><Key>SOFTWARE\Microsoft\Office\16.0\Excel\Options</Key><Value>DDEAllowed</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></UserConfig>
+<UserConfig><Key>SOFTWARE\Microsoft\Office\16.0\Excel\Options</Key><Value>DDECleaned</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></UserConfig>
+<UserConfig><Key>SOFTWARE\Microsoft\Office\15.0\Excel\Options</Key><Value>DontUpdateLinks</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></UserConfig>
+<UserConfig><Key>SOFTWARE\Microsoft\Office\15.0\Excel\Options</Key><Value>DDEAllowed</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></UserConfig>
+<UserConfig><Key>SOFTWARE\Microsoft\Office\15.0\Excel\Options</Key><Value>DDECleaned</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></UserConfig>
+<UserConfig><Key>SOFTWARE\Microsoft\Office\15.0\Excel\Options</Key><Value>Options</Value><RegType>REG_DWORD</RegType><RegData>117</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></UserConfig>
+<UserConfig><Key>SOFTWARE\Microsoft\Office\14.0\Excel\Options</Key><Value>DontUpdateLinks</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></UserConfig>
+<UserConfig><Key>SOFTWARE\Microsoft\Office\14.0\Excel\Options</Key><Value>DDEAllowed</Value><RegType>REG_DWORD</RegType><RegData>0</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></UserConfig>
+<UserConfig><Key>SOFTWARE\Microsoft\Office\14.0\Excel\Options</Key><Value>DDECleaned</Value><RegType>REG_DWORD</RegType><RegData>1</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></UserConfig>
+<UserConfig><Key>SOFTWARE\Microsoft\Office\14.0\Excel\Options</Key><Value>Options</Value><RegType>REG_DWORD</RegType><RegData>117</RegData><SourceFile>scip Windows 10 Hardening</SourceFile><PolicyName>scip Windows 10 Hardening</PolicyName></UserConfig>
+</PolicyRules>
