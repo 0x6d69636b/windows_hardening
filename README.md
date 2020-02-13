@@ -6,13 +6,13 @@ This is a hardening checklist that can be used in private and business environme
 
 The settings should be seen as security and privacy recommendation and should be carefully checked whether they will affect the operation of your infrastructure or impact the usability of key functions. It is important to weigh security against usability.
 
-## Last Update
-
-Based on Windows 10 Pro 1909
-
 ## Policy Analyzer
 
 _Policy Analzyer_ reads out and compares local registry and local policy values to a defined baseline. The PolicyRule file from [aha-181](https://github.com/aha-181) contains all rules which are needed to check Group Policy and Registry settings that are defined in the Windows 10 Hardening checklist.
+
+## Last Update
+
+Based on Windows 10 Pro 1909
 
 ## Sources
 
