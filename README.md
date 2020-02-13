@@ -1,14 +1,21 @@
 # Windows 10 Hardening
 
 ## Introduction
+
 This is a hardening checklist that can be used in private and business environments for hardening Windows 10. The checklist can be used for all Windows versions, but in Windows 10 Home the Group Policy Editor is not integrated and the adjustment must be done directly in the registry. 
 
 The settings should be seen as security and privacy recommendation and should be carefully checked whether they will affect the operation of your infrastructure or impact the usability of key functions. It is important to weigh security against usability.
 
 ## Last Update
+
 Based on Windows 10 Pro 1909
 
+## Policy Analyzer
+
+_Policy Analzyer_ reads out and compares local registry and local policy values to a defined baseline. The PolicyRule file from [aha-181](https://github.com/aha-181) contains all rules which are needed to check Group Policy and Registry settings that are defined in the Windows 10 Hardening checklist.
+
 ## Sources
+
 * [CIS Microsoft Windows 10 Enterprise (Release 1803) Benchmark v1.5.0](https://benchmarks.cisecurity.org/tools2/windows/)
 * [Security baseline (FINAL) for Windows 10 v1903 and Windows Server v1903](https://blogs.technet.microsoft.com/secguide/2019/05/23/security-baseline-final-for-windows-10-v1903-and-windows-server-v1903/)
 * [Kernel DMA Protection for Thunderbolt 3](https://docs.microsoft.com/en-us/windows/security/information-protection/kernel-dma-protection-for-thunderbolt)
@@ -22,3 +29,5 @@ Based on Windows 10 Pro 1909
 * [Sysmon](https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon)
 * [SwiftOnSecurity/sysmon-config](https://github.com/SwiftOnSecurity/sysmon-config)
 * [Dane Stuckey - @cryps1s Endpoint Isolation with the Windows Firewall](https://medium.com/@cryps1s/endpoint-isolation-with-the-windows-firewall-462a795f4cfb)
+* [Microsoft Security Compliance Toolkit 1.0](https://www.microsoft.com/en-us/download/details.aspx?id=55319)
+* [Policy Analyzer](https://blogs.technet.microsoft.com/secguide/2016/01/22/new-tool-policy-analyzer/)
