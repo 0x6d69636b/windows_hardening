@@ -150,7 +150,7 @@
 	* Set _Select Plattform Security Level_ to **Secure Boot and DMA Protection**
 	* Set _Virtualization Based Protection of Code Integrity_ to **Enabled with UEFI lock**
 	* Set _Credential Guard Configuration_ to **Enabled with UEFI lock**
-	* Set _Secure Lunch Configuration_ to **Enabled**
+	* Set _Secure Launch Configuration_ to **Enabled**
 
 #### Early Launch Antimalware
 * Set _Boot-Start Driver Initialization Policy_ to **Enabled: Good, unknown and bad but critical**
