@@ -563,10 +563,29 @@ The basic recommendation is to deactivate all access. However, this should not l
 * Set _Allow downloads from other PCs_ to **Off**
 
 ## Windows Security
+
 ### Virus & threat protection
 * Set _Cloud-delivered protection_ to **On** (only works if _Join MAPS_ is not disabled)
 * Set _Automatic sample submission_ to **Off**
 * Set _Controlled folder access_ to **On**
+
+### App & browser control / Exploit protection
+
+#### System settings
+
+* Set _Control flow guard (CFG)_ to **On by default**
+* Set _Data Execution Prevention (DEP)_ to **On by default**
+* Set _Force randomization for images (Mandatory ASLR)_ to **On by default**
+* Set _Randomize memory allocations (Bottom-up ASLR)_ to **On by default**
+* Set _High-entropy ASLR_ to **On by default**
+* Set _Validate exception chains (SEHOP)_ to **On by default**
+* Set _Validate heap integrity_ to **On by default**
+
+These settings can be exported as an XML file and loaded via Group Policy _Computer Configuration\Administrative Templates\Windows Components\Windows Defender Exploit Guard\Exploit Protection\Use a common set of exploit protection settings_. It is also possible to configure policies per program.
+
+#### Enable Data Execution Prevention (DEP)
+
+* Force the use of Data Execution Prevention (DEP): `bcdedit.exe /set {current} nx AlwaysOn` (Default is _OptIn_)
 
 ## Monitoring
 * Install [Sysmon](https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon)
