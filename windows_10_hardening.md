@@ -585,7 +585,7 @@ These settings can be exported as an XML file and loaded via Group Policy _Compu
 
 #### Enable Data Execution Prevention (DEP)
 
-* Force the use of Data Execution Prevention (DEP): `bcdedit.exe /set {current} nx AlwaysOn` (Default is _OptIn_)
+* Force the use of Data Execution Prevention (DEP): `bcdedit.exe /set nx AlwaysOn` (Default is _OptIn_)
 
 ## Monitoring
 * Install [Sysmon](https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon)
