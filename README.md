@@ -10,6 +10,8 @@ The settings should be seen as security and privacy recommendation and should be
 
 _Policy Analzyer_ reads out and compares local registry and local policy values to a defined baseline. The PolicyRule file from [aha-181](https://github.com/aha-181) contains all rules which are needed to check Group Policy and Registry settings that are defined in the Windows 10 Hardening checklist.
 
+Policy Analyzer supports the Hardening checklist up to version 0.2.0, additional entries are not yet supported. 
+
 ## Last Update
 
 Based on Windows 10 Pro 1909
