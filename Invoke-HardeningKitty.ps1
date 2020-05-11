@@ -13,7 +13,10 @@ Param (
 
     [ValidateSet("Audit","Hardening","HailMary")]
     [String]
-    $Mode = "Audit"
+    $Mode = "Audit",
+
+    [Bool]
+    $EmojiSupport = $false
 )
 
 
@@ -43,20 +46,36 @@ Function Write-ProtocolEntry($Text, $LogLevel) {
 
 Function Write-Result($Text, $SeverityLevel) {
 
-    Switch ($SeverityLevel) {
-        "Passed" { $Emoji = [char]::ConvertFromUtf32(0x1F63A); $Message = "[$Emoji] $Text"; Write-Host -ForegroundColor Gray $Message; Break}
-        "Low" { $Emoji = [char]::ConvertFromUtf32(0x1F63C); $Message = "[$Emoji]  $Text"; Write-Host -ForegroundColor Cyan $Message; Break}        
-        "Medium" { $Emoji = [char]::ConvertFromUtf32(0x1F63F); $Message = "[$Emoji] $Text"; Write-Host -ForegroundColor Yellow $Message; Break}
-        "High" { $Emoji = [char]::ConvertFromUtf32(0x1F640); $Message = "[$Emoji] $Text"; Write-Host -ForegroundColor Red $Message; Break}
-        Default { $Message = "[*] $Text"; Write-Host $Message; }
+    If($EmojiSupport) {
+        Switch ($SeverityLevel) {
+            "Passed" { $Emoji = [char]::ConvertFromUtf32(0x1F63A); $Message = "[$Emoji] $Text"; Write-Host -ForegroundColor Gray $Message; Break}
+            "Low" { $Emoji = [char]::ConvertFromUtf32(0x1F63C); $Message = "[$Emoji]  $Text"; Write-Host -ForegroundColor Cyan $Message; Break}        
+            "Medium" { $Emoji = [char]::ConvertFromUtf32(0x1F63F); $Message = "[$Emoji] $Text"; Write-Host -ForegroundColor Yellow $Message; Break}
+            "High" { $Emoji = [char]::ConvertFromUtf32(0x1F640); $Message = "[$Emoji] $Text"; Write-Host -ForegroundColor Red $Message; Break}
+            Default { $Message = "[*] $Text"; Write-Host $Message; }
+        }
+    } Else {
+        Switch ($SeverityLevel) {
+            "Passed" { $Message = "[$] $Text"; Write-Host -ForegroundColor Gray $Message; Break}
+            "Low" { $Message = "[-]  $Text"; Write-Host -ForegroundColor Cyan $Message; Break}        
+            "Medium" { $Message = "[?] $Text"; Write-Host -ForegroundColor Yellow $Message; Break}
+            "High" { $Message = "[!] $Text"; Write-Host -ForegroundColor Red $Message; Break}
+            Default { $Message = "[*] $Text"; Write-Host $Message; }
+        }
     }
 }
 
 Function Create-FindingList {
 
     $FindingList = @(
-        [pscustomobject]@{ID='1023';Name='LSASS Protection Mode';Method='Registry';RegistryPath='HKLM:\SYSTEM\CurrentControlSet\Control\Lsa';RegistryItem='RunAsPPL';DefaultValue='';RecommendedValue='1';Severity='Medium'}
-        [pscustomobject]@{ID='1024';Name='LSASS Audit Mode';Method='Registry';RegistryPath='HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\LSASS.exe';RegistryItem='AuditLevel';DefaultValue='';RecommendedValue='8';Severity='Low'}
+        
+        # Registry
+        [pscustomobject]@{ID='1023';Category='LSA';Name='LSASS Protection Mode';Method='Registry';RegistryPath='HKLM:\SYSTEM\CurrentControlSet\Control\Lsa';RegistryItem='RunAsPPL';DefaultValue='';RecommendedValue='1';Severity='Medium'}
+        [pscustomobject]@{ID='1024';Category='LSA';Name='LSASS Audit Mode';Method='Registry';RegistryPath='HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\LSASS.exe';RegistryItem='AuditLevel';DefaultValue='';RecommendedValue='8';Severity='Low'}
+
+        # Advanced Audit
+        [pscustomobject]@{ID='2023';Category='Advanced Audit Policy Configuration';Name='Credential Validation';Method='auditpol';RegistryPath='';RegistryItem='';DefaultValue='';RecommendedValue='Success and Failure';Severity='Low'}
+        [pscustomobject]@{ID='2024';Category='Advanced Audit Policy Configuration';Name='Kernel Object';Method='auditpol';RegistryPath='';RegistryItem='';DefaultValue='';RecommendedValue='Success and Failure';Severity='Low'}
     )
 
     Return $FindingList
@@ -69,16 +88,28 @@ Function Main {
     Write-Output "     _(      )/  HardeningKitty"
     Write-Output "`n"    
     Write-ProtocolEntry "Starting HardeningKitty" "Info"
-    Write-Output "`n"
 
     If ($Mode -eq "Audit") {
 
         $FindingList = Create-FindingList
+        $LastCategory = ""
 
         ForEach ($Finding in $FindingList) {
 
+            #
+            # Category
+            #
+            If($LastCategory -ne $Finding.Category) {              
+                $Message = "Starting Category " + $Finding.Category
+                Write-Output "`n"                
+                Write-ProtocolEntry $Message "Info"                
+                $LastCategory = $Finding.Category
+            }
+
+            #
             # Get Registry Item
-            If ($Finding.Method = 'Registry') {
+            #
+            If ($Finding.Method -eq 'Registry') {
 
                 If (Test-Path -Path $Finding.RegistryPath) {
                 
@@ -87,18 +118,40 @@ Function Main {
                     } catch {
                         $Result = $Finding.DefaultValue
                     }
-
-                    If ($Result -eq $Finding.RecommendedValue) {
-                        # Passed
-                        $Message = $Finding.Name+": Passed"
-                        Write-Result $Message "Passed"
-                    } Else {
-                        # Failed
-                        $Message = $Finding.Name+": Result=$Result, Recommended="+$Finding.RecommendedValue+", Severity="+$Finding.Severity
-                        Write-Result $Message $Finding.Severity
-                    }
                 }
             }
+            
+            #
+            # Get Audit Policy
+            #
+            Elseif ($Finding.Method -eq 'auditpol') {
+
+                $SubCategory = $Finding.Name                
+                try {
+                    $ResultOutput = auditpol.exe /get /subcategory:"$SubCategory"
+                    
+                    # "Parse" auditpol.exe output
+                    $ResultOutput[4] -match '  ([a-z, /-]+)  ([a-z, ]+)' | Out-Null
+                    $Result = $Matches[2]
+
+                } catch {
+                    $Result = $Finding.DefaultValue
+                }
+            }
+
+            #
+            # Compare result value and recommendation
+            #
+            If ($Result -eq $Finding.RecommendedValue) {
+                # Passed
+                $Message = $Finding.Name+": Passed"
+                Write-Result $Message "Passed"
+            } Else {
+                # Failed
+                $Message = $Finding.Name+": Result=$Result, Recommended="+$Finding.RecommendedValue+", Severity="+$Finding.Severity
+                Write-Result $Message $Finding.Severity
+            }
+
         }
     }
     
