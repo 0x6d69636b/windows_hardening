@@ -10,6 +10,10 @@
 [CmdletBinding()]
 
 Param (
+  
+    [ValidateScript({Test-Path $_})]
+    [String]
+    $FindingListFile = "find_list_0x6d69636b.csv",
 
     [ValidateSet("Audit","Hardening","HailMary")]
     [String]
@@ -65,19 +69,9 @@ Function Write-Result($Text, $SeverityLevel) {
     }
 }
 
-Function Create-FindingList {
+Function Import-FindingList {
 
-    $FindingList = @(
-        
-        # Registry
-        [pscustomobject]@{ID='1023';Category='LSA';Name='LSASS Protection Mode';Method='Registry';RegistryPath='HKLM:\SYSTEM\CurrentControlSet\Control\Lsa';RegistryItem='RunAsPPL';DefaultValue='';RecommendedValue='1';Severity='Medium'}
-        [pscustomobject]@{ID='1024';Category='LSA';Name='LSASS Audit Mode';Method='Registry';RegistryPath='HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\LSASS.exe';RegistryItem='AuditLevel';DefaultValue='';RecommendedValue='8';Severity='Low'}
-
-        # Advanced Audit
-        [pscustomobject]@{ID='2023';Category='Advanced Audit Policy Configuration';Name='Credential Validation';Method='auditpol';RegistryPath='';RegistryItem='';DefaultValue='';RecommendedValue='Success and Failure';Severity='Low'}
-        [pscustomobject]@{ID='2024';Category='Advanced Audit Policy Configuration';Name='Kernel Object';Method='auditpol';RegistryPath='';RegistryItem='';DefaultValue='';RecommendedValue='Success and Failure';Severity='Low'}
-    )
-
+    $FindingList = Import-Csv -Path $FindingListFile -Delimiter ";"
     Return $FindingList
 }
 
@@ -91,7 +85,7 @@ Function Main {
 
     If ($Mode -eq "Audit") {
 
-        $FindingList = Create-FindingList
+        $FindingList = Import-FindingList
         $LastCategory = ""
 
         ForEach ($Finding in $FindingList) {

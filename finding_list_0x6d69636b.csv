@@ -1,0 +1,5 @@
+"ID";"Category";"Name";"Method";"RegistryPath";"RegistryItem";"DefaultValue";"RecommendedValue";"Severity"
+"1023";"LSA";"LSASS Protection Mode";"Registry";"HKLM:\SYSTEM\CurrentControlSet\Control\Lsa";"RunAsPPL";"";"1";"Medium"
+"1024";"LSA";"LSASS Audit Mode";"Registry";"HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\LSASS.exe";"AuditLevel";"";"8";"Low"
+"2023";"Advanced Audit Policy Configuration";"Credential Validation";"auditpol";"";"";"";"Success and Failure";"Low"
+"2024";"Advanced Audit Policy Configuration";"Kernel Object";"auditpol";"";"";"";"Success and Failure";"Low"}
