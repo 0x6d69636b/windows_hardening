@@ -32,7 +32,7 @@
 * Set _Accounts: Block Microsoft accounts_ to **Users can't add or log on with Microsoft accounts**
 
 ##### Audit
-* Set _Audit: Force audit policy subcategory settings (Windows Vista or later) to override audit policy category settings._ to **Enabled**
+* Set _Audit: Force audit policy subcategory settings (Windows Vista or later) to override audit policy category settings_ to **Enabled**
 
 ##### Interactive Logon
 * Set _Interactive logon: Do not require CTRL+ALT+DEL_ to **Disabled**
