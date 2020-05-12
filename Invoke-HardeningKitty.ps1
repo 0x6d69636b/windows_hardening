@@ -13,7 +13,7 @@ Param (
   
     [ValidateScript({Test-Path $_})]
     [String]
-    $FindingListFile = "find_list_0x6d69636b.csv",
+    $FindingListFile = "finding_list_0x6d69636b.csv",
 
     [ValidateSet("Audit","Hardening","HailMary")]
     [String]
@@ -61,7 +61,7 @@ Function Write-Result($Text, $SeverityLevel) {
     } Else {
         Switch ($SeverityLevel) {
             "Passed" { $Message = "[$] $Text"; Write-Host -ForegroundColor Gray $Message; Break}
-            "Low" { $Message = "[-]  $Text"; Write-Host -ForegroundColor Cyan $Message; Break}        
+            "Low" { $Message = "[-] $Text"; Write-Host -ForegroundColor Cyan $Message; Break}        
             "Medium" { $Message = "[?] $Text"; Write-Host -ForegroundColor Yellow $Message; Break}
             "High" { $Message = "[!] $Text"; Write-Host -ForegroundColor Red $Message; Break}
             Default { $Message = "[*] $Text"; Write-Host $Message; }
@@ -122,6 +122,7 @@ Function Main {
 
                 $SubCategory = $Finding.Name                
                 try {
+                    
                     $ResultOutput = auditpol.exe /get /subcategory:"$SubCategory"
                     
                     # "Parse" auditpol.exe output
@@ -134,9 +135,42 @@ Function Main {
             }
 
             #
+            # Get Password Policy
+            #
+            Elseif ($Finding.Method -eq 'accountpolicy') {
+                                           
+                try {
+                    
+                    $ResultOutput = net accounts
+
+                    # "Parse" password policy
+                    Switch ($Finding.Name) {
+                       "Force user logoff how long after time expires" { $ResultOutput[0] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
+                       "Minimum password age" { $ResultOutput[1] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
+                       "Maximum password age" { $ResultOutput[2] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
+                       "Minimum password length" { $ResultOutput[3] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
+                       "Length of password history maintained" { $ResultOutput[4] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
+                       "Account lockout threshold" { $ResultOutput[5] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
+                       "Account lockout duration" { $ResultOutput[6] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
+                       "Reset account lockout counter" { $ResultOutput[7] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
+                    }
+
+                } catch {
+                    $Result = $Finding.DefaultValue
+                }
+            }
+            
+            #
             # Compare result value and recommendation
             #
-            If ($Result -eq $Finding.RecommendedValue) {
+            $ResultPassed = $false
+            Switch($Finding.Operator) {
+                "=" { If($Result -eq $Finding.RecommendedValue) { $ResultPassed = $true }; Break}
+                "<=" { If ([int]$Result -le [int]$Finding.RecommendedValue) { $ResultPassed = $true }; Break}
+                ">=" { If ([int]$Result -ge [int]$Finding.RecommendedValue) { $ResultPassed = $true }; Break}
+            }
+
+            If ($ResultPassed) {
                 # Passed
                 $Message = $Finding.Name+": Passed"
                 Write-Result $Message "Passed"
