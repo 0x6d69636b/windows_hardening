@@ -1,7 +1,7 @@
 "ID";"Category";"Name";"Method";"RegistryPath";"RegistryItem";"DefaultValue";"RecommendedValue";"Operator";"Severity"
 "1000";"Features";"SMBv1 Support";"smb1protocol";"";"";"Enabled";"Disabled";"=";"High"
 "1100";"Account Policies";"Account lockout duration";"accountpolicy";"";"";"";"15";">=";"Low"
-"1101";"Account Policies";"Account lockout threshold";"accountpolicy";"";"";"";"10";"<=";"Low"
+"1101";"Account Policies";"Account lockout threshold";"accountpolicy";"";"";"0";"10";"<=";"Low"
 "1002";"Account Policies";"Reset account lockout counter";"accountpolicy";"";"";"";"15";">=";"Low"
 "2000";"Advanced Audit Policy Configuration";"Credential Validation";"auditpol";"";"";"";"Success and Failure";"=";"Low"
 "2000";"Advanced Audit Policy Configuration";"Kernel Object";"auditpol";"";"";"";"Success and Failure";"=";"Low"

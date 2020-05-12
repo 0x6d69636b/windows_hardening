@@ -16,15 +16,7 @@
 
 ### Windows Settings\Security Settings\Local Policies
 #### Audit Policy
-* _Audit account logon events_: **Failure**
-* _Audit account management_: **Success and Failure**
-* _Audit directory service access_: **No auditing**
-* _Audit logon events_: **Failure**
-* _Audit object access_: **Failure**
-* _Audit policy change_: **Success and Failure**
-* _Audit privilege use_: **Success and Failure**
-* _Audit process tracking_: **No auditing**
-* _Audit system events_: **Success and Failure**
+* Overridden by Advanced Audit Policy Configuration
 
 #### User Rights Assignment
 * Set _Access this computer from the network_ to **Administrators**
@@ -38,6 +30,9 @@
 #### Security Options
 ##### Accounts
 * Set _Accounts: Block Microsoft accounts_ to **Users can't add or log on with Microsoft accounts**
+
+##### Audit
+* Set _Audit: Force audit policy subcategory settings (Windows Vista or later) to override audit policy category settings._ to **Enabled**
 
 ##### Interactive Logon
 * Set _Interactive logon: Do not require CTRL+ALT+DEL_ to **Disabled**
