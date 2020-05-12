@@ -135,7 +135,7 @@ Function Main {
             }
 
             #
-            # Get Password Policy
+            # Get Account Policy
             #
             Elseif ($Finding.Method -eq 'accountpolicy') {
                                            
@@ -143,7 +143,7 @@ Function Main {
                     
                     $ResultOutput = net accounts
 
-                    # "Parse" password policy
+                    # "Parse" account policy
                     Switch ($Finding.Name) {
                        "Force user logoff how long after time expires" { $ResultOutput[0] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
                        "Minimum password age" { $ResultOutput[1] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
@@ -158,6 +158,22 @@ Function Main {
                 } catch {
                     $Result = $Finding.DefaultValue
                 }
+            }
+
+            #
+            # SMBv1 Protocol Support
+            #
+            Elseif ($Finding.Method -eq 'smb1protocol') {
+
+                try {
+                    
+                    $ResultOutput = Get-WindowsOptionalFeature -Online -FeatureName smb1protocol 
+                    $Result = $ResultOutput.State
+
+                } catch {
+                    $Result = $Finding.DefaultValue
+                }
+
             }
             
             #
@@ -179,7 +195,6 @@ Function Main {
                 $Message = $Finding.Name+": Result=$Result, Recommended="+$Finding.RecommendedValue+", Severity="+$Finding.Severity
                 Write-Result $Message $Finding.Severity
             }
-
         }
     }
     
