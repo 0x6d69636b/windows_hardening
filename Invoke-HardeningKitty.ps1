@@ -65,9 +65,9 @@ Function Write-Result($Text, $SeverityLevel) {
         }
     } Else {
         Switch ($SeverityLevel) {
-            "Passed" { $Message = "[$] $Text"; Write-Host -ForegroundColor Gray $Message; Break}
+            "Passed" { $Message = "[+] $Text"; Write-Host -ForegroundColor Gray $Message; Break}
             "Low" { $Message = "[-] $Text"; Write-Host -ForegroundColor Cyan $Message; Break}        
-            "Medium" { $Message = "[?] $Text"; Write-Host -ForegroundColor Yellow $Message; Break}
+            "Medium" { $Message = "[$] $Text"; Write-Host -ForegroundColor Yellow $Message; Break}
             "High" { $Message = "[!] $Text"; Write-Host -ForegroundColor Red $Message; Break}
             Default { $Message = "[*] $Text"; Write-Host $Message; }
         }

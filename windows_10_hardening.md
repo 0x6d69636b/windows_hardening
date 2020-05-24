@@ -46,6 +46,7 @@
 * Set _Microsoft network server: Digitally sign communications (if client agrees)_ to **Enabled**
 
 ##### Network Access
+* Set _Network access: Do not allow anonymous enumeration of SAM accounts_ to **Enabled**
 * Set _Network access: Do not allow anonymous enumeration of SAM accounts and shares_ to **Enabled**
 * Set _Network access: Do not allow storage of passwords and credentials for network authentication_ to **Enabled**
 
@@ -56,7 +57,7 @@
 * Set _Network security: Minimum session security for NTLM SSP based (including secure RPC) clients_ to **Require NTLMv2 session security, Require 128-bit encryption**
 * Set _Network security: Minimum session security for NTLM SSP based (including secure RPC) servers_ to **Require NTLMv2 session security, Require 128-bit encryption**
 * Set _Network security: Restrict NTLM: Audit Incoming NTLM Traffic_ to **Enable auditing for all accounts**
-* Set _Network security: Restrict NTLM: Audit NTLM authentication_ in this domain to **Enable all**
+* Set _Network security: Restrict NTLM: Audit NTLM authentication in this domain_ to **Enable all**
 * Set _Network security: Restrict NTLM: Outgoing NTLM traffic to remote servers_ to **Audit all**
 
 ##### Shutdown
