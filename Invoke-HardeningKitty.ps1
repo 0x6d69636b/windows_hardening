@@ -33,6 +33,11 @@ Param (
     * [ ] Build modules based on categories
 #>
 
+# 
+# Globals
+#
+$ExeAccesschk = "C:\tmp\accesschk64.exe"
+
 Function Write-ProtocolEntry($Text, $LogLevel) {
 
     $Time = Get-Date -Format G
@@ -90,6 +95,11 @@ Function Main {
 
         ForEach ($Finding in $FindingList) {
 
+            #
+            # Reset
+            #
+            $Result = ""
+            
             #
             # Category
             #
@@ -161,6 +171,34 @@ Function Main {
             }
 
             #
+            # User Rights Assignment
+            # https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/user-rights-assignment
+            #
+            Elseif ($Finding.Method -eq 'accesschk') {
+                                           
+                try {                    
+                    $ResultOutput = &$ExeAccesschk -accepteula -nobanner -a $Finding.MethodArgument
+
+                    # "Parse" accesschk.exe output
+                    ForEach($ResultEntry in $ResultOutput) {
+
+                        If ($ResultEntry.Contains("No accounts granted")) {
+                            $Result = ""
+                            Break
+                        } else {
+                            $ResultEntry -match '([a-z,A-Z,\\," "]+)' | Out-Null
+                            [String] $Result += $Matches[0]+","
+                        }
+                    }
+                    # Remove last character
+                    $Result = $Result -replace “.$”
+                } catch {
+                    $Result = $Finding.DefaultValue
+                    Write-Output $Error
+                }                
+            }
+
+            #
             # SMBv1 Protocol Support
             #
             Elseif ($Finding.Method -eq 'smb1protocol') {
@@ -173,7 +211,6 @@ Function Main {
                 } catch {
                     $Result = $Finding.DefaultValue
                 }
-
             }
             
             #
@@ -181,7 +218,7 @@ Function Main {
             #
             $ResultPassed = $false
             Switch($Finding.Operator) {
-                "=" { If($Result -eq $Finding.RecommendedValue) { $ResultPassed = $true }; Break}
+                "=" { If ($Result -eq $Finding.RecommendedValue) { $ResultPassed = $true }; Break}
                 "<=" { If ([int]$Result -le [int]$Finding.RecommendedValue) { $ResultPassed = $true }; Break}
                 ">=" { If ([int]$Result -ge [int]$Finding.RecommendedValue) { $ResultPassed = $true }; Break}
             }
@@ -192,7 +229,7 @@ Function Main {
                 Write-Result $Message "Passed"
             } Else {
                 # Failed
-                $Message = $Finding.Name+": Result=$Result, Recommended="+$Finding.RecommendedValue+", Severity="+$Finding.Severity
+                $Message = $Finding.Name+": Result=$Result; Recommended="+$Finding.RecommendedValue+"; Severity="+$Finding.Severity
                 Write-Result $Message $Finding.Severity
             }
         }
