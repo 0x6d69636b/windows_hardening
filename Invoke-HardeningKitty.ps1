@@ -15,7 +15,7 @@ Param (
     [String]
     $FindingListFile = "finding_list_0x6d69636b.csv",
 
-    [ValidateSet("Audit","Hardening","HailMary")]
+    [ValidateSet("Audit","Config","HailMary")]
     [String]
     $Mode = "Audit",
 
@@ -88,7 +88,7 @@ Function Main {
     Write-Output "`n"    
     Write-ProtocolEntry "Starting HardeningKitty" "Info"
 
-    If ($Mode -eq "Audit") {
+    If ($Mode -eq "Audit" -or $Mode -eq "Config") {
 
         $FindingList = Import-FindingList
         $LastCategory = ""
@@ -194,7 +194,6 @@ Function Main {
                     $Result = $Result -replace “.$”
                 } catch {
                     $Result = $Finding.DefaultValue
-                    Write-Output $Error
                 }                
             }
 
@@ -212,25 +211,35 @@ Function Main {
                     $Result = $Finding.DefaultValue
                 }
             }
-            
-            #
-            # Compare result value and recommendation
-            #
-            $ResultPassed = $false
-            Switch($Finding.Operator) {
-                "=" { If ($Result -eq $Finding.RecommendedValue) { $ResultPassed = $true }; Break}
-                "<=" { If ([int]$Result -le [int]$Finding.RecommendedValue) { $ResultPassed = $true }; Break}
-                ">=" { If ([int]$Result -ge [int]$Finding.RecommendedValue) { $ResultPassed = $true }; Break}
-            }
 
-            If ($ResultPassed) {
-                # Passed
-                $Message = $Finding.Name+": Passed"
-                Write-Result $Message "Passed"
-            } Else {
-                # Failed
-                $Message = $Finding.Name+": Result=$Result; Recommended="+$Finding.RecommendedValue+"; Severity="+$Finding.Severity
-                Write-Result $Message $Finding.Severity
+
+            If ($Mode -eq "Audit") {
+            
+                #
+                # Compare result value and recommendation
+                #
+                $ResultPassed = $false
+                Switch($Finding.Operator) {
+                    "=" { If ($Result -eq $Finding.RecommendedValue) { $ResultPassed = $true }; Break}
+                    "<=" { If ([int]$Result -le [int]$Finding.RecommendedValue) { $ResultPassed = $true }; Break}
+                    ">=" { If ([int]$Result -ge [int]$Finding.RecommendedValue) { $ResultPassed = $true }; Break}
+                }
+
+                If ($ResultPassed) {
+                    # Passed
+                    $Message = "ID "+$Finding.ID+"; "+$Finding.Name+"; Passed"
+                    Write-Result $Message "Passed"
+                } Else {
+                    # Failed
+                    $Message = "ID "+$Finding.ID+"; "+$Finding.Name+"; Result=$Result; Recommended="+$Finding.RecommendedValue+"; Severity="+$Finding.Severity
+                    Write-Result $Message $Finding.Severity
+                }
+
+            }
+            Elseif ($Mode -eq "Config") {
+
+                $Message = "ID "+$Finding.ID+"; "+$Finding.Name+"; Result=$Result"
+                Write-Result $Message ""
             }
         }
     }
