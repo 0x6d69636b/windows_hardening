@@ -127,7 +127,7 @@
 
 ### Administrative Templates\System
 #### Credentials Delegation
-* Set _Credentials Delegation\Allow delegation default credentials_ to **Disabled** (tspkg)
+* Set _Credentials Delegation\Allow delegating default credentials_ to **Disabled** (tspkg)
 * Set _Credentials Delegation\Encryption Oracle Remediation_ to **Enabled: Force Updated Clients**
 
 #### Device Installation
