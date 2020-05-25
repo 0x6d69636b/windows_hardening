@@ -259,6 +259,10 @@ Function Main {
                 Write-Result $Message ""
             }
         }
+    } Elseif ($Mode = "HailMary") {
+
+        # Set all hardening settings in findings file
+        # You can do that as long as you know you're doing
     }
     
     Write-Output "`n"
