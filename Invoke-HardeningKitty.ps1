@@ -33,11 +33,6 @@ Param (
     * [ ] Build modules based on categories
 #>
 
-# 
-# Globals
-#
-$ExeAccesschk = "C:\tmp\accesschk64.exe"
-
 Function Write-ProtocolEntry($Text, $LogLevel) {
 
     $Time = Get-Date -Format G
@@ -88,6 +83,28 @@ Function Main {
     Write-Output "`n"    
     Write-ProtocolEntry "Starting HardeningKitty" "Info"
 
+    # 
+    # Tools
+    #
+    $BinaryAccesschk = "C:\tmp\accesschk64.exe"
+    If (-Not (Test-Path $BinaryAccesschk)) {
+        Write-ProtocolEntry "Binary for accesschk not found" "Error"
+        Exit
+    }
+    $BinaryAuditpol = "C:\Windows\System32\auditpol.exe"
+    If (-Not (Test-Path $BinaryAuditpol)) {
+        Write-ProtocolEntry "Binary for auditpol not found" "Error"
+        Exit
+    }
+    $BinaryNet = "C:\Windows\System32\net.exe"
+    If (-Not (Test-Path $BinaryNet)) {
+        Write-ProtocolEntry "Binary for net not found" "Error"
+        Exit
+    }
+
+    #
+    # Start Config/Audit mode
+    # 
     If ($Mode -eq "Audit" -or $Mode -eq "Config") {
 
         $FindingList = Import-FindingList
@@ -133,7 +150,7 @@ Function Main {
                 $SubCategory = $Finding.Name                
                 try {
                     
-                    $ResultOutput = auditpol.exe /get /subcategory:"$SubCategory"
+                    $ResultOutput = &$BinaryAuditpol /get /subcategory:"$SubCategory"
                     
                     # "Parse" auditpol.exe output
                     $ResultOutput[4] -match '  ([a-z, /-]+)  ([a-z, ]+)' | Out-Null
@@ -151,7 +168,7 @@ Function Main {
                                            
                 try {
                     
-                    $ResultOutput = net accounts
+                    $ResultOutput = &$BinaryNet accounts
 
                     # "Parse" account policy
                     Switch ($Finding.Name) {
@@ -177,7 +194,7 @@ Function Main {
             Elseif ($Finding.Method -eq 'accesschk') {
                                            
                 try {                    
-                    $ResultOutput = &$ExeAccesschk -accepteula -nobanner -a $Finding.MethodArgument
+                    $ResultOutput = &$BinaryAccesschk -accepteula -nobanner -a $Finding.MethodArgument
 
                     # "Parse" accesschk.exe output
                     ForEach($ResultEntry in $ResultOutput) {
