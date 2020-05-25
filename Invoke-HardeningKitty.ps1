@@ -141,6 +141,27 @@ Function Main {
                     }
                 }
             }
+
+            #
+            # Get Registry List and search for item
+            #
+            If ($Finding.Method -eq 'RegistryList') {
+
+                If (Test-Path -Path $Finding.RegistryPath) {
+                
+                    try {
+                        $ResultList = Get-ItemProperty -Path $Finding.RegistryPath
+                        If ($ResultList | Where-Object { $_ -like "*"+$Finding.RegistryItem+"*" }) {
+                            $Result = $Finding.RegistryItem
+                        } Else {
+                            $Result = "Not found"
+                        }
+
+                    } catch {
+                        $Result = $Finding.DefaultValue
+                    }
+                }
+            }
             
             #
             # Get Audit Policy
