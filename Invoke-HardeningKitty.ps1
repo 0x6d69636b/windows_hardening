@@ -139,6 +139,8 @@ Function Main {
                     } catch {
                         $Result = $Finding.DefaultValue
                     }
+                } Else {
+                    $Result = $Finding.DefaultValue
                 }
             }
 
@@ -160,6 +162,8 @@ Function Main {
                     } catch {
                         $Result = $Finding.DefaultValue
                     }
+                } Else {
+                    $Result = $Finding.DefaultValue
                 }
             }
             
@@ -244,6 +248,26 @@ Function Main {
                     
                     $ResultOutput = Get-WindowsOptionalFeature -Online -FeatureName smb1protocol 
                     $Result = $ResultOutput.State
+
+                } catch {
+                    $Result = $Finding.DefaultValue
+                }
+            }
+
+            #
+            # Get CimInstance and search for item
+            #
+            If ($Finding.Method -eq 'CimInstance') {
+                
+                try {
+                    $ResultList = Get-CimInstance -ClassName $Finding.ClassName -Namespace $Finding.Namespace
+                    $Property = $Finding.Property
+                                         
+                    If ($ResultList.$Property | Where-Object { $_ -like "*"+$Finding.RecommendedValue+"*" }) {
+                        $Result = $Finding.RecommendedValue
+                    } Else {
+                        $Result = "Not available"
+                    }
 
                 } catch {
                     $Result = $Finding.DefaultValue
