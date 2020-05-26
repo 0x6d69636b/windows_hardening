@@ -103,6 +103,32 @@ Function Main {
     }
 
     #
+    # Machine information
+    #
+    Write-Output "`n" 
+    Write-ProtocolEntry "Getting machine information" "Info"
+    $MachineInformation = Get-ComputerInfo
+
+    $Message = "Hostname: "+$MachineInformation.CsDNSHostName
+    Write-Result $Message "Passed"
+    $Message = "Domain: "+$MachineInformation.CsDomain
+    Write-Result $Message "Passed"
+    $Message = "Domain role: "+$MachineInformation.CsDomainRole
+    Write-Result $Message "Passed"
+    $Message = "Uptime: "+$MachineInformation.OsUptime
+    Write-Result $Message "Passed"
+    $Message = "Install date: "+$MachineInformation.OsInstallDate
+    Write-Result $Message "Passed"
+    $Message = "Windows: "+$MachineInformation.WindowsProductName
+    Write-Result $Message "Passed"
+    $Message = "Windows edition: "+$MachineInformation.WindowsEditionId
+    Write-Result $Message "Passed"
+    $Message = "Windows version: "+$MachineInformation.WindowsVersion
+    Write-Result $Message "Passed"
+    $Message = "Windows build: "+$MachineInformation.WindowsBuildLabEx
+    Write-Result $Message "Passed"
+
+    #
     # Start Config/Audit mode
     # 
     If ($Mode -eq "Audit" -or $Mode -eq "Config") {
