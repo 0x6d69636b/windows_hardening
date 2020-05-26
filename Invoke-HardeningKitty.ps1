@@ -266,13 +266,13 @@ Function Main {
             }
 
             #
-            # SMBv1 Protocol Support
+            # Windows Optional Feature
             #
-            Elseif ($Finding.Method -eq 'smb1protocol') {
+            Elseif ($Finding.Method -eq 'WindowsOptionalFeature') {
 
                 try {
                     
-                    $ResultOutput = Get-WindowsOptionalFeature -Online -FeatureName smb1protocol 
+                    $ResultOutput = Get-WindowsOptionalFeature -Online -FeatureName $Finding.MethodArgument 
                     $Result = $ResultOutput.State
 
                 } catch {
@@ -294,6 +294,22 @@ Function Main {
                     } Else {
                         $Result = "Not available"
                     }
+
+                } catch {
+                    $Result = $Finding.DefaultValue
+                }
+            }
+
+            #
+            # BitLocker Drive Encryptionc
+            #
+            Elseif ($Finding.Method -eq 'BitLockerVolume') {
+
+                try {
+                    
+                    $ResultOutput = Get-BitLockerVolume
+                    $ResultArgument = $Finding.MethodArgument 
+                    $Result = $ResultOutput.$ResultArgument
 
                 } catch {
                     $Result = $Finding.DefaultValue
