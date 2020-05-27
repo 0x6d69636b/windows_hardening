@@ -129,6 +129,17 @@ Function Main {
     Write-Result $Message "Passed"
 
     #
+    # Machine information
+    #
+    Write-Output "`n" 
+    Write-ProtocolEntry "Getting user information" "Info"
+    
+    $Message = "Username: "+[Security.Principal.WindowsIdentity]::GetCurrent().Name
+    Write-Result $Message "Passed"
+    $Message = "Is Admin: "+([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
+    Write-Result $Message "Passed"
+
+    #
     # Start Config/Audit mode
     # 
     If ($Mode -eq "Audit" -or $Mode -eq "Config") {
