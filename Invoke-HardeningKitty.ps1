@@ -13,7 +13,7 @@ Param (
   
     [ValidateScript({Test-Path $_})]
     [String]
-    $FindingListFile = "finding_list_0x6d69636b_machine.csv",
+    $FindingList = "lists\finding_list_0x6d69636b_machine.csv",
 
     [ValidateSet("Audit","Config","HailMary")]
     [String]
@@ -22,16 +22,6 @@ Param (
     [Bool]
     $EmojiSupport = $false
 )
-
-
-<#
-    to do:
-    * [ ] Build checks for other items then registy
-    * [ ] Add all registry checks
-    * [ ] Create machine readable output file
-    * [ ] Create log file
-    * [ ] Build modules based on categories
-#>
 
 Function Write-ProtocolEntry($Text, $LogLevel) {
 
@@ -71,7 +61,7 @@ Function Write-Result($Text, $SeverityLevel) {
 
 Function Import-FindingList {
 
-    $FindingList = Import-Csv -Path $FindingListFile -Delimiter ","
+    $FindingList = Import-Csv -Path $FindingList -Delimiter ","
     Return $FindingList
 }
 
@@ -105,8 +95,7 @@ Function Main {
     If (-Not (Test-Path $BinaryBcdedit)) {
         Write-ProtocolEntry "Binary for bcdedit not found" "Error"
         Exit
-    }
-    
+    }    
 
     #
     # Machine information
