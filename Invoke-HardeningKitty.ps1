@@ -71,7 +71,7 @@ Function Write-Result($Text, $SeverityLevel) {
 
 Function Import-FindingList {
 
-    $FindingList = Import-Csv -Path $FindingListFile -Delimiter ";"
+    $FindingList = Import-Csv -Path $FindingListFile -Delimiter ","
     Return $FindingList
 }
 
@@ -255,7 +255,7 @@ Function Main {
                             Break
                         } else {
                             $ResultEntry -match '([a-z,A-Z,\\," "]+)' | Out-Null
-                            [String] $Result += $Matches[0]+","
+                            [String] $Result += $Matches[0]+";"
                         }
                     }
                     # Remove last character

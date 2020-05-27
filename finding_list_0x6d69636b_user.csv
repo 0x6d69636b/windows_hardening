@@ -1,2 +1,2 @@
-ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Namespace,Property,DefaultValue,RecommendedValue,Operator,Severity
-4000,User settings,Turn off notifications network usage,Registry,,HKCU:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion,NoCloudApplicationNotification,,,,0,1,=,Medium
+"ID","Category","Name","Method","MethodArgument","RegistryPath","RegistryItem","ClassName","Namespace","Property","DefaultValue","RecommendedValue","Operator","Severity"
+4000,"User settings","Turn off notifications network usage","Registry",,"HKCU:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion","NoCloudApplicationNotification",,,,0,1,"=","Medium"
