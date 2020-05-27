@@ -1,9 +1,12 @@
 ﻿<#
     Invoke-HardeningKitty - Checks and hardens your Windows configuration
 
+       =^._.^="
+      _(      )/  HardeningKitty
+
     Author: Michael Schneider
     License: MIT    
-    Required Dependencies: None
+    Required Dependencies: AccessChk by Mark Russinovich
     Optional Dependencies: None
 #>
 
@@ -20,10 +23,22 @@ Param (
     $Mode = "Audit",
 
     [Bool]
-    $EmojiSupport = $false
+    $EmojiSupport = $false,
+
+    [Bool]
+    $Log = $false,
+
+    [String]
+    $LogFile,
+
+    [Bool]
+    $Report = $false,
+
+    [String]
+    $ReportFile
 )
 
-Function Write-ProtocolEntry($Text, $LogLevel) {
+Function Write-ProtocolEntry($Text, $LogLevel, $LogFile) {
 
     $Time = Get-Date -Format G
 
@@ -33,12 +48,21 @@ Function Write-ProtocolEntry($Text, $LogLevel) {
         "Warning" { $Message = "[?] $Time - $Text"; Write-Host -ForegroundColor Yellow $Message; Break}
         "Error" { $Message = "[!] $Time - $Text"; Write-Host -ForegroundColor Red $Message; Break}
         "Success" { $Message = "[$] $Time - $Text"; Write-Host -ForegroundColor Green $Message; Break}
+        "Notime" { $Message = "$Text"; Write-Host -ForegroundColor Gray $Message; Break}
         Default { $Message = "[*] $Time - $Text"; Write-Host $Message; }
-    }    
-    # Add-Content -Path $ProtocolPath -Value $Message
+    }
+    
+    If($Log) {
+        Add-ProtocolEntry $Message $LogFile
+    }       
 }
 
-Function Write-Result($Text, $SeverityLevel) {
+Function Add-ProtocolEntry($Text, $LogFile) {
+
+    Add-Content -Path $LogFile -Value $Text
+}
+
+Function Write-ResultEntry($Text, $SeverityLevel) {
 
     If($EmojiSupport) {
         Switch ($SeverityLevel) {
@@ -59,6 +83,11 @@ Function Write-Result($Text, $SeverityLevel) {
     }
 }
 
+Function Add-ResultEntry($Text, $ReportFile) {
+
+    Add-Content -Path $ReportFile -Value $Text
+}
+
 Function Import-FindingList {
 
     $FindingList = Import-Csv -Path $FindingList -Delimiter ","
@@ -67,33 +96,53 @@ Function Import-FindingList {
 
 Function Main {
 
+    #
+    # Log and report file
+    #
+    $Hostname = $env:COMPUTERNAME.ToLower()
+    $FileDate = Get-Date -UFormat %Y%m%d-%H%m
+
+    If ($Log -and $LogFile.Length -eq 0) {        
+        $LogFile = "hardeningkitty_log_$Hostname-$FileDate.log"
+    }
+    If ($Report -and $ReportFile.Length -eq 0) {
+        $ReportFile = "hardeningkitty_report_$Hostname-$FileDate.csv"
+    }
+    If ($Report) {
+        $Message = '"ID","Name","Severity","Result","Recommended"'
+        Add-ResultEntry $Message $ReportFile
+    }
+
+    #
+    # Header
+    #
     Write-Output "`n"
     Write-Output "      =^._.^="
     Write-Output "     _(      )/  HardeningKitty"
     Write-Output "`n"    
-    Write-ProtocolEntry "Starting HardeningKitty" "Info"
+    Write-ProtocolEntry "Starting HardeningKitty" "Info" $LogFile    
 
     # 
     # Tools
     #
     $BinaryAccesschk = "C:\tmp\accesschk64.exe"
     If (-Not (Test-Path $BinaryAccesschk)) {
-        Write-ProtocolEntry "Binary for accesschk not found" "Error"
+        Write-ProtocolEntry "Binary for accesschk not found" "Error" $Logfile
         Exit
     }
     $BinaryAuditpol = "C:\Windows\System32\auditpol.exe"
     If (-Not (Test-Path $BinaryAuditpol)) {
-        Write-ProtocolEntry "Binary for auditpol not found" "Error"
+        Write-ProtocolEntry "Binary for auditpol not found" "Error" $Logfile  
         Exit
     }
     $BinaryNet = "C:\Windows\System32\net.exe"
     If (-Not (Test-Path $BinaryNet)) {
-        Write-ProtocolEntry "Binary for net not found" "Error"
+        Write-ProtocolEntry "Binary for net not found" "Error" $Logfile
         Exit
     }
     $BinaryBcdedit = "C:\Windows\System32\bcdedit.exe"
     If (-Not (Test-Path $BinaryBcdedit)) {
-        Write-ProtocolEntry "Binary for bcdedit not found" "Error"
+        Write-ProtocolEntry "Binary for bcdedit not found" "Error" $Logfile
         Exit
     }    
 
@@ -101,38 +150,38 @@ Function Main {
     # Machine information
     #
     Write-Output "`n" 
-    Write-ProtocolEntry "Getting machine information" "Info"
+    Write-ProtocolEntry "Getting machine information" "Info" $Logfile
     $MachineInformation = Get-ComputerInfo
 
     $Message = "Hostname: "+$MachineInformation.CsDNSHostName
-    Write-Result $Message "Passed"
+    Write-ProtocolEntry $Message "Notime" $LogFile
     $Message = "Domain: "+$MachineInformation.CsDomain
-    Write-Result $Message "Passed"
+    Write-ProtocolEntry $Message "Notime" $LogFile
     $Message = "Domain role: "+$MachineInformation.CsDomainRole
-    Write-Result $Message "Passed"
+    Write-ProtocolEntry $Message "Notime" $LogFile
     $Message = "Uptime: "+$MachineInformation.OsUptime
-    Write-Result $Message "Passed"
+    Write-ProtocolEntry $Message "Notime" $LogFile
     $Message = "Install date: "+$MachineInformation.OsInstallDate
-    Write-Result $Message "Passed"
+    Write-ProtocolEntry $Message "Notime" $LogFile
     $Message = "Windows: "+$MachineInformation.WindowsProductName
-    Write-Result $Message "Passed"
+    Write-ProtocolEntry $Message "Notime" $LogFile
     $Message = "Windows edition: "+$MachineInformation.WindowsEditionId
-    Write-Result $Message "Passed"
+    Write-ProtocolEntry $Message "Notime" $LogFile
     $Message = "Windows version: "+$MachineInformation.WindowsVersion
-    Write-Result $Message "Passed"
+    Write-ProtocolEntry $Message "Notime" $LogFile
     $Message = "Windows build: "+$MachineInformation.WindowsBuildLabEx
-    Write-Result $Message "Passed"
+    Write-ProtocolEntry $Message "Notime" $LogFile
 
     #
     # Machine information
     #
     Write-Output "`n" 
-    Write-ProtocolEntry "Getting user information" "Info"
+    Write-ProtocolEntry "Getting user information" "Info" $Logfile
     
     $Message = "Username: "+[Security.Principal.WindowsIdentity]::GetCurrent().Name
-    Write-Result $Message "Passed"
+    Write-ProtocolEntry $Message "Notime" $LogFile
     $Message = "Is Admin: "+([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
-    Write-Result $Message "Passed"
+    Write-ProtocolEntry $Message "Notime" $LogFile
 
     #
     # Start Config/Audit mode
@@ -155,7 +204,7 @@ Function Main {
             If($LastCategory -ne $Finding.Category) {              
                 $Message = "Starting Category " + $Finding.Category
                 Write-Output "`n"                
-                Write-ProtocolEntry $Message "Info"                
+                Write-ProtocolEntry $Message "Info" $LogFile              
                 $LastCategory = $Finding.Category
             }
 
@@ -405,21 +454,47 @@ Function Main {
 
                 If ($ResultPassed) {
                     # Passed
-                    $Message = "ID "+$Finding.ID+"; "+$Finding.Name+"; Passed"
-                    Write-Result $Message "Passed"
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Result=$Result, Severity=Passed"
+                    Write-ResultEntry $Message "Passed"
+
+                    If($Log) {
+                        Add-ProtocolEntry $Message $LogFile
+                    }
+                    
+                    If($Report) {
+                        $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","Passed","'+$Result+'"'
+                        Add-ResultEntry $Message $ReportFile
+                    }
+
                 } Else {
                     # Failed
-                    $Message = "ID "+$Finding.ID+"; "+$Finding.Name+"; Result=$Result; Recommended="+$Finding.RecommendedValue+"; Severity="+$Finding.Severity
-                    Write-Result $Message $Finding.Severity
-                }
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Result=$Result, Recommended="+$Finding.RecommendedValue+", Severity="+$Finding.Severity
+                    Write-ResultEntry $Message $Finding.Severity
 
-            }
-            Elseif ($Mode -eq "Config") {
+                    If($Log) {
+                        Add-ProtocolEntry $Message $LogFile
+                    }
+
+                    If($Report) {
+                        $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$Finding.Severity+'","'+$Result+'","'+$Finding.RecommendedValue+'"'
+                        Add-ResultEntry $Message $ReportFile
+                    }
+                }
+            } Elseif ($Mode -eq "Config") {
 
                 $Message = "ID "+$Finding.ID+"; "+$Finding.Name+"; Result=$Result"
-                Write-Result $Message ""
+                Write-ResultEntry $Message ""
+
+                If($Log) {
+                    Add-ProtocolEntry $Message $LogFile
+                }
+                If($Report) {
+                    $Message = '"'+$Finding.ID+'","'+$Finding.Name+'",,"'+$Result+'",'
+                    Add-ResultEntry $Message $ReportFile
+                }
             }
         }
+
     } Elseif ($Mode = "HailMary") {
 
         # Set all hardening settings in findings file
@@ -427,7 +502,7 @@ Function Main {
     }
     
     Write-Output "`n"
-    Write-ProtocolEntry "HardeningKitty is done" "Info"
+    Write-ProtocolEntry "HardeningKitty is done" "Info" $LogFile
     Write-Output "`n"
 }
 
