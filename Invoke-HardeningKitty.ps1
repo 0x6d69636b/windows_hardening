@@ -1,100 +1,232 @@
-﻿<#
-    Invoke-HardeningKitty - Checks and hardens your Windows configuration
+﻿Function Invoke-HardeningKitty {
 
-       =^._.^="
-      _(      )/  HardeningKitty
+    <#
+    .SYNOPSIS
 
-    Author: Michael Schneider
-    License: MIT    
-    Required Dependencies: AccessChk by Mark Russinovich
-    Optional Dependencies: None
-#>
+        Invoke-HardeningKitty - Checks and hardens your Windows configuration
 
-[CmdletBinding()]
 
-Param (
-  
-    [ValidateScript({Test-Path $_})]
-    [String]
-    $FindingList = "lists\finding_list_0x6d69636b_machine.csv",
+         =^._.^="
+        _(      )/  HardeningKitty
 
-    [ValidateSet("Audit","Config","HailMary")]
-    [String]
-    $Mode = "Audit",
 
-    [Bool]
-    $EmojiSupport = $false,
+        Author:  Michael Schneider
+        License: MIT    
+        Required Dependencies: AccessChk by Mark Russinovich
+        Optional Dependencies: None
 
-    [Bool]
-    $Log = $false,
 
-    [String]
-    $LogFile,
+    .DESCRIPTION
 
-    [Bool]
-    $Report = $false,
+        HardeningKitty supports hardening of a Windows system. The configuration of the system is
+        retrieved and assessed using a finding list. In addition, the system can be hardened according
+        to predefined values. HardeningKitty reads settings from the registry and uses other modules
+        to read configurations outside the registry. 
 
-    [String]
-    $ReportFile
-)
 
-Function Write-ProtocolEntry($Text, $LogLevel, $LogFile) {
+    .PARAMETER FileFindingList
 
-    $Time = Get-Date -Format G
+        Path to a finding list in CSV format. HardeningKitty has one list each for machine and user settings.
 
-    Switch ($LogLevel) {
-        "Info" { $Message = "[*] $Time - $Text"; Write-Host $Message; Break}
-        "Debug" { $Message = "[-] $Time - $Text"; Write-Host -ForegroundColor Cyan $Message; Break}
-        "Warning" { $Message = "[?] $Time - $Text"; Write-Host -ForegroundColor Yellow $Message; Break}
-        "Error" { $Message = "[!] $Time - $Text"; Write-Host -ForegroundColor Red $Message; Break}
-        "Success" { $Message = "[$] $Time - $Text"; Write-Host -ForegroundColor Green $Message; Break}
-        "Notime" { $Message = "$Text"; Write-Host -ForegroundColor Gray $Message; Break}
-        Default { $Message = "[*] $Time - $Text"; Write-Host $Message; }
-    }
+
+    .PARAMETER Mode
+        
+        The mode Config only retrieves the settings, while the mode Audit performs an assessment of the settings.
+        The mode HailMary hardens the system according to recommendations of the HardeningKitty list.
+
+
+    .PARAMETER EmojiSupport
+
+        The use of emoji is activated. The terminal should support this accordingly. Windows Terminal
+        offers full support.
+
+
+    .PARAMETER Log
+        
+        The logging function is activated. The script output is additionally logged in a file. The file
+        name is assigned by HardeningKitty itself and the file is stored in the same directory as the script.
+
+
+    .PARAMETER LogFile
+
+        The name and location of the log file can be defined by the user.
     
-    If($Log) {
-        Add-ProtocolEntry $Message $LogFile
-    }       
-}
+    
+    .PARAMETER Report
 
-Function Add-ProtocolEntry($Text, $LogFile) {
+        The retrieved settings and their assessment result are stored in CSV format in a machine-readable format.
+        The file name is assigned by HardeningKitty itself and the file is stored in the same directory as the script.
+    
 
-    Add-Content -Path $LogFile -Value $Text
-}
+    .PARAMETER ReportFile
 
-Function Write-ResultEntry($Text, $SeverityLevel) {
+        The name and location of the report file can be defined by the user.
 
-    If($EmojiSupport) {
-        Switch ($SeverityLevel) {
-            "Passed" { $Emoji = [char]::ConvertFromUtf32(0x1F63A); $Message = "[$Emoji] $Text"; Write-Host -ForegroundColor Gray $Message; Break}
-            "Low" { $Emoji = [char]::ConvertFromUtf32(0x1F63C); $Message = "[$Emoji]  $Text"; Write-Host -ForegroundColor Cyan $Message; Break}        
-            "Medium" { $Emoji = [char]::ConvertFromUtf32(0x1F63F); $Message = "[$Emoji] $Text"; Write-Host -ForegroundColor Yellow $Message; Break}
-            "High" { $Emoji = [char]::ConvertFromUtf32(0x1F640); $Message = "[$Emoji] $Text"; Write-Host -ForegroundColor Red $Message; Break}
-            Default { $Message = "[*] $Text"; Write-Host $Message; }
+
+    .EXAMPLE
+        
+        Invoke-HardeningKitty -Mode "Audit" -Log $true -Report $true
+        
+        Description: HardeningKitty performs an audit, saves the results and creates a log file
+    #>
+
+    [CmdletBinding()]
+    Param (
+  
+        # Definition of the finding list, default is machine setting list
+        [ValidateScript({Test-Path $_})]
+        [String]
+        $FileFindingList,
+
+        # Choose mode, read system config, audit system config, harden system config
+        [ValidateSet("Audit","Config","HailMary")]
+        [String]
+        $Mode = "Audit",
+
+        # Activate emoji support for Windows Terminal
+        [Switch]
+        $EmojiSupport = $false,
+
+        # Create a log file
+        [Switch]
+        $Log = $false,
+
+        # Define name and path of the log file
+        [String]
+        $LogFile,
+
+        # Create a report file in CSV format
+        [Switch]
+        $Report = $false,
+
+        # Define name and path of the report file
+        [String]
+        $ReportFile
+    )
+
+    Function Write-ProtocolEntry {
+
+        <#
+        .SYNOPSIS
+    
+            Output of an event with timestamp and different formatting
+            depending on the level. If the Log parameter is set, the
+            output is also stored in a file.
+        #>    
+
+        [CmdletBinding()]
+        Param (
+            
+            [String]
+            $Text,
+
+            [String]
+            $LogLevel
+        )
+
+        $Time = Get-Date -Format G
+
+        Switch ($LogLevel) {
+            "Info"    { $Message = "[*] $Time - $Text"; Write-Host $Message; Break}
+            "Debug"   { $Message = "[-] $Time - $Text"; Write-Host -ForegroundColor Cyan $Message; Break}
+            "Warning" { $Message = "[?] $Time - $Text"; Write-Host -ForegroundColor Yellow $Message; Break}
+            "Error"   { $Message = "[!] $Time - $Text"; Write-Host -ForegroundColor Red $Message; Break}
+            "Success" { $Message = "[$] $Time - $Text"; Write-Host -ForegroundColor Green $Message; Break}
+            "Notime"  { $Message = "[*] $Text"; Write-Host -ForegroundColor Gray $Message; Break}
+            Default   { $Message = "[*] $Time - $Text"; Write-Host $Message; }
         }
-    } Else {
-        Switch ($SeverityLevel) {
-            "Passed" { $Message = "[+] $Text"; Write-Host -ForegroundColor Gray $Message; Break}
-            "Low" { $Message = "[-] $Text"; Write-Host -ForegroundColor Cyan $Message; Break}        
-            "Medium" { $Message = "[$] $Text"; Write-Host -ForegroundColor Yellow $Message; Break}
-            "High" { $Message = "[!] $Text"; Write-Host -ForegroundColor Red $Message; Break}
-            Default { $Message = "[*] $Text"; Write-Host $Message; }
+    
+        If ($Log) {
+            Add-ProtocolEntry -Text $Message
+        }       
+    }
+
+    Function Add-ProtocolEntry {
+
+        <#
+        .SYNOPSIS
+
+            Output of an event with timestamp and different formatting
+            depending on the level. If the Log parameter is set, the
+            output is also stored in a file.
+        #>
+    
+        [CmdletBinding()]
+        Param (
+            
+            [String]
+            $Text
+        )     
+
+        Add-Content -Path $LogFile -Value $Text
+    }
+
+    Function Write-ResultEntry {
+
+        <#
+        .SYNOPSIS
+
+            Output of the assessment result with different formatting
+            depending on the severity level. If emoji support is enabled,
+            a suitable symbol is used for the severity rating.
+        #>
+    
+        [CmdletBinding()]
+        Param (
+            
+            [String]
+            $Text,
+
+            [String]
+            $SeverityLevel
+        )
+
+        If ($EmojiSupport) {
+
+            Switch ($SeverityLevel) {
+
+                "Passed" { $Emoji = [char]::ConvertFromUtf32(0x1F63A); $Message = "[$Emoji] $Text"; Write-Host -ForegroundColor Gray $Message; Break}
+                "Low"    { $Emoji = [char]::ConvertFromUtf32(0x1F63C); $Message = "[$Emoji] $Text"; Write-Host -ForegroundColor Cyan $Message; Break}        
+                "Medium" { $Emoji = [char]::ConvertFromUtf32(0x1F63F); $Message = "[$Emoji] $Text"; Write-Host -ForegroundColor Yellow $Message; Break}
+                "High"   { $Emoji = [char]::ConvertFromUtf32(0x1F640); $Message = "[$Emoji] $Text"; Write-Host -ForegroundColor Red $Message; Break}
+                Default  { $Message = "[*] $Text"; Write-Host $Message; }
+            }
+
+        } Else {
+
+            Switch ($SeverityLevel) {
+
+                "Passed" { $Message = "[+] $Text"; Write-Host -ForegroundColor Gray $Message; Break}
+                "Low"    { $Message = "[-] $Text"; Write-Host -ForegroundColor Cyan $Message; Break}        
+                "Medium" { $Message = "[$] $Text"; Write-Host -ForegroundColor Yellow $Message; Break}
+                "High"   { $Message = "[!] $Text"; Write-Host -ForegroundColor Red $Message; Break}
+                Default  { $Message = "[*] $Text"; Write-Host $Message; }
+            }
         }
     }
-}
 
-Function Add-ResultEntry($Text, $ReportFile) {
+    Function Add-ResultEntry {
 
-    Add-Content -Path $ReportFile -Value $Text
-}
+        <#
+        .SYNOPSIS
 
-Function Import-FindingList {
+            The result of the test is saved in a CSV file with the retrieved
+            value, the severity level and the recommended value.
+        #>
+    
+        [CmdletBinding()]
+        Param (
+            
+            [String]
+            $Text
+        )
 
-    $FindingList = Import-Csv -Path $FindingList -Delimiter ","
-    Return $FindingList
-}
+        Add-Content -Path $ReportFile -Value $Text
+    }
 
-Function Main {
+    #
+    # Start Main
+    #
 
     #
     # Log and report file
@@ -110,7 +242,7 @@ Function Main {
     }
     If ($Report) {
         $Message = '"ID","Name","Severity","Result","Recommended"'
-        Add-ResultEntry $Message $ReportFile
+        Add-ResultEntry -Text $Message
     }
 
     #
@@ -120,29 +252,30 @@ Function Main {
     Write-Output "      =^._.^="
     Write-Output "     _(      )/  HardeningKitty"
     Write-Output "`n"    
-    Write-ProtocolEntry "Starting HardeningKitty" "Info" $LogFile    
+    Write-ProtocolEntry -Text "Starting HardeningKitty" -LogLevel "Info"
 
     # 
-    # Tools
+    # Definition and check for tools
+    # If a tool is not available, the execution of the script is terminated
     #
     $BinaryAccesschk = "C:\tmp\accesschk64.exe"
     If (-Not (Test-Path $BinaryAccesschk)) {
-        Write-ProtocolEntry "Binary for accesschk not found" "Error" $Logfile
+        Write-ProtocolEntry -Text "Binary for accesschk not found" -LogLevel "Error"
         Exit
     }
     $BinaryAuditpol = "C:\Windows\System32\auditpol.exe"
     If (-Not (Test-Path $BinaryAuditpol)) {
-        Write-ProtocolEntry "Binary for auditpol not found" "Error" $Logfile  
+        Write-ProtocolEntry -Text "Binary for auditpol not found" -LogLevel "Error"
         Exit
     }
     $BinaryNet = "C:\Windows\System32\net.exe"
     If (-Not (Test-Path $BinaryNet)) {
-        Write-ProtocolEntry "Binary for net not found" "Error" $Logfile
+        Write-ProtocolEntry -Text "Binary for net not found" -LogLevel "Error"
         Exit
     }
     $BinaryBcdedit = "C:\Windows\System32\bcdedit.exe"
     If (-Not (Test-Path $BinaryBcdedit)) {
-        Write-ProtocolEntry "Binary for bcdedit not found" "Error" $Logfile
+        Write-ProtocolEntry -Text "Binary for bcdedit not found" -LogLevel "Error"
         Exit
     }    
 
@@ -150,45 +283,54 @@ Function Main {
     # Machine information
     #
     Write-Output "`n" 
-    Write-ProtocolEntry "Getting machine information" "Info" $Logfile
+    Write-ProtocolEntry -Text "Getting machine information" -LogLevel "Info"
     $MachineInformation = Get-ComputerInfo
 
     $Message = "Hostname: "+$MachineInformation.CsDNSHostName
-    Write-ProtocolEntry $Message "Notime" $LogFile
+    Write-ProtocolEntry -Text $Message -LogLevel "Notime"
     $Message = "Domain: "+$MachineInformation.CsDomain
-    Write-ProtocolEntry $Message "Notime" $LogFile
+    Write-ProtocolEntry -Text $Message -LogLevel "Notime"
     $Message = "Domain role: "+$MachineInformation.CsDomainRole
-    Write-ProtocolEntry $Message "Notime" $LogFile
+    Write-ProtocolEntry -Text $Message -LogLevel "Notime"
     $Message = "Uptime: "+$MachineInformation.OsUptime
-    Write-ProtocolEntry $Message "Notime" $LogFile
+    Write-ProtocolEntry -Text $Message -LogLevel "Notime"
     $Message = "Install date: "+$MachineInformation.OsInstallDate
-    Write-ProtocolEntry $Message "Notime" $LogFile
+    Write-ProtocolEntry -Text $Message -LogLevel "Notime"
     $Message = "Windows: "+$MachineInformation.WindowsProductName
-    Write-ProtocolEntry $Message "Notime" $LogFile
+    Write-ProtocolEntry -Text $Message -LogLevel "Notime"
     $Message = "Windows edition: "+$MachineInformation.WindowsEditionId
-    Write-ProtocolEntry $Message "Notime" $LogFile
+    Write-ProtocolEntry -Text $Message -LogLevel "Notime"
     $Message = "Windows version: "+$MachineInformation.WindowsVersion
-    Write-ProtocolEntry $Message "Notime" $LogFile
+    Write-ProtocolEntry -Text $Message -LogLevel "Notime"
     $Message = "Windows build: "+$MachineInformation.WindowsBuildLabEx
-    Write-ProtocolEntry $Message "Notime" $LogFile
+    Write-ProtocolEntry -Text $Message -LogLevel "Notime"
 
     #
-    # Machine information
+    # User information
     #
     Write-Output "`n" 
-    Write-ProtocolEntry "Getting user information" "Info" $Logfile
+    Write-ProtocolEntry -Text "Getting user information" -LogLevel "Info"
     
     $Message = "Username: "+[Security.Principal.WindowsIdentity]::GetCurrent().Name
-    Write-ProtocolEntry $Message "Notime" $LogFile
+    Write-ProtocolEntry -Text $Message -LogLevel "Notime"
     $Message = "Is Admin: "+([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
-    Write-ProtocolEntry $Message "Notime" $LogFile
+    Write-ProtocolEntry -Text $Message -LogLevel "Notime"
 
     #
     # Start Config/Audit mode
+    # The processing is done per category of the finding list.
+    # The finding list defines which module is used and the arguments and recommended values for the test.
     # 
     If ($Mode -eq "Audit" -or $Mode -eq "Config") {
 
-        $FindingList = Import-FindingList
+        # A CSV finding list is imported. HardeningKitty has one machine and one user list.
+        If ($FileFindingList.Length -eq 0) {
+
+            $CurrentLication = Get-Location
+            $FileFindingList = "$CurrentLication\lists\finding_list_0x6d69636b_machine.csv"
+        }
+
+        $FindingList = Import-Csv -Path $FileFindingList -Delimiter ","
         $LastCategory = ""
 
         ForEach ($Finding in $FindingList) {
@@ -201,15 +343,18 @@ Function Main {
             #
             # Category
             #
-            If($LastCategory -ne $Finding.Category) {              
+            If ($LastCategory -ne $Finding.Category) {
+                         
                 $Message = "Starting Category " + $Finding.Category
                 Write-Output "`n"                
-                Write-ProtocolEntry $Message "Info" $LogFile              
+                Write-ProtocolEntry -Text $Message -LogLevel "Info"
                 $LastCategory = $Finding.Category
             }
 
             #
             # Get Registry Item
+            # Registry entries can be read with a native PowerShell function. The retrieved value is evaluated later.
+            # If the registry entry is not available, a default value is used. This must be specified in the finding list.
             #
             If ($Finding.Method -eq 'Registry') {
 
@@ -227,6 +372,8 @@ Function Main {
 
             #
             # Get Registry List and search for item
+            # Depending on the registry structure, the value cannot be accessed directly, but must be found within a data structure
+            # If the registry entry is not available, a default value is used. This must be specified in the finding list.
             #
             If ($Finding.Method -eq 'RegistryList') {
 
@@ -234,6 +381,7 @@ Function Main {
                 
                     try {
                         $ResultList = Get-ItemProperty -Path $Finding.RegistryPath
+
                         If ($ResultList | Where-Object { $_ -like "*"+$Finding.RegistryItem+"*" }) {
                             $Result = $Finding.RegistryItem
                         } Else {
@@ -250,12 +398,15 @@ Function Main {
             
             #
             # Get Audit Policy
+            # The output of auditpol.exe is parsed and will be evaluated later.
+            # The desired value is not output directly, some output lines can be ignored
+            # and are therefore skipped. If the output changes, the parsing must be adjusted :(
             #
             Elseif ($Finding.Method -eq 'auditpol') {
-
-                $SubCategory = $Finding.Name                
+                                            
                 try {
-                    
+                
+                    $SubCategory = $Finding.Name    
                     $ResultOutput = &$BinaryAuditpol /get /subcategory:"$SubCategory"
                     
                     # "Parse" auditpol.exe output
@@ -269,6 +420,9 @@ Function Main {
 
             #
             # Get Account Policy
+            # The output of net.exe is parsed and will be evaluated later.
+            # It may be necessary to use the /domain parameter when calling net.exe.
+            # The values of the user executing the script are read out. These may not match the password policy.
             #
             Elseif ($Finding.Method -eq 'accountpolicy') {
                                            
@@ -279,13 +433,13 @@ Function Main {
                     # "Parse" account policy
                     Switch ($Finding.Name) {
                        "Force user logoff how long after time expires" { $ResultOutput[0] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
-                       "Minimum password age" { $ResultOutput[1] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
-                       "Maximum password age" { $ResultOutput[2] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
-                       "Minimum password length" { $ResultOutput[3] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
-                       "Length of password history maintained" { $ResultOutput[4] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
-                       "Account lockout threshold" { $ResultOutput[5] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
-                       "Account lockout duration" { $ResultOutput[6] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
-                       "Reset account lockout counter" { $ResultOutput[7] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
+                       "Minimum password age"                          { $ResultOutput[1] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
+                       "Maximum password age"                          { $ResultOutput[2] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
+                       "Minimum password length"                       { $ResultOutput[3] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
+                       "Length of password history maintained"         { $ResultOutput[4] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
+                       "Account lockout threshold"                     { $ResultOutput[5] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
+                       "Account lockout duration"                      { $ResultOutput[6] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
+                       "Reset account lockout counter"                 { $ResultOutput[7] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
                     }
 
                 } catch {
@@ -295,6 +449,11 @@ Function Main {
 
             #
             # User Rights Assignment
+            # Unfortunately there is no easy way to read out these results. Therefore the Sysinternals tool
+            # accesschk is used and its output is parsed. To simplify parsing, the output is reduced.
+            # If several users/groups have the appropriate rights, these are displayed per line. Therefore,
+            # a loop must be performed over the output and all users/groups are combined in one variable at the end.
+            # The values used are from the Microsoft documentation at:
             # https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/user-rights-assignment
             #
             Elseif ($Finding.Method -eq 'accesschk') {
@@ -307,9 +466,12 @@ Function Main {
                     ForEach($ResultEntry in $ResultOutput) {
 
                         If ($ResultEntry.Contains("No accounts granted")) {
+                            
                             $Result = ""
                             Break
-                        } else {
+
+                        } Else {
+
                             $ResultEntry -match '([a-z,A-Z,\\," "]+)' | Out-Null
                             [String] $Result += $Matches[0]+";"
                         }
@@ -323,6 +485,7 @@ Function Main {
 
             #
             # Windows Optional Feature
+            # Yay, a native PowerShell function! The status of the feature can easily be read out directly.
             #
             Elseif ($Finding.Method -eq 'WindowsOptionalFeature') {
 
@@ -338,6 +501,8 @@ Function Main {
 
             #
             # Get CimInstance and search for item
+            # Via a CIM instance classes can be read from the CIM server.
+            # Afterwards, you have to search for the correct property within the class.
             #
             If ($Finding.Method -eq 'CimInstance') {
                 
@@ -358,7 +523,9 @@ Function Main {
             }
 
             #
-            # BitLocker Drive Encryptionc
+            # BitLocker Drive Encryption
+            # The values are saved from a PowerShell function into an object.
+            # The desired arguments can be accessed directly.
             #
             Elseif ($Finding.Method -eq 'BitLockerVolume') {
 
@@ -375,6 +542,7 @@ Function Main {
 
             #
             # PowerShell Language Mode
+            # This is a single purpose function, the desired configuration is output directly.
             #
             Elseif ($Finding.Method -eq 'LanguageMode') {
 
@@ -390,6 +558,8 @@ Function Main {
 
             #
             # Windows Defender Preferences
+            # The values are saved from a PowerShell function into an object.
+            # The desired arguments can be accessed directly.
             #
             Elseif ($Finding.Method -eq 'MpPreference') {
 
@@ -406,6 +576,10 @@ Function Main {
 
             #
             # Exploit protection
+            # The values are saved from a PowerShell function into an object.
+            # The desired arguments can be accessed directly.
+            # Since the object has several dimensions and there is only one dimension
+            # in the finding list (lazy) a workaround with split must be done...
             #
             Elseif ($Finding.Method -eq 'Processmitigation') {
 
@@ -424,6 +598,7 @@ Function Main {
 
             #
             # bcdedit
+            # Again, the output of a tool must be searched and parsed. Ugly...
             #
             Elseif ($Finding.Method -eq 'bcdedit') {
 
@@ -431,8 +606,11 @@ Function Main {
                                     
                     $ResultOutput = &$BinaryBcdedit
                     $ResultOutput = $ResultOutput | Where-Object { $_ -like "*"+$Finding.RecommendedValue+"*" }
-                    If($ResultOutput -match ' ([a-z,A-Z]+)') {
+                    
+                    If ($ResultOutput -match ' ([a-z,A-Z]+)') {
                         $Result = $Matches[1]
+                    } Else {
+                        $Result = $Finding.DefaultValue
                     }
 
                 } catch {
@@ -440,70 +618,78 @@ Function Main {
                 }
             }
 
+            #
+            # Compare result value and recommendation
+            # The finding list specifies the test, as well as the recommended values.
+            # There are two output formats, one for command line output and one for the CSV file.
+            #
             If ($Mode -eq "Audit") {
-            
-                #
-                # Compare result value and recommendation
-                #
+ 
                 $ResultPassed = $false
                 Switch($Finding.Operator) {
-                    "=" { If ($Result -eq $Finding.RecommendedValue) { $ResultPassed = $true }; Break}
+
+                    "="  { If ($Result -eq $Finding.RecommendedValue) { $ResultPassed = $true }; Break}
                     "<=" { If ([int]$Result -le [int]$Finding.RecommendedValue) { $ResultPassed = $true }; Break}
                     ">=" { If ([int]$Result -ge [int]$Finding.RecommendedValue) { $ResultPassed = $true }; Break}
                 }
 
                 If ($ResultPassed) {
+
                     # Passed
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Result=$Result, Severity=Passed"
-                    Write-ResultEntry $Message "Passed"
+                    Write-ResultEntry -Text $Message -SeverityLevel "Passed"
 
-                    If($Log) {
-                        Add-ProtocolEntry $Message $LogFile
+                    If ($Log) {
+                        Add-ProtocolEntry -Text $Message
                     }
                     
-                    If($Report) {
+                    If ($Report) {
                         $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","Passed","'+$Result+'"'
-                        Add-ResultEntry $Message $ReportFile
+                        Add-ResultEntry -Text $Message
                     }
 
                 } Else {
+
                     # Failed
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Result=$Result, Recommended="+$Finding.RecommendedValue+", Severity="+$Finding.Severity
-                    Write-ResultEntry $Message $Finding.Severity
+                    Write-ResultEntry -Text $Message -SeverityLevel $Finding.Severity
 
-                    If($Log) {
-                        Add-ProtocolEntry $Message $LogFile
+                    If ($Log) {
+                        Add-ProtocolEntry -Text $Message
                     }
 
-                    If($Report) {
+                    If ($Report) {
                         $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$Finding.Severity+'","'+$Result+'","'+$Finding.RecommendedValue+'"'
-                        Add-ResultEntry $Message $ReportFile
+                        Add-ResultEntry -Text $Message
                     }
                 }
+
+            #
+            # Only return received value
+            #
             } Elseif ($Mode -eq "Config") {
 
                 $Message = "ID "+$Finding.ID+"; "+$Finding.Name+"; Result=$Result"
-                Write-ResultEntry $Message ""
+                Write-ResultEntry -Text $Message
 
-                If($Log) {
-                    Add-ProtocolEntry $Message $LogFile
+                If ($Log) {
+                    Add-ProtocolEntry -Text $Message
                 }
-                If($Report) {
+                If ($Report) {
                     $Message = '"'+$Finding.ID+'","'+$Finding.Name+'",,"'+$Result+'",'
-                    Add-ResultEntry $Message $ReportFile
+                    Add-ResultEntry -Text $Message
                 }
             }
         }
 
     } Elseif ($Mode = "HailMary") {
 
+        # Todo
         # Set all hardening settings in findings file
         # You can do that as long as you know you're doing
     }
     
     Write-Output "`n"
-    Write-ProtocolEntry "HardeningKitty is done" "Info" $LogFile
+    Write-ProtocolEntry -Text "HardeningKitty is done" -LogLevel "Info"
     Write-Output "`n"
 }
-
-Main
