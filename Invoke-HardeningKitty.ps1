@@ -327,6 +327,20 @@ Function Main {
                 }
             }
 
+            #
+            # PowerShell Language Mode
+            #
+            Elseif ($Finding.Method -eq 'LanguageMode') {
+
+                try {
+                                    
+                    $ResultOutput = $ExecutionContext.SessionState.LanguageMode                    
+                    $Result = $ResultOutput
+
+                } catch {
+                    $Result = $Finding.DefaultValue
+                }
+            }
 
             If ($Mode -eq "Audit") {
             
