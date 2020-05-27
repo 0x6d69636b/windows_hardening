@@ -101,6 +101,12 @@ Function Main {
         Write-ProtocolEntry "Binary for net not found" "Error"
         Exit
     }
+    $BinaryBcdedit = "C:\Windows\System32\bcdedit.exe"
+    If (-Not (Test-Path $BinaryBcdedit)) {
+        Write-ProtocolEntry "Binary for bcdedit not found" "Error"
+        Exit
+    }
+    
 
     #
     # Machine information
@@ -255,7 +261,8 @@ Function Main {
             #
             Elseif ($Finding.Method -eq 'accesschk') {
                                            
-                try {                    
+                try { 
+                                   
                     $ResultOutput = &$BinaryAccesschk -accepteula -nobanner -a $Finding.MethodArgument
 
                     # "Parse" accesschk.exe output
@@ -297,6 +304,7 @@ Function Main {
             If ($Finding.Method -eq 'CimInstance') {
                 
                 try {
+
                     $ResultList = Get-CimInstance -ClassName $Finding.ClassName -Namespace $Finding.Namespace
                     $Property = $Finding.Property
                                          
@@ -352,6 +360,42 @@ Function Main {
                     $ResultOutput = Get-MpPreference
                     $ResultArgument = $Finding.MethodArgument 
                     $Result = $ResultOutput.$ResultArgument
+
+                } catch {
+                    $Result = $Finding.DefaultValue
+                }
+            }
+
+            #
+            # Exploit protection
+            #
+            Elseif ($Finding.Method -eq 'Processmitigation') {
+
+                try {  
+                                                  
+                    $ResultOutput = Get-Processmitigation -System
+                    $ResultArgumentArray = $Finding.MethodArgument.Split(".")
+                    $ResultArgument0 = $ResultArgumentArray[0]
+                    $ResultArgument1 = $ResultArgumentArray[1]
+                    $Result = $ResultOutput.$ResultArgument0.$ResultArgument1
+
+                } catch {
+                    $Result = $Finding.DefaultValue
+                }
+            }
+
+            #
+            # bcdedit
+            #
+            Elseif ($Finding.Method -eq 'bcdedit') {
+
+                try {
+                                    
+                    $ResultOutput = &$BinaryBcdedit
+                    $ResultOutput = $ResultOutput | Where-Object { $_ -like "*"+$Finding.RecommendedValue+"*" }
+                    If($ResultOutput -match ' ([a-z,A-Z]+)') {
+                        $Result = $Matches[1]
+                    }
 
                 } catch {
                     $Result = $Finding.DefaultValue
