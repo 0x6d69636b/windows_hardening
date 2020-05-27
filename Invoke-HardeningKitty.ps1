@@ -342,6 +342,22 @@ Function Main {
                 }
             }
 
+            #
+            # Windows Defender Preferences
+            #
+            Elseif ($Finding.Method -eq 'MpPreference') {
+
+                try {
+                                    
+                    $ResultOutput = Get-MpPreference
+                    $ResultArgument = $Finding.MethodArgument 
+                    $Result = $ResultOutput.$ResultArgument
+
+                } catch {
+                    $Result = $Finding.DefaultValue
+                }
+            }
+
             If ($Mode -eq "Audit") {
             
                 #
