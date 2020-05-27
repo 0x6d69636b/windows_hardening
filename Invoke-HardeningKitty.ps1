@@ -13,7 +13,7 @@ Param (
   
     [ValidateScript({Test-Path $_})]
     [String]
-    $FindingListFile = "finding_list_0x6d69636b.csv",
+    $FindingListFile = "finding_list_0x6d69636b_machine.csv",
 
     [ValidateSet("Audit","Config","HailMary")]
     [String]

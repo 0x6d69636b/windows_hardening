@@ -216,4 +216,3 @@
 1904;"PowerShell";"Disable PowerShell version 2 (root)";"WindowsOptionalFeature";"MicrosoftWindowsPowerShellV2Root";;;;;;"Enabled";"Disabled";"=";"Medium"
 3023;"LSA";"LSASS Protection Mode";"Registry";;"HKLM:\SYSTEM\CurrentControlSet\Control\Lsa";"RunAsPPL";;;;;1;"=";"Medium"
 3024;"LSA";"LSASS Audit Mode";"Registry";;"HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\LSASS.exe";"AuditLevel";;;;;8;"=";"Low"
-4000;"User settings";"Turn off notifications network usage";"Registry";;"HKCU:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion";"NoCloudApplicationNotification";;;;0;1;"=";"Medium"
