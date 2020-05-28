@@ -8,7 +8,7 @@
 4300,"PowerShell","Turn on PowerShell Script Block Logging","Registry",,"HKCU:\Software\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging","EnableScriptBlockLogging",,,,0,1,"=","Medium"
 4301,"PowerShell","Turn on PowerShell Script Block Logging (Invocation)","Registry",,"HKCU:\Software\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging","EnableScriptBlockInvocationLogging",,,,0,1,"=","Low"
 4302,"PowerShell","Turn on PowerShell Transcription","Registry",,"HKCU:\Software\Policies\Microsoft\Windows\PowerShell\Transcription","EnableTranscripting",,,,0,1,"=","Low"
-4303,"PowerShell","Turn on PowerShell Transcription","LanguageMode",,,,,,,"FullLanguage","ConstrainedLanguage","=","Medium"
+4303,"PowerShell","PowerShell Language Mode","LanguageMode",,,,,,,"FullLanguage","ConstrainedLanguage","=","Medium"
 4400,"Office 2016","Security Settings: Macro Runtime Scan Scope","Registry",,"HKCU:\software\policies\microsoft\office\16.0\common\security","macroruntimescanscope",,,,0,2,"=","Medium"
 4401,"Office 2016","Excel: Always prevent untrusted Microsoft Query files from opening","Registry",,"HKCU:\software\policies\microsoft\office\16.0\excel\security\external content","enableblockunsecurequeryfiles",,,,0,1,"=","Medium"
 4402,"Office 2016","Excel: Don't update links","Registry",,"HKCU:\Software\Microsoft\Office\16.0\Excel\Options","DontUpdateLinks",,,,0,1,"=","Medium"
