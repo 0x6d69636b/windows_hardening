@@ -18,7 +18,14 @@ _HardeningKitty_ supports hardening of a Windows system. The configuration of th
 
 **Attention**: HardeningKitty has a dependency for the tool AccessChk by Mark Russinovich. This must be present on the computer and defined in the script accordingly.
 
+The script was developed for English systems. It is possible that in other languages the analysis is incorrect. Please create an issue if this occurs.
+
+### How to run
+
+Download _HardeningKitty_ and copy it to the target system (script and lists). Additionally, [AccessChk](https://docs.microsoft.com/en-us/sysinternals/downloads/accesschk) (tested with version 1.6.2) must be available on the target system. The path of the variable _$BinaryAccesschk_ must be modified accordingly. After that HardeningKitty can be imported and executed:
+
 ```powershell
+PS C:\> Import-Module Invoke-HardeningKitty.ps1
 PS C:\> Invoke-HardeningKitty -EmojiSupport
 
 
