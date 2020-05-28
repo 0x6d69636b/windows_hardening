@@ -16,6 +16,8 @@ Policy Analyzer supports the Hardening checklist up to version 0.2.0, additional
 
 _HardeningKitty_ supports hardening of a Windows system. The configuration of the system is retrieved and assessed using a finding list. In addition, the system can be hardened according to predefined values. _HardeningKitty_ reads settings from the registry and uses other modules to read configurations outside the registry.
 
+**Attention**: HardeningKitty has a dependency for the tool AccessChk by Mark Russinovich. This must be present on the computer and defined in the script accordingly.
+
 ```powershell
 PS C:\> Invoke-HardeningKitty -EmojiSupport
 
