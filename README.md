@@ -12,14 +12,61 @@ _Policy Analzyer_ reads out and compares local registry and local policy values 
 
 Policy Analyzer supports the Hardening checklist up to version 0.2.0, additional entries are not yet supported. 
 
+## HardeningKitty
+
+_HardeningKitty_ supports hardening of a Windows system. The configuration of the system is retrieved and assessed using a finding list. In addition, the system can be hardened according to predefined values. _HardeningKitty_ reads settings from the registry and uses other modules to read configurations outside the registry.
+
+```powershell
+PS C:\> Invoke-HardeningKitty -EmojiSupport
+
+
+         =^._.^="
+        _(      )/  HardeningKitty
+
+
+[*] 5/28/2020 4:39:16 PM - Starting HardeningKitty
+
+
+[*] 5/28/2020 4:39:16 PM - Getting machine information
+[*] Hostname: w10
+[*] Domain: WORKGROUP
+
+...
+
+[*] 5/28/2020 4:39:21 PM - Starting Category Account Policies
+[:smiley_cat:] ID 1100, Account lockout duration, Result=30, Severity=Passed
+[:smiley_cat:] ID 1101, Account lockout threshold, Result=5, Severity=Passed
+[:smiley_cat:] ID 1102, Reset account lockout counter, Result=30, Severity=Passed
+
+...
+
+[*] 5/28/2020 4:39:23 PM - Starting Category Advanced Audit Policy Configuration
+[:smirk_cat:] ID 1513, Kernel Object, Result=, Recommended=Success and Failure, Severity=Low
+
+...
+
+[*] 5/28/2020 4:39:24 PM - Starting Category System
+[:crying_cat_face:] ID 1614, Device Guard: Virtualization Based Security Status, Result=Not available, Recommended=2, Severity=Medium
+
+...
+
+[*] 5/28/2020 4:39:25 PM - Starting Category Windows Components
+[:scream_cat:] ID 1708, BitLocker Drive Encryption: Volume status, Result=FullyDecrypted, Recommended=FullyEncrypted, Severity=High
+
+...
+
+[*] 5/28/2020 4:39:34 PM - HardeningKitty is done
+```
+
 ## Last Update
 
 Based on Windows 10 Pro 1909
 
 ## Sources
 
-* [CIS Microsoft Windows 10 Enterprise (Release 1803) Benchmark v1.5.0](https://benchmarks.cisecurity.org/tools2/windows/)
-* [Security baseline (FINAL) for Windows 10 v1903 and Windows Server v1903](https://blogs.technet.microsoft.com/secguide/2019/05/23/security-baseline-final-for-windows-10-v1903-and-windows-server-v1903/)
+* [CIS Benchmarks for Microsoft Windows 10 Enterprise Release 1909 v1.8.1](https://www.cisecurity.org/cis-benchmarks/)
+* [Security baseline (FINAL) for Windows 10 v1909 and Windows Server v1909](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-final-for-windows-10-v1909-and-windows-server/ba-p/1023093)
+* [Security baseline (DRAFT): Windows 10 and Windows Server, version 2004](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-draft-windows-10-and-windows-server-version/ba-p/1419213)
 * [Kernel DMA Protection for Thunderbolt 3](https://docs.microsoft.com/en-us/windows/security/information-protection/kernel-dma-protection-for-thunderbolt)
 * [BitLocker Countermeasures](https://docs.microsoft.com/en-us/windows/security/information-protection/bitlocker/bitlocker-countermeasures)
 * [Blocking the SBP-2 driver and Thunderbolt controllers to reduce 1394 DMA and Thunderbolt DMA threats to BitLocker](https://support.microsoft.com/en-us/help/2516445/blocking-the-sbp-2-driver-and-thunderbolt-controllers-to-reduce-1394-d)
@@ -33,3 +80,5 @@ Based on Windows 10 Pro 1909
 * [Dane Stuckey - @cryps1s Endpoint Isolation with the Windows Firewall](https://medium.com/@cryps1s/endpoint-isolation-with-the-windows-firewall-462a795f4cfb)
 * [Microsoft Security Compliance Toolkit 1.0](https://www.microsoft.com/en-us/download/details.aspx?id=55319)
 * [Policy Analyzer](https://blogs.technet.microsoft.com/secguide/2016/01/22/new-tool-policy-analyzer/)
+* [Security baseline for Office 365 ProPlus (v1908, Sept 2019) - FINAL](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-for-office-365-proplus-v1908-sept-2019-final/ba-p/873084)
+* [mackwage/windows_hardening.cmd](https://gist.github.com/mackwage/08604751462126599d7e52f233490efe)
