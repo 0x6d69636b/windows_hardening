@@ -34,24 +34,24 @@ PS C:\> Invoke-HardeningKitty -EmojiSupport
 ...
 
 [*] 5/28/2020 4:39:21 PM - Starting Category Account Policies
-[:smiley_cat:] ID 1100, Account lockout duration, Result=30, Severity=Passed
-[:smiley_cat:] ID 1101, Account lockout threshold, Result=5, Severity=Passed
-[:smiley_cat:] ID 1102, Reset account lockout counter, Result=30, Severity=Passed
+[😺]] ID 1100, Account lockout duration, Result=30, Severity=Passed
+[😺]] ID 1101, Account lockout threshold, Result=5, Severity=Passed
+[😺]] ID 1102, Reset account lockout counter, Result=30, Severity=Passed
 
 ...
 
 [*] 5/28/2020 4:39:23 PM - Starting Category Advanced Audit Policy Configuration
-[:smirk_cat:] ID 1513, Kernel Object, Result=, Recommended=Success and Failure, Severity=Low
+[😼] ID 1513, Kernel Object, Result=, Recommended=Success and Failure, Severity=Low
 
 ...
 
 [*] 5/28/2020 4:39:24 PM - Starting Category System
-[:crying_cat_face:] ID 1614, Device Guard: Virtualization Based Security Status, Result=Not available, Recommended=2, Severity=Medium
+[😿] ID 1614, Device Guard: Virtualization Based Security Status, Result=Not available, Recommended=2, Severity=Medium
 
 ...
 
 [*] 5/28/2020 4:39:25 PM - Starting Category Windows Components
-[:scream_cat:] ID 1708, BitLocker Drive Encryption: Volume status, Result=FullyDecrypted, Recommended=FullyEncrypted, Severity=High
+[🙀] ID 1708, BitLocker Drive Encryption: Volume status, Result=FullyDecrypted, Recommended=FullyEncrypted, Severity=High
 
 ...
 
