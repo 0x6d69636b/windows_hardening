@@ -34,9 +34,9 @@ PS C:\> Invoke-HardeningKitty -EmojiSupport
 ...
 
 [*] 5/28/2020 4:39:21 PM - Starting Category Account Policies
-[😺]] ID 1100, Account lockout duration, Result=30, Severity=Passed
-[😺]] ID 1101, Account lockout threshold, Result=5, Severity=Passed
-[😺]] ID 1102, Reset account lockout counter, Result=30, Severity=Passed
+[😺] ID 1100, Account lockout duration, Result=30, Severity=Passed
+[😺] ID 1101, Account lockout threshold, Result=5, Severity=Passed
+[😺] ID 1102, Reset account lockout counter, Result=30, Severity=Passed
 
 ...
 
