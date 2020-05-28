@@ -1,21 +1,23 @@
 # Windows 10 Hardening
 
+The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d69636b_machine.csv](https://github.com/0x6d69636b/windows_hardening/blob/master/lists/finding_list_0x6d69636b_machine.csv) and [finding_list_0x6d69636b_user.csv](https://github.com/0x6d69636b/windows_hardening/blob/master/lists/finding_list_0x6d69636b_user.csv).
+
 ## Basic Hardening
 
 * Use a separate local admin account
-* Use BitLocker with Enhanced PIN
+* ID 1708: Use BitLocker with Enhanced PIN
 * Enable Windows Defender
-* Disable SMBv1
+* ID 1000: Disable SMBv1
 	* Check Status: `Get-WindowsOptionalFeature -Online -FeatureName smb1protocol`
 	* Disable: `Disable-WindowsOptionalFeature -Online -FeatureName smb1protocol`
 
-## Local Computer Policy - Computer Configuration 
+## Machine Configuration 
 
 ### Windows Settings\Security Settings\Account Policies
 
-* Set _Account Lockout Policy\Account lockout duration_ to **15 or more minute(s)**
-* Set _Account Lockout Policy\Account lockout threshold_ to **10 or fewer invalid logon attempt(s), but not 0**
-* Set _Account Lockout Policy\Reset account lockout counter after_ to **15 or more minute(s)**
+* ID 1100: Set _Account Lockout Policy\Account lockout duration_ to **15 or more minute(s)**
+* ID 1101: Set _Account Lockout Policy\Account lockout threshold_ to **10 or fewer invalid logon attempt(s), but not 0**
+* ID 1102: Set _Account Lockout Policy\Reset account lockout counter after_ to **15 or more minute(s)**
 
 ### Windows Settings\Security Settings\Local Policies
 
@@ -25,485 +27,534 @@
 
 #### User Rights Assignment
 
-* Set _Access this computer from the network_ to **Administrators**
-* Set _Allow log on locally_ to **Administrators, Users**
-* Remove **Administrators** from _Debug programs_ (SeDebugPrivilege)
-* Set _Deny access to this computer from the network_ to include **Guests, Local account**
-* Set _Deny log on as a batch job_ to include **Guests**
-* Set _Deny log on as a service_ to include **Guests**
-* Set _Deny log on through Remote Desktop Services_ to include **Guests, Local account**
+* ID 1200: Set _Access this computer from the network_ to **Administrators**
+* ID 1201: Set _Allow log on locally_ to **Administrators, Users**
+* ID 1202: Remove **Administrators** from _Debug programs_ (SeDebugPrivilege)
+* ID 1203: Set _Deny access to this computer from the network_ to include **Guests, Local account**
+* ID 1204: Set _Deny log on as a batch job_ to include **Guests**
+* ID 1205: Set _Deny log on as a service_ to include **Guests**
+* ID 1206: Set _Deny log on through Remote Desktop Services_ to include **Guests, Local account**
 
 #### Security Options
 
 ##### Accounts
 
-* Set _Accounts: Block Microsoft accounts_ to **Users can't add or log on with Microsoft accounts**
+* ID 1300: Set _Accounts: Block Microsoft accounts_ to **Users can't add or log on with Microsoft accounts**
 
 ##### Audit
 
-* Set _Audit: Force audit policy subcategory settings (Windows Vista or later) to override audit policy category settings_ to **Enabled**
+* ID 1301: Set _Audit: Force audit policy subcategory settings (Windows Vista or later) to override audit policy category settings_ to **Enabled**
 
 ##### Interactive Logon
 
-* Set _Interactive logon: Do not require CTRL+ALT+DEL_ to **Disabled**
-* Set _Interactive logon: Don't display last signed-in_ to **Enabled**
-* Set _Interactive logon: Don't display username at sign-in_ to **Enabled**
+* ID 1302: Set _Interactive logon: Do not require CTRL+ALT+DEL_ to **Disabled**
+* ID 1303: Set _Interactive logon: Don't display last signed-in_ to **Enabled**
+* ID 1304: Set _Interactive logon: Don't display username at sign-in_ to **Enabled**
 
 ##### Microsoft Network Client/Server
 
-* Set _Microsoft network client: Digitally sign communications (always)_ to **Enabled**
-* Set _Microsoft network client: Digitally sign communications (if server agrees)_ to **Enabled**
-* Set _Microsoft network server: Digitally sign communications (always)_ to **Enabled**
-* Set _Microsoft network server: Digitally sign communications (if client agrees)_ to **Enabled**
+* ID 1305: Set _Microsoft network client: Digitally sign communications (always)_ to **Enabled**
+* ID 1306: Set _Microsoft network client: Digitally sign communications (if server agrees)_ to **Enabled**
+* ID 1307: Set _Microsoft network server: Digitally sign communications (always)_ to **Enabled**
+* ID 1308: Set _Microsoft network server: Digitally sign communications (if client agrees)_ to **Enabled**
 
 ##### Network Access
 
-* Set _Network access: Do not allow anonymous enumeration of SAM accounts_ to **Enabled**
-* Set _Network access: Do not allow anonymous enumeration of SAM accounts and shares_ to **Enabled**
-* Set _Network access: Do not allow storage of passwords and credentials for network authentication_ to **Enabled**
+* ID 1309: Set _Network access: Do not allow anonymous enumeration of SAM accounts_ to **Enabled**
+* ID 1310: Set _Network access: Do not allow anonymous enumeration of SAM accounts and shares_ to **Enabled**
+* ID 1311: Set _Network access: Do not allow storage of passwords and credentials for network authentication_ to **Enabled**
 
 ##### Network Security
 
-* Set _Network security: Allow LocalSystem NULL session fallback_ to **Disabled**
-* Set _Network security: LAN Manager authentication level_ to **Send NTLMv2 response only. Refuse LM & NTLM**
-* Set _Network security: LDAP client signing requirements_ to **Negotiate signing**
-* Set _Network security: Minimum session security for NTLM SSP based (including secure RPC) clients_ to **Require NTLMv2 session security, Require 128-bit encryption**
-* Set _Network security: Minimum session security for NTLM SSP based (including secure RPC) servers_ to **Require NTLMv2 session security, Require 128-bit encryption**
-* Set _Network security: Restrict NTLM: Audit Incoming NTLM Traffic_ to **Enable auditing for all accounts**
-* Set _Network security: Restrict NTLM: Audit NTLM authentication in this domain_ to **Enable all**
-* Set _Network security: Restrict NTLM: Outgoing NTLM traffic to remote servers_ to **Audit all**
+* ID 1312: Set _Network security: Allow LocalSystem NULL session fallback_ to **Disabled**
+* ID 1313: Set _Network security: LAN Manager authentication level_ to **Send NTLMv2 response only. Refuse LM & NTLM**
+* ID 1314: Set _Network security: LDAP client signing requirements_ to **Negotiate signing**
+* ID 1315: Set _Network security: Minimum session security for NTLM SSP based (including secure RPC) clients_ to **Require NTLMv2 session security, Require 128-bit encryption**
+* ID 1316: Set _Network security: Minimum session security for NTLM SSP based (including secure RPC) servers_ to **Require NTLMv2 session security, Require 128-bit encryption**
+* ID 1317: Set _Network security: Restrict NTLM: Audit Incoming NTLM Traffic_ to **Enable auditing for all accounts**
+* ID 1318: Set _Network security: Restrict NTLM: Audit NTLM authentication in this domain_ to **Enable all**
+* ID 1319: Set _Network security: Restrict NTLM: Outgoing NTLM traffic to remote servers_ to **Audit all**
 
 ##### Shutdown
 
-* Set _Shutdown: Allow system to be shut down without having to log on_ to **Disabled**
+* ID 1320: Set _Shutdown: Allow system to be shut down without having to log on_ to **Disabled**
 
 ##### User Account Control
 
-* Set _User Account Control: Admin Approval Mode for the Built-in Administrator account_ to **Enabled**
-* Set _User Account Control: Behavior of the elevation prompt for administrators in Admin Approval Mode_ to **Prompt for consent on the secure desktop**
-* Set _User Account Control: Behavior of the elevation prompt for standard users_ to **Prompt for credentials on the secure desktop**
+* ID 1321: Set _User Account Control: Admin Approval Mode for the Built-in Administrator account_ to **Enabled**
+* ID 1322: Set _User Account Control: Behavior of the elevation prompt for administrators in Admin Approval Mode_ to **Prompt for consent on the secure desktop**
+* ID 1323: Set _User Account Control: Behavior of the elevation prompt for standard users_ to **Prompt for credentials on the secure desktop**
 
 ### Windows Settings\Security Settings\Windows Firewall With Advanced Security
 
-* _Firewall State_: **On**
-* _Inbound Connections_: **Block**
-* _Outbound Connections_: **Allow**
-* _Size limit_: **16384**
-* _Log dropped packets_: **Yes**
-* _Log successful connections_: **Yes**
+#### Domain Profile
+
+* ID 1400: _Firewall State_: **On**
+* ID 1401: _Inbound Connections_: **Block**
+* ID 1402: _Outbound Connections_: **Allow**
+* ID 1403: _Size limit_: **16384**
+* ID 1404: _Log dropped packets_: **Yes**
+* ID 1405: _Log successful connections_: **Yes**
+
+#### Private Profile
+
+* ID 1406: _Firewall State_: **On**
+* ID 1407: _Inbound Connections_: **Block**
+* ID 1408: _Outbound Connections_: **Allow**
+* ID 1409: _Size limit_: **16384**
+* ID 1410: _Log dropped packets_: **Yes**
+* ID 1411: _Log successful connections_: **Yes**
+
+#### Public Profile
+
+* ID 1412: _Firewall State_: **On**
+* ID 1413: _Inbound Connections_: **Block**
+* ID 1414: _Outbound Connections_: **Allow**
+* ID 1415: _Size limit_: **16384**
+* ID 1416: _Log dropped packets_: **Yes**
+* ID 1417: _Log successful connections_: **Yes**
 
 ### Windows Settings\Security Settings\Advanced Audit Policy Configuration
 
-* _Account Logon\Audit Credential Validation_: **Success and Failure**
-* _Account Management\Audit Security Group Management_: **Success**
-* _Account Management\Audit User Account Management_: **Success and Failure**
-* _Detailed Tracking\Audit DPAPI Activity_: **Success and Failure**
-* _Detailed Tracking\Audit PNP Activity_: **Success**
-* _Detailed Tracking\Audit Process Creation_: **Success**
-* _Logon/Logoff\Audit Account Lockout_: **Failure**
-* _Logon/Logoff\Audit Group Membership_: **Success**
-* _Logon/Logoff\Audit Logon_: **Success and Failure**
-* _Logon/Logoff\Audit Other Logon/Logoff Events_: **Success and Failure**
-* _Logon/Logoff\Audit Special Logon_: **Success**
-* _Object Access\Audit Detailed File Share_: **Failure**
-* _Object Access\Audit File Share_: **Success and Failure**
-* _Object Access\Kernel Object_: **Success and Failure**
-* _Object Access\Audit Other Object Access Events_: **Success and Failure**
-* _Object Access\Audit Removable Storage_: **Success and Failure**
-* _Object Access\Audit SAM_: **Success and Failure**
-* _Policy Change\Audit Audit Policy Change_: **Success**
-* _Policy Change\Audit Authentication Policy Change_: **Success**
-* _Policy Change\Audit MPSSVC Rule-Level Policy Change_: **Success and Failure**
-* _Policy Change\Audit Other Policy Change Events_: **Failure**
-* _Privilege Use\Audit Sensitive Privilege Use_: **Success and Failure**
-* _System\Audit Other System Events_: **Success and Failure**
-* _System\Audit Security State Change_: **Success**
-* _System\Audit Security System Extension_: **Success**
-* _System\Audit System Integrity_: **Success and Failure**
+* ID 1500: _Account Logon\Audit Credential Validation_: **Success and Failure**
+* ID 1501: _Account Management\Audit Security Group Management_: **Success**
+* ID 1502: _Account Management\Audit User Account Management_: **Success and Failure**
+* ID 1503: _Detailed Tracking\Audit DPAPI Activity_: **Success and Failure**
+* ID 1504: _Detailed Tracking\Audit PNP Activity_: **Success**
+* ID 1505: _Detailed Tracking\Audit Process Creation_: **Success**
+* ID 1506: _Logon/Logoff\Audit Account Lockout_: **Failure**
+* ID 1507: _Logon/Logoff\Audit Group Membership_: **Success**
+* ID 1508: _Logon/Logoff\Audit Logon_: **Success and Failure**
+* ID 1509: _Logon/Logoff\Audit Other Logon/Logoff Events_: **Success and Failure**
+* ID 1510: _Logon/Logoff\Audit Special Logon_: **Success**
+* ID 1511: _Object Access\Audit Detailed File Share_: **Failure**
+* ID 1512: _Object Access\Audit File Share_: **Success and Failure**
+* ID 1513: _Object Access\Kernel Object_: **Success and Failure**
+* ID 1514: _Object Access\Audit Other Object Access Events_: **Success and Failure**
+* ID 1515: _Object Access\Audit Removable Storage_: **Success and Failure**
+* ID 1516: _Object Access\Audit SAM_: **Success and Failure**
+* ID 1517: _Policy Change\Audit Audit Policy Change_: **Success**
+* ID 1518: _Policy Change\Audit Authentication Policy Change_: **Success**
+* ID 1519: _Policy Change\Audit MPSSVC Rule-Level Policy Change_: **Success and Failure**
+* ID 1520: _Policy Change\Audit Other Policy Change Events_: **Failure**
+* ID 1521: _Privilege Use\Audit Sensitive Privilege Use_: **Success and Failure**
+* ID 1522: _System\Audit Other System Events_: **Success and Failure**
+* ID 1523: _System\Audit Security State Change_: **Success**
+* ID 1524: _System\Audit Security System Extension_: **Success**
+* ID 1525: _System\Audit System Integrity_: **Success and Failure**
 
 ### Administrative Templates\Control Panel
 
 #### Personalization
 
-* Set _Prevent enabling lock screen camera_ to **Enabled**
+* ID 1600: Set _Prevent enabling lock screen camera_ to **Enabled**
 
 ### Administrative Templates\Network
 
 #### DNS Client
 
-* Set _DNS Client\Turn off multicast name resolution_ (LLMNR) to **Enabled**
+* ID 1601: Set _DNS Client\Turn off multicast name resolution_ (LLMNR) to **Enabled**
 
 #### Lanman Workstation
 
-* Set _Lanman Workstation\Enable insecure guest logons_ to **Disabled**
+* ID 1602: Set _Lanman Workstation\Enable insecure guest logons_ to **Disabled**
 
 #### Microsoft Peer-to-Peer Networking Services
 
-* Set _Turn off Microsoft Peer-to-Peer Networking Services_ to **Enabled**
+* ID 1603: Set _Turn off Microsoft Peer-to-Peer Networking Services_ to **Enabled**
 
 #### WLAN Service
 
-* Set _WLAN Service\WLAN Settings\Allow Windows to automatically connect to suggested open hotspots, to networks shared by contacts, and to hotspots offering paid services_ to **Disabled**
-
-### Administrative Templates\Start Menu and Taskbar
-
-#### Notifications
-
-* Set _Turn off notifications network usage_ to **Enabled**
+* ID 1604: Set _WLAN Service\WLAN Settings\Allow Windows to automatically connect to suggested open hotspots, to networks shared by contacts, and to hotspots offering paid services_ to **Disabled**
 
 ### Administrative Templates\System
 
 #### Credentials Delegation
 
-* Set _Credentials Delegation\Allow delegating default credentials_ to **Disabled** (tspkg)
-* Set _Credentials Delegation\Encryption Oracle Remediation_ to **Enabled: Force Updated Clients**
+* ID 1605: Set _Credentials Delegation\Allow delegating default credentials_ to **Disabled** (tspkg)
+* ID 1606: Set _Credentials Delegation\Encryption Oracle Remediation_ to **Enabled: Force Updated Clients**
 
 #### Device Installation
 
-* Set _Device Installation Restrictions\Prevent installation of devices that match any of these device IDs_ to **Enabled**
-	* Set _Also apply to matching devices that are already installed_ to **True**
-	* Device ID = **PCI\CC_0C0010** (Plug and Play compatible ID for a 1394 controller)
-	* Device ID = **PCI\CC_0C0A** (Plug and Play compatible ID for a Thunderbolt controller)
+* ID 1607: Set _Device Installation Restrictions\Prevent installation of devices that match any of these device IDs_ to **Enabled**
+	* ID 1608: Set _Also apply to matching devices that are already installed_ to **True**
+	* ID 1609: Device ID = **PCI\CC_0C0010** (Plug and Play compatible ID for a 1394 controller)
+	* ID 1610: Device ID = **PCI\CC_0C0A** (Plug and Play compatible ID for a Thunderbolt controller)
 	**Note**: Not required if Kernel DMA protection is active (check with `msinfo32.exe`)
-* Set _Device Installation Restrictions\Prevent installation of devices using drivers that match these device setup classes_ to **Enabled**
-	* Set _Also apply to matching devices that are already installed_ to **True**
-	* GUID = **{d48179be-ec20-11d1-b6b8-00c04fa372a7}** (Plug and Play device setup class GUID for an SBP-2 drive)
+* ID 1611: Set _Device Installation Restrictions\Prevent installation of devices using drivers that match these device setup classes_ to **Enabled**
+	* ID 1612: Set _Also apply to matching devices that are already installed_ to **True**
+	* ID 1613: GUID = **{d48179be-ec20-11d1-b6b8-00c04fa372a7}** (Plug and Play device setup class GUID for an SBP-2 drive)
 
 #### Device Guard
 
-**Warning**: Besides Virtualization Based Security, no other virtualization solution like VMware Workstation can be used at the moment.
+**Warning**: Besides Virtualization Based Security, no other virtualization solution like VMware Workstation can be used at the moment. An Enterprise license is required to use Device Guard.
 
-* Set _Turn On Virtualization Based Security_ to **Enabled**
-	* Set _Select Plattform Security Level_ to **Secure Boot and DMA Protection**
-	* Set _Virtualization Based Protection of Code Integrity_ to **Enabled with UEFI lock**
-	* Set _Credential Guard Configuration_ to **Enabled with UEFI lock**
-	* Set _Secure Launch Configuration_ to **Enabled**
+* ID 1614: Set _Turn On Virtualization Based Security_ to **Enabled**
+	* ID 1615, ID 1616: Set _Select Plattform Security Level_ to **Secure Boot and DMA Protection**
+	* ID 1617, ID 1619: Set _Credential Guard Configuration_ to **Enabled with UEFI lock**
+	* ID 1618, ID 1620: Set _Virtualization Based Protection of Code Integrity_ to **Enabled with UEFI lock**
+	* ID 1621: Set _Secure Launch Configuration_ to **Enabled**
+* ID 1622: Use a Windows Defender Application Control policy
 
 #### Early Launch Antimalware
 
-* Set _Boot-Start Driver Initialization Policy_ to **Enabled: Good, unknown and bad but critical**
+* ID 1630: Set _Boot-Start Driver Initialization Policy_ to **Enabled: Good, unknown and bad but critical**
 
 #### Group Policy 
 
 * Set _Configure registry policy processing_ To **Enabled**
-	* Set _Process even if the Group Policy objects have not changed_ to **True**
-	* Set _Do not apply during periodic background processing_ to **False**
+	* ID 1631: Set _Process even if the Group Policy objects have not changed_ to **True**
+	* ID 1632: Set _Do not apply during periodic background processing_ to **False**
 
 #### Internet Communication Management
 
-* Set _Internet Communication settings\Turn off the Windows Messenger Customer Experience Improvement Program_ to **Enabled**
-* Set _Internet Communication settings\Turn off downloading of print drivers over HTTP_ to **Enabled**
-* Set _Internet Communication settings\Turn off Windows Error Reporting_ to **Enabled**
-* Set _Internet Communication settings\Turn off Internet download for Web publishing and online ordering wizards_ to **Enabled**
-* Set _Internet Communication settings\Turn off Windows Customer Experience Improvement Program_ to **Enabled**
+* ID 1640: Set _Internet Communication settings\Turn off the Windows Messenger Customer Experience Improvement Program_ to **Enabled**
+* ID 1641: Set _Internet Communication settings\Turn off downloading of print drivers over HTTP_ to **Enabled**
+* ID 1642, ID 1643: Set _Internet Communication settings\Turn off Windows Error Reporting_ to **Enabled**
+* ID 1644: Set _Internet Communication settings\Turn off Internet download for Web publishing and online ordering wizards_ to **Enabled**
+* ID 1645: Set _Internet Communication settings\Turn off Windows Customer Experience Improvement Program_ to **Enabled**
 
 #### Kernel DMA Protection
 
-* Set _Enumeration policy for external devices incompatible with Kernel DMA Protection_ to **Enabled: Block all**
+* ID 1650: Set _Enumeration policy for external devices incompatible with Kernel DMA Protection_ to **Enabled: Block all**
 
 #### Logon
 
-* Set _Turn on convenience PIN sign-in_ to **Disabled**
-* Set _Turn off app notifications on the lock screen_ to **Enabled**
-* Set _Do not display network selection UI_ to **Enabled**
+* ID 1660: Set _Turn on convenience PIN sign-in_ to **Disabled**
+* ID 1661: Set _Turn off app notifications on the lock screen_ to **Enabled**
+* ID 1662: Set _Do not display network selection UI_ to **Enabled**
 
 #### Mitigation Options
 
-* Set _Untrusted Font Blocking_ to **Enabled: Block untrusted fonts and log events**
+* ID 1670: Set _Untrusted Font Blocking_ to **Enabled: Block untrusted fonts and log events**
 
 #### OS Policies
 
-* Set _Allow Clipboard synchronization across devices_ to **Disabled**
+* ID 1680: Set _Allow Clipboard synchronization across devices_ to **Disabled**
 
 #### Power Management
 
-* Set _Sleep Settings\Require a password when a computer wakes (plugged in)_ to **Enabled**
-* Set _Sleep Settings\Allow standby states (S1-S3) when sleeping (on battery)_ to **Disabled**
-* Set _Sleep Settings\Allow standby states (S1-S3) when sleeping (plugged in)_ to **Disabled**
-* Set _Sleep Settings\Require a password when a computer wakes (on battery)_ to **Enabled**
+* ID 1685: Set _Sleep Settings\Require a password when a computer wakes (plugged in)_ to **Enabled**
+* ID 1686: Set _Sleep Settings\Require a password when a computer wakes (on battery)_ to **Enabled**
+* ID 1687: Set _Sleep Settings\Allow standby states (S1-S3) when sleeping (plugged in)_ to **Disabled**
+* ID 1688: Set _Sleep Settings\Allow standby states (S1-S3) when sleeping (on battery)_ to **Disabled**
 
 #### Remote Assistance
 
-* Set _Configure Offer Remote Assistance_ to **Disabled**
-* Set _Configure Solicited Remote Assistance_ to **Disabled**
+* ID 1690: Set _Configure Offer Remote Assistance_ to **Disabled**
+* ID 1691: Set _Configure Solicited Remote Assistance_ to **Disabled**
 
 #### Remote Procedure Call
 
-* Set _Enable RPC Endpoint Mapper Client Authentication_ to **Enabled**
-* Set _Restrict Unauthenticated RPC clients_ to **Enabled: Authenticated without exceptions**
+* ID 1692: Set _Enable RPC Endpoint Mapper Client Authentication_ to **Enabled**
+* ID 1693: Set _Restrict Unauthenticated RPC clients_ to **Enabled: Authenticated without exceptions**
 
 #### Service Control Manager Settings
 
-* Set _Security Settings\Enable svchost.exe mitigation options_ to **Enabled**
+* ID 1694: Set _Security Settings\Enable svchost.exe mitigation options_ to **Enabled**
 
 #### Troubleshooting and Diagnostics
 
-* Set _Windows Performance PerfTrack\Enable/Disable PerfTrack_ to **Disabled**
+* ID 1695: Set _Windows Performance PerfTrack\Enable/Disable PerfTrack_ to **Disabled**
 
 #### User Profiles
 
-* Set _Turn of the advertising ID_ to **Enabled**
+* ID 1696: Set _Turn of the advertising ID_ to **Enabled**
 
 #### Windows Time Service
 
-* Set _Time Providers\Enable Windows NTP Client_ to **Enabled**
-* Set _Time Providers\Enable Windows NTP Server_ to **Disabled**
+* ID 1697: Set _Time Providers\Enable Windows NTP Client_ to **Enabled**
+* ID 1698: Set _Time Providers\Enable Windows NTP Server_ to **Disabled**
 
 ### Administrative Templates\Windows Components
 
 #### App Package Deployment
 
-* Set _Allow a Windows app to share application data between users_ to **Disabled**
+* ID 1700: Set _Allow a Windows app to share application data between users_ to **Disabled**
 
 #### App Privacy
 
-* Set _Let Windows apps activate with voice while the system is locked_ to **Enabled: Force Deny**
+* ID 1701: Set _Let Windows apps activate with voice while the system is locked_ to **Enabled: Force Deny**
 
 #### App runtime
 
-* Set _Block launching Universal Windows apps with Windows Runtime API access from hosted content_ to **Enabled**
+* ID 1702: Set _Block launching Universal Windows apps with Windows Runtime API access from hosted content_ to **Enabled**
 
 #### Application Compatibility
 
-* Set _Turn off Application Telemetry_ to **Enabled**
+* ID 1703: Set _Turn off Application Telemetry_ to **Enabled**
 
 #### AutoPlay Policies
 
-* Set _Turn off Autoplay_ to **Enabled: All drives**
-* Set _Disallow Autoplay for non-volume devices_ to **Enabled**
-* Set _Set the default behavior for AutoRun_ to **Enabled: Do not execute any autorun commands**
+* ID 1704: Set _Turn off Autoplay_ to **Enabled: All drives**
+* ID 1705: Set _Disallow Autoplay for non-volume devices_ to **Enabled**
+* ID 1706: Set _Set the default behavior for AutoRun_ to **Enabled: Do not execute any autorun commands**
 
 #### Biometrics
 
-* Set _Allow the use of biometrics_ to **Disabled**
+* ID 1707: Set _Allow the use of biometrics_ to **Disabled**
 
 #### BitLocker Drive Encryption
 
-* Set _Disable new DMA devices when this computer is locked_ to **Enabled**
-* Set _Operating System Drives\Allow Secure Boot for integrity validation_ to **Enabled**
-* Set _Operating System Drives\Require additional authentication at startup_ to **Enabled**
-	* Set _Allow BitLocker without a compatible TPM_ to **False**
-	* Set _Configure TPM startup_ to **Do not allow TPM**
-	* Set _Configure TPM startup PIN_ to **Require startup PIN with TPM**
-	* Set _Configure TPM startup key_ to **Do not allow startup key with TPM**
-	* Set _Configure TPM startup key and PIN_ to **Do not allow startup key and PIN with TPM**
-* Set _Operating System Drives\Allow enhanced PINs for startup_ to **Enabled**
-* Set _Operating System Drives\Configure use of hardware-based encryption for operating system drives_ to **Enabled**
-	* Set _Use BitLocker software-based encryption when hardware encryption is not available_ to **True**
+* ID 1709: Set _Disable new DMA devices when this computer is locked_ to **Enabled**
+* ID 1710: Set _Operating System Drives\Allow Secure Boot for integrity validation_ to **Enabled**
+* ID 1711: Set _Operating System Drives\Require additional authentication at startup_ to **Enabled**
+	* ID 1715: Set _Allow BitLocker without a compatible TPM_ to **False**
+	* ID 1716: Set _Configure TPM startup_ to **Do not allow TPM**
+	* ID 1717: Set _Configure TPM startup PIN_ to **Require startup PIN with TPM**
+	* ID 1718: Set _Configure TPM startup key_ to **Do not allow startup key with TPM**
+	* ID 1719: Set _Configure TPM startup key and PIN_ to **Do not allow startup key and PIN with TPM**
+* ID 1712: Set _Operating System Drives\Allow enhanced PINs for startup_ to **Enabled**
+* ID 1713: Set _Operating System Drives\Configure use of hardware-based encryption for operating system drives_ to **Enabled**
+	* ID 1714: Set _Use BitLocker software-based encryption when hardware encryption is not available_ to **True**
 
 #### Cloud Content
 
-* Set _Do not show Windows tips_ to **Enabled**
-* Set _Turn off Microsoft consumer experiences_ to **Enabled**
+* ID 1720: Set _Do not show Windows tips_ to **Enabled**
+* ID 1721: Set _Turn off Microsoft consumer experiences_ to **Enabled**
 
 #### Credential User Interface
 
-* Set _Do not display the password reveal button_ to **Enabled**
-* Set _Require trusted path for credential entry_ to **Enabled**
-* Set _Enumerate administrator accounts on elevation_ to **Disabled**
+* ID 1722: Set _Do not display the password reveal button_ to **Enabled**
+* ID 1723: Set _Require trusted path for credential entry_ to **Enabled**
+* ID 1724: Set _Enumerate administrator accounts on elevation_ to **Disabled**
 
 #### Data Collection and Preview Builds
 
-* Set _Allow Telemetry_ to **Enabled: 0 - Security [Enterprise Only]** or **Enabled: 1 - Basic**
-* Set _Allow device name to be sent in Windows diagnostic data_ to **Disabled**
+* ID 1725: Set _Allow Telemetry_ to **Enabled: 0 - Security [Enterprise Only]** or **Enabled: 1 - Basic**
+* ID 1726: Set _Allow device name to be sent in Windows diagnostic data_ to **Disabled**
 
 #### Delivery Optimization
 
-* Set _Download Mode_ to **Disabled**
+* ID 1727: Set _Download Mode_ to **Disabled**
 
 #### Event Log Service
 
-* Set _Application\Specify the maximum log file size (KB)_ to **Enabled: 32768**
-* Set _Security\Specify the maximum log file size (KB)_ to **Enabled: 196608**
-* Set _System\Specify the maximum log file size (KB)_ to **Enabled: 32768**
+* ID 1728: Set _Application\Specify the maximum log file size (KB)_ to **Enabled: 32768**
+* ID 1729: Set _Security\Specify the maximum log file size (KB)_ to **Enabled: 196608**
+* ID 1730: Set _System\Specify the maximum log file size (KB)_ to **Enabled: 32768**
 
 #### File Explorer
 
-* Set _Allow the use of remote paths in file shortcut icons_ to **Disabled**
-* Set _Configure Windows Defender SmartScreen_ to **Enabled: Warn and prevent bypass**
+* ID 1731: Set _Allow the use of remote paths in file shortcut icons_ to **Disabled**
 
 #### HomeGroup
 
-* Set _Prevent the computer from joining a homegroup_ to **Enabled**
+* ID 1732: Set _Prevent the computer from joining a homegroup_ to **Enabled**
 
 #### OneDrive
 
-* Set _Prevent the usage of OneDrive for file storage_ to **Enabled**
+* ID 1733: Set _Prevent the usage of OneDrive for file storage_ to **Enabled**
 
 #### Remote Desktop Services
 
-* Set _Remote Desktop Connection Client\Do not allow passwords to be saved_ to **Enabled**
-* Set _Remote Desktop Session Host\Connections\Allow users to connect remotely by using Remote Desktop Services_ to **Disabled**
-* Set _Remote Desktop Session Host\Device and Resource Redirection\Do not allow drive redirection_ to **Enabled**
-* Set _Remote Desktop Session Host\Security\Always prompt for password upon connection_ to **Enabled**
-* Set _Remote Desktop Session Host\Security\Require secure RPC communication_ to **Enabled**
-* Set _Remote Desktop Session Host\Security\Set client connection encryption level_ to **Enabled: High Level**
+* ID 1734: Set _Remote Desktop Connection Client\Do not allow passwords to be saved_ to **Enabled**
+* ID 1735: Set _Remote Desktop Session Host\Connections\Allow users to connect remotely by using Remote Desktop Services_ to **Disabled**
+* ID 1736: Set _Remote Desktop Session Host\Device and Resource Redirection\Do not allow drive redirection_ to **Enabled**
+* ID 1737: Set _Remote Desktop Session Host\Security\Always prompt for password upon connection_ to **Enabled**
+* ID 1738: Set _Remote Desktop Session Host\Security\Require secure RPC communication_ to **Enabled**
+* ID 1739: Set _Remote Desktop Session Host\Security\Set client connection encryption level_ to **Enabled: High Level**
 
 #### Search
 
-* Set _Allow Cloud Search_ to **Disabled**
-* Set _Allow Cortana_ to **Disabled**
-* Set _Allow Cortana above lock screen_ to **Disabled**
-* Set _Allow indexing of encrypted files_ to **Disabled**
-* Set _Allow search and Cortana to use location_ to **Disabled**
-* Set _Set what information is shared in Search_ to **Enabled: Anonymous info**
-
-#### Windows Defender Antivirus
-
-* Set _Turn off Windows Defender Antivirus_ to **Disabled**
-* Set _Configure detection for potentially unwanted applications_ to **Enabled: Audit Mode**
-* Set _Windows Defender Exploit Guard\Attack Surface Reduction\Configure Attack Surface Reduction rules_ to **Enabled**
-	* Apply these rules (Set 'Value' to '1' (Block Mode)
-	* be9ba2d9-53ea-4cdc-84e5-9b1eeee46550 - Block executable content from email client and webmail
-	* d4f940ab-401b-4efc-aadc-ad5f3c50688a - Block Office applications from creating child processes
-	* 3b576869-a4ec-4529-8536-b80a7769e899 - Block Office applications from creating executable content
-	* 75668c1f-73b5-4cf0-bb93-3ecf5cb7cc84 - Block Office applications from injecting into other processes
-	* d3e037e1-3eb8-44c8-a917-57927947596d - Impede JavaScript and VBScript to launch executables
-	* 5beb7efe-fd9a-4556-801d-275e5ffc04cc - Block execution of potentially obfuscated scripts
-	* 92e97fa1-2edf-4476-bdd6-9dd0b4dddc7b - Block Win32 imports from Macro code in Office	
-	* 01443614-cd74-433a-b99e-2ecdc07bfc25 - Block executable files from running unless they meet a prevalence, age, or trusted list criteria	
-	* c1db55ab-c21a-4637-bb3f-a12568109d35 - Use advanced protection against ransomware
-	* 9e6c4e1f-7d60-472f-ba1a-a39ef669e4b2 - Block credential stealing from the Windows local security authority subsystem (lsass.exe)
-	* d1e49aac-8f56-4280-b9ba-993a6d77406c - Block process creations originating from PSExec and WMI commands
-	* b2b3f03d-6a65-4f7b-a9c7-1c7ef74a9ba4 - Block untrusted and unsigned processes that run from USB
-	* 26190899-1602-49e8-8b27-eb1d0a1ce869 - Block Office communication applications from creating child processes
-	* 7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c - Block Adobe Reader from creating child processes
-	* e6db77e5-3df2-4cf1-b95a-636979351e5b - Block persistence through WMI event subscription
-
-#### Windows Defender SmartScreen
-
-* Set _Explorer\Configure Windows Defender SmartScreen_ to **Enabled: Warn and prevent bypass**
+* ID 1740: Set _Allow Cloud Search_ to **Disabled**
+* ID 1741: Set _Allow Cortana_ to **Disabled**
+* ID 1742: Set _Allow Cortana above lock screen_ to **Disabled**
+* ID 1743: Set _Allow indexing of encrypted files_ to **Disabled**
+* ID 1744: Set _Allow search and Cortana to use location_ to **Disabled**
+* ID 1745: Set _Set what information is shared in Search_ to **Enabled: Anonymous info**
 
 #### Windows Error Reporting
 
-* Set _Disable Windows Error Reporting_ to **Enabled**
+* ID 1746: Set _Disable Windows Error Reporting_ to **Enabled**
 
 #### Windows Game Recording and Broadcasting
 
-* Set _Enables or disables Windows Game Recording and Broadcasting_ to **Disabled**
+* ID 1747: Set _Enables or disables Windows Game Recording and Broadcasting_ to **Disabled**
 
 #### Windows Ink Workspace
 
-* Set _Allow Windows Ink Workspace_ to **Disabled**
+* ID 1748: Set _Allow Windows Ink Workspace_ to **Disabled**
 
 #### Windows Installer
 
-* Set _Always install with elevated privileges_ to **Disabled**
-* Set _Allow user control over installs_ to **Disabled**
-* Set _Prevent Internet Explorer security prompt for Windows Installer scripts_ to **Disabled**
+* ID 1749: Set _Always install with elevated privileges_ to **Disabled**
+* ID 1750: Set _Allow user control over installs_ to **Disabled**
+* ID 1751: Set _Prevent Internet Explorer security prompt for Windows Installer scripts_ to **Disabled**
 
 #### Windows Logon Options
 
-* Set _Sign-in and lock last interactive user automatically after a restart_ to **Disabled**
-
-#### Windows PowerShell
-
-* Set _Turn on PowerShell Script Block Logging_ to **Enabled**
-* Set _Turn on PowerShell Transcription_ to **Enabled**
+* ID 1752: Set _Sign-in and lock last interactive user automatically after a restart_ to **Disabled**
 
 #### Windows Remote Management (WinRM)
 
-* Set _WinRM Client\Allow Basic authentication_ to **Disabled**
-* Set _WinRM Client\Allow unencrypted traffic_ to **Disabled**
-* Set _WinRM Client\Disallow Digest authentication_ to **Enabled**
-* Set _WinRM Service\Allow remote server management through WinRM_ to **Disabled**
-* Set _WinRM Service\Allow Basic authentication_ to **Disabled**
-* Set _WinRM Service\Allow unencrypted traffic_ to **Disabled**
-* Set _WinRM Service\Disallow WinRM from storing RunAs credentials_ to **Enabled**
+* ID 1753: Set _WinRM Client\Allow Basic authentication_ to **Disabled**
+* ID 1754: Set _WinRM Client\Allow unencrypted traffic_ to **Disabled**
+* ID 1755: Set _WinRM Client\Disallow Digest authentication_ to **Enabled**
+* ID 1756: Set _WinRM Service\Allow remote server management through WinRM_ to **Disabled**
+* ID 1757: Set _WinRM Service\Allow Basic authentication_ to **Disabled**
+* ID 1758: Set _WinRM Service\Allow unencrypted traffic_ to **Disabled**
+* ID 1759: Set _WinRM Service\Disallow WinRM from storing RunAs credentials_ to **Enabled**
 
 #### Windows Remote Shell
 
-* Set _Allow Remote Shell Access_ to **Disabled**
+* ID 1760: Set _Allow Remote Shell Access_ to **Disabled**
 
-## Local Computer Policy - User Configuration
+#### Windows Defender Antivirus
+
+* ID 1800: Set _Turn off Windows Defender Antivirus_ to **Disabled**
+* ID 1801: Set _Configure detection for potentially unwanted applications_ to **Enabled: Audit Mode**
+* ID 1900: Set _Windows Defender Exploit Guard\Attack Surface Reduction\Configure Attack Surface Reduction rules_ to **Enabled**
+	* Apply these rules (Set 'Value' to '1' (Block Mode)
+	* ID 1901: be9ba2d9-53ea-4cdc-84e5-9b1eeee46550 - Block executable content from email client and webmail
+	* ID 1902: d4f940ab-401b-4efc-aadc-ad5f3c50688a - Block Office applications from creating child processes
+	* ID 1903: 3b576869-a4ec-4529-8536-b80a7769e899 - Block Office applications from creating executable content
+	* ID 1904: 75668c1f-73b5-4cf0-bb93-3ecf5cb7cc84 - Block Office applications from injecting into other processes
+	* ID 1905: d3e037e1-3eb8-44c8-a917-57927947596d - Impede JavaScript and VBScript to launch executables
+	* ID 1906: 5beb7efe-fd9a-4556-801d-275e5ffc04cc - Block execution of potentially obfuscated scripts
+	* ID 1907: 92e97fa1-2edf-4476-bdd6-9dd0b4dddc7b - Block Win32 imports from Macro code in Office	
+	* ID 1908: 01443614-cd74-433a-b99e-2ecdc07bfc25 - Block executable files from running unless they meet a prevalence, age, or trusted list criteria	
+	* ID 1909: c1db55ab-c21a-4637-bb3f-a12568109d35 - Use advanced protection against ransomware
+	* ID 1910: 9e6c4e1f-7d60-472f-ba1a-a39ef669e4b2 - Block credential stealing from the Windows local security authority subsystem (lsass.exe)
+	* ID 1911: d1e49aac-8f56-4280-b9ba-993a6d77406c - Block process creations originating from PSExec and WMI commands
+	* ID 1912: b2b3f03d-6a65-4f7b-a9c7-1c7ef74a9ba4 - Block untrusted and unsigned processes that run from USB
+	* ID 1913: 26190899-1602-49e8-8b27-eb1d0a1ce869 - Block Office communication applications from creating child processes
+	* ID 1914: 7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c - Block Adobe Reader from creating child processes
+	* ID 1915: e6db77e5-3df2-4cf1-b95a-636979351e5b - Block persistence through WMI event subscription
+
+#### Windows Defender SmartScreen
+
+* ID 2000, ID 2001: Set _Explorer\Configure Windows Defender SmartScreen_ to **Enabled: Warn and prevent bypass**
+
+#### Windows PowerShell
+
+* ID 2100, ID 2001: Set _Turn on PowerShell Script Block Logging_ to **Enabled**
+* ID 2102: Set _Turn on PowerShell Transcription_ to **Enabled**
+* ID 2103, ID 2104: Remove PowerShell Version 2
+
+### MS Security Guide
+
+* ID 2200: Set _LSASS Protection Mode_ to **Enabled**
+	* Add **RunAsPPL=dword:00000001** to _HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa_
+* ID 2201: Set _LSASS Audit Mode_ to **Enabled**
+	* Add **AuditLevel=dword:00000008** to _HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\LSASS.exe_ 
+* ID 2202: Set _NetBT NodeType configuration_ to **P-node**
+	* Add **NodeType=dword:00000002** to _HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NetBT\Parameters_
+* ID 2203: Set _WDigest Authentication_ to **Disabled**
+	* Add **UseLogonCredential=dword:00000000** to _HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest_
+
+### MSS (Legacy)
+
+* ID 2204: Set _Enable Safe DLL search mode_ to **Enabled**
+	* Add **SafeDLLSearchMode=dword:00000001** to _HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager_
+	
+## Windows Security
+
+### Virus & threat protection
+
+* ID 1802: Set _Cloud-delivered protection_ to **On** (only works if _Join MAPS_ is not disabled)
+* ID 1803: Set _Automatic sample submission_ to **Off**
+* ID 1804: Set _Controlled folder access_ to **On**
+* ID 1805: Do not disable Real time monitoring
+
+### App & browser control / Exploit protection
+
+#### System settings
+
+* ID 1950: Set _Control flow guard (CFG)_ to **On by default**
+* ID 1951, ID 1952: Set _Data Execution Prevention (DEP)_ to **On by default**
+* ID 1954, ID 1955: Set _Force randomization for images (Mandatory ASLR)_ to **On by default**
+* ID 1956, ID 1957: Set _Randomize memory allocations (Bottom-up ASLR)_ to **On by default**
+* ID 1958, ID 1959: Set _High-entropy ASLR_ to **On by default**
+* ID 1960, ID 1961, ID 1962: Set _Validate exception chains (SEHOP)_ to **On by default**
+* ID 1953, ID 1964: Set _Validate heap integrity_ to **On by default**
+
+These settings can be exported as an XML file and loaded via Group Policy _Computer Configuration\Administrative Templates\Windows Components\Windows Defender Exploit Guard\Exploit Protection\Use a common set of exploit protection settings_. It is also possible to configure policies per program.
+
+#### Enable Data Execution Prevention (DEP)
+
+* ID 1953: Force the use of Data Execution Prevention (DEP): `bcdedit.exe /set nx AlwaysOn` (Default is _OptIn_)
+
+## User Configuration
 
 ### Administrative Templates\Start Menu and Taskbar
 
 #### Notifications
 
-* Set _Turn off toast notifications on the lock screen_ to **Enabled**
+* ID 4000: Set _Turn off notifications network usage_ to **Enabled**
+* ID 4001: Set _Turn off toast notifications on the lock screen_ to **Enabled**
 
 ### Administrative Templates\System
 
 #### Internet Communication Management
 
-* Set _Internet Communication Settings\Turn off Help Experience Improvement Program_ to **Enabled**
+* ID 4100: Set _Internet Communication Settings\Turn off Help Experience Improvement Program_ to **Enabled**
 
 ### Administrative Templates\Windows Components
 
 #### Cloud Content
 
-* Set _Do not use diagnostic data for tailored experiences_ to **Enabled**
-* Set _Do not suggest third-party content in Windows spotlight_ to **Enabled**
+* ID 4200: Set _Do not use diagnostic data for tailored experiences_ to **Enabled**
+* ID 4201: Set _Do not suggest third-party content in Windows spotlight_ to **Enabled**
 
 #### Windows Installer
 
-* Set _Always install with elevated privileges_ to **Disabled**
+* ID 4202: Set _Always install with elevated privileges_ to **Disabled**
 
-## Registry
+### Windows PowerShell
 
-### NetBIOS
+* ID 4300, ID 4301: Set _Turn on PowerShell Script Block Logging_ to **Enabled**
+* ID 4302: Set _Turn on PowerShell Transcription_ to **Enabled**
+* ID 4303: Use _ConstrainedLanguageMode_ for users who do not need PowerShell
 
-* Set _NetBT NodeType configuration_ to **P-node**
-	* Add **NodeType=dword:00000002** to _HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NetBT\Parameters_
+### Office 2016 Hardening
 
-### Security Modules - WDigest
+Use _Security baseline for Office 365 ProPlus_ for this settings.
 
-* Set _WDigest Authentication_ to **Disabled**
-	* Add **UseLogonCredential=dword:00000000** to _HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest_
+#### Security Settings
 
-### LSASS
+* ID 4400: Set _Macro Runtime Scan Scope_ to **Enable for all documents**
 
-* Set _LSASS Audit Mode_ to **Enabled**
-	* Add **AuditLevel=dword:00000008** to _HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\LSASS.exe_ 
-* Set _LSASS Protection Mode_ to **Enabled**
-	* Add **RunAsPPL=dword:00000001** to _HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa_
+#### Excel
 
-### Office Hardening
+* ID 4401: Set _Always prevent untrusted Microsoft Query files from opening_ to **Enabled**
+* ID 4405: Set _Don’t allow Dynamic Data Exchange (DDE) server launch in Excel_ to **Enabled**
+* ID 4406: Set _Don’t allow Dynamic Data Exchange (DDE) server lookup in Excel_ to **Enabled**	
+* ID 4407: Set _Block macros from running in Office files from the Internet_ to **Enabled**	
+* ID 4408, ID 4409: Set _VBA Macro Notification Settings_ to **Disable all**	
 
-* Apply the following registry settings for your main/working user(s)
+#### PowerPoint
+
+* ID 4411: Set _Block macros from running in Office files from the Internet_ to **Enabled**	
+* ID 4412: Set _VBA Macro Notification Settings_ to **Disable all**	
+
+#### Word
+
+* ID 4415: Set _Block macros from running in Office files from the Internet_ to **Enabled**	
+* ID 4416, ID 4417: Set _VBA Macro Notification Settings_ to **Disable all**	
+
+#### Registry Keys
+
+Apply the following registry settings for your main/working user(s)
+
+* ID 4402, ID 4403, ID 4404: Excel registry settings
+* ID 4410: OneNote registry settings
+* ID 4413, ID 4414: Word registry settings
 
 ```
-[HKEY_CURRENT_USER\Software\Microsoft\Office\16.0\Word\Options]
-"DontUpdateLinks"=dword:00000001
-
-[HKEY_CURRENT_USER\Software\Microsoft\Office\15.0\Word\Options]
-"DontUpdateLinks"=dword:00000001
-
-[HKEY_CURRENT_USER\Software\Microsoft\Office\14.0\Word\Options]
-"DontUpdateLinks"=dword:00000001
-
-[HKEY_CURRENT_USER\Software\Microsoft\Office\16.0\Word\Options\WordMail]
-"DontUpdateLinks"=dword:00000001
-
-[HKEY_CURRENT_USER\Software\Microsoft\Office\15.0\Word\Options\WordMail]
-"DontUpdateLinks"=dword:00000001
-
-[HKEY_CURRENT_USER\Software\Microsoft\Office\14.0\Word\Options\WordMail]
-"DontUpdateLinks"=dword:00000001
-
-[HKEY_CURRENT_USER\Software\Microsoft\Office\16.0\OneNote\Options]
-"DisableEmbeddedFiles"=dword:00000001
-
-[HKEY_CURRENT_USER\Software\Microsoft\Office\15.0\OneNote\Options]
-"DisableEmbeddedFiles"=dword:00000001
-
 [HKEY_CURRENT_USER\Software\Microsoft\Office\16.0\Excel\Options]
 "DontUpdateLinks"=dword:00000001
 "DDEAllowed"=dword:00000000
 "DDECleaned"=dword:00000001
 
-[HKEY_CURRENT_USER\Software\Microsoft\Office\15.0\Excel\Options]
-"DontUpdateLinks"=dword:00000001
-"DDEAllowed"=dword:00000000
-"DDECleaned"=dword:00000001
-"Options"=dword:00000117
+[HKEY_CURRENT_USER\Software\Microsoft\Office\16.0\OneNote\Options]
+"DisableEmbeddedFiles"=dword:00000001
 
-[HKEY_CURRENT_USER\Software\Microsoft\Office\14.0\Excel\Options]
+[HKEY_CURRENT_USER\Software\Microsoft\Office\16.0\Word\Options]
 "DontUpdateLinks"=dword:00000001
-"DDEAllowed"=dword:00000000
-"DDECleaned"=dword:00000001
-"Options"=dword:00000117
+
+[HKEY_CURRENT_USER\Software\Microsoft\Office\16.0\Word\Options\WordMail]
+"DontUpdateLinks"=dword:00000001
 ```
 
 ## Windows Settings
@@ -514,12 +565,12 @@
 
 * Set _Show notification on the lock screen_ to **Off** (Already managed by Group policy)
 * Set _Show reminders and incoming VoIP calls on the lock screen_ to **Off**
-* Set _Show me the Windows welcome experience after updates and occasionally when I sign in to highlight what's new and suggested_ to **Off**
-* Set _Get tips, tricks, and suggestions as you use Windows_ to **Off**
+* ID 4500: Set _Show me the Windows welcome experience after updates and occasionally when I sign in to highlight what's new and suggested_ to **Off**
+* ID 4501: Set _Get tips, tricks, and suggestions as you use Windows_ to **Off**
 
 #### Shared experiences
 
-* Set _Shared across devices_ to **Off**
+* ID 4502, ID 4503: Set _Shared across devices_ to **Off**
 
 #### Clipboard
 
@@ -530,11 +581,11 @@
 
 #### Typing
 
-* Set _Autocorrect misspelled words_ to **Off**
+* ID 4504: Set _Autocorrect misspelled words_ to **Off**
 
 #### AutoPlay
 
-* Set _Use AutoPlay for all media and devices_ to **Off**
+* ID 4505: Set _Use AutoPlay for all media and devices_ to **Off**
 
 ### Network & Internet
 
@@ -689,32 +740,6 @@ The basic recommendation is to deactivate all access. However, this should not l
 
 * Set _Allow downloads from other PCs_ to **Off**
 
-## Windows Security
-
-### Virus & threat protection
-
-* Set _Cloud-delivered protection_ to **On** (only works if _Join MAPS_ is not disabled)
-* Set _Automatic sample submission_ to **Off**
-* Set _Controlled folder access_ to **On**
-
-### App & browser control / Exploit protection
-
-#### System settings
-
-* Set _Control flow guard (CFG)_ to **On by default**
-* Set _Data Execution Prevention (DEP)_ to **On by default**
-* Set _Force randomization for images (Mandatory ASLR)_ to **On by default**
-* Set _Randomize memory allocations (Bottom-up ASLR)_ to **On by default**
-* Set _High-entropy ASLR_ to **On by default**
-* Set _Validate exception chains (SEHOP)_ to **On by default**
-* Set _Validate heap integrity_ to **On by default**
-
-These settings can be exported as an XML file and loaded via Group Policy _Computer Configuration\Administrative Templates\Windows Components\Windows Defender Exploit Guard\Exploit Protection\Use a common set of exploit protection settings_. It is also possible to configure policies per program.
-
-#### Enable Data Execution Prevention (DEP)
-
-* Force the use of Data Execution Prevention (DEP): `bcdedit.exe /set nx AlwaysOn` (Default is _OptIn_)
-
 ## Monitoring
 
 * Install [Sysmon](https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon)
@@ -728,81 +753,22 @@ Add the following rules to _Computer Configuration\Windows Settings\Security Set
 
 #### Basic
 
-* GPO-Block-TCP-NetBIOS
-  * Custom Rule
-  * All programs
-  * Protocol: TCP
-  * Local ports: 137-139
-  * Any IP addresses
-  * Block
-  * All profiles
-* GPO-Block-TCP-RDP
-  * Custom Rule
-  * All programs
-  * Protocol: TCP
-  * Local ports: 3389
-  * Any IP addresses
-  * Block
-  * All profiles
-* GPO-Block-TCP-RPC
-  * Custom Rule
-  * All programs
-  * Protocol: TCP
-  * Local ports: 135, 593
-  * Any IP addresses
-  * Block
-  * All profiles
-* GPO-Block-TCP-SMB
-  * Custom Rule
-  * All programs
-  * Protocol: TCP
-  * Local ports: 445
-  * Any IP addresses
-  * Block
-  * All profiles
-* GPO-Block-TCP-WinRM
-  * Custom Rule
-  * All programs
-  * Protocol: TCP
-  * Local ports: 5985, 5986
-  * Any IP addresses
-  * Block
-  * All profiles
-* GPO-Block-UDP-NetBIOS
-  * Custom Rule
-  * All programs
-  * Protocol: UDP
-  * Local ports: 137-139
-  * Any IP addresses
-  * Block
-  * All profiles
-* GPO-Block-UDP-RPC
-  * Custom Rule
-  * All programs
-  * Protocol: UDP
-  * Local ports: 135, 593
-  * Any IP addresses
-  * Block
-  * All profiles
+Name                  | Type        | Rule applies to | Protocol | Local ports | IP addresses | Action | Profile 
+--------------------- | ------------| --------------- | -------- | ----------- | ------------ |  ---------- | -----------
+GPO-Block-TCP-NetBIOS | Custom Rule | All programs | TCP | 137-139 | Any | Block | All
+GPO-Block-TCP-RDP | Custom Rule | All programs | TCP | 3389 | Any | Block | All
+GPO-Block-TCP-RPC | Custom Rule | All programs | TCP | 135, 593 | Any | Block | All
+GPO-Block-TCP-SMB | Custom Rule | All programs | TCP | 445 | Any | Block | All
+GPO-Block-TCP-WinRM | Custom Rule | All programs | TCP | 5985, 5986 | Any | Block | All
+GPO-Block-UDP-NetBIOS | Custom Rule | All programs | UDP | 137-139 | Any | Block | All
+GPO-Block-UDP-RPC | Custom Rule | All programs | UDP | 135, 593 | Any | Block | All
 
 #### Optional
 
-* GPO-Block-TCP-VMware-HTTPS
-  * Custom Rule
-  * All programs
-  * Protocol: TCP
-  * Local ports: 443
-  * Any IP addresses
-  * Block
-  * All profiles
-* GPO-Block-TCP-VMware-authd
-  * Custom Rule
-  * All programs
-  * Protocol: TCP
-  * Local ports: 902, 912
-  * Any IP addresses
-  * Block
-  * All profiles
+Name                  | Type        | Rule applies to | Protocol | Local ports | IP addresses | Action | Profile 
+--------------------- | ------------| --------------- | -------- | ----------- | ------------ |  ---------- | -----------
+GPO-Block-TCP-VMware-HTTPS | Custom Rule | All programs | TCP | 443 | Any | Block | All
+GPO-Block-TCP-VMware-authd | Custom Rule | All programs | TCP | 902, 912 | Any | Block | All
 
 ### Outbound Rules
 
@@ -810,131 +776,21 @@ Quote @cryps1s: _While not the most glamorous of defensive strategies, those app
 
 #### Basic
 
-* GPO-Block-calc
-  * Custom Rule
-  * _%SystemRoot%\System32\calc.exe_
-  * Any protocols
-  * Any ports
-  * Any IP addresses
-  * Block
-  * All profiles
-* GPO-Block-calc
-  * Custom Rule
-  * _%SystemRoot%\Syswow64\calc.exe_
-  * Any protocols
-  * Any ports
-  * Any IP addresses
-  * Block
-  * All profiles
-* GPO-Block-certutil
-  * Custom Rule
-  * _%SystemRoot%\System32\certutil.exe_
-  * Any protocols
-  * Any ports
-  * Any IP addresses
-  * Block
-  * All profiles
-* GPO-Block-certutil
-  * Custom Rule
-  * _%SystemRoot%\Syswow64\certutil.exe_
-  * Any protocols
-  * Any ports
-  * Any IP addresses
-  * Block
-  * All profiles
-* GPO-Block-conhost
-  * Custom Rule
-  * _%SystemRoot%\System32\conhost.exe_
-  * Any protocols
-  * Any ports
-  * Any IP addresses
-  * Block
-  * All profiles
-* GPO-Block-conhost
-  * Custom Rule
-  * _%SystemRoot%\Syswow64\conhost.exe_
-  * Any protocols
-  * Any ports
-  * Any IP addresses
-  * Block
-  * All profiles
-* GPO-Block-cscript
-  * Custom Rule
-  * _%SystemRoot%\System32\cscript.exe_
-  * Any protocols
-  * Any ports
-  * Any IP addresses
-  * Block
-  * All profiles
-* GPO-Block-cscript
-  * Custom Rule
-  * _%SystemRoot%\Syswow64\cscript.exe_
-  * Any protocols
-  * Any ports
-  * Any IP addresses
-  * Block
-  * All profiles
-* GPO-Block-mshta
-  * Custom Rule
-  * _%SystemRoot%\System32\mshta.exe_
-  * Any protocols
-  * Any ports
-  * Any IP addresses
-  * Block
-  * All profiles
-* GPO-Block-mshta
-  * Custom Rule
-  * _%SystemRoot%\Syswow64\mshta.exe_
-  * Any protocols
-  * Any ports
-  * Any IP addresses
-  * Block
-  * All profiles
-* GPO-Block-notepad
-  * Custom Rule
-  * _%SystemRoot%\System32\notepad.exe_
-  * Any protocols
-  * Any ports
-  * Any IP addresses
-  * Block
-  * All profiles
-* GPO-Block-notepad
-  * Custom Rule
-  * _%SystemRoot%\Syswow64\notepad.exe_
-  * Any protocols
-  * Any ports
-  * Any IP addresses
-  * Block
-  * All profiles
-* GPO-Block-RunScriptHelper
-  * Custom Rule
-  * _%SystemRoot%\System32\RunScriptHelper.exe_
-  * Any protocols
-  * Any ports
-  * Any IP addresses
-  * Block
-  * All profiles
-* GPO-Block-RunScriptHelper
-  * Custom Rule
-  * _%SystemRoot%\Syswow64\RunScriptHelper.exe_
-  * Any protocols
-  * Any ports
-  * Any IP addresses
-  * Block
-  * All profiles
-* GPO-Block-wscript
-  * Custom Rule
-  * _%SystemRoot%\System32\wscript.exe_
-  * Any protocols
-  * Any ports
-  * Any IP addresses
-  * Block
-  * All profiles
-* GPO-Block-wscript
-  * Custom Rule
-  * _%SystemRoot%\Syswow64\wscript.exe_
-  * Any protocols
-  * Any ports
-  * Any IP addresses
-  * Block
-  * All profiles
+Name                  | Type        | Rule applies to | Protocol | Local ports | IP addresses | Action | Profile 
+--------------------- | ------------| --------------- | -------- | ----------- | ------------ |  ---------- | -----------
+GPO-Block-calc | Custom Rule | _%SystemRoot%\System32\calc.exe_ | Any | Any | Any | Block | All
+GPO-Block-calc | Custom Rule | _%SystemRoot%\Syswow64\calc.exe_ | Any | Any | Any | Block | All
+GPO-Block-certutil | Custom Rule | _%SystemRoot%\System32\certutil.exe_ | Any | Any | Any | Block | All
+GPO-Block-certutil | Custom Rule | _%SystemRoot%\Syswow64\certutil.exe_ | Any | Any | Any | Block | All
+GPO-Block-conhost | Custom Rule | _%SystemRoot%\System32\conhost.exe_ | Any | Any | Any | Block | All
+GPO-Block-conhost | Custom Rule | _%SystemRoot%\Syswow64\conhost.exe_ | Any | Any | Any | Block | All
+GPO-Block-cscript | Custom Rule | _%SystemRoot%\System32\cscript.exe_ | Any | Any | Any | Block | All
+GPO-Block-cscript | Custom Rule | _%SystemRoot%\Syswow64\cscript.exe_ | Any | Any | Any | Block | All
+GPO-Block-mshta | Custom Rule | _%SystemRoot%\System32\mshta.exe_ | Any | Any | Any | Block | All
+GPO-Block-mshta | Custom Rule | _%SystemRoot%\Syswow64\mshta.exe_ | Any | Any | Any | Block | All
+GPO-Block-notepad | Custom Rule | _%SystemRoot%\System32\notepad.exe_ | Any | Any | Any | Block | All
+GPO-Block-notepad | Custom Rule | _%SystemRoot%\Syswow64\notepad.exe_ | Any | Any | Any | Block | All
+GPO-Block-RunScriptHelper | Custom Rule | _%SystemRoot%\System32\RunScriptHelper.exe_ | Any | Any | Any | Block | All
+GPO-Block-RunScriptHelper | Custom Rule | _%SystemRoot%\Syswow64\RunScriptHelper.exe_ | Any | Any | Any | Block | All
+GPO-Block-wscript | Custom Rule | _%SystemRoot%\System32\wscript.exe_ | Any | Any | Any | Block | All
+GPO-Block-wscript | Custom Rule | _%SystemRoot%\Syswow64\wscript.exe_ | Any | Any | Any | Block | All
