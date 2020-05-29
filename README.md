@@ -71,7 +71,7 @@ PS C:\> Invoke-HardeningKitty -EmojiSupport
 
 ## Last Update
 
-Based on Windows 10 Pro 1909
+Based on Windows 10 Pro/Enterprise 2004
 
 ## Sources
 
