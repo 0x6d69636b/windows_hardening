@@ -149,7 +149,7 @@
 1698,"System","Time Providers: Enable Windows NTP Server","Registry",,"HKLM:\Software\Policies\Microsoft\W32time\TimeProviders\NtpServer","Enabled",,,,0,0,"=","Medium"
 1700,"Windows Components","App Package Deployment: Allow a Windows app to share application data between users","Registry",,"HKLM:\Software\Policies\Microsoft\Windows\CurrentVersion\AppModel\StateManager","AllowSharedLocalAppData",,,,1,0,"=","Medium"
 1701,"Windows Components","App Privacy: Let Windows apps activate with voice while the system is locked","Registry",,"HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy","LetAppsActivateWithVoiceAboveLock",,,,0,2,"=","Medium"
-1702,"Windows Components","App runtime: Block launching Universal Windows apps with Windows Runtime API access from hosted content","Registry",,"HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System","BlockHostedAppAccessWinRT",,,,1,0,"=","Medium"
+1702,"Windows Components","App runtime: Block launching Universal Windows apps with Windows Runtime API access from hosted content","Registry",,"HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System","BlockHostedAppAccessWinRT",,,,0,1,"=","Medium"
 1703,"Windows Components","Application Compatibility: Turn off Application Telemetry","Registry",,"HKLM:\Software\Policies\Microsoft\Windows\AppCompat","AITEnable",,,,1,0,"=","Medium"
 1704,"Windows Components","AutoPlay Policies: Turn off Autoplay","Registry",,"HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer","NoDriveTypeAutoRun",,,,0,255,"=","Medium"
 1705,"Windows Components","AutoPlay Policies: Disallow Autoplay for non-volume devices","Registry",,"HKLM:\Software\Policies\Microsoft\Windows\Explorer","NoAutoplayfornonVolume",,,,0,1,"=","Medium"
