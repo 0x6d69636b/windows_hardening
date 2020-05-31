@@ -261,22 +261,22 @@
     $BinaryAccesschk = "C:\tmp\accesschk64.exe"
     If (-Not (Test-Path $BinaryAccesschk)) {
         Write-ProtocolEntry -Text "Binary for accesschk not found" -LogLevel "Error"
-        Exit
+        Break
     }
     $BinaryAuditpol = "C:\Windows\System32\auditpol.exe"
     If (-Not (Test-Path $BinaryAuditpol)) {
         Write-ProtocolEntry -Text "Binary for auditpol not found" -LogLevel "Error"
-        Exit
+        Break
     }
     $BinaryNet = "C:\Windows\System32\net.exe"
     If (-Not (Test-Path $BinaryNet)) {
         Write-ProtocolEntry -Text "Binary for net not found" -LogLevel "Error"
-        Exit
+        Break
     }
     $BinaryBcdedit = "C:\Windows\System32\bcdedit.exe"
     If (-Not (Test-Path $BinaryBcdedit)) {
         Write-ProtocolEntry -Text "Binary for bcdedit not found" -LogLevel "Error"
-        Exit
+        Break
     }    
 
     #
