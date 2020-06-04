@@ -6,7 +6,7 @@
         Invoke-HardeningKitty - Checks and hardens your Windows configuration
 
 
-         =^._.^="
+         =^._.^=
         _(      )/  HardeningKitty
 
 

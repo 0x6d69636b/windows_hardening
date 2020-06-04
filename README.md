@@ -31,7 +31,7 @@ PS C:\> Import-Module Invoke-HardeningKitty.ps1
 PS C:\> Invoke-HardeningKitty -EmojiSupport
 
 
-         =^._.^="
+         =^._.^=
         _(      )/  HardeningKitty
 
 
