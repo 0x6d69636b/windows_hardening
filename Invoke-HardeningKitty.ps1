@@ -232,7 +232,7 @@
     # Log and report file
     #
     $Hostname = $env:COMPUTERNAME.ToLower()
-    $FileDate = Get-Date -UFormat %Y%m%d-%H%m
+    $FileDate = Get-Date -Format yyyyMMdd-HHmm
 
     If ($Log -and $LogFile.Length -eq 0) {        
         $LogFile = "hardeningkitty_log_$Hostname-$FileDate.log"
