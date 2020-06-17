@@ -471,9 +471,8 @@
                             Break
 
                         } Else {
-
-                            $ResultEntry -match '([a-z,A-Z,\\," "]+)' | Out-Null
-                            [String] $Result += $Matches[0]+";"
+                            
+                            [String] $Result += $ResultEntry.Trim()+";"
                         }
                     }
                     # Remove last character
