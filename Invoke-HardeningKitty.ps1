@@ -531,9 +531,13 @@
 
                 try {
                     
-                    $ResultOutput = Get-BitLockerVolume
-                    $ResultArgument = $Finding.MethodArgument 
-                    $Result = $ResultOutput.$ResultArgument
+                    $ResultOutput = Get-BitLockerVolume -MountPoint C:
+                    If ($ResultOutput.VolumeType -eq 'OperatingSystem') {
+                        $ResultArgument = $Finding.MethodArgument 
+                        $Result = $ResultOutput.$ResultArgument
+                    } Else {
+                        $Result = "Manual check required"
+                    }
 
                 } catch {
                     $Result = $Finding.DefaultValue
