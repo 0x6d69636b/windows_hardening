@@ -187,7 +187,7 @@
 1737,"Windows Components","Remote Desktop Session Host: Security: Always prompt for password upon connection","Registry",,"HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services","fPromptForPassword",,,,0,1,"=","Medium"
 1738,"Windows Components","Remote Desktop Session Host: Security: Require secure RPC communication","Registry",,"HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services","fEncryptRPCTraffic",,,,0,1,"=","Medium"
 1739,"Windows Components","Remote Desktop Session Host: Security: Set client connection encryption level","Registry",,"HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services","MinEncryptionLevel",,,,0,3,"=","Medium"
-1740,"Windows Components","Search: Allow Cloud Search","Registry",,"HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search","AllowCloudSearch",,,,,,"=","Medium"
+1740,"Windows Components","Search: Allow Cloud Search","Registry",,"HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search","AllowCloudSearch",,,,1,0,"=","Medium"
 1741,"Windows Components","Search: Allow Cortana","Registry",,"HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search","AllowCortana",,,,1,0,"=","Medium"
 1742,"Windows Components","Search: Allow Cortana above lock screen","Registry",,"HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search","AllowCortanaAboveLock",,,,1,0,"=","Medium"
 1743,"Windows Components","Search: Allow indexing of encrypted files","Registry",,"HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search","AllowIndexingEncryptedStoresOrItems",,,,1,0,"=","Medium"
