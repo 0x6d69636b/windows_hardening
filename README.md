@@ -71,7 +71,16 @@ PS C:\> Invoke-HardeningKitty -EmojiSupport
 
 ## Last Update
 
-Based on Windows 10 Pro/Enterprise 2004
+The lists were last updated/checked against the following Microsoft Security Baseline or other frameworks:
+
+* Hardening list Windows 10
+	- Security baseline for Windows 10 and Windows Server, version 2004 (DRAFT)
+	- Security baseline for Office 365 ProPlus, version 1908 
+* finding\_list\_0x6d69636b\_machine and finding\_list\_0x6d69636b\_user
+	- Security baseline for Windows 10 and Windows Server, version 2004 (DRAFT)
+	- Security baseline for Office 365 ProPlus, version 1908
+* finding\_list\_msft\_edge\_machine.csv
+	- Security baseline for Microsoft Edge, version 84
 
 ## Sources
 
@@ -93,4 +102,4 @@ Based on Windows 10 Pro/Enterprise 2004
 * [Policy Analyzer](https://blogs.technet.microsoft.com/secguide/2016/01/22/new-tool-policy-analyzer/)
 * [Security baseline for Office 365 ProPlus (v1908, Sept 2019) - FINAL](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-for-office-365-proplus-v1908-sept-2019-final/ba-p/873084)
 * [mackwage/windows_hardening.cmd](https://gist.github.com/mackwage/08604751462126599d7e52f233490efe)
-* [Security baseline for Microsoft Edge v83](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-for-microsoft-edge-v83/ba-p/1417634)
+* [Security baseline for Microsoft Edge v84](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-for-microsoft-edge-v84/ba-p/1527760)
