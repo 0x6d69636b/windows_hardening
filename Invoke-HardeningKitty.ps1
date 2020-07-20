@@ -63,6 +63,11 @@
         The name and location of the report file can be defined by the user.
 
 
+    .PARAMETER BinaryAccesschk
+
+        The path of the AccessChk binary can be defined by the user.
+
+
     .EXAMPLE
         
         Invoke-HardeningKitty -Mode "Audit" -Log $true -Report $true
@@ -101,7 +106,12 @@
 
         # Define name and path of the report file
         [String]
-        $ReportFile
+        $ReportFile,
+
+        # Define path to accessak binary
+        [ValidateScript({Test-Path $_})]
+        [String]
+        $BinaryAccesschk
     )
 
     Function Write-ProtocolEntry {
@@ -258,9 +268,11 @@
     # Definition and check for tools
     # If a tool is not available, the execution of the script is terminated
     #
-    $BinaryAccesschk = "C:\tmp\accesschk64.exe"
+    If (-Not $BinaryAccesschk) {
+        $BinaryAccesschk = "C:\tmp\accesschk64.exe"
+    }    
     If (-Not (Test-Path $BinaryAccesschk)) {
-        Write-ProtocolEntry -Text "Binary for accesschk not found" -LogLevel "Error"
+        Write-ProtocolEntry -Text "Binary for AccessChk not found" -LogLevel "Error"
         Break
     }
     $BinaryAuditpol = "C:\Windows\System32\auditpol.exe"
