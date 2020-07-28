@@ -414,7 +414,7 @@
             # The desired value is not output directly, some output lines can be ignored
             # and are therefore skipped. If the output changes, the parsing must be adjusted :(
             #
-            Elseif ($Finding.Method -eq 'auditpol') {
+            If ($Finding.Method -eq 'auditpol') {
                                             
                 try {
                 
@@ -436,7 +436,7 @@
             # It may be necessary to use the /domain parameter when calling net.exe.
             # The values of the user executing the script are read out. These may not match the password policy.
             #
-            Elseif ($Finding.Method -eq 'accountpolicy') {
+            If ($Finding.Method -eq 'accountpolicy') {
                                            
                 try {
                     
@@ -468,7 +468,7 @@
             # The values used are from the Microsoft documentation at:
             # https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/user-rights-assignment
             #
-            Elseif ($Finding.Method -eq 'accesschk') {
+            If ($Finding.Method -eq 'accesschk') {
                                            
                 try { 
                                    
@@ -498,7 +498,7 @@
             # Windows Optional Feature
             # Yay, a native PowerShell function! The status of the feature can easily be read out directly.
             #
-            Elseif ($Finding.Method -eq 'WindowsOptionalFeature') {
+            If ($Finding.Method -eq 'WindowsOptionalFeature') {
 
                 try {
                     
@@ -538,7 +538,7 @@
             # The values are saved from a PowerShell function into an object.
             # The desired arguments can be accessed directly.
             #
-            Elseif ($Finding.Method -eq 'BitLockerVolume') {
+            If ($Finding.Method -eq 'BitLockerVolume') {
 
                 try {
                     
@@ -559,7 +559,7 @@
             # PowerShell Language Mode
             # This is a single purpose function, the desired configuration is output directly.
             #
-            Elseif ($Finding.Method -eq 'LanguageMode') {
+            If ($Finding.Method -eq 'LanguageMode') {
 
                 try {
                                     
@@ -576,7 +576,7 @@
             # The values are saved from a PowerShell function into an object.
             # The desired arguments can be accessed directly.
             #
-            Elseif ($Finding.Method -eq 'MpPreference') {
+            If ($Finding.Method -eq 'MpPreference') {
 
                 try {
                                     
@@ -596,7 +596,7 @@
             # Since the object has several dimensions and there is only one dimension
             # in the finding list (lazy) a workaround with split must be done...
             #
-            Elseif ($Finding.Method -eq 'Processmitigation') {
+            If ($Finding.Method -eq 'Processmitigation') {
 
                 try {  
                                                   
@@ -615,7 +615,7 @@
             # bcdedit
             # Again, the output of a tool must be searched and parsed. Ugly...
             #
-            Elseif ($Finding.Method -eq 'bcdedit') {
+            If ($Finding.Method -eq 'bcdedit') {
 
                 try {
                                     
