@@ -289,7 +289,13 @@
     If (-Not (Test-Path $BinaryBcdedit)) {
         Write-ProtocolEntry -Text "Binary for bcdedit not found" -LogLevel "Error"
         Break
-    }    
+    }
+    
+    $BinarySecedit = "C:\Windows\System32\secedit.exe"
+    If (-Not (Test-Path $BinarySecedit)) {
+        Write-ProtocolEntry -Text "Binary for secedit not found" -LogLevel "Error"
+        Break
+    }
 
     #
     # Machine information
@@ -627,6 +633,30 @@
                     } Else {
                         $Result = $Finding.DefaultValue
                     }
+
+                } catch {
+                    $Result = $Finding.DefaultValue
+                }
+            }
+
+            #
+            # secedit
+            # Configures and analyzes system security, results are written
+            # to a file, which means HardeningKitty must create a temporary file
+            # and afterwards delete it. HardeningKitty is very orderly.
+            #
+            If ($Finding.Method -eq 'secedit') {
+
+                try {
+                    
+                    $OutputSecedit = New-TemporaryFile
+                    &$BinarySecedit /export /areas SecurityPolicy /cfg $OutputSecedit /quiet
+
+                    $ResultOutput = Select-String -Path $OutputSecedit -Pattern $Finding.MethodArgument
+                    $ResultOutput = $ResultOutput.Line.Split(" ")
+                    $Result = $ResultOutput[2]
+
+                    Remove-Item $OutputSecedit.FullName -Force
 
                 } catch {
                     $Result = $Finding.DefaultValue
