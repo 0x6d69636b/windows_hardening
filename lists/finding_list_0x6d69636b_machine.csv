@@ -9,7 +9,7 @@
 1203,"User Rights Assignments","Deny access to this computer from the network","accesschk","SeDenyNetworkLogonRight",,,,,,"BUILTIN\Guests","BUILTIN\Guests;NT AUTHORITY\Local account","=","Medium"
 1204,"User Rights Assignments","Deny log on as a batch job","accesschk","SeDenyBatchLogonRight",,,,,,,"BUILTIN\Guests","=","Medium"
 1205,"User Rights Assignments","Deny log on as a service","accesschk","SeDenyServiceLogonRight",,,,,,,"BUILTIN\Guests","=","Medium"
-1206,"User Rights Assignments","Deny log on through Remote Desktop Services","accesschk","SeDenyServiceLogonRight",,,,,,,"BUILTIN\Guests;NT AUTHORITY\Local account","=","Medium"
+1206,"User Rights Assignments","Deny log on through Remote Desktop Services","accesschk","SeDenyRemoteInteractiveLogonRight",,,,,,,"BUILTIN\Guests;NT AUTHORITY\Local account","=","Medium"
 1300,"Security Options","Accounts: Block Microsoft accounts","Registry",,"HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System","NoConnectedUser",,,,0,3,"=","Low"
 1301,"Security Options","Audit: Force audit policy subcategory settings to override audit policy category settings","Registry",,"HKLM:\System\CurrentControlSet\Control\Lsa","SCENoApplyLegacyAuditPolicy",,,,1,1,"=","Low"
 1302,"Security Options","Interactive logon: Do not require CTRL+ALT+DEL","Registry",,"HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System","DisableCAD",,,,1,0,"=","Low"
