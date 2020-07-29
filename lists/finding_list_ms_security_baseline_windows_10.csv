@@ -49,7 +49,7 @@
 10309,"User Rights Assignments","Create permanent shared objects","accesschk","SeCreatePermanentPrivilege",,,,,,"","","=","Medium"
 10310,"User Rights Assignments","Debug programs","accesschk","SeDebugPrivilege",,,,,,"BUILTIN\Administrators","BUILTIN\Administrators","=","Medium"
 10311,"User Rights Assignments","Deny access to this computer from the network","accesschk","SeDenyNetworkLogonRight",,,,,,"BUILTIN\Guests","NT AUTHORITY\Local account","=","Medium"
-10312,"User Rights Assignments","Deny log on through Remote Desktop Services","accesschk","SeDenyServiceLogonRight",,,,,,,"NT AUTHORITY\Local account","=","Medium"
+10312,"User Rights Assignments","Deny log on through Remote Desktop Services","accesschk","SeDenyRemoteInteractiveLogonRight",,,,,,,"NT AUTHORITY\Local account","=","Medium"
 10313,"User Rights Assignments","Enable computer and user accounts to be trusted for delegation","accesschk","SeEnableDelegationPrivilege",,,,,,"","","=","Medium"
 10314,"User Rights Assignments","Force shutdown from a remote system","accesschk","SeRemoteShutdownPrivilege",,,,,,"BUILTIN\Administrators","BUILTIN\Administrators","=","Medium"
 10315,"User Rights Assignments","Impersonate a client after authentication","accesschk","SeImpersonatePrivilege",,,,,,"NT AUTHORITY\SERVICE;BUILTIN\Administrators;NT AUTHORITY\NETWORK SERVICE;NT AUTHORITY\LOCAL SERVICE","NT AUTHORITY\SERVICE;BUILTIN\Administrators;NT AUTHORITY\NETWORK SERVICE;NT AUTHORITY\LOCAL SERVICE","=","Medium"
