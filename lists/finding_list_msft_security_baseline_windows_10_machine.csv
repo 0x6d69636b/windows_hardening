@@ -340,7 +340,6 @@
 10972,"Microsoft Defender Antivirus","Configure detection for potentially unwanted applications","Registry",,"HKLM:\Software\Policies\Microsoft\Windows Defender","PUAProtection",,,,0,1,">=","Medium"
 10973,"Microsoft Defender Antivirus","MAPS: Join Microsoft MAPS","Registry",,"HKLM:\Software\Policies\Microsoft\Windows Defender\Spynet","SpynetReporting",,,,,2,"=","Medium"
 10974,"Microsoft Defender Antivirus","MAPS: Send file samples when further analysis is required","Registry",,"HKLM:\Software\Policies\Microsoft\Windows Defender\Spynet","SubmitSamplesConsent",,,,,1,"=","Medium"
-10975,"Microsoft Defender Antivirus","Real-time Protection: Turn on behavior monitoring","Registry",,"HKLM:\Software\Policies\Microsoft\Windows Defender\Real-Time Protection","DisableBehaviorMonitoring",,,,,,"=","Medium"
 10976,"Microsoft Defender Antivirus","Scan: Scan removable drives","Registry",,"HKLM:\Software\Policies\Microsoft\Windows Defender\Scan","DisableRemovableDriveScanning",,,,,0,"=","Medium"
 10977,"Microsoft Defender Exploit Guard","Attack Surface Reduction rules","Registry",,"HKLM:\Software\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR","ExploitGuard_ASR_Rules",,,,0,1,"=","Medium"
 10978,"Microsoft Defender Exploit Guard","ASR: Block executable content from email client and webmail","Registry",,"HKLM:\Software\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\rules","be9ba2d9-53ea-4cdc-84e5-9b1eeee46550",,,,0,1,"=","Medium"
