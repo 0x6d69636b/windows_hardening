@@ -13,7 +13,6 @@
 10202,"Security Options","Domain member: Digitally encrypt or sign secure channel data (always)","Registry",,"HKLM:\System\CurrentControlSet\Services\Netlogon\Parameters","RequireSignOrSeal",,,,1,1,"=","Medium"
 10203,"Security Options","Domain member: Digitally encrypt secure channel data (when possible)","Registry",,"HKLM:\System\CurrentControlSet\Services\Netlogon\Parameters","SealSecureChannel",,,,1,1,"=","Medium"
 10204,"Security Options","Domain member: Digitally sign secure channel data (when possible)","Registry",,"HKLM:\System\CurrentControlSet\Services\Netlogon\Parameters","SignSecureChannel",,,,1,1,"=","Medium"
-10206,"Security Options","Domain member: Maximum machine account password age","Registry",,"HKLM:\System\CurrentControlSet\Services\Netlogon\Parameters","MaximumPasswordAge",,,,30,30,"<=","Medium"
 10207,"Security Options","Domain member: Require strong (Windows 2000 or later) session key","Registry",,"HKLM:\System\CurrentControlSet\Services\Netlogon\Parameters","RequireStrongKey",,,,1,1,"=","Medium"
 10208,"Security Options","Interactive logon: Machine inactivity limit","Registry",,"HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System","InactivityTimeoutSecs",,,,900,900,"=","Low"
 10209,"Security Options","Interactive logon: Smart card removal behavior","Registry",,"HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Winlogon","ScRemoveOption",,,,,1,"=","Low"
