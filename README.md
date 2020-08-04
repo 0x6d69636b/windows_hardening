@@ -75,12 +75,19 @@ The lists were last updated/checked against the following Microsoft Security Bas
 
 * Hardening list Windows 10
 	- Security baseline for Windows 10 and Windows Server, version 2004 (DRAFT)
-	- Security baseline for Office 365 ProPlus, version 1908 
+	- Security baseline for Office 365 ProPlus, version 1908
 * finding\_list\_0x6d69636b\_machine and finding\_list\_0x6d69636b\_user
 	- Security baseline for Windows 10 and Windows Server, version 2004 (DRAFT)
 	- Security baseline for Office 365 ProPlus, version 1908
-* finding\_list\_msft\_edge\_machine.csv
+	- 0x6d69636b own knowledge 
+* finding\_list\_msft\_security\_baseline\_edge\_machine
 	- Security baseline for Microsoft Edge, version 84
+* finding\_list\_msft\_security\_baseline\_windows\_10\_machine
+	- Security baseline for Windows 10 and Windows Server, version 2004 (DRAFT)
+* finding\_list\_msft\_security\_baseline\_windows\_server\_dc\_machine
+	- Security baseline for Windows 10 and Windows Server, version 2004 (DRAFT)
+* finding\_list\_msft\_security\_baseline\_windows\_server\_member\_machine
+	- Security baseline for Windows 10 and Windows Server, version 2004 (DRAFT)
 
 ## Sources
 

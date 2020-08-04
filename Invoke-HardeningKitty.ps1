@@ -314,6 +314,10 @@
     Write-ProtocolEntry -Text $Message -LogLevel "Notime"
     $Message = "Install date: "+$MachineInformation.OsInstallDate
     Write-ProtocolEntry -Text $Message -LogLevel "Notime"
+    $Message = "Last Boot Time: "+$MachineInformation.OsLastBootUpTime
+    Write-ProtocolEntry -Text $Message -LogLevel "Notime"
+    $Message = "Uptime: "+$MachineInformation.OsUptime
+    Write-ProtocolEntry -Text $Message -LogLevel "Notime"
     $Message = "Windows: "+$MachineInformation.WindowsProductName
     Write-ProtocolEntry -Text $Message -LogLevel "Notime"
     $Message = "Windows edition: "+$MachineInformation.WindowsEditionId
