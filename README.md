@@ -81,7 +81,7 @@ The lists were last updated/checked against the following Microsoft Security Bas
 	- Security baseline for Office 365 ProPlus, version 1908
 	- 0x6d69636b own knowledge 
 * finding\_list\_msft\_security\_baseline\_edge\_machine
-	- Security baseline for Microsoft Edge, version 84
+	- Security baseline for Microsoft Edge, version 85
 * finding\_list\_msft\_security\_baseline\_windows\_10\_machine
 	- Security baseline for Windows 10 and Windows Server, version 2004 
 * finding\_list\_msft\_security\_baseline\_windows\_server\_dc\_machine
@@ -108,4 +108,5 @@ The lists were last updated/checked against the following Microsoft Security Bas
 * [Policy Analyzer](https://blogs.technet.microsoft.com/secguide/2016/01/22/new-tool-policy-analyzer/)
 * [Security baseline for Office 365 ProPlus (v1908, Sept 2019) - FINAL](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-for-office-365-proplus-v1908-sept-2019-final/ba-p/873084)
 * [mackwage/windows_hardening.cmd](https://gist.github.com/mackwage/08604751462126599d7e52f233490efe)
-* [Security baseline for Microsoft Edge v84](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-for-microsoft-edge-v84/ba-p/1527760)
+* [Security baseline for Microsoft Edge version 85](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-for-microsoft-edge-version-85/ba-p/1618585)
+* [Microsoft Edge - Policies](https://docs.microsoft.com/en-us/DeployEdge/microsoft-edge-policies)
