@@ -335,7 +335,8 @@
     
     $Message = "Username: "+[Security.Principal.WindowsIdentity]::GetCurrent().Name
     Write-ProtocolEntry -Text $Message -LogLevel "Notime"
-    $Message = "Is Admin: "+([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
+    $IsAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
+    $Message = "Is Admin: "+$IsAdmin
     Write-ProtocolEntry -Text $Message -LogLevel "Notime"
 
     #
@@ -425,6 +426,12 @@
             # and are therefore skipped. If the output changes, the parsing must be adjusted :(
             #
             If ($Finding.Method -eq 'auditpol') {
+
+                If (-not($IsAdmin)) {
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
+                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Continue
+                }
                                             
                 try {
                 
@@ -447,6 +454,12 @@
             # The values of the user executing the script are read out. These may not match the password policy.
             #
             If ($Finding.Method -eq 'accountpolicy') {
+
+                If (-not($IsAdmin)) {
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
+                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Continue
+                }
                                            
                 try {
                     
@@ -479,7 +492,13 @@
             # https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/user-rights-assignment
             #
             If ($Finding.Method -eq 'accesschk') {
-                                           
+
+                If (-not($IsAdmin)) {
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
+                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Continue
+                }
+                     
                 try { 
                                    
                     $ResultOutput = &$BinaryAccesschk -accepteula -nobanner -a $Finding.MethodArgument
@@ -509,6 +528,12 @@
             # Yay, a native PowerShell function! The status of the feature can easily be read out directly.
             #
             If ($Finding.Method -eq 'WindowsOptionalFeature') {
+
+                If (-not($IsAdmin)) {
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
+                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Continue
+                }
 
                 try {
                     
@@ -549,6 +574,12 @@
             # The desired arguments can be accessed directly.
             #
             If ($Finding.Method -eq 'BitLockerVolume') {
+
+                If (-not($IsAdmin)) {
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
+                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Continue
+                }
 
                 try {
                     
@@ -626,6 +657,12 @@
             # Again, the output of a tool must be searched and parsed. Ugly...
             #
             If ($Finding.Method -eq 'bcdedit') {
+
+                If (-not($IsAdmin)) {
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
+                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Continue
+                }
 
                 try {
                                     
