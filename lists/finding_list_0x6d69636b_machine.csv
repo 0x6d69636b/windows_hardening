@@ -213,7 +213,7 @@
 1802,"Microsoft Defender Antivirus","Cloud-delivered protection","MpPreference","MAPSReporting",,,,,,0,2,"=","Medium"
 1803,"Microsoft Defender Antivirus","Automatic sample submission","MpPreference","SubmitSamplesConsent",,,,,,1,0,"=","Medium"
 1804,"Microsoft Defender Antivirus","Controlled folder access","MpPreference","EnableControlledFolderAccess",,,,,,0,1,"=","Medium"
-1805,"Microsoft Defender Antivirus","Real time monitoring","MpPreference","DisableRealtimeMonitoring",,,,,,False,False,"=","High"
+1805,"Microsoft Defender Antivirus","Real time monitoring","MpPreference","DisableRealtimeMonitoring",,,,,,"False","False","=","High"
 1900,"Microsoft Defender Exploit Guard","Attack Surface Reduction rules","Registry",,"HKLM:\Software\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR","ExploitGuard_ASR_Rules",,,,0,1,"=","Medium"
 1901,"Microsoft Defender Exploit Guard","ASR: Block executable content from email client and webmail","Registry",,"HKLM:\Software\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\rules","be9ba2d9-53ea-4cdc-84e5-9b1eeee46550",,,,0,1,"=","Medium"
 1902,"Microsoft Defender Exploit Guard","ASR: Block Office applications from creating child processes","Registry",,"HKLM:\Software\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\rules","d4f940ab-401b-4efc-aadc-ad5f3c50688a",,,,0,1,"=","Medium"

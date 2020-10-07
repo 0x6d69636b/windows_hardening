@@ -714,7 +714,7 @@
                 $ResultPassed = $false
                 Switch($Finding.Operator) {
 
-                    "="  { If ($Result -eq $Finding.RecommendedValue) { $ResultPassed = $true }; Break}
+                    "="  { If ([string] $Result -eq $Finding.RecommendedValue) { $ResultPassed = $true }; Break}
                     "<=" { try { If ([int]$Result -le [int]$Finding.RecommendedValue) { $ResultPassed = $true }} catch { $ResultPassed = $false }; Break}
                     ">=" { try { If ([int]$Result -ge [int]$Finding.RecommendedValue) { $ResultPassed = $true }} catch { $ResultPassed = $false }; Break}
                     "contains" { If ($Result.Contains($Finding.RecommendedValue)) { $ResultPassed = $true }; Break}
