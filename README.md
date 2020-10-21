@@ -84,15 +84,22 @@ The lists were last updated/checked against the following Microsoft Security Bas
 	- Security baseline for Microsoft Edge, version 86
 * finding\_list\_msft\_security\_baseline\_windows\_10\_machine
 	- Security baseline for Windows 10 and Windows Server, version 2004 
+* finding\_list\_msft\_security\_baseline\_windows\_10\_machine_draft
+	- Security baseline for Windows 10 and Windows Server, version 2009
 * finding\_list\_msft\_security\_baseline\_windows\_server\_dc\_machine
 	- Security baseline for Windows 10 and Windows Server, version 2004 
+* finding\_list\_msft\_security\_baseline\_windows\_server\_dc\_machine_draft
+	- Security baseline for Windows 10 and Windows Server, version 2009 
 * finding\_list\_msft\_security\_baseline\_windows\_server\_member\_machine
 	- Security baseline for Windows 10 and Windows Server, version 2004
+* finding\_list\_msft\_security\_baseline\_windows\_server\_member\_machine_draft
+	- Security baseline for Windows 10 and Windows Server, version 2009
 
 ## Sources
 
 * [CIS Benchmarks for Microsoft Windows 10 Enterprise Release 1909 v1.8.1](https://www.cisecurity.org/cis-benchmarks/)
 * [Security baseline (FINAL): Windows 10 and Windows Server, version 2004](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-final-windows-10-and-windows-server-version/ba-p/1543631)
+* [Security baseline (DRAFT): Windows 10 and Windows Server, version 20H2](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-draft-windows-10-and-windows-server-version/ba-p/1799721)
 * [Kernel DMA Protection for Thunderbolt 3](https://docs.microsoft.com/en-us/windows/security/information-protection/kernel-dma-protection-for-thunderbolt)
 * [BitLocker Countermeasures](https://docs.microsoft.com/en-us/windows/security/information-protection/bitlocker/bitlocker-countermeasures)
 * [Blocking the SBP-2 driver and Thunderbolt controllers to reduce 1394 DMA and Thunderbolt DMA threats to BitLocker](https://support.microsoft.com/en-us/help/2516445/blocking-the-sbp-2-driver-and-thunderbolt-controllers-to-reduce-1394-d)
