@@ -117,6 +117,7 @@
 1618,"System","Device Guard: Security Services Configured: HVCI","CimInstance",,,,"Win32_DeviceGuard","root\Microsoft\Windows\DeviceGuard","SecurityServicesConfigured","Not available",2,"=","Medium"
 1619,"System","Device Guard: Security Services Running: Credential Guard","CimInstance",,,,"Win32_DeviceGuard","root\Microsoft\Windows\DeviceGuard","SecurityServicesRunning","Not available",1,"=","Medium"
 1620,"System","Device Guard: Security Services Running: HVCI","CimInstance",,,,"Win32_DeviceGuard","root\Microsoft\Windows\DeviceGuard","SecurityServicesRunning","Not available",2,"=","Medium"
+1623,"System","Device Guard: Require UEFI Memory Attributes Table","Registry",,"HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard","HVCIMATRequired",,,,,1,"=","Medium"
 1621,"System","Device Guard: Secure Launch Configuration","Registry",,"HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard","ConfigureSystemGuardLaunch",,,,0,1,"=","Medium"
 1622,"System","Device Guard: Windows Defender Application Control deployed","Registry",,"HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard","DeployConfigCIPolicy",,,,0,1,"=","Medium"
 1630,"System","Early Launch Antimalware: Boot-Start Driver Initialization Policy","Registry",,"HKLM:\System\CurrentControlSet\Policies\EarlyLaunch","DriverLoadPolicy",,,,0,3,"=","Medium"

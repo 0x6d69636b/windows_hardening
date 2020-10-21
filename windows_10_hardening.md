@@ -187,7 +187,7 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 
 #### Device Guard
 
-**Warning**: An Enterprise license is required to use Device Guard. Besides Virtualization Based Security, no other virtualization solution like VMware Workstation can be used at the moment. 
+**Warning**: An Enterprise license is required to use Device Guard. 
 
 **Update**: VMware Workstation Pro 15.5.5 can now run on Windows 10 hosts with Hyper-V enabled (Device Guard/Credential Guard). This requires Windows 10 version 2004 (20H1 build 19041.264) and above. 
 
@@ -195,6 +195,7 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 	* ID 1615, ID 1616: Set _Select Plattform Security Level_ to **Secure Boot and DMA Protection**
 	* ID 1617, ID 1619: Set _Credential Guard Configuration_ to **Enabled with UEFI lock**
 	* ID 1618, ID 1620: Set _Virtualization Based Protection of Code Integrity_ to **Enabled with UEFI lock**
+	* ID 1623: Set _Require UEFI Memory Attributes Table_ to **Enabled**
 	* ID 1621: Set _Secure Launch Configuration_ to **Enabled**
 * ID 1622: Use a Windows Defender Application Control policy
 
