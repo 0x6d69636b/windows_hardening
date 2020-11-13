@@ -572,29 +572,36 @@ Apply the following registry settings for your main/working user(s)
 * ID 4419: Set _Allow the use of connected experiences in Office_ to **Disabled**
 
 ```
-[HKEY_CURRENT_USER\Software\Policies\Microsoft\office\16.0\common\privacy\]
+[HKEY_CURRENT_USER\Software\Policies\Microsoft\office\16.0\common\privacy]
 "disconnectedstate"=dword:00000002
 ```
 
 * ID 4420: Set _Allow the use of connected experiences that analyze content_ to **Disabled**
 
 ```
-[HKEY_CURRENT_USER\Software\Policies\Microsoft\office\16.0\common\privacy\]
+[HKEY_CURRENT_USER\Software\Policies\Microsoft\office\16.0\common\privacy]
 "usercontentdisabled"=dword:00000002
 ```
 
 * ID 4421: Set _Allow the use of connected experiences that download online content_ to **Disabled**
 
 ```
-[HKEY_CURRENT_USER\Software\Policies\Microsoft\office\16.0\common\privacy\]
+[HKEY_CURRENT_USER\Software\Policies\Microsoft\office\16.0\common\privacy]
 "downloadcontentdisabled"=dword:00000002
 ```
 
 * ID 4422: Set _Allow the use of additional optional connected experiences_ to **Disabled**
 
 ```
-[HKEY_CURRENT_USER\Software\Policies\Microsoft\office\16.0\common\privacy\]
+[HKEY_CURRENT_USER\Software\Policies\Microsoft\office\16.0\common\privacy]
 "controllerconnectedservicesenabled"=dword:00000002
+```
+
+* ID 4423: Set _Configure the level of client software diagnostic data sent by Office to Microsoft_ to **Neither**
+
+```
+[HKEY_CURRENT_USER\Software\Policies\Microsoft\office\common\clienttelemetry]
+"sendtelemetry"=dword:00000003
 ```
 
 ## Windows Settings

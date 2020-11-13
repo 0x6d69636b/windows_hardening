@@ -32,6 +32,7 @@
 4420,"Office 365","Allow the use of connected experiences that analyze content","Registry",,"HKCU:\Software\Policies\Microsoft\office\16.0\common\privacy","usercontentdisabled",,,,,2,"=","Low"
 4421,"Office 365","Allow the use of connected experiences that download online content","Registry",,"HKCU:\Software\Policies\Microsoft\office\16.0\common\privacy","downloadcontentdisabled",,,,,2,"=","Low"
 4422,"Office 365","Allow the use of additional optional connected experiences","Registry",,"HKCU:\Software\Policies\Microsoft\office\16.0\common\privacy","controllerconnectedservicesenabled",,,,,2,"=","Low"
+4423,"Office 365","Configure the level of client software diagnostic data sent by Office to Microsoft","Registry",,"HKCU:\Software\Policies\Microsoft\office\common\clienttelemetry","sendtelemetry",,,,,3,"=","Low"
 4500,"Windows Settings","System: Notification & actions: Show me the Windows welcome experience after updates and occasionally when I sign in to highlight what's new and suggested","Registry",,"HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager","SubscribedContent-310093Enabled",,,,1,0,"=","Low"
 4501,"Windows Settings","System: Notification & actions: Get tips, tricks, and suggestions as you use Windows","Registry",,"HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager","SubscribedContent-338389Enabled",,,,1,0,"=","Low"
 4502,"Windows Settings","System: Shared experiences: Shared across devices 1","Registry",,"HKCU:\Software\Microsoft\Windows\CurrentVersion\CDP","RomeSdkChannelUserAuthzPolicy",,,,1,0,"=","Low"
