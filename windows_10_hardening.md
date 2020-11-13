@@ -560,6 +560,15 @@ Apply the following registry settings for your main/working user(s)
 "DontUpdateLinks"=dword:00000001
 ```
 
+#### Office 365 Telemetry
+
+* ID 4418: Disable the Office 365 Telemetry module
+
+```
+[HKEY_CURRENT_USER\Software\Policies\Microsoft\office\common\clienttelemetry]
+"DisableTelemetry"=dword:00000001
+```
+
 ## Windows Settings
 
 ### System
