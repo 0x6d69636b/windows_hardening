@@ -334,6 +334,7 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 #### Event Log Service
 
 * ID 1728: Set _Application\Specify the maximum log file size (KB)_ to **Enabled: 32768**
+
 * ID 1729: Set _Security\Specify the maximum log file size (KB)_ to **Enabled: 196608**
 * ID 1730: Set _System\Specify the maximum log file size (KB)_ to **Enabled: 32768**
 
@@ -786,6 +787,23 @@ The basic recommendation is to deactivate all access. However, this should not l
 #### Delivery Optimization
 
 * Set _Allow downloads from other PCs_ to **Off**
+
+## Windows Apps
+
+Remove all unnecessary Apps like Xbox* or YourPhone:
+
+```powershell
+Get-AppxPackage -Name Microsoft.XboxGameOverlay | Remove-AppxPackage
+```
+
+List of Apps (your mileage may vary):
+
+* Microsoft.People
+* Microsoft.XboxGameOverlay
+* Microsoft.XboxIdentityProvider
+* Microsoft.XboxGameCallableUI
+* Microsoft.XboxGamingOverlay
+* Microsoft.YourPhone
 
 ## Monitoring
 
