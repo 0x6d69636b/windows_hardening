@@ -453,12 +453,6 @@
             #
             ElseIf ($Finding.Method -eq 'accountpolicy') {
 
-                If (-not($IsAdmin)) {
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
-                    Continue
-                }
-                                           
                 try {
                     
                     $ResultOutput = &$BinaryNet accounts
@@ -466,13 +460,46 @@
                     # "Parse" account policy
                     Switch ($Finding.Name) {
                        "Force user logoff how long after time expires" { $ResultOutput[0] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
-                       "Minimum password age"                          { $ResultOutput[1] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
-                       "Maximum password age"                          { $ResultOutput[2] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
-                       "Minimum password length"                       { $ResultOutput[3] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
-                       "Length of password history maintained"         { $ResultOutput[4] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
-                       "Account lockout threshold"                     { $ResultOutput[5] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
-                       "Account lockout duration"                      { $ResultOutput[6] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
-                       "Reset account lockout counter"                 { $ResultOutput[7] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
+                       "Network security: Force logoff when logon hours expires" { $ResultOutput[0] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
+                       "Minimum password age" { $ResultOutput[1] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
+                       "Maximum password age" { $ResultOutput[2] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
+                       "Minimum password length" { $ResultOutput[3] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
+                       "Length of password history maintained" { $ResultOutput[4] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
+                       "Account lockout threshold" { $ResultOutput[5] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
+                       "Account lockout duration" { $ResultOutput[6] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
+                       "Reset account lockout counter" { $ResultOutput[7] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result=$Matches[2]; Break}
+                    }
+
+                } catch {
+                    $Result = $Finding.DefaultValue
+                }
+            }
+
+            #
+            # Get Local Account Information
+            # The PowerShell function Get-LocalUser is used for this.
+            # In order to get the correct user, the query is made via the SID,
+            # the base value of the computer must first be retrieved.
+            #
+            ElseIf ($Finding.Method -eq 'localaccount') {
+                                           
+                try {
+
+                    # Get Computer SID
+                    $ComputerSid = ((Get-LocalUser | Select-Object -First 1).SID).AccountDomainSID.ToString()
+
+                    # Get User Status
+                    $Sid = $ComputerSid+"-"+$Finding.MethodArgument
+                    $ResultOutput = Get-LocalUser -SID $Sid
+
+                    If ($Finding.Name.Contains("account status")){
+                        $Result = $ResultOutput.Enabled
+                    }
+                    ElseIf ($Finding.Name.Contains("Renames")) {
+                        $Result = $ResultOutput.Name
+                    }
+                    Else {
+                        $Result = $Finding.DefaultValue
                     }
 
                 } catch {
@@ -716,6 +743,7 @@
                     "<=" { try { If ([int]$Result -le [int]$Finding.RecommendedValue) { $ResultPassed = $true }} catch { $ResultPassed = $false }; Break}
                     ">=" { try { If ([int]$Result -ge [int]$Finding.RecommendedValue) { $ResultPassed = $true }} catch { $ResultPassed = $false }; Break}
                     "contains" { If ($Result.Contains($Finding.RecommendedValue)) { $ResultPassed = $true }; Break}
+                    "!="  { If ([string] $Result -ne $Finding.RecommendedValue) { $ResultPassed = $true }; Break}
                 }
 
                 If ($ResultPassed) {
@@ -736,7 +764,13 @@
                 } Else {
 
                     # Failed
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Result=$Result, Recommended="+$Finding.RecommendedValue+", Severity="+$Finding.Severity
+                    If ($Finding.Operator -eq "!=") {
+                        $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Result=$Result, Recommended=Not "+$Finding.RecommendedValue+", Severity="+$Finding.Severity
+                    }
+                    Else {
+                        $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Result=$Result, Recommended="+$Finding.RecommendedValue+", Severity="+$Finding.Severity
+                    }
+                    
                     Write-ResultEntry -Text $Message -SeverityLevel $Finding.Severity
 
                     If ($Log) {
