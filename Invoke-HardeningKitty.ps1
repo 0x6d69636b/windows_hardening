@@ -256,6 +256,15 @@
     }
 
     #
+    # Statistics
+    #
+    $StatsPassed = 0
+    $StatsLow = 0
+    $StatsMedium = 0
+    $StatsHigh = 0
+    $StatsTotal = 0
+
+    #
     # Header
     #
     Write-Output "`n"
@@ -761,6 +770,9 @@
                         Add-ResultEntry -Text $Message
                     }
 
+                    # Increment Counter
+                    $StatsPassed++
+
                 } Else {
 
                     # Failed
@@ -780,6 +792,14 @@
                     If ($Report) {
                         $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$Finding.Severity+'","'+$Result+'","'+$Finding.RecommendedValue+'"'
                         Add-ResultEntry -Text $Message
+                    }
+
+                    # Increment Counter
+                    Switch($Finding.Severity) {
+
+                        "Low"    { $StatsLow++; Break}
+                        "Medium" { $StatsMedium++; Break}
+                        "High"   { $StatsHigh++; Break}                        
                     }
                 }
 
@@ -810,5 +830,9 @@
     
     Write-Output "`n"
     Write-ProtocolEntry -Text "HardeningKitty is done" -LogLevel "Info"
+    If ($Mode -eq "Audit") {
+        $StatsTotal = $StatsPassed + $StatsLow + $StatsMedium + $StatsHigh
+        Write-ProtocolEntry -Text "HardeningKitty Statistics: Total checks: $StatsTotal - Passed: $StatsPassed, Low: $StatsLow, Medium: $StatsMedium, High: $StatsHigh" -LogLevel "Info"
+    }
     Write-Output "`n"
 }
