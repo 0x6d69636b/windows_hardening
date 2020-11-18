@@ -79,7 +79,9 @@ The lists were last updated/checked against the following Microsoft Security Bas
 * finding\_list\_0x6d69636b\_machine and finding\_list\_0x6d69636b\_user
 	- Security baseline for Windows 10 and Windows Server, version 2004
 	- Security baseline for Office 365 ProPlus, version 1908
-	- 0x6d69636b own knowledge 
+	- 0x6d69636b own knowledge
+* finding\_list\_cis\_microsoft\_windows\_10\_enterprise\_machine and finding\_list\_cis\_microsoft\_windows\_10\_enterprise\_user
+	- CIS Microsoft Windows 10 Enterprise (Release 2004) Benchmark v1.9.1 - 10-23-2020
 * finding\_list\_msft\_security\_baseline\_edge\_machine
 	- Security baseline for Microsoft Edge, version 86
 * finding\_list\_msft\_security\_baseline\_windows\_10\_machine
@@ -98,6 +100,7 @@ The lists were last updated/checked against the following Microsoft Security Bas
 ## Sources
 
 * [CIS Benchmarks for Microsoft Windows 10 Enterprise Release 1909 v1.8.1](https://www.cisecurity.org/cis-benchmarks/)
+* [CIS Benchmarks for Microsoft Windows 10 Enterprise Release 2004 v1.9.1](https://www.cisecurity.org/cis-benchmarks/)
 * [Security baseline (FINAL): Windows 10 and Windows Server, version 2004](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-final-windows-10-and-windows-server-version/ba-p/1543631)
 * [Security baseline (DRAFT): Windows 10 and Windows Server, version 20H2](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-draft-windows-10-and-windows-server-version/ba-p/1799721)
 * [Kernel DMA Protection for Thunderbolt 3](https://docs.microsoft.com/en-us/windows/security/information-protection/kernel-dma-protection-for-thunderbolt)
