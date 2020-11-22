@@ -859,4 +859,4 @@ ID    | Name                  | Type        | Rule applies to | Protocol | Local
 2319 | HardeningKitty--Block-RunScriptHelper-x64 | Custom Rule | _%SystemRoot%\System32\RunScriptHelper.exe_ | Any | Any | Any | Block | All
 2320 | HardeningKitty--Block-RunScriptHelper-x86 | Custom Rule | _%SystemRoot%\Syswow64\RunScriptHelper.exe_ | Any | Any | Any | Block | All
 2321 | HardeningKitty--Block-wscript-x64 | Custom Rule | _%SystemRoot%\System32\wscript.exe_ | Any | Any | Any | Block | All
-2312 | HardeningKitty--Block-wscript-x86 | Custom Rule | _%SystemRoot%\Syswow64\wscript.exe_ | Any | Any | Any | Block | All
+2322 | HardeningKitty--Block-wscript-x86 | Custom Rule | _%SystemRoot%\Syswow64\wscript.exe_ | Any | Any | Any | Block | All
