@@ -833,8 +833,8 @@ ID    | Name                  | Type        | Rule applies to | Protocol | Local
 
 ID    | Name                  | Type        | Rule applies to | Protocol | Local ports | IP addresses | Action | Profile 
 ------|--------------------- | ------------| --------------- | -------- | ----------- | ------------ |  ---------- | -----------
-- | HardeningKitty-Block-TCP-VMware-HTTPS | Custom Rule | All programs | TCP | 443 | Any | Block | All
-- | HardeningKitty-Block-TCP-VMware-authd | Custom Rule | All programs | TCP | 902, 912 | Any | Block | All
+\- | HardeningKitty-Block-TCP-VMware-HTTPS | Custom Rule | All programs | TCP | 443 | Any | Block | All
+\- | HardeningKitty-Block-TCP-VMware-authd | Custom Rule | All programs | TCP | 902, 912 | Any | Block | All
 
 ### Outbound Rules
 
