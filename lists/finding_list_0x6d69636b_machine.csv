@@ -281,5 +281,3 @@
 2320,"Windows Firewall","HardeningKitty-Block-RunScriptHelper-x64","FirewallRule","Any|Outbound|Block|||%SystemRoot%\Syswow64\RunScriptHelper.exe|",,,,,,"False","True","=","Low"
 2321,"Windows Firewall","HardeningKitty-Block-wscript-x64","FirewallRule","Any|Outbound|Block|||%SystemRoot%\System32\wscript.exe|",,,,,,"False","True","=","Low"
 2322,"Windows Firewall","HardeningKitty-Block-wscript-x64","FirewallRule","Any|Outbound|Block|||%SystemRoot%\Syswow64\wscript.exe|",,,,,,"False","True","=","Low"
-2323,"Windows Firewall","HardeningKitty-Block-calc-x64","FirewallRule","Any|Outbound|Block|||%SystemRoot%\System32\calc.exe|",,,,,,"False","True","=","Low"
-2324,"Windows Firewall","HardeningKitty-Block-calc-x64","FirewallRule","Any|Outbound|Block|||%SystemRoot%\Syswow64\calc.exe|",,,,,,"False","True","=","Low"
