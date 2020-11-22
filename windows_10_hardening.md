@@ -335,6 +335,7 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 
 * ID 1728: Set _Application\Specify the maximum log file size (KB)_ to **Enabled: 32768**
 
+
 * ID 1729: Set _Security\Specify the maximum log file size (KB)_ to **Enabled: 196608**
 * ID 1730: Set _System\Specify the maximum log file size (KB)_ to **Enabled: 32768**
 
@@ -345,6 +346,28 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 #### HomeGroup
 
 * ID 1732: Set _Prevent the computer from joining a homegroup_ to **Enabled**
+
+#### Microsoft Defender Antivirus
+
+* ID 1800: Set _Turn off Windows Defender Antivirus_ to **Disabled**
+* ID 1801: Set _Configure detection for potentially unwanted applications_ to **Enabled: Audit Mode**
+* ID 1900: Set _Windows Defender Exploit Guard\Attack Surface Reduction\Configure Attack Surface Reduction rules_ to **Enabled**
+	* Apply these rules (Set 'Value' to '1' (Block Mode)
+	* ID 1901: be9ba2d9-53ea-4cdc-84e5-9b1eeee46550 - Block executable content from email client and webmail
+	* ID 1902: d4f940ab-401b-4efc-aadc-ad5f3c50688a - Block Office applications from creating child processes
+	* ID 1903: 3b576869-a4ec-4529-8536-b80a7769e899 - Block Office applications from creating executable content
+	* ID 1904: 75668c1f-73b5-4cf0-bb93-3ecf5cb7cc84 - Block Office applications from injecting into other processes
+	* ID 1905: d3e037e1-3eb8-44c8-a917-57927947596d - Impede JavaScript and VBScript to launch executables
+	* ID 1906: 5beb7efe-fd9a-4556-801d-275e5ffc04cc - Block execution of potentially obfuscated scripts
+	* ID 1907: 92e97fa1-2edf-4476-bdd6-9dd0b4dddc7b - Block Win32 imports from Macro code in Office	
+	* ID 1908: 01443614-cd74-433a-b99e-2ecdc07bfc25 - Block executable files from running unless they meet a prevalence, age, or trusted list criteria	
+	* ID 1909: c1db55ab-c21a-4637-bb3f-a12568109d35 - Use advanced protection against ransomware
+	* ID 1910: 9e6c4e1f-7d60-472f-ba1a-a39ef669e4b2 - Block credential stealing from the Windows local security authority subsystem (lsass.exe)
+	* ID 1911: d1e49aac-8f56-4280-b9ba-993a6d77406c - Block process creations originating from PSExec and WMI commands
+	* ID 1912: b2b3f03d-6a65-4f7b-a9c7-1c7ef74a9ba4 - Block untrusted and unsigned processes that run from USB
+	* ID 1913: 26190899-1602-49e8-8b27-eb1d0a1ce869 - Block Office communication applications from creating child processes
+	* ID 1914: 7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c - Block Adobe Reader from creating child processes
+	* ID 1915: e6db77e5-3df2-4cf1-b95a-636979351e5b - Block persistence through WMI event subscription
 
 #### OneDrive
 
@@ -403,28 +426,6 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 #### Windows Remote Shell
 
 * ID 1760: Set _Allow Remote Shell Access_ to **Disabled**
-
-#### Windows Defender Antivirus
-
-* ID 1800: Set _Turn off Windows Defender Antivirus_ to **Disabled**
-* ID 1801: Set _Configure detection for potentially unwanted applications_ to **Enabled: Audit Mode**
-* ID 1900: Set _Windows Defender Exploit Guard\Attack Surface Reduction\Configure Attack Surface Reduction rules_ to **Enabled**
-	* Apply these rules (Set 'Value' to '1' (Block Mode)
-	* ID 1901: be9ba2d9-53ea-4cdc-84e5-9b1eeee46550 - Block executable content from email client and webmail
-	* ID 1902: d4f940ab-401b-4efc-aadc-ad5f3c50688a - Block Office applications from creating child processes
-	* ID 1903: 3b576869-a4ec-4529-8536-b80a7769e899 - Block Office applications from creating executable content
-	* ID 1904: 75668c1f-73b5-4cf0-bb93-3ecf5cb7cc84 - Block Office applications from injecting into other processes
-	* ID 1905: d3e037e1-3eb8-44c8-a917-57927947596d - Impede JavaScript and VBScript to launch executables
-	* ID 1906: 5beb7efe-fd9a-4556-801d-275e5ffc04cc - Block execution of potentially obfuscated scripts
-	* ID 1907: 92e97fa1-2edf-4476-bdd6-9dd0b4dddc7b - Block Win32 imports from Macro code in Office	
-	* ID 1908: 01443614-cd74-433a-b99e-2ecdc07bfc25 - Block executable files from running unless they meet a prevalence, age, or trusted list criteria	
-	* ID 1909: c1db55ab-c21a-4637-bb3f-a12568109d35 - Use advanced protection against ransomware
-	* ID 1910: 9e6c4e1f-7d60-472f-ba1a-a39ef669e4b2 - Block credential stealing from the Windows local security authority subsystem (lsass.exe)
-	* ID 1911: d1e49aac-8f56-4280-b9ba-993a6d77406c - Block process creations originating from PSExec and WMI commands
-	* ID 1912: b2b3f03d-6a65-4f7b-a9c7-1c7ef74a9ba4 - Block untrusted and unsigned processes that run from USB
-	* ID 1913: 26190899-1602-49e8-8b27-eb1d0a1ce869 - Block Office communication applications from creating child processes
-	* ID 1914: 7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c - Block Adobe Reader from creating child processes
-	* ID 1915: e6db77e5-3df2-4cf1-b95a-636979351e5b - Block persistence through WMI event subscription
 
 #### Windows Defender SmartScreen
 
