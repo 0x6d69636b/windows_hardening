@@ -196,7 +196,7 @@
             Switch ($SeverityLevel) {
 
                 "Passed" { $Emoji = [char]::ConvertFromUtf32(0x1F63A); $Message = "[$Emoji] $Text"; Write-Host -ForegroundColor Gray $Message; Break}
-                "Low"    { $Emoji = [char]::ConvertFromUtf32(0x1F63C); $Message = "[$Emoji] $Text"; Write-Host -ForegroundColor Cyan $Message; Break}        
+                "Low"    { $Emoji = [char]::ConvertFromUtf32(0x1F63C); $Message = "[$Emoji] $Text"; Write-Host -ForegroundColor Cyan $Message; Break}
                 "Medium" { $Emoji = [char]::ConvertFromUtf32(0x1F63F); $Message = "[$Emoji] $Text"; Write-Host -ForegroundColor Yellow $Message; Break}
                 "High"   { $Emoji = [char]::ConvertFromUtf32(0x1F640); $Message = "[$Emoji] $Text"; Write-Host -ForegroundColor Red $Message; Break}
                 Default  { $Message = "[*] $Text"; Write-Host $Message; }
@@ -207,7 +207,7 @@
             Switch ($SeverityLevel) {
 
                 "Passed" { $Message = "[+] $Text"; Write-Host -ForegroundColor Gray $Message; Break}
-                "Low"    { $Message = "[-] $Text"; Write-Host -ForegroundColor Cyan $Message; Break}        
+                "Low"    { $Message = "[-] $Text"; Write-Host -ForegroundColor Cyan $Message; Break}
                 "Medium" { $Message = "[$] $Text"; Write-Host -ForegroundColor Yellow $Message; Break}
                 "High"   { $Message = "[!] $Text"; Write-Host -ForegroundColor Red $Message; Break}
                 Default  { $Message = "[*] $Text"; Write-Host $Message; }
@@ -715,23 +715,15 @@
             }
 
             #
-            # secedit
-            # Configures and analyzes system security, results are written
-            # to a file, which means HardeningKitty must create a temporary file
-            # and afterwards delete it. HardeningKitty is very orderly.
+            # FirewallRule
+            # Search for a specific firewall rule with a given name
             #
-            ElseIf ($Finding.Method -eq 'secedit') {
+            ElseIf ($Finding.Method -eq 'FirewallRule') {
 
                 try {
                     
-                    $OutputSecedit = New-TemporaryFile
-                    &$BinarySecedit /export /areas SecurityPolicy /cfg $OutputSecedit /quiet
-
-                    $ResultOutput = Select-String -Path $OutputSecedit -Pattern $Finding.MethodArgument
-                    $ResultOutput = $ResultOutput.Line.Split(" ")
-                    $Result = $ResultOutput[2]
-
-                    Remove-Item $OutputSecedit.FullName -Force
+                    $ResultOutput = Get-NetFirewallRule -DisplayName $Finding.Name 2> $null
+                    $Result = $ResultOutput.Enabled
 
                 } catch {
                     $Result = $Finding.DefaultValue
@@ -799,7 +791,7 @@
 
                         "Low"    { $StatsLow++; Break}
                         "Medium" { $StatsMedium++; Break}
-                        "High"   { $StatsHigh++; Break}                        
+                        "High"   { $StatsHigh++; Break}
                     }
                 }
 
@@ -823,9 +815,110 @@
 
     } Elseif ($Mode = "HailMary") {
 
-        # Todo
-        # Set all hardening settings in findings file
-        # You can do that as long as you know you're doing
+        # A CSV finding list is imported. HardeningKitty has one machine and one user list.
+        If ($FileFindingList.Length -eq 0) {
+
+            $CurrentLication = Get-Location
+            $FileFindingList = "$CurrentLication\lists\finding_list_0x6d69636b_machine.csv"
+        }
+
+        $FindingList = Import-Csv -Path $FileFindingList -Delimiter ","
+        $LastCategory = ""
+
+        ForEach ($Finding in $FindingList) {
+
+            # Todo
+            # Set all hardening settings in findings file
+            # You can do that as long as you know you're doing
+
+            #
+            # Category
+            #
+            If ($LastCategory -ne $Finding.Category) {
+                         
+                $Message = "Starting Category " + $Finding.Category
+                Write-Output "`n"                
+                Write-ProtocolEntry -Text $Message -LogLevel "Info"
+                $LastCategory = $Finding.Category
+            }
+
+            #
+            # FirewallRule
+            # Create a firewall rule. First it will be checked if the rule already exists
+            #
+            If ($Finding.Method -eq 'FirewallRule') {
+
+                If (-not($IsAdmin)) {
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
+                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Continue
+                }
+
+                $FwRule = $Finding.MethodArgument
+                $FwRuleArray = $FwRule.Split("|")
+
+                $FwDisplayName = $Finding.Name 
+                $FwProfile = $FwRuleArray[0]
+                $FwDirection = $FwRuleArray[1]
+                $FwAction = $FwRuleArray[2]
+                $FwProtocol = $FwRuleArray[3]
+                $FwLocalPort = @($FwRuleArray[4]).Split(",")
+                $FwProgram = $FwRuleArray[5]
+
+                # Check if rule already exists
+                try {
+                                    
+                    $ResultOutput = Get-NetFirewallRule -DisplayName $FwDisplayName 2> $null
+                    $Result = $ResultOutput.Enabled
+
+                } catch {
+                    $Result = $Finding.DefaultValue
+                }
+
+                # Go on if rule not exists
+                If (-Not $Result) {
+
+                    If ($FwProgram -eq "") {
+                        
+                        $ResultRule = New-NetFirewallRule -DisplayName $FwDisplayName -Profile $FwProfile -Direction $FwDirection -Action $FwAction -Protocol $FwProtocol -LocalPort $FwLocalPort
+                    }
+                    Else {
+                        $ResultRule = New-NetFirewallRule -DisplayName $FwDisplayName -Profile $FwProfile -Direction $FwDirection -Action $FwAction -Program "$FwProgram"
+                    }
+
+                    If ($ResultRule.PrimaryStatus -eq "OK") {
+
+                        # Excellent
+                        $ResultText = "Rule created" 
+                        $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
+                        $MessageSeverity = "Passed"
+                    } 
+                    Else {
+                        # Bogus
+                        $ResultText = "Rule not created" 
+                        $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
+                        $MessageSeverity = "High"
+                    }
+                }
+                Else {
+                    # Excellent
+                    $ResultText = "Rule already exists" 
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
+                    $MessageSeverity = "Passed"
+                }
+                
+                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+
+                If ($Log) {
+                    Add-ProtocolEntry -Text $Message
+                }
+                    
+                If ($Report) {
+                    $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$ResultText+'"'
+                    Add-ResultEntry -Text $Message
+                }
+            }
+        }
     }
     
     Write-Output "`n"
