@@ -647,7 +647,7 @@
             }
 
             #
-            # Windows Defender Preferences
+            # Microsoft Defender Preferences
             # The values are saved from a PowerShell function into an object.
             # The desired arguments can be accessed directly.
             #
@@ -658,6 +658,34 @@
                     $ResultOutput = Get-MpPreference
                     $ResultArgument = $Finding.MethodArgument 
                     $Result = $ResultOutput.$ResultArgument
+
+                } catch {
+                    $Result = $Finding.DefaultValue
+                }
+            }
+
+            #
+            # Microsoft Defender Preferences - Attack surface reduction rules (ASR rules)
+            # The values are saved from a PowerShell function into an object.
+            # The desired arguments can be accessed directly.
+            #
+            ElseIf ($Finding.Method -eq 'MpPreferenceAsr') {
+
+                try {
+                                    
+                    $ResultOutput = Get-MpPreference
+                    $ResultAsrIds = $ResultOutput.AttackSurfaceReductionRules_Ids
+                    $ResultAsrActions = $ResultOutput.AttackSurfaceReductionRules_Actions
+                    $Counter = 0
+
+                    ForEach ($AsrRule in $ResultAsrIds) {
+
+                        If ($AsrRule -eq $Finding.MethodArgument) {
+                            $Result = $ResultAsrActions[$Counter]
+                            Continue
+                        }
+                        $Counter++
+                    }
 
                 } catch {
                     $Result = $Finding.DefaultValue
