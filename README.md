@@ -73,31 +73,17 @@ PS C:\> Invoke-HardeningKitty -EmojiSupport
 
 The lists were last updated/checked against the following Microsoft Security Baseline or other frameworks:
 
-* Hardening list Windows 10
-	- Security baseline for Windows 10 and Windows Server, version 2004
-	- Security baseline for Office 365 ProPlus, version 1908
-* finding\_list\_0x6d69636b\_machine and finding\_list\_0x6d69636b\_user
-	- Security baseline for Windows 10 and Windows Server, version 2004
-	- Security baseline for Office 365 ProPlus, version 1908
-	- 0x6d69636b own knowledge
-* finding\_list\_cis\_microsoft\_windows\_10\_enterprise\_machine and finding\_list\_cis\_microsoft\_windows\_10\_enterprise\_user
-	- CIS Microsoft Windows 10 Enterprise (Release 2004) Benchmark v1.9.1 - 10-23-2020
-* finding\_list\_cis\_microsoft\_windows\_server\_2019\_machine and finding\_list\_cis\_microsoft\_windows\_server\_2019\_user
-	- CIS Microsoft Windows Server 2019 RTM (Release 1809) Benchmark v1.1.0 - 01-14-2020
-* finding\_list\_msft\_security\_baseline\_edge\_machine
-	- Security baseline for Microsoft Edge, version 86
-* finding\_list\_msft\_security\_baseline\_windows\_10\_machine
-	- Security baseline for Windows 10 and Windows Server, version 2004 
-* finding\_list\_msft\_security\_baseline\_windows\_10\_machine_draft
-	- Security baseline for Windows 10 and Windows Server, version 2009
-* finding\_list\_msft\_security\_baseline\_windows\_server\_dc\_machine
-	- Security baseline for Windows 10 and Windows Server, version 2004 
-* finding\_list\_msft\_security\_baseline\_windows\_server\_dc\_machine_draft
-	- Security baseline for Windows 10 and Windows Server, version 2009 
-* finding\_list\_msft\_security\_baseline\_windows\_server\_member\_machine
-	- Security baseline for Windows 10 and Windows Server, version 2004
-* finding\_list\_msft\_security\_baseline\_windows\_server\_member\_machine_draft
-	- Security baseline for Windows 10 and Windows Server, version 2009
+Finding List                  | Baseline / Benchmark
+----------------------------- | ---------------------------------------------
+Hardening list Windows 10     | Security baseline for Windows 10 and Windows Server, version 2004 <br /> Security baseline for Office 365 ProPlus, version 1908
+finding\_list\_0x6d69636b\_\* | Security baseline for Windows 10 and Windows Server, version 2004 <br /> Security baseline for Office 365 ProPlus, version 1908
+finding\_list\_cis\_microsoft\_windows\_10\_enterprise\_\* | CIS Microsoft Windows 10 Enterprise (Release 2004) Benchmark v1.9.1 - 10-23-2020
+finding\_list\_cis\_microsoft\_windows\_server\_2019\_\* | CIS Microsoft Windows 10 Enterprise (Release 2004) Benchmark v1.9.1 - 10-23-2020
+finding\_list\_msft\_security\_baseline\_edge\_machine | Security baseline for Microsoft Edge, version 87
+finding\_list\_msft\_security\_baseline\_windows\_10\_\* | Security baseline for Windows 10 and Windows Server, version 2004
+finding\_list\_msft\_security\_baseline\_windows\_10\_\*_draft | Security baseline for Windows 10 and Windows Server, version 2009
+finding\_list\_msft\_security\_baseline\_windows\_server\_\* | Security baseline for Windows 10 and Windows Server, version 2004
+finding\_list\_msft\_security\_baseline\_windows\_server\_\*_draft | Security baseline for Windows 10 and Windows Server, version 2009
 
 ## Sources
 
@@ -121,7 +107,7 @@ The lists were last updated/checked against the following Microsoft Security Bas
 * [Policy Analyzer](https://blogs.technet.microsoft.com/secguide/2016/01/22/new-tool-policy-analyzer/)
 * [Security baseline for Office 365 ProPlus (v1908, Sept 2019) - FINAL](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-for-office-365-proplus-v1908-sept-2019-final/ba-p/873084)
 * [mackwage/windows_hardening.cmd](https://gist.github.com/mackwage/08604751462126599d7e52f233490efe)
-* [Security baseline for Microsoft Edge version 86](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-for-microsoft-edge-version-86/ba-p/1758453)
+* [Security baseline for Microsoft Edge version 87](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-for-microsoft-edge-version-87/ba-p/1950297)
 * [Microsoft Edge - Policies](https://docs.microsoft.com/en-us/DeployEdge/microsoft-edge-policies)
 * [A hint for Office 365 Telemetry](https://twitter.com/milenkowski/status/1326865844215934979)
 * [BSI: Microsoft Office Telemetry Analysis report](https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Publikationen/Studien/Office_Telemetrie/Office_Telemetrie.pdf?__blob=publicationFile&v=5)
