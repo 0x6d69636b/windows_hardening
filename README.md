@@ -78,30 +78,30 @@ The formula for the HardeningKitty Score is _(Points achieved / Maximum points) 
 ### Rating
 
 
-Score | Rating Causal | Rating Professional
------ | ------------- | -------------------
-6 | Excellent | Excellent
-5 | Well done! | Good 
-4 | Sufficient | Sufficient 
-3 | You should do better | Insufficient 
-2 | Weak | Insufficient
-1 | Bogus | Insufficient
+| Score | Rating Causal | Rating Professional |
+| ----- | ------------- | ------------------- |
+| 6 | 😹 Excellent | Excellent |
+| 5 | 😺 Well done | Good |
+| 4 | 😼 Sufficient | Sufficient |
+| 3 | 😿 You should do better | Insufficient |
+| 2 | 🙀 Weak | Insufficient |
+| 1 | 😾 Bogus | Insufficient |
 
 ## Last Update
 
 The lists were last updated/checked against the following Microsoft Security Baseline or other frameworks:
 
-Finding List                  | Baseline / Benchmark
------------------------------ | ---------------------------------------------
-Hardening list Windows 10     | Security baseline for Windows 10 and Windows Server, version 2004 <br /> Security baseline for Office 365 ProPlus, version 1908
-finding\_list\_0x6d69636b\_\* | Security baseline for Windows 10 and Windows Server, version 2004 <br /> Security baseline for Office 365 ProPlus, version 1908
-finding\_list\_cis\_microsoft\_windows\_10\_enterprise\_\* | CIS Microsoft Windows 10 Enterprise (Release 2004) Benchmark v1.9.1 - 10-23-2020
-finding\_list\_cis\_microsoft\_windows\_server\_2019\_\* | CIS Microsoft Windows 10 Enterprise (Release 2004) Benchmark v1.9.1 - 10-23-2020
-finding\_list\_msft\_security\_baseline\_edge\_machine | Security baseline for Microsoft Edge, version 87
-finding\_list\_msft\_security\_baseline\_windows\_10\_\* | Security baseline for Windows 10 and Windows Server, version 2004
-finding\_list\_msft\_security\_baseline\_windows\_10\_\*_draft | Security baseline for Windows 10 and Windows Server, version 2009
-finding\_list\_msft\_security\_baseline\_windows\_server\_\* | Security baseline for Windows 10 and Windows Server, version 2004
-finding\_list\_msft\_security\_baseline\_windows\_server\_\*_draft | Security baseline for Windows 10 and Windows Server, version 2009
+| Finding List | Baseline / Benchmark |            
+| -------------| -------------------- |
+| Hardening list Windows 10     | Security baseline for Windows 10 and Windows Server, version 2004 <br /> Security baseline for Office 365 ProPlus, version 1908 |
+| finding\_list\_0x6d69636b\_\* | Security baseline for Windows 10 and Windows Server, version 2004 <br /> Security baseline for Office 365 ProPlus, version 1908 |
+| finding\_list\_cis\_microsoft\_windows\_10\_enterprise\_\* | CIS Microsoft Windows 10 Enterprise (Release 2004) Benchmark v1.9.1 - 10-23-2020 |
+| finding\_list\_cis\_microsoft\_windows\_server\_2019\_\* | CIS Microsoft Windows 10 Enterprise (Release 2004) Benchmark v1.9.1 - 10-23-2020 |
+| finding\_list\_msft\_security\_baseline\_edge\_machine | Security baseline for Microsoft Edge, version 87 |
+| finding\_list\_msft\_security\_baseline\_windows\_10\_\* | Security baseline for Windows 10 and Windows Server, version 2004 |
+| finding\_list\_msft\_security\_baseline\_windows\_10\_\*_draft | Security baseline for Windows 10 and Windows Server, version 2009 |
+| finding\_list\_msft\_security\_baseline\_windows\_server\_\* | Security baseline for Windows 10 and Windows Server, version 2004 |
+| finding\_list\_msft\_security\_baseline\_windows\_server\_\*_draft | Security baseline for Windows 10 and Windows Server, version 2009 |
 
 ## Sources
 
