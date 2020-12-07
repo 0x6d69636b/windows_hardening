@@ -952,8 +952,15 @@
     Write-Output "`n"
     Write-ProtocolEntry -Text "HardeningKitty is done" -LogLevel "Info"
     If ($Mode -eq "Audit") {
+    
+        # HardeningKitty Score
         $StatsTotal = $StatsPassed + $StatsLow + $StatsMedium + $StatsHigh
-        Write-ProtocolEntry -Text "HardeningKitty Statistics: Total checks: $StatsTotal - Passed: $StatsPassed, Low: $StatsLow, Medium: $StatsMedium, High: $StatsHigh" -LogLevel "Info"
+        $ScoreTotal = $StatsTotal * 3
+        $ScoreAchived = $StatsPassed * 3 + $StatsLow * 2 + $StatsMedium
+        $HardeningKittyScore = ([int] $ScoreAchived / [int] $ScoreTotal) * 5 + 1
+        $HardeningKittyScoreRounded = [math]::round($HardeningKittyScore,2)
+            
+        Write-ProtocolEntry -Text "Your HardeningKitty score is: $HardeningKittyScoreRounded. HardeningKitty Statistics: Total checks: $StatsTotal - Passed: $StatsPassed, Low: $StatsLow, Medium: $StatsMedium, High: $StatsHigh." -LogLevel "Info"
     }
     Write-Output "`n"
 }

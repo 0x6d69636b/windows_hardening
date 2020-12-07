@@ -69,6 +69,24 @@ PS C:\> Invoke-HardeningKitty -EmojiSupport
 [*] 5/28/2020 4:39:34 PM - HardeningKitty is done
 ```
 
+## HardeningKitty Score
+
+Each Passed finding gives 3 points, a Low finding gives 2 points, a Medium finding gives 1 point and a High Finding gives 0 points.
+
+The formula for the HardeningKitty Score is _(Points achieved / Maximum points) * 5 + 1_.
+
+### Rating
+
+
+Score | Rating
+----- | ----------
+6 | Excellent
+5 | Well done!
+4 | Sufficient
+3 | You should do better
+2 | Weak
+1 | Bogus
+
 ## Last Update
 
 The lists were last updated/checked against the following Microsoft Security Baseline or other frameworks:
