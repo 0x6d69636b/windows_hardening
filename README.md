@@ -71,7 +71,7 @@ PS C:\> Invoke-HardeningKitty -EmojiSupport
 
 ## HardeningKitty Score
 
-Each Passed finding gives 3 points, a Low finding gives 2 points, a Medium finding gives 1 point and a High Finding gives 0 points.
+Each Passed finding gives 4 points, a Low finding gives 2 points, a Medium finding gives 1 point and a High Finding gives 0 points.
 
 The formula for the HardeningKitty Score is _(Points achieved / Maximum points) * 5 + 1_.
 

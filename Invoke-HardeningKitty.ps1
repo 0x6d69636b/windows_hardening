@@ -955,8 +955,8 @@
     
         # HardeningKitty Score
         $StatsTotal = $StatsPassed + $StatsLow + $StatsMedium + $StatsHigh
-        $ScoreTotal = $StatsTotal * 3
-        $ScoreAchived = $StatsPassed * 3 + $StatsLow * 2 + $StatsMedium
+        $ScoreTotal = $StatsTotal * 4
+        $ScoreAchived = $StatsPassed * 4 + $StatsLow * 2 + $StatsMedium
         $HardeningKittyScore = ([int] $ScoreAchived / [int] $ScoreTotal) * 5 + 1
         $HardeningKittyScoreRounded = [math]::round($HardeningKittyScore,2)
             
