@@ -78,14 +78,14 @@ The formula for the HardeningKitty Score is _(Points achieved / Maximum points) 
 ### Rating
 
 
-Score | Rating
------ | ----------
-6 | Excellent
-5 | Well done!
-4 | Sufficient
-3 | You should do better
-2 | Weak
-1 | Bogus
+Score | Rating Causal | Rating Professional
+----- | ------------- | -------------------
+6 | Excellent | Excellent
+5 | Well done! | Good 
+4 | Sufficient | Sufficient 
+3 | You should do better | Insufficient 
+2 | Weak | Insufficient
+1 | Bogus | Insufficient
 
 ## Last Update
 
