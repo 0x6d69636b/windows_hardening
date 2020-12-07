@@ -79,7 +79,7 @@ The formula for the HardeningKitty Score is _(Points achieved / Maximum points) 
 
 
 | Score | Rating Causal | Rating Professional |
-| ----- | ------------- | ------------------- |
+| :---- | :------------ | :------------------ |
 | 6 | 😹 Excellent | Excellent |
 | 5 | 😺 Well done | Good |
 | 4 | 😼 Sufficient | Sufficient |
@@ -92,7 +92,7 @@ The formula for the HardeningKitty Score is _(Points achieved / Maximum points) 
 The lists were last updated/checked against the following Microsoft Security Baseline or other frameworks:
 
 | Finding List | Baseline / Benchmark |            
-| -------------| -------------------- |
+| :------------| :------------------- |
 | Hardening list Windows 10     | Security baseline for Windows 10 and Windows Server, version 2004 <br /> Security baseline for Office 365 ProPlus, version 1908 |
 | finding\_list\_0x6d69636b\_\* | Security baseline for Windows 10 and Windows Server, version 2004 <br /> Security baseline for Office 365 ProPlus, version 1908 |
 | finding\_list\_cis\_microsoft\_windows\_10\_enterprise\_\* | CIS Microsoft Windows 10 Enterprise (Release 2004) Benchmark v1.9.1 - 10-23-2020 |
