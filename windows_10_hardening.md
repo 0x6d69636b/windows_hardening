@@ -474,7 +474,23 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 * ID 1960, ID 1961, ID 1962: Set _Validate exception chains (SEHOP)_ to **On by default**
 * ID 1953, ID 1964: Set _Validate heap integrity_ to **On by default**
 
-These settings can be exported as an XML file and loaded via Group Policy _Computer Configuration\Administrative Templates\Windows Components\Windows Defender Exploit Guard\Exploit Protection\Use a common set of exploit protection settings_. It is also possible to configure policies per program.
+These settings can be exported as an XML file and loaded via Group Policy _Computer Configuration\Administrative Templates\Windows Components\Windows Defender Exploit Guard\Exploit Protection\Use a common set of exploit protection settings_. It is also possible to configure policies per application.
+
+Example of an XML configuration file:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<MitigationPolicy>
+  <SystemConfig>
+    <DEP Enable="true" EmulateAtlThunks="false" />
+    <ASLR ForceRelocateImages="true" RequireInfo="false" BottomUp="true" HighEntropy="true" />
+    <ControlFlowGuard Enable="true" SuppressExports="false" />
+    <Fonts DisableNonSystemFonts="true" AuditOnly="false" Audit="false" />
+    <SEHOP Enable="true" TelemetryOnly="false" />
+    <Heap TerminateOnError="true" />
+  </SystemConfig>
+</MitigationPolicy>
+```
 
 #### Enable Data Execution Prevention (DEP)
 
