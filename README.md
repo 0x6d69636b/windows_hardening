@@ -78,7 +78,7 @@ The formula for the HardeningKitty Score is _(Points achieved / Maximum points) 
 ### Rating
 
 
-| Score | Rating Causal | Rating Professional |
+| Score | Rating Casual | Rating Professional |
 | :---- | :------------ | :------------------ |
 | 6 | 😹 Excellent | Excellent |
 | 5 | 😺 Well done | Good |
