@@ -1,0 +1,3 @@
+"ID","Category","Name","Method","MethodArgument","RegistryPath","RegistryItem","ClassName","Namespace","Property","DefaultValue","RecommendedValue","Operator","Severity"
+123,"Windows Services","Xbox Accessory Management Service disabled","service","XboxGipSvc",,,,,,"Manual","Disabled","=","Low"
+124,"Windows Services","Xbox Accessory Management Service disabled","service","XboxGipSvc",,,,,,"Manual","Manual","=","Low"

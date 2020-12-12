@@ -757,6 +757,17 @@
                     $Result = $Finding.DefaultValue
                 }
             }
+            ElseIf ($Finding.Method -eq 'service') {
+
+                try {
+                    
+                    $ResultOutput = Get-Service -Name $Finding.MethodArgument 2> $null
+                    $Result = $ResultOutput.StartType
+
+                } catch {
+                    $Result = $Finding.DefaultValue
+                }
+            }
 
             #
             # Compare result value and recommendation
