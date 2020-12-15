@@ -168,7 +168,12 @@
             $Text
         )     
 
-        Add-Content -Path $LogFile -Value $Text
+        try {
+            Add-Content -Path $LogFile -Value $Text -ErrorAction Stop
+        } catch {
+            Write-ProtocolEntry -Text "Error while writing log entries into $LogFile. Aborting..." -LogLevel "Error"
+            Break            
+        }
     }
 
     Function Write-ResultEntry {
@@ -231,7 +236,12 @@
             $Text
         )
 
-        Add-Content -Path $ReportFile -Value $Text
+        try {
+            Add-Content -Path $ReportFile -Value $Text -ErrorAction Stop
+        } catch {
+            Write-ProtocolEntry -Text "Error while writing the result into $ReportFile. Aborting..." -LogLevel "Error"
+            Break            
+        }
     }
 
     #
