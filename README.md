@@ -106,7 +106,7 @@ The lists were last updated/checked against the following Microsoft Security Bas
 | Microsoft Security baseline for Windows Server 10 version 2009 (DC) | 2009 | Draft | finding\_list\_msft\_security\_baseline\_windows\_server\_2009\_dc\_machine.csv |
 | Microsoft Security baseline for Windows Server 10 version 2009 (Member) | 2009 | Draft | finding\_list\_msft\_security\_baseline\_windows\_server\_2009\_member\_machine.csv |
 | Microsoft Security Baseline for Office 365 ProPlus (Machine) | Sept 2019 | Final | finding\_list\_msft\_security\_baseline\_office\_365\_machine.csv |
-| Microsoft Security Baseline for Office 365 ProPlus (User) | Sept 2019 | Final finding\_list\_msft\_security\_baseline\_office\_365\_user.csv |
+| Microsoft Security Baseline for Office 365 ProPlus (User) | Sept 2019 | Final |  finding\_list\_msft\_security\_baseline\_office\_365\_user.csv |
 
 
 ## Sources
