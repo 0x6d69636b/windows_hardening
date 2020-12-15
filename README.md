@@ -77,7 +77,6 @@ The formula for the HardeningKitty Score is _(Points achieved / Maximum points) 
 
 ### Rating
 
-
 | Score | Rating Casual | Rating Professional |
 | :---- | :------------ | :------------------ |
 | 6 | 😹 Excellent | Excellent |
@@ -91,17 +90,24 @@ The formula for the HardeningKitty Score is _(Points achieved / Maximum points) 
 
 The lists were last updated/checked against the following Microsoft Security Baseline or other frameworks:
 
-| Finding List | Baseline / Benchmark |            
-| :------------| :------------------- |
-| Hardening list Windows 10     | Security baseline for Windows 10 and Windows Server, version 2004 <br /> Security baseline for Office 365 ProPlus, version 1908 |
-| finding\_list\_0x6d69636b\_\* | Security baseline for Windows 10 and Windows Server, version 2004 <br /> Security baseline for Office 365 ProPlus, version 1908 |
-| finding\_list\_cis\_microsoft\_windows\_10\_enterprise\_\* | CIS Microsoft Windows 10 Enterprise (Release 2004) Benchmark v1.9.1 - 10-23-2020 |
-| finding\_list\_cis\_microsoft\_windows\_server\_2019\_\* | CIS Microsoft Windows 10 Enterprise (Release 2004) Benchmark v1.9.1 - 10-23-2020 |
-| finding\_list\_msft\_security\_baseline\_edge\_machine | Security baseline for Microsoft Edge, version 87 |
-| finding\_list\_msft\_security\_baseline\_windows\_10\_\* | Security baseline for Windows 10 and Windows Server, version 2004 |
-| finding\_list\_msft\_security\_baseline\_windows\_10\_\*_draft | Security baseline for Windows 10 and Windows Server, version 2009 |
-| finding\_list\_msft\_security\_baseline\_windows\_server\_\* | Security baseline for Windows 10 and Windows Server, version 2004 |
-| finding\_list\_msft\_security\_baseline\_windows\_server\_\*_draft | Security baseline for Windows 10 and Windows Server, version 2009 |
+| Name | File  | System Version    | Version  |
+| :--- | :---- | :---------------- | :------  |
+| 0x6d69636b (Machine) | finding\_list\_0x6d69636b\_machine.csv | 2009 | |
+| 0x6d69636b (User) | finding\_list\_0x6d69636b\_user.csv | 2009 | |
+| CIS Microsoft Windows 10 Enterprise (Machine) | finding\_list\_cis\_microsoft\_windows\_10\_enterprise\_machine.csv | 2004 | 1.9.1 |
+| CIS Microsoft Windows 10 Enterprise (User) | finding\_list\_cis\_microsoft\_windows\_10\_enterprise\_user.csv | 2004 | 1.9.1 |
+| CIS Microsoft Windows Server 2019 (Machine) | finding\_list\_cis\_microsoft\_windows\_server\_2019\_machine.csv | 1809 | 1.1.0 |
+| CIS Microsoft Windows Server 2019 (User) | finding\_list\_cis\_microsoft\_windows\_server\_2019\_user.csv | 1809 | 1.1.0 |
+| Microsoft Security baseline for Microsoft Edge | finding\_list\_msft\_security\_baseline\_edge\_87\_machine.csv | 87 | Final |
+| Microsoft Security baseline for Windows 10 version 2004 | finding\_list\_msft\_security\_baseline\_windows\_10\_2004\_machine.csv | 2004 | Final |
+| Microsoft Security baseline for Windows 10 version 2009 | finding\_list\_msft\_security\_baseline\_windows\_10\_2009\_machine.csv | 2009 | Draft |
+| Microsoft Security baseline for Windows Server version 2004 (DC) | finding\_list\_msft\_security\_baseline\_windows\_server\_2004\_dc\_machine.csv | 2004 | Final |
+| Microsoft Security baseline for Windows Server version 2004 (Member) | finding\_list\_msft\_security\_baseline\_windows\_server\_2004\_member\_machine.csv | 2004 | Final |
+| Microsoft Security baseline for Windows Server 10 version 2009 (DC) | finding\_list\_msft\_security\_baseline\_windows\_server\_2009\_dc\_machine.csv | 2009 | Draft |
+| Microsoft Security baseline for Windows Server 10 version 2009 (Member) | finding\_list\_msft\_security\_baseline\_windows\_server\_2009\_member\_machine.csv | 2009 | Draft |
+| Microsoft Security Baseline for Office 365 ProPlus (Machine) | finding\_list\_msft\_security\_baseline\_office\_365\_machine.csv | Sept 2019 | Final |
+| Microsoft Security Baseline for Office 365 ProPlus (User) | finding\_list\_msft\_security\_baseline\_office\_365\_user.csv | Sept 2019 | Final
+
 
 ## Sources
 
