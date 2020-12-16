@@ -88,7 +88,7 @@ The formula for the HardeningKitty Score is _(Points achieved / Maximum points) 
 
 ## Last Update
 
-The lists were last updated/checked against the following Microsoft Security Baseline or other frameworks:
+HardeningKitty can be used to audit systems against the following baselines / benchmarks:
 
 | Name | System Version    | Version  |
 | :--- | :---------------- | :------  |
