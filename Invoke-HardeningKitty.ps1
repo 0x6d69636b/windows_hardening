@@ -11,7 +11,7 @@
 
 
         Author:  Michael Schneider
-        License: MIT    
+        License: MIT
         Required Dependencies: AccessChk by Mark Russinovich
         Optional Dependencies: None
 
@@ -254,7 +254,7 @@
     $Hostname = $env:COMPUTERNAME.ToLower()
     $FileDate = Get-Date -Format yyyyMMdd-HHmm
 
-    If ($Log -and $LogFile.Length -eq 0) {        
+    If ($Log -and $LogFile.Length -eq 0) {
         $LogFile = "hardeningkitty_log_$Hostname-$FileDate.log"
     }
     If ($Report -and $ReportFile.Length -eq 0) {
@@ -501,7 +501,7 @@
             # the base value of the computer must first be retrieved.
             #
             ElseIf ($Finding.Method -eq 'localaccount') {
-                                           
+
                 try {
 
                     # Get Computer SID
@@ -542,7 +542,7 @@
                     Write-ProtocolEntry -Text $Message -LogLevel "Error"
                     Continue
                 }
-                     
+
                 try { 
                                    
                     $ResultOutput = &$BinaryAccesschk -accepteula -nobanner -a $Finding.MethodArgument
@@ -556,7 +556,7 @@
                             Break
 
                         } Else {
-                            
+
                             [String] $Result += $ResultEntry.Trim()+";"
                         }
                     }
@@ -564,7 +564,7 @@
                     $Result = $Result -replace “.$”
                 } catch {
                     $Result = $Finding.DefaultValue
-                }                
+                }
             }
 
             #
@@ -580,7 +580,7 @@
                 }
 
                 try {
-                    
+
                     $ResultOutput = Get-WindowsOptionalFeature -Online -FeatureName $Finding.MethodArgument 
                     $Result = $ResultOutput.State
 
@@ -595,12 +595,12 @@
             # Afterwards, you have to search for the correct property within the class.
             #
             ElseIf ($Finding.Method -eq 'CimInstance') {
-                
+
                 try {
 
                     $ResultList = Get-CimInstance -ClassName $Finding.ClassName -Namespace $Finding.Namespace
                     $Property = $Finding.Property
-                                         
+
                     If ($ResultList.$Property | Where-Object { $_ -like "*"+$Finding.RecommendedValue+"*" }) {
                         $Result = $Finding.RecommendedValue
                     } Else {
@@ -626,7 +626,7 @@
                 }
 
                 try {
-                    
+
                     $ResultOutput = Get-BitLockerVolume -MountPoint C:
                     If ($ResultOutput.VolumeType -eq 'OperatingSystem') {
                         $ResultArgument = $Finding.MethodArgument 
@@ -647,7 +647,7 @@
             ElseIf ($Finding.Method -eq 'LanguageMode') {
 
                 try {
-                                    
+
                     $ResultOutput = $ExecutionContext.SessionState.LanguageMode                    
                     $Result = $ResultOutput
 
@@ -664,7 +664,7 @@
             ElseIf ($Finding.Method -eq 'MpPreference') {
 
                 try {
-                                    
+
                     $ResultOutput = Get-MpPreference
                     $ResultArgument = $Finding.MethodArgument 
                     $Result = $ResultOutput.$ResultArgument
@@ -682,7 +682,7 @@
             ElseIf ($Finding.Method -eq 'MpPreferenceAsr') {
 
                 try {
-                                    
+
                     $ResultOutput = Get-MpPreference
                     $ResultAsrIds = $ResultOutput.AttackSurfaceReductionRules_Ids
                     $ResultAsrActions = $ResultOutput.AttackSurfaceReductionRules_Actions
@@ -712,7 +712,7 @@
             ElseIf ($Finding.Method -eq 'Processmitigation') {
 
                 try {  
-                                                  
+
                     $ResultOutput = Get-Processmitigation -System
                     $ResultArgumentArray = $Finding.MethodArgument.Split(".")
                     $ResultArgument0 = $ResultArgumentArray[0]
@@ -737,10 +737,10 @@
                 }
 
                 try {
-                                    
+
                     $ResultOutput = &$BinaryBcdedit
                     $ResultOutput = $ResultOutput | Where-Object { $_ -like "*"+$Finding.RecommendedValue+"*" }
-                    
+
                     If ($ResultOutput -match ' ([a-z,A-Z]+)') {
                         $Result = $Matches[1]
                     } Else {
@@ -759,7 +759,7 @@
             ElseIf ($Finding.Method -eq 'FirewallRule') {
 
                 try {
-                    
+
                     $ResultOutput = Get-NetFirewallRule -DisplayName $Finding.Name 2> $null
                     $Result = $ResultOutput.Enabled
 
@@ -770,7 +770,7 @@
             ElseIf ($Finding.Method -eq 'service') {
 
                 try {
-                    
+
                     $ResultOutput = Get-Service -Name $Finding.MethodArgument 2> $null
                     $Result = $ResultOutput.StartType
 
@@ -805,7 +805,7 @@
                     If ($Log) {
                         Add-ProtocolEntry -Text $Message
                     }
-                    
+
                     If ($Report) {
                         $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","Passed","'+$Result+'"'
                         Add-ResultEntry -Text $Message
@@ -823,7 +823,7 @@
                     Else {
                         $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Result=$Result, Recommended="+$Finding.RecommendedValue+", Severity="+$Finding.Severity
                     }
-                    
+
                     Write-ResultEntry -Text $Message -SeverityLevel $Finding.Severity
 
                     If ($Log) {
@@ -884,7 +884,7 @@
             # Category
             #
             If ($LastCategory -ne $Finding.Category) {
-                         
+
                 $Message = "Starting Category " + $Finding.Category
                 Write-Output "`n"                
                 Write-ProtocolEntry -Text $Message -LogLevel "Info"
@@ -916,7 +916,7 @@
 
                 # Check if rule already exists
                 try {
-                                    
+
                     $ResultOutput = Get-NetFirewallRule -DisplayName $FwDisplayName 2> $null
                     $Result = $ResultOutput.Enabled
 
@@ -928,7 +928,7 @@
                 If (-Not $Result) {
 
                     If ($FwProgram -eq "") {
-                        
+
                         $ResultRule = New-NetFirewallRule -DisplayName $FwDisplayName -Profile $FwProfile -Direction $FwDirection -Action $FwAction -Protocol $FwProtocol -LocalPort $FwLocalPort
                     }
                     Else {
@@ -955,7 +955,7 @@
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
                     $MessageSeverity = "Passed"
                 }
-                
+
                 Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
 
                 If ($Log) {
@@ -973,13 +973,18 @@
     Write-Output "`n"
     Write-ProtocolEntry -Text "HardeningKitty is done" -LogLevel "Info"
     If ($Mode -eq "Audit") {
-    
+
         # HardeningKitty Score
         $StatsTotal = $StatsPassed + $StatsLow + $StatsMedium + $StatsHigh
         $ScoreTotal = $StatsTotal * 4
         $ScoreAchived = $StatsPassed * 4 + $StatsLow * 2 + $StatsMedium
         $HardeningKittyScore = ([int] $ScoreAchived / [int] $ScoreTotal) * 5 + 1
         $HardeningKittyScoreRounded = [math]::round($HardeningKittyScore,2)
+
+        # Overwrite HardeningKitty Score if no finding is passed
+        If ($StatsPassed -eq 0 ) {
+            $HardeningKittyScoreRounded = 1.00
+        }
             
         Write-ProtocolEntry -Text "Your HardeningKitty score is: $HardeningKittyScoreRounded. HardeningKitty Statistics: Total checks: $StatsTotal - Passed: $StatsPassed, Low: $StatsLow, Medium: $StatsMedium, High: $StatsHigh." -LogLevel "Info"
     }
