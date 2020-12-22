@@ -121,7 +121,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 5.1.2,"System Services","Bluetooth Audio Gateway Service (BTAGService) (Service Startup type)",service,BTAGService,,,,,,3,Disabled,=,Medium
 5.2.1,"System Services","Bluetooth Support Service (bthserv)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\bthserv,Start,,,,3,4,=,Medium
 5.2.2,"System Services","Bluetooth Support Service (bthserv) (Service Startup type)",service,bthserv,,,,,,3,Disabled,=,Medium
-5.3.1,"System Services","Computer Browser (Browser)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\Browser,Start,,,,,,=,Medium
+5.3.1,"System Services","Computer Browser (Browser)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\Browser,Start,,,,,4,=,Medium
 5.3.2,"System Services","Computer Browser (Browser) (Service Startup type)",service,Browser,,,,,,Disabled,Disabled,=,Medium
 5.4.1,"System Services","Downloaded Maps Manager (MapsBroker)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\MapsBroker,Start,,,,2,4,=,Medium
 5.4.2,"System Services","Downloaded Maps Manager (MapsBroker) (Service Startup type)",service,MapsBroker,,,,,,2,Disabled,=,Medium
