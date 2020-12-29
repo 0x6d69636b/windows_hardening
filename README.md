@@ -2,15 +2,17 @@
 
 ## Introduction
 
-This is a hardening checklist that can be used in private and business environments for hardening Windows 10. The checklist can be used for all Windows versions, but in Windows 10 Home the Group Policy Editor is not integrated and the adjustment must be done directly in the registry. 
+This is a hardening checklist that can be used in private and business environments for hardening Windows 10. The checklist can be used for all Windows versions, but in Windows 10 Home the Group Policy Editor is not integrated and the adjustment must be done directly in the registry. For this, there is the _HailMary_ mode from _HardeningKitty_. 
 
 The settings should be seen as security and privacy recommendation and should be carefully checked whether they will affect the operation of your infrastructure or impact the usability of key functions. It is important to weigh security against usability.
 
-## Policy Analyzer
+The project started with the creation of a simple hardening checklist for Windows 10. The focus has shifted to the audit of various well-known frameworks / benchmarks with the development of _HardeningKitty_. Meanwhile, various CIS benchmarks and Microsoft Security Baselines are supported. With the development of the _HailMary_ mode, it will also be possible to apply settings of any Hardening Checklist on a Windows system.
+
+## Policy Analyzer (deprecated)
 
 _Policy Analzyer_ reads out and compares local registry and local policy values to a defined baseline. The PolicyRule file from [aha-181](https://github.com/aha-181) contains all rules which are needed to check Group Policy and Registry settings that are defined in the Windows 10 Hardening checklist.
 
-Policy Analyzer supports the Hardening checklist up to version 0.2.0, additional entries are not yet supported. 
+Policy Analyzer supports the hardening checklist up to version 0.2.0, additional entries are not yet supported. Policy Analyzer is not able to query all values of the hardening checklist. With the development of _HardeningKitty_, the support of Policy Analyzer has become obsolete. There will no longer be a new version of the PolicyRule file.
 
 ## HardeningKitty
 
@@ -69,13 +71,13 @@ PS C:\> Invoke-HardeningKitty -EmojiSupport
 [*] 5/28/2020 4:39:34 PM - HardeningKitty is done
 ```
 
-## HardeningKitty Score
+### HardeningKitty Score
 
 Each Passed finding gives 4 points, a Low finding gives 2 points, a Medium finding gives 1 point and a High Finding gives 0 points.
 
 The formula for the HardeningKitty Score is _(Points achieved / Maximum points) * 5 + 1_.
 
-### Rating
+#### Rating
 
 | Score | Rating Casual | Rating Professional |
 | :---- | :------------ | :------------------ |
@@ -86,7 +88,7 @@ The formula for the HardeningKitty Score is _(Points achieved / Maximum points) 
 | 2 | 🙀 Weak | Insufficient |
 | 1 | 😾 Bogus | Insufficient |
 
-## Last Update
+### Last Update
 
 HardeningKitty can be used to audit systems against the following baselines / benchmarks:
 
