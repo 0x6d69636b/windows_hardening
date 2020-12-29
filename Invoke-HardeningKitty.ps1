@@ -892,6 +892,38 @@
             }
 
             #
+            # auditpol
+            # Set an audit policy
+            #
+            If ($Finding.Method -eq 'auditpol') {
+
+                If (-not($IsAdmin)) {
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
+                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Continue
+                }
+
+                $Success = if($Finding.RecommendedValue -ilike "*success*") {"enable"} else {"disable"}
+                $Failure = if($Finding.RecommendedValue -ilike "*failure*") {"enable"} else {"disable"}
+
+                $SubCategory = $Finding.Name
+
+                &$BinaryAuditpol /set /subcategory:"$($SubCategory)" /success:$($Success) /failure:$($Failure) | Out-Null
+
+                if($LastExitCode -eq 0) {
+                    $ResultText = "Audit policy set" 
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", "+$Finding.RecommendedValue+", " + $ResultText
+                    $MessageSeverity = "Passed"
+                } else {
+                    $ResultText = "Failed to set audit policy" 
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", "+$Finding.RecommendedValue+", " + $ResultText
+                    $MessageSeverity = "High"
+                }
+
+                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+            }
+
+            #
             # accountpolicy
             # Set a user account policy
             #
