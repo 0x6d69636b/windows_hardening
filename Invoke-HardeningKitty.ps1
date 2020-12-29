@@ -892,6 +892,46 @@
             }
 
             #
+            # accountpolicy
+            # Set a user account policy
+            #
+            If ($Finding.Method -eq 'accountpolicy') {
+
+                If (-not($IsAdmin)) {
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
+                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Continue
+                }
+
+                $Sw = "";
+
+                Switch ($Finding.Name) {
+                    "Force user logoff how long after time expires" { $Sw = "FORCELOGOFF"; Break }
+                    "Minimum password age" { $Sw = "MINPWAGE"; Break }
+                    "Maximum password age" { $Sw = "MAXPWAGE"; Break }
+                    "Minimum password length" { $Sw = "MINPWLEN"; Break }
+                    "Length of password history maintained" { $Sw = "UNIQUEPW"; Break }
+                    "Account lockout threshold" { $Sw = "lockoutthreshold"; Break; }
+                    "Account lockout duration" { $Sw = "lockoutduration"; Break }
+                    "Reset account lockout counter" { $Sw = "lockoutwindow"; Break }
+                }
+
+                &$BinaryNet accounts /$($Sw):$($Finding.RecommendedValue) | Out-Null
+
+                if($LastExitCode -eq 0) {
+                    $ResultText = "Account policy set" 
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", "+$Finding.RecommendedValue+", " + $ResultText
+                    $MessageSeverity = "Passed"
+                } else {
+                    $ResultText = "Failed to set account policy" 
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", "+$Finding.RecommendedValue+", " + $ResultText
+                    $MessageSeverity = "High"
+                }
+
+                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+            }
+
+            #
             # Registry
             # Create or modify a registry value.
             #
