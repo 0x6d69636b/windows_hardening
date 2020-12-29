@@ -892,6 +892,55 @@
             }
 
             #
+            # Registry
+            # Create or modify a registry value.
+            #
+            If ($Finding.Method -eq 'Registry') {
+                
+                If (-not($IsAdmin)) {
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
+                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Continue
+                }
+
+                $RegType = "String"
+
+                if($Finding.RecommendedValue -match "^\d+$") { $RegType = "DWord" }
+
+                if(!(Test-Path $Finding.RegistryPath)) {
+                    
+                    $Result = New-Item $Finding.RegistryPath -Force;
+                    
+                    if($Result) {
+                        $ResultText = "Registry key created" 
+                        $Message = "ID "+$Finding.ID+", "+$Finding.RegistryPath+", " + $ResultText
+                        $MessageSeverity = "Passed"
+                        Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                    } else {
+                        $ResultText = "Failed to create registry key" 
+                        $Message = "ID "+$Finding.ID+", "+$Finding.RegistryPath+", " + $ResultText
+                        $MessageSeverity = "High"
+                        Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                        Continue
+                    }
+                }
+
+                $Result = Set-Itemproperty -PassThru -Path $Finding.RegistryPath -Name $Finding.RegistryItem -Type $RegType -Value $Finding.RecommendedValue
+
+                if($Result) {
+                    $ResultText = "Registry value created/modified" 
+                    $Message = "ID "+$Finding.ID+", "+$Finding.RegistryPath+", "+$Finding.RegistryItem+", " + $ResultText
+                    $MessageSeverity = "Passed"
+                } else {
+                    $ResultText = "Failed to create registry value" 
+                    $Message = "ID "+$Finding.ID+", "+$Finding.RegistryPath+", "+$Finding.RegistryItem+", " + $ResultText
+                    $MessageSeverity = "High"
+                }
+
+                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+            }
+
+            #
             # FirewallRule
             # Create a firewall rule. First it will be checked if the rule already exists
             #
