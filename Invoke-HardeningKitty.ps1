@@ -909,7 +909,7 @@
                 &$BinarySecedit /export /cfg $TempFileName /areas USER_RIGHTS | Out-Null
 
                 if($Finding.RecommendedValue -eq "") {
-                    (Get-Content -Encoding unicode $TempFileName) -replace "$($Finding.MethodArgument).*", "$($Finding.MethodArgument) = " | Out-File $TempFileName
+                    (Get-Content -Encoding unicode $TempFileName) -replace "$($Finding.MethodArgument).*", "$($Finding.MethodArgument)" | Out-File $TempFileName
                 } else {
                     # Check if SID actually exists on the system
                     $List = $Finding.RecommendedValue -split ';'| Where-Object {
@@ -938,7 +938,7 @@
                         $TempFileContent[$LineNumber-1] = 'signature="$CHICAGO$"'
                         $TempFileContent += "Revision=1"
                         $TempFileContent | Set-Content -Encoding unicode $TempFileName
-                     }
+                     }                    
                 }
 
                 &$BinarySecedit /import /cfg $TempFileName /overwrite /areas USER_RIGHTS /db $TempDbFileName /quiet | Out-Null
@@ -1057,7 +1057,7 @@
             # Registry
             # Create or modify a registry value.
             #
-            If ($Finding.Method -eq 'Registry') {
+            If ($Finding.Method -eq 'Registry' -or $Finding.Method -eq 'RegistryList') {
                 
                 If (-not($IsAdmin)) {
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
@@ -1092,6 +1092,36 @@
                         $MessageSeverity = "High"
                         Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
                         Continue
+                    }
+                }
+
+                #
+                # The method RegistryList needs a separate handling, because the name of the registry key is dynamic, usually incremented.
+                # Therefore, it is searched whether the value already exists or not. If the value does not exist, it counts how many
+                # other values are already there in order to set the next higher value and not overwrite existing keys.
+                #
+                If ($Finding.Method -eq 'RegistryList') {
+
+                    $ResultList = Get-ItemProperty -Path $Finding.RegistryPath
+                    $ResultListCounter = 0
+                    If ($ResultList | Where-Object { $_ -like "*"+$Finding.RegistryItem+"*" }) {
+                        $ResultList.PSObject.Properties | ForEach-Object {
+                            If ( $_.Value -eq $Finding.RegistryItem ) {
+                                $Finding.RegistryItem = $_.Value.Name
+                                Continue
+                            }                      
+                        }                        
+                    }
+                    Else {
+                        $ResultList.PSObject.Properties | ForEach-Object {
+                            $ResultListCounter++                     
+                        }
+                    }
+                    If ($ResultListCounter -eq 0) {
+                        $Finding.RegistryItem = 1
+                    } 
+                    Else {
+                        $Finding.RegistryItem = $ResultListCounter - 4
                     }
                 }
 
