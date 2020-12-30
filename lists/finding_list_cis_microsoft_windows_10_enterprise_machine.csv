@@ -55,7 +55,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 2.3.1.3,"Security Options","Accounts: Guest account status",localaccount,501,,,,,,False,False,=,Medium
 2.3.1.4,"Security Options","Accounts: Limit local account use of blank passwords to console logon only",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa,LimitBlankPasswordUse,,,,1,1,=,Medium
 2.3.1.5,"Security Options","Accounts: Rename administrator account",localaccount,500,,,,,,Administrator,Administrator,!=,Low
-2.3.1.6,"Security Options","Accounts: Rename guest account",localaccount,501,,,,,,Administrator,Guest,!=,Low
+2.3.1.6,"Security Options","Accounts: Rename guest account",localaccount,501,,,,,,Guest,Guest,!=,Low
 2.3.2.1,"Security Options","Audit: Force audit policy subcategory settings to override audit policy category settings",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa,SCENoApplyLegacyAuditPolicy,,,,"",1,=,Low
 2.3.2.2,"Security Options","Audit: Shut down system immediately if unable to log security audits",Registry,,HKLM:\SYSTEM\CurrentControlSet\Control\Lsa,CrashOnAuditFail,,,,0,0,=,Low
 2.3.4.1,"Security Options","Devices: Allowed to format and eject removable media",Registry,,"HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon",AllocateDASD,,,,,2,=,Medium
