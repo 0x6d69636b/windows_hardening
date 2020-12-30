@@ -977,7 +977,15 @@
 
                 $RegType = "String"
 
-                if($Finding.RecommendedValue -match "^\d+$") { $RegType = "DWord" }
+                #
+                # Basically this is true, but there is an exception for the finding "MitigationOptions_FontBocking",
+                # the value "10000000000" is written to the registry as a string
+                #
+                If ($Finding.RegistryItem -eq "MitigationOptions_FontBocking") {
+                    $RegType = "String"
+                } ElseIf ($Finding.RecommendedValue -match "^\d+$") {
+                    $RegType = "DWord"                    
+                }
 
                 if(!(Test-Path $Finding.RegistryPath)) {
                     
