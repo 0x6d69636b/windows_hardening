@@ -1,7 +1,7 @@
 ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Namespace,Property,DefaultValue,RecommendedValue,Operator,Severity
 1000,Features,"SMBv1 Support",WindowsOptionalFeature,smb1protocol,,,,,,Enabled,Disabled,=,High
-1100,"Account Policies","Account lockout duration",accountpolicy,,,,,,,,15,>=,Low
-1101,"Account Policies","Account lockout threshold",accountpolicy,,,,,,,0,10,<=,Low
+1100,"Account Policies","Account lockout threshold",accountpolicy,,,,,,,0,10,<=,Low
+1101,"Account Policies","Account lockout duration",accountpolicy,,,,,,,,15,>=,Low
 1102,"Account Policies","Reset account lockout counter",accountpolicy,,,,,,,,15,>=,Low
 1200,"User Rights Assignment","Access this computer from the network",accesschk,SeNetworkLogonRight,,,,,,"BUILTIN\Administrators;BUILTIN\Backup Operators;BUILTIN\Users;Everyone",BUILTIN\Administrators,=,Medium
 1201,"User Rights Assignment","Allow log on locally",accesschk,SeInteractiveLogonRight,,,,,,"BUILTIN\Administrators;BUILTIN\Backup Operators;BUILTIN\Users;Everyone",BUILTIN\Users;BUILTIN\Administrators,=,Medium

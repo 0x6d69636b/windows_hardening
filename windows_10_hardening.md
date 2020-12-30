@@ -15,8 +15,8 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 
 ### Windows Settings\Security Settings\Account Policies
 
-* ID 1100: Set _Account Lockout Policy\Account lockout duration_ to **15 or more minute(s)**
-* ID 1101: Set _Account Lockout Policy\Account lockout threshold_ to **10 or fewer invalid logon attempt(s), but not 0**
+* ID 1100: Set _Account Lockout Policy\Account lockout threshold_ to **10 or fewer invalid logon attempt(s), but not 0**
+* ID 1101: Set _Account Lockout Policy\Account lockout duration_ to **15 or more minute(s)**
 * ID 1102: Set _Account Lockout Policy\Reset account lockout counter after_ to **15 or more minute(s)**
 
 ### Windows Settings\Security Settings\Local Policies
@@ -334,6 +334,7 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 #### Event Log Service
 
 * ID 1728: Set _Application\Specify the maximum log file size (KB)_ to **Enabled: 32768**
+
 
 
 * ID 1729: Set _Security\Specify the maximum log file size (KB)_ to **Enabled: 196608**
