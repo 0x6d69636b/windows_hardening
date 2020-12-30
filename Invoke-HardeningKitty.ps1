@@ -451,7 +451,7 @@
                 }
                                             
                 try {
-                
+
                     $SubCategory = $Finding.Name    
                     $ResultOutput = &$BinaryAuditpol /get /subcategory:"$SubCategory"
                     
@@ -945,7 +945,7 @@
                         $TempFileContent[$LineNumber-1] = 'signature="$CHICAGO$"'
                         $TempFileContent += "Revision=1"
                         $TempFileContent | Set-Content -Encoding unicode $TempFileName
-                     }                    
+                     }
                 }
 
                 &$BinarySecedit /import /cfg $TempFileName /overwrite /areas USER_RIGHTS /db $TempDbFileName /quiet | Out-Null
@@ -1085,7 +1085,7 @@
                 }
 
                 if(!(Test-Path $Finding.RegistryPath)) {
-                    
+
                     $Result = New-Item $Finding.RegistryPath -Force;
                     
                     if($Result) {
@@ -1116,12 +1116,12 @@
                             If ( $_.Value -eq $Finding.RegistryItem ) {
                                 $Finding.RegistryItem = $_.Value.Name
                                 Continue
-                            }                      
-                        }                        
+                            }
+                        }
                     }
                     Else {
                         $ResultList.PSObject.Properties | ForEach-Object {
-                            $ResultListCounter++                     
+                            $ResultListCounter++
                         }
                     }
                     If ($ResultListCounter -eq 0) {
@@ -1183,9 +1183,9 @@
                     ElseIf ( $SettingArgumentArray[1] -eq "Enable" ) {
                         $ProcessmitigationDisableArray += $SettingArgumentArray[0]
                     }
-                    Else                    {
+                    Else {
                         $ProcessmitigationDisableArray += $SettingArgumentArray[1]
-                    }     
+                    }
                 }
                 $ResultText = "setting added to list" 
                 $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
@@ -1203,7 +1203,7 @@
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
                     Write-ProtocolEntry -Text $Message -LogLevel "Error"
                     Continue
-                }                
+                }
 
                 # Check if feature is installed and should be removed
                 If ($Finding.RecommendedValue -eq "Disabled"){
@@ -1344,7 +1344,7 @@
               $Result = Set-Processmitigation -System -Enable $ProcessmitigationEnableArray -Disable $ProcessmitigationDisableArray 
             }
             catch {
-                $ResultText = "Failed to set process mitigation settings"                    
+                $ResultText = "Failed to set process mitigation settings"
                 $MessageSeverity = "High"
             }
 
@@ -1363,13 +1363,13 @@
               $Result = Set-Processmitigation -System -Enable $ProcessmitigationEnableArray 
             }
             catch {
-                $ResultText = "Failed to set process mitigation settings"                    
+                $ResultText = "Failed to set process mitigation settings"
                 $MessageSeverity = "High"
             }
 
             $Message = "Starting Category Microsoft Defender Exploit Guard"
             Write-Output "`n"                
-            Write-ProtocolEntry -Text $Message -LogLevel "Info"    
+            Write-ProtocolEntry -Text $Message -LogLevel "Info"
            
             $Message = $ResultText
             Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
@@ -1382,7 +1382,7 @@
               $Result = Set-Processmitigation -System -Disable $ProcessmitigationDisableArray 
             }
             catch {
-                $ResultText = "Failed to set process mitigation settings"                    
+                $ResultText = "Failed to set process mitigation settings"
                 $MessageSeverity = "High"
             }
 
