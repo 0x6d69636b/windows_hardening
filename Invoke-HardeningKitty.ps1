@@ -767,6 +767,11 @@
                     $Result = $Finding.DefaultValue
                 }
             }
+
+            #
+            # Service
+            # Check the status of a service
+            #
             ElseIf ($Finding.Method -eq 'service') {
 
                 try {
@@ -873,6 +878,8 @@
 
         $FindingList = Import-Csv -Path $FileFindingList -Delimiter ","
         $LastCategory = ""
+        $ProcessmitigationEnableArray = @()
+        $ProcessmitigationDisableArray = @()
 
         ForEach ($Finding in $FindingList) {
 
@@ -1141,6 +1148,113 @@
             }
 
             #
+            # Exploit protection
+            # Set exploit protection values
+            #
+            # I noticed irregularities when the process mitigations were set individually,
+            # in some cases settings that had already been set were then reset. Therefore,
+            # the settings are collected in an array and finally set at the end of the processing.
+            #
+            If ($Finding.Method -eq 'Processmitigation') {
+
+                If (-not($IsAdmin)) {
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
+                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Continue
+                }
+
+                $SettingArgumentArray = $Finding.MethodArgument.Split(".") 
+                $SettingArgument0 = $SettingArgumentArray[0]
+                $SettingArgument1 = $SettingArgumentArray[1]
+
+                If ( $Finding.RecommendedValue -eq "ON") {
+
+                    If ( $SettingArgumentArray[1] -eq "Enable" ) {
+                        $ProcessmitigationEnableArray += $SettingArgumentArray[0]
+                    } Else                    {
+                        $ProcessmitigationEnableArray += $SettingArgumentArray[1]
+                    }                    
+                }
+                ElseIf ( $Finding.RecommendedValue -eq "OFF") {
+
+                    If ($SettingArgumentArray[1] -eq "TelemetryOnly") {
+                        $ProcessmitigationDisableArray += "SEHOPTelemetry"
+                    }
+                    ElseIf ( $SettingArgumentArray[1] -eq "Enable" ) {
+                        $ProcessmitigationDisableArray += $SettingArgumentArray[0]
+                    }
+                    Else                    {
+                        $ProcessmitigationDisableArray += $SettingArgumentArray[1]
+                    }     
+                }
+                $ResultText = "setting added to list" 
+                $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
+                $MessageSeverity = "Passed"
+                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+            }
+
+            #
+            # WindowsOptionalFeature
+            # Remove a Windows feature
+            #
+            If ($Finding.Method -eq 'WindowsOptionalFeature') {
+
+                If (-not($IsAdmin)) {
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
+                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Continue
+                }                
+
+                # Check if feature is installed and should be removed
+                If ($Finding.RecommendedValue -eq "Disabled"){
+
+                    try {
+                        $ResultOutput = Get-WindowsOptionalFeature -Online -FeatureName $Finding.MethodArgument 
+                        $Result = $ResultOutput.State
+                    } catch {
+                        $ResultText = "Could not check status"
+                        $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
+                        $MessageSeverity = "High"
+                        Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                        Continue
+                    }
+
+                    If($Result -eq "Enabled") {
+
+                        try {
+                            $Result = Disable-WindowsOptionalFeature -Online -FeatureName $Finding.MethodArgument                             
+                        } catch {
+                            $ResultText = "Could not be removed"
+                            $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
+                            $MessageSeverity = "High"
+                            Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                            Continue
+                        }
+
+                        $ResultText = "Feature removed" 
+                        $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
+                        $MessageSeverity = "Passed"
+                    }
+                    Else {
+                        $ResultText = "Feature is not installed" 
+                        $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
+                        $MessageSeverity = "Passed"
+                    }
+
+                    Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+
+                    If ($Log) {
+                        Add-ProtocolEntry -Text $Message
+                    }
+                    
+                    If ($Report) {
+                        $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$ResultText+'"'
+                        Add-ResultEntry -Text $Message
+                    }
+                }
+            }
+
+            #
             # FirewallRule
             # Create a firewall rule. First it will be checked if the rule already exists
             #
@@ -1216,6 +1330,68 @@
                     Add-ResultEntry -Text $Message
                 }
             }
+        }
+        
+        #
+        # After all items of the checklist have been run through, the process mitigation settings can now be set... 
+        #
+        If ( $ProcessmitigationEnableArray.Count -gt 0 -and $ProcessmitigationDisableArray.Count -gt 0) {
+
+            $ResultText = "Process mitigation settings set"
+            $MessageSeverity = "Passed"  
+
+            try {
+              $Result = Set-Processmitigation -System -Enable $ProcessmitigationEnableArray -Disable $ProcessmitigationDisableArray 
+            }
+            catch {
+                $ResultText = "Failed to set process mitigation settings"                    
+                $MessageSeverity = "High"
+            }
+
+            $Message = "Starting Category Microsoft Defender Exploit Guard"
+            Write-Output "`n"                
+            Write-ProtocolEntry -Text $Message -LogLevel "Info"                  
+            
+            $Message = $ResultText
+            Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+        }
+        ElseIf ($ProcessmitigationEnableArray.Count -gt 0 -and $ProcessmitigationDisableArray.Count -eq 0) {
+            $ResultText = "Process mitigation settings set"
+            $MessageSeverity = "Passed"  
+
+            try {
+              $Result = Set-Processmitigation -System -Enable $ProcessmitigationEnableArray 
+            }
+            catch {
+                $ResultText = "Failed to set process mitigation settings"                    
+                $MessageSeverity = "High"
+            }
+
+            $Message = "Starting Category Microsoft Defender Exploit Guard"
+            Write-Output "`n"                
+            Write-ProtocolEntry -Text $Message -LogLevel "Info"    
+           
+            $Message = $ResultText
+            Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+        }
+        ElseIf ($ProcessmitigationEnableArray.Count -eq 0 -and $ProcessmitigationDisableArray.Count -gt 0) {
+            $ResultText = "Process mitigation settings set"
+            $MessageSeverity = "Passed"  
+
+            try {
+              $Result = Set-Processmitigation -System -Disable $ProcessmitigationDisableArray 
+            }
+            catch {
+                $ResultText = "Failed to set process mitigation settings"                    
+                $MessageSeverity = "High"
+            }
+
+            $Message = "Starting Category Microsoft Defender Exploit Guard"
+            Write-Output "`n"                
+            Write-ProtocolEntry -Text $Message -LogLevel "Info"    
+          
+            $Message = $ResultText
+            Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
         }
     }
     
