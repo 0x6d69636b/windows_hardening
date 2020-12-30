@@ -909,7 +909,7 @@
                 &$BinarySecedit /export /cfg $TempFileName /areas USER_RIGHTS | Out-Null
 
                 if($Finding.RecommendedValue -eq "") {
-                    (Get-Content -Encoding unicode $TempFileName) -replace "$($Finding.MethodArgument).*", "$($Finding.MethodArgument)" | Out-File $TempFileName
+                    (Get-Content -Encoding unicode $TempFileName) -replace "$($Finding.MethodArgument).*", "$($Finding.MethodArgument) = " | Out-File $TempFileName
                 } else {
                     # Check if SID actually exists on the system
                     $List = $Finding.RecommendedValue -split ';'| Where-Object {
