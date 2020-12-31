@@ -1066,7 +1066,7 @@
             #
             If ($Finding.Method -eq 'Registry' -or $Finding.Method -eq 'RegistryList') {
                 
-                If (-not($IsAdmin)) {
+                If (-not($IsAdmin) -and -not($Finding.RegistryPath.StartsWith("HKCU:\"))) {
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
                     Write-ProtocolEntry -Text $Message -LogLevel "Error"
                     Continue
