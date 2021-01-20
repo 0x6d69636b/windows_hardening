@@ -411,6 +411,29 @@
             }
 
             #
+            # Get secedit policy
+            #
+            ElseIf ($Finding.Method -eq 'secedit') {
+
+                $TempFileName = [System.IO.Path]::GetTempFileName()
+
+                $Area = "";
+
+                Switch($Finding.Category) {
+                    "Account Policies" { $Area = "SECURITYPOLICY"; Break }
+                    "Security Options" { $Area = "SECURITYPOLICY"; Break }
+                }
+
+                &$BinarySecedit /export /cfg $TempFileName /areas $Area | Out-Null
+
+                $Data = [string]::Join("`n", (Get-Content -Encoding utf8 $TempFileName | Select-String "=")) | ConvertFrom-StringData
+
+                $Result = $Data[$Finding.MethodArgument];
+
+                Remove-Item $TempFileName
+            }
+
+            #
             # Get Registry List and search for item
             # Depending on the registry structure, the value cannot be accessed directly, but must be found within a data structure
             # If the registry entry is not available, a default value is used. This must be specified in the finding list.
