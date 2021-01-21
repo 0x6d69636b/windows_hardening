@@ -4,8 +4,8 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 10002,"Account Policies","Reset account lockout counter",accountpolicy,,,,,,,,15,>=,Low
 10100,"Account Policies","Length of password history maintained",accountpolicy,,,,,,,,24,>=,Low
 10101,"Account Policies","Minimum password length",accountpolicy,,,,,,,,14,>=,Medium
-10102,"Account Policies","Password must meet complexity requirements",secedit,Complexity,,,,,,0,1,=,Medium
-10103,"Account Policies","Store passwords using reversible encryption",secedit,ClearTextPassword,,,,,,0,0,=,High
+10102,"Account Policies","Password must meet complexity requirements",secedit,"System Access\PasswordComplexity",,,,,,0,1,=,Medium
+10103,"Account Policies","Store passwords using reversible encryption",secedit,"System Access\ClearTextPassword",,,,,,0,0,=,High
 10200,"Security Options","Accounts: Limit local account use of blank passwords to console logon only",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa,LimitBlankPasswordUse,,,,1,1,=,Medium
 10201,"Security Options","Audit: Force audit policy subcategory settings to override audit policy category settings",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa,SCENoApplyLegacyAuditPolicy,,,,"",1,=,Low
 10202,"Security Options","Domain member: Digitally encrypt or sign secure channel data (always)",Registry,,HKLM:\System\CurrentControlSet\Services\Netlogon\Parameters,RequireSignOrSeal,,,,1,1,=,Medium
@@ -18,7 +18,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 10210,"Security Options","Microsoft network client: Digitally sign communications (always)",Registry,,HKLM:\System\CurrentControlSet\Services\LanmanWorkstation\Parameters,RequireSecuritySignature,,,,0,1,=,Medium
 10211,"Security Options","Microsoft network client: Send unencrypted password to third-party SMB servers",Registry,,HKLM:\System\CurrentControlSet\Services\LanmanWorkstation\Parameters,EnablePlainTextPassword,,,,0,0,=,Medium
 10212,"Security Options","Microsoft network server: Digitally sign communications (always)",Registry,,HKLM:\System\CurrentControlSet\Services\LanManServer\Parameters,RequireSecuritySignature,,,,0,1,=,Medium
-10213,"Security Options","Network access: Allow anonymous SID/Name translation",secedit,LSAAnonymousNameLookup,,,,,,0,0,=,Medium
+10213,"Security Options","Network access: Allow anonymous SID/Name translation",secedit,"System Access\LSAAnonymousNameLookup",,,,,,0,0,=,Medium
 10214,"Security Options","Network access: Do not allow anonymous enumeration of SAM accounts",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa,RestrictAnonymousSAM,,,,1,1,=,Medium
 10215,"Security Options","Network access: Do not allow anonymous enumeration of SAM accounts and shares",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa,RestrictAnonymous,,,,0,1,=,Medium
 10216,"Security Options","Network access: Restrict anonymous access to Named Pipes and Shares",Registry,,HKLM:\System\CurrentControlSet\Services\LanManServer\Parameters,RestrictNullSessAccess,,,,1,1,=,Medium
