@@ -1033,13 +1033,13 @@
 
     #
     # Start HailMary mode
-    # HardeningKitty configures all settings in a Findings File.
+    # HardeningKitty configures all settings in a finding list file.
     # Even though HardeningKitty works very carefully, please only
     # use HailyMary if you know what you are doing.
     #
     Elseif ($Mode = "HailMary") {
 
-        # A CSV finding list is imported. HardeningKitty has one machine and one user list.
+        # A CSV finding list is imported
         If ($FileFindingList.Length -eq 0) {
 
             $CurrentLication = Get-Location
