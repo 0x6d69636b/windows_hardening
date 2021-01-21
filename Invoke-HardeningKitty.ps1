@@ -111,7 +111,7 @@
         # Define path to accessak binary
         [ValidateScript({Test-Path $_})]
         [String]
-        $BinaryAccesschk
+        $BinaryAccesschk = "C:\tmp\accesschk64.exe"
     )
 
     Function Write-ProtocolEntry {
@@ -279,6 +279,36 @@
         return $ini
     }
 
+    Function Out-IniFile($InputObject, $FilePath, $Encoding) {
+        <#
+            .SYNOPSIS
+                Write a hashtable out to a .ini file
+
+            .NOTES
+                Original source see https://devblogs.microsoft.com/scripting/use-powershell-to-work-with-any-ini-file/
+        #>
+
+        $outFile = New-Item -Force -ItemType file -Path $Filepath
+
+        foreach ($i in $InputObject.keys) {
+            if (!($($InputObject[$i].GetType().Name) -eq "Hashtable")) {
+                #No Sections
+                Add-Content -Encoding $Encoding -Path $outFile -Value "$i=$($InputObject[$i])"
+            } else {
+                #Sections
+                Add-Content -Encoding $Encoding -Path $outFile -Value "[$i]"
+                Foreach ($j in ($InputObject[$i].keys | Sort-Object)) {
+                    if ($j -match "^Comment[\d]+") {
+                        Add-Content -Encoding $Encoding -Path $outFile -Value "$($InputObject[$i][$j])"
+                    } else {
+                        Add-Content -Encoding $Encoding -Path $outFile -Value "$j=$($InputObject[$i][$j])"
+                    }
+                }
+                Add-Content -Encoding $Encoding -Path $outFile -Value ""
+            }
+        }
+    }    
+
     Function Get-HashtableValueDeep
     {
         <#
@@ -311,27 +341,6 @@
         }
     }
 
-    #
-    # Start Main
-    #
-
-    #
-    # Log and report file
-    #
-    $Hostname = $env:COMPUTERNAME.ToLower()
-    $FileDate = Get-Date -Format yyyyMMdd-HHmm
-
-    If ($Log -and $LogFile.Length -eq 0) {
-        $LogFile = "hardeningkitty_log_$Hostname-$FileDate.log"
-    }
-    If ($Report -and $ReportFile.Length -eq 0) {
-        $ReportFile = "hardeningkitty_report_$Hostname-$FileDate.csv"
-    }
-    If ($Report) {
-        $Message = '"ID","Name","Severity","Result","Recommended"'
-        Add-ResultEntry -Text $Message
-    }
-
     Function Set-HashtableValueDeep {
         <#
             .SYNOPSIS
@@ -360,36 +369,27 @@
         } elseif($Key.Length -eq 1) {
             $Table[$Key[0]] = $Value;
         }
+    }    
+
+    #
+    # Start Main
+    #
+
+    #
+    # Log and report file
+    #
+    $Hostname = $env:COMPUTERNAME.ToLower()
+    $FileDate = Get-Date -Format yyyyMMdd-HHmm
+
+    If ($Log -and $LogFile.Length -eq 0) {
+        $LogFile = "hardeningkitty_log_$Hostname-$FileDate.log"
     }
-
-    Function Out-IniFile($InputObject, $FilePath, $Encoding) {
-        <#
-            .SYNOPSIS
-                Write a hashtable out to a .ini file
-
-            .NOTES
-                Original source see https://devblogs.microsoft.com/scripting/use-powershell-to-work-with-any-ini-file/
-        #>
-
-        $outFile = New-Item -Force -ItemType file -Path $Filepath
-
-        foreach ($i in $InputObject.keys) {
-            if (!($($InputObject[$i].GetType().Name) -eq "Hashtable")) {
-                #No Sections
-                Add-Content -Encoding $Encoding -Path $outFile -Value "$i=$($InputObject[$i])"
-            } else {
-                #Sections
-                Add-Content -Encoding $Encoding -Path $outFile -Value "[$i]"
-                Foreach ($j in ($InputObject[$i].keys | Sort-Object)) {
-                    if ($j -match "^Comment[\d]+") {
-                        Add-Content -Encoding $Encoding -Path $outFile -Value "$($InputObject[$i][$j])"
-                    } else {
-                        Add-Content -Encoding $Encoding -Path $outFile -Value "$j=$($InputObject[$i][$j])"
-                    }
-                }
-                Add-Content -Encoding $Encoding -Path $outFile -Value ""
-            }
-        }
+    If ($Report -and $ReportFile.Length -eq 0) {
+        $ReportFile = "hardeningkitty_report_$Hostname-$FileDate.csv"
+    }
+    If ($Report) {
+        $Message = '"ID","Name","Severity","Result","Recommended"'
+        Add-ResultEntry -Text $Message
     }
 
     #
@@ -414,9 +414,6 @@
     # Definition and check for tools
     # If a tool is not available, the execution of the script is terminated
     #
-    If (-Not $BinaryAccesschk) {
-        $BinaryAccesschk = "C:\tmp\accesschk64.exe"
-    }    
     If (-Not (Test-Path $BinaryAccesschk)) {
         Write-ProtocolEntry -Text "Binary for AccessChk not found" -LogLevel "Error"
         Break
@@ -539,6 +536,9 @@
 
             #
             # Get secedit policy
+            # Secedit configures and analyzes system security, results are written
+            # to a file, which means HardeningKitty must create a temporary file
+            # and afterwards delete it. HardeningKitty is very orderly.            
             #
             ElseIf ($Finding.Method -eq 'secedit') {
 
@@ -1029,7 +1029,15 @@
             }
         }
 
-    } Elseif ($Mode = "HailMary") {
+    }
+
+    #
+    # Start HailMary mode
+    # HardeningKitty configures all settings in a Findings File.
+    # Even though HardeningKitty works very carefully, please only
+    # use HailyMary if you know what you are doing.
+    #
+    Elseif ($Mode = "HailMary") {
 
         # A CSV finding list is imported. HardeningKitty has one machine and one user list.
         If ($FileFindingList.Length -eq 0) {
@@ -1044,10 +1052,6 @@
         $ProcessmitigationDisableArray = @()
 
         ForEach ($Finding in $FindingList) {
-
-            # Todo
-            # Set all hardening settings in findings file
-            # You can do that as long as you know you're doing
 
             #
             # Category
