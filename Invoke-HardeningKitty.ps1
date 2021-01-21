@@ -1059,17 +1059,24 @@
                     Continue
                 }
 
+                $Area = "";
+
+                Switch($Finding.Category) {
+                    "Account Policies" { $Area = "SECURITYPOLICY"; Break }
+                    "Security Options" { $Area = "SECURITYPOLICY"; Break }
+                }
+
                 $TempFileName = [System.IO.Path]::GetTempFileName()
                 $TempDbFileName = [System.IO.Path]::GetTempFileName()
 
-                &$BinarySecedit /export /cfg $TempFileName /areas SECURITYPOLICY | Out-Null
+                &$BinarySecedit /export /cfg $TempFileName /areas $Area | Out-Null
 
                 [IO.File]::WriteAllLines(
                         $TempFileName,
                         ((Get-Content -Encoding utf8 $TempFileName) -replace "$($Finding.MethodArgument).*", "$($Finding.MethodArgument) = $($Finding.RecommendedValue)")
                 )
 
-                &$BinarySecedit /import /cfg $TempFileName /overwrite /areas SECURITYPOLICY /db $TempDbFileName /quiet | Out-Null
+                &$BinarySecedit /import /cfg $TempFileName /overwrite /areas $Area /db $TempDbFileName /quiet | Out-Null
 
                 if($LastExitCode -ne 0) {
                     $ResultText = "Failed to import security policy into temporary database"
