@@ -1071,10 +1071,11 @@
 
                 &$BinarySecedit /export /cfg $TempFileName /areas $Area | Out-Null
 
-                [IO.File]::WriteAllLines(
-                        $TempFileName,
-                        ((Get-Content -Encoding utf8 $TempFileName) -replace "$($Finding.MethodArgument).*", "$($Finding.MethodArgument) = $($Finding.RecommendedValue)")
-                )
+                $Data = Get-IniContent $TempFileName
+
+                Set-HashtableValueDeep $Data $Finding.MethodArgument $Finding.RecommendedValue
+
+                Out-IniFile $Data $TempFileName unicode $true
 
                 &$BinarySecedit /import /cfg $TempFileName /overwrite /areas $Area /db $TempDbFileName /quiet | Out-Null
 
