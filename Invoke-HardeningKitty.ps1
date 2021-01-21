@@ -482,6 +482,12 @@
             #
             ElseIf ($Finding.Method -eq 'secedit') {
 
+                If (-not($IsAdmin)) {
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
+                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Continue
+                }
+
                 $TempFileName = [System.IO.Path]::GetTempFileName()
 
                 $Area = "";
