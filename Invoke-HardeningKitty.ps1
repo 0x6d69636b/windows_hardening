@@ -244,6 +244,73 @@
         }
     }
 
+    Function Get-IniContent ($filePath) {
+
+        <#
+        .SYNOPSIS
+
+            Read a .ini file into a tree of hashtables
+
+        .NOTES
+
+            Original source see https://devblogs.microsoft.com/scripting/use-powershell-to-work-with-any-ini-file/
+        #>
+
+        $ini = @{}
+        switch -regex -file $FilePath
+        {
+            “^\[(.+)\]” { # Section
+                $section = $matches[1]
+                $ini[$section] = @{}
+                $CommentCount = 0
+            }
+            “^(;.*)$” { # Comment
+                $value = $matches[1]
+                $CommentCount = $CommentCount + 1
+                $name = “Comment” + $CommentCount
+                $ini[$section][$name] = $value
+            }
+            “(.+?)\s*=(.*)” { # Key
+                $name,$value = $matches[1..2]
+                $ini[$section][$name] = $value
+            }
+        }
+
+        return $ini
+    }
+
+    Function Get-HashtableValueDeep
+    {
+        <#
+            .SYNOPSIS
+                Get a value from a tree of hashtables
+        #>
+
+        [CmdletBinding()]
+        Param (
+            [Hashtable] $Table,
+            [String] $Path
+        )
+
+        $Key = $Path.Split('\', 2)
+
+        $Entry = $Table[$Key[0]]
+
+        if($Entry -is [hashtable] -and $Key.Length -eq 1) {
+            throw "Path is incomplete (expected a leaf but still on a branch)"
+        }
+
+        if($Entry -is [hashtable]) {
+            return Get-HashtableValueDeep $Entry $Key[1];
+        } else {
+            if($Key.Length -eq 1) {
+                return $Entry
+            } else {
+                throw "Path is too long (expected a branch but arrived at a leaf before the end of the path)"
+            }
+        }
+    }
+
     #
     # Start Main
     #
@@ -408,6 +475,41 @@
                 } Else {
                     $Result = $Finding.DefaultValue
                 }
+            }
+
+            #
+            # Get secedit policy
+            #
+            ElseIf ($Finding.Method -eq 'secedit') {
+
+                If (-not($IsAdmin)) {
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
+                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Continue
+                }
+
+                $TempFileName = [System.IO.Path]::GetTempFileName()
+
+                $Area = "";
+
+                Switch($Finding.Category) {
+                    "Account Policies" { $Area = "SECURITYPOLICY"; Break }
+                    "Security Options" { $Area = "SECURITYPOLICY"; Break }
+                }
+
+                &$BinarySecedit /export /cfg $TempFileName /areas $Area | Out-Null
+
+                $Data = Get-IniContent $TempFileName
+
+                $Value = Get-HashtableValueDeep $Data $Finding.MethodArgument
+
+                if($Value -eq $null) {
+                    $Result = $null
+                } else {
+                    $Result = $Value -as [int]
+                }
+
+                Remove-Item $TempFileName
             }
 
             #

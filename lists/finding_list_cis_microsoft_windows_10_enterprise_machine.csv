@@ -3,9 +3,9 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 1.1.2,"Account Policies","Maximum password age",accountpolicy,,,,,,,,60,<=,Low
 1.1.3,"Account Policies","Minimum password age",accountpolicy,,,,,,,,1,>=,Low
 1.1.4,"Account Policies","Minimum password length",accountpolicy,,,,,,,,14,>=,Medium
-1.1.5,"Account Policies","Password must meet complexity requirements",secedit,Complexity,,,,,,0,1,=,Medium
+1.1.5,"Account Policies","Password must meet complexity requirements",secedit,System Access\PasswordComplexity,,,,,,0,1,=,Medium
 1.1.6,"Account Policies","Relax minimum password length limits",Registry,,HKLM:\System\CurrentControlSet\Control\SAM,RelaxMinimumPasswordLengthLimits,,,,0,1,=,Medium
-1.1.7,"Account Policies","Store passwords using reversible encryption",secedit,ClearTextPassword,,,,,,0,0,=,High
+1.1.7,"Account Policies","Store passwords using reversible encryption",secedit,System Access\ClearTextPassword,,,,,,0,0,=,High
 1.2.1,"Account Policies","Account lockout duration",accountpolicy,,,,,,,,15,>=,Low
 1.2.2,"Account Policies","Account lockout threshold",accountpolicy,,,,,,,0,10,<=,Low
 1.2.3,"Account Policies","Reset account lockout counter",accountpolicy,,,,,,,,15,>=,Low
@@ -84,7 +84,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 2.3.9.3,"Security Options","Microsoft network server: Digitally sign communications (if client agrees)",Registry,,HKLM:\System\CurrentControlSet\Services\LanManServer\Parameters,EnableSecuritySignature,,,,0,1,=,Medium
 2.3.9.4,"Security Options","Microsoft network server: Disconnect clients when logon hours expire",Registry,,HKLM:\System\CurrentControlSet\Services\LanManServer\Parameters,enableforcedlogoff,,,,1,1,=,Medium
 2.3.9.5,"Security Options","Microsoft network server: Server SPN target name validation level",Registry,,HKLM:\System\CurrentControlSet\Services\LanManServer\Parameters,SMBServerNameHardeningLevel,,,,,1,>=,Medium
-2.3.10.1,"Security Options","Network access: Allow anonymous SID/Name translation",secedit,LSAAnonymousNameLookup,,,,,,0,0,=,Medium
+2.3.10.1,"Security Options","Network access: Allow anonymous SID/Name translation",secedit,System Access\LSAAnonymousNameLookup,,,,,,0,0,=,Medium
 2.3.10.2,"Security Options","Network access: Do not allow anonymous enumeration of SAM accounts",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa,RestrictAnonymousSAM,,,,1,1,=,Medium
 2.3.10.3,"Security Options","Network access: Do not allow anonymous enumeration of SAM accounts and shares",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa,RestrictAnonymous,,,,0,1,=,Medium
 2.3.10.4,"Security Options","Network access: Do not allow storage of passwords and credentials for network authentication",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa,DisableDomainCreds,,,,0,1,=,Medium
@@ -101,7 +101,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 2.3.11.3,"Security Options","Network Security: Allow PKU2U authentication requests to this computer to use online identities",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa\pku2u,AllowOnlineID,,,,,0,=,Medium
 2.3.11.4,"Security Options","Network Security: Network security: Configure encryption types allowed for Kerberos",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Kerberos\Parameters,SupportedEncryptionTypes,,,,,2147483640,<=,Medium
 2.3.11.5,"Security Options","Network security: Do not store LAN Manager hash value on next password change",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa,NoLMHash,,,,1,1,=,High
-2.3.11.6,"Security Options","Network security: Force logoff when logon hours expires",accountpolicy,,,,,,,Never,Enabled,=,Low
+2.3.11.6,"Security Options","Network security: Force logoff when logon hours expires",secedit,System Access\ForceLogoffWhenHourExpire,,,,,,0,1,=,Low
 2.3.11.7,"Security Options","Network security: LAN Manager authentication level",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa,LmCompatibilityLevel,,,,3,5,=,Medium
 2.3.11.8,"Security Options","Network security: LDAP client signing requirements",Registry,,HKLM:\System\CurrentControlSet\Services\LDAP,LDAPClientIntegrity,,,,1,1,>=,Medium
 2.3.11.9,"Security Options","Network security: Minimum session security for NTLM SSP based (including secure RPC) clients",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa\MSV1_0,NTLMMinClientSec,,,,536870912,537395200,=,Medium
