@@ -332,6 +332,66 @@
         Add-ResultEntry -Text $Message
     }
 
+    Function Set-HashtableValueDeep {
+        <#
+            .SYNOPSIS
+                Set a value in a tree of hashtables
+        #>
+
+        [CmdletBinding()]
+        Param (
+            [Hashtable] $Table,
+            [String] $Path,
+            [String] $Value
+        )
+
+        $Key = $Path.Split('\', 2)
+
+        $Entry = $Table[$Key[0]]
+
+        if($Key.Length -eq 2) {
+            if($Entry -eq $null) {
+                $Table[$Key[0]] = @{}
+            } elseif($Entry -isnot [hashtable]) {
+                throw "Not hashtable"
+            }
+
+            return Set-HashtableValueDeep $Table[$Key[0]] $Key[1] $Value;
+        } elseif($Key.Length -eq 1) {
+            $Table[$Key[0]] = $Value;
+        }
+    }
+
+    Function Out-IniFile($InputObject, $FilePath, $Encoding) {
+        <#
+            .SYNOPSIS
+                Write a hashtable out to a .ini file
+
+            .NOTES
+                Original source see https://devblogs.microsoft.com/scripting/use-powershell-to-work-with-any-ini-file/
+        #>
+
+        $outFile = New-Item -Force -ItemType file -Path $Filepath
+
+        foreach ($i in $InputObject.keys) {
+            if (!($($InputObject[$i].GetType().Name) -eq "Hashtable")) {
+                #No Sections
+                Add-Content -Encoding $Encoding -Path $outFile -Value "$i=$($InputObject[$i])"
+            } else {
+                #Sections
+                Add-Content -Encoding $Encoding -Path $outFile -Value "[$i]"
+                Foreach ($j in ($InputObject[$i].keys | Sort-Object)) {
+                    if ($j -match "^Comment[\d]+") {
+                        Add-Content -Encoding $Encoding -Path $outFile -Value "$($InputObject[$i][$j])"
+                    } else {
+                        Add-Content -Encoding $Encoding -Path $outFile -Value "$j=$($InputObject[$i][$j])"
+                    }
+                }
+                Add-Content -Encoding $Encoding -Path $outFile -Value ""
+            }
+        }
+    }
+
     #
     # Statistics
     #
@@ -1081,6 +1141,75 @@
                 }
 
                 $ResultText = "Configured system user right assignment"
+                $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
+                $MessageSeverity = "Passed"
+
+                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+
+                Remove-Item $TempFileName
+                Remove-Item $TempDbFileName
+            }
+
+            #
+            # secedit
+            # Set a security policy
+            #
+            If ($Finding.Method -eq 'secedit') {
+                If (-not($IsAdmin)) {
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
+                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Continue
+                }
+
+                $Area = "";
+
+                Switch($Finding.Category) {
+                    "Account Policies" { $Area = "SECURITYPOLICY"; Break }
+                    "Security Options" { $Area = "SECURITYPOLICY"; Break }
+                }
+
+                $TempFileName = [System.IO.Path]::GetTempFileName()
+                $TempDbFileName = [System.IO.Path]::GetTempFileName()
+
+                &$BinarySecedit /export /cfg $TempFileName /areas $Area | Out-Null
+
+                $Data = Get-IniContent $TempFileName
+
+                Set-HashtableValueDeep $Data $Finding.MethodArgument $Finding.RecommendedValue
+
+                Out-IniFile $Data $TempFileName unicode $true
+
+                &$BinarySecedit /import /cfg $TempFileName /overwrite /areas $Area /db $TempDbFileName /quiet | Out-Null
+
+                if($LastExitCode -ne 0) {
+                    $ResultText = "Failed to import security policy into temporary database"
+                    $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
+                    $MessageSeverity = "High"
+                    Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                    Remove-Item $TempFileName
+                    Remove-Item $TempDbFileName
+                    Continue
+                }
+
+                $ResultText = "Imported security policy into temporary database"
+                $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
+                $MessageSeverity = "Passed"
+
+                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+
+                &$BinarySecedit /configure /db $TempDbFileName /overwrite /areas SECURITYPOLICY /quiet | Out-Null
+
+                if($LastExitCode -ne 0) {
+                    $ResultText = "Failed to configure security policy"
+                    $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
+                    $MessageSeverity = "High"
+                    Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                    Remove-Item $TempFileName
+                    Remove-Item $TempDbFileName
+                    Continue
+                }
+
+                $ResultText = "Configured security policy"
                 $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
                 $MessageSeverity = "Passed"
 
