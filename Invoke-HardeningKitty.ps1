@@ -295,6 +295,36 @@
         }
     }
 
+    Function Out-IniFile($InputObject, $FilePath, $Encoding) {
+        <#
+            .SYNOPSIS
+                Write a hashtable out to a .ini file
+
+            .NOTES
+                Original source see https://devblogs.microsoft.com/scripting/use-powershell-to-work-with-any-ini-file/
+        #>
+
+        $outFile = New-Item -Force -ItemType file -Path $Filepath
+
+        foreach ($i in $InputObject.keys) {
+            if (!($($InputObject[$i].GetType().Name) -eq "Hashtable")) {
+                #No Sections
+                Add-Content -Encoding $Encoding -Path $outFile -Value "$i=$($InputObject[$i])"
+            } else {
+                #Sections
+                Add-Content -Encoding $Encoding -Path $outFile -Value "[$i]"
+                Foreach ($j in ($InputObject[$i].keys | Sort-Object)) {
+                    if ($j -match "^Comment[\d]+") {
+                        Add-Content -Encoding $Encoding -Path $outFile -Value "$($InputObject[$i][$j])"
+                    } else {
+                        Add-Content -Encoding $Encoding -Path $outFile -Value "$j=$($InputObject[$i][$j])"
+                    }
+                }
+                Add-Content -Encoding $Encoding -Path $outFile -Value ""
+            }
+        }
+    }
+
     #
     # Statistics
     #
