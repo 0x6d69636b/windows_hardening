@@ -493,9 +493,15 @@
 
                 &$BinarySecedit /export /cfg $TempFileName /areas $Area | Out-Null
 
-                $Data = [string]::Join("`n", (Get-Content -Encoding utf8 $TempFileName | Select-String "=")) | ConvertFrom-StringData
+                $Data = Get-IniContent $TempFileName
 
-                $Result = $Data[$Finding.MethodArgument];
+                $Value = Get-HashtableValueDeep $Data $Finding.MethodArgument
+
+                if($Value -eq $null) {
+                    $Result = $null
+                } else {
+                    $Result = $Value -as [int]
+                }
 
                 Remove-Item $TempFileName
             }
