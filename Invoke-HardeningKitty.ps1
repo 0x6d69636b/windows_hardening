@@ -265,6 +265,36 @@
         Add-ResultEntry -Text $Message
     }
 
+    Function Set-HashtableValueDeep {
+        <#
+            .SYNOPSIS
+                Set a value in a tree of hashtables
+        #>
+
+        [CmdletBinding()]
+        Param (
+            [Hashtable] $Table,
+            [String] $Path,
+            [String] $Value
+        )
+
+        $Key = $Path.Split('\', 2)
+
+        $Entry = $Table[$Key[0]]
+
+        if($Key.Length -eq 2) {
+            if($Entry -eq $null) {
+                $Table[$Key[0]] = @{}
+            } elseif($Entry -isnot [hashtable]) {
+                throw "Not hashtable"
+            }
+
+            return Set-HashtableValueDeep $Table[$Key[0]] $Key[1] $Value;
+        } elseif($Key.Length -eq 1) {
+            $Table[$Key[0]] = $Value;
+        }
+    }
+
     #
     # Statistics
     #
