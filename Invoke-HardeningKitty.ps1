@@ -279,6 +279,38 @@
         return $ini
     }
 
+    Function Get-HashtableValueDeep
+    {
+        <#
+            .SYNOPSIS
+                Get a value from a tree of hashtables
+        #>
+
+        [CmdletBinding()]
+        Param (
+            [Hashtable] $Table,
+            [String] $Path
+        )
+
+        $Key = $Path.Split('\', 2)
+
+        $Entry = $Table[$Key[0]]
+
+        if($Entry -is [hashtable] -and $Key.Length -eq 1) {
+            throw "Path is incomplete (expected a leaf but still on a branch)"
+        }
+
+        if($Entry -is [hashtable]) {
+            return Get-HashtableValueDeep $Entry $Key[1];
+        } else {
+            if($Key.Length -eq 1) {
+                return $Entry
+            } else {
+                throw "Path is too long (expected a branch but arrived at a leaf before the end of the path)"
+            }
+        }
+    }
+
     #
     # Start Main
     #
