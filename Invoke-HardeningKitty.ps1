@@ -1035,17 +1035,17 @@
                 $Sw = "";
 
                 Switch ($Finding.Name) {
-                    "Force user logoff how long after time expires" { $Sw = "FORCELOGOFF"; Break }
-                    "Minimum password age" { $Sw = "MINPWAGE"; Break }
-                    "Maximum password age" { $Sw = "MAXPWAGE"; Break }
-                    "Minimum password length" { $Sw = "MINPWLEN"; Break }
-                    "Length of password history maintained" { $Sw = "UNIQUEPW"; Break }
-                    "Account lockout threshold" { $Sw = "lockoutthreshold"; Break; }
-                    "Account lockout duration" { $Sw = "lockoutduration"; Break }
-                    "Reset account lockout counter" { $Sw = "lockoutwindow"; Break }
+                    "Force user logoff how long after time expires" { $Sw = "/FORCELOGOFF:$($Finding.RecommendedValue)"; Break }
+                    "Minimum password age" { $Sw = "/MINPWAGE:$($Finding.RecommendedValue)"; Break }
+                    "Maximum password age" { $Sw = "/MAXPWAGE:$($Finding.RecommendedValue)"; Break }
+                    "Minimum password length" { $Sw = "/MINPWLEN:$($Finding.RecommendedValue)"; Break }
+                    "Length of password history maintained" { $Sw = "/UNIQUEPW:$($Finding.RecommendedValue)"; Break }
+                    "Account lockout threshold" { $Sw = "/lockoutthreshold:$($Finding.RecommendedValue)"; Break; }
+                    "Account lockout duration" { $Sw = @("/lockoutwindow:$($Finding.RecommendedValue)", "/lockoutduration:$($Finding.RecommendedValue)"); Break }
+                    "Reset account lockout counter" { $Sw = "/lockoutwindow:$($Finding.RecommendedValue)"; Break }
                 }
 
-                &$BinaryNet accounts /$($Sw):$($Finding.RecommendedValue) | Out-Null
+                &$BinaryNet accounts $Sw | Out-Null
 
                 if($LastExitCode -eq 0) {
                     $ResultText = "Account policy set" 
