@@ -281,7 +281,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 10970,"Administrative Templates: Windows Components","RSS Feeds: Prevent downloading of enclosures",Registry,,"HKLM:\Software\Policies\Microsoft\Internet Explorer\Feeds",DisableEnclosureDownload,,,,,1,=,Medium
 10971,"Administrative Templates: Windows Components","Search: Allow indexing of encrypted files",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search",AllowIndexingEncryptedStoresOrItems,,,,1,0,=,Medium
 10972,"Microsoft Defender Antivirus","Configure detection for potentially unwanted applications",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender",PUAProtection,,,,0,1,>=,Medium
-10973,"Microsoft Defender Antivirus","MAPS: Join Microsoft MAPS",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsDefender\Spynet,SpynetReporting,,,,,2,=,Medium
+10973,"Microsoft Defender Antivirus","MAPS: Join Microsoft MAPS",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet",SpynetReporting,,,,,2,=,Medium
 10974,"Microsoft Defender Antivirus","MAPS: Send file samples when further analysis is required",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Spynet",SubmitSamplesConsent,,,,,1,=,Medium
 10976,"Microsoft Defender Antivirus","Scan: Scan removable drives",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Scan",DisableRemovableDriveScanning,,,,,0,=,Medium
 10977,"Microsoft Defender Exploit Guard","Attack Surface Reduction rules",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR",ExploitGuard_ASR_Rules,,,,0,1,=,Medium
@@ -315,7 +315,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 11026,"Microsoft Defender Exploit Guard","ASR: Block Adobe Reader from creating child processes",MpPreferenceAsr,7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c,,,,,,0,1,=,Medium
 10992,"Microsoft Defender Exploit Guard","ASR: Block persistence through WMI event subscription (Policy)",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\rules",e6db77e5-3df2-4cf1-b95a-636979351e5b,,,,0,0,=,Low
 11027,"Microsoft Defender Exploit Guard","ASR: Block persistence through WMI event subscription",MpPreferenceAsr,e6db77e5-3df2-4cf1-b95a-636979351e5b,,,,,,0,0,=,Low
-10993,"Microsoft Defender Exploit Guard","Network Protection: Prevent users and apps from accessing dangerous websites",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Microsoft Defender\Microsoft Defender Exploit Guard\Network Protection",EnableNetworkProtection,,,,,1,=,Medium
+10993,"Microsoft Defender Exploit Guard","Network Protection: Prevent users and apps from accessing dangerous websites",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\Network Protection",EnableNetworkProtection,,,,,1,=,Medium
 11001,"Administrative Templates: Windows Components","Windows Ink Workspace: Allow Windows Ink Workspace",Registry,,HKLM:\Software\Policies\Microsoft\WindowsInkWorkspace,AllowWindowsInkWorkspace,,,,1,1,=,Low
 11002,"Administrative Templates: Windows Components","Windows Installer: Allow user control over installs",Registry,,HKLM:\Software\Policies\Microsoft\Windows\Installer,EnableUserControl,,,,1,0,=,Medium
 11003,"Administrative Templates: Windows Components","Windows Installer: Always install with elevated privileges",Registry,,HKLM:\Software\Policies\Microsoft\Windows\Installer,AlwaysInstallElevated,,,,1,0,=,Medium

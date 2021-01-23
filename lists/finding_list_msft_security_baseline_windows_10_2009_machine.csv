@@ -89,8 +89,8 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 10504,"Windows Firewall","Inbound Connections (Domain Profile)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile,DefaultInboundAction,,,,1,1,=,Medium
 10505,"Windows Firewall","Outbound Connections (Domain Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile,DefaultOutboundAction,,,,0,0,=,Medium
 10506,"Windows Firewall","Outbound Connections (Domain Profile)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile,DefaultOutboundAction,,,,0,0,=,Medium
-10507,"Windows Firewall","Display a notification (Domain Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile,DisableNotifications,,,,0,0,=,Low
-10508,"Windows Firewall","Display a notification (Domain Profile)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile,DisableNotifications,,,,0,0,=,Low
+10507,"Windows Firewall","Display a notification (Domain Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile,DisableNotifications,,,,0,1,=,Low
+10508,"Windows Firewall","Display a notification (Domain Profile)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile,DisableNotifications,,,,0,1,=,Low
 10509,"Windows Firewall","Log size limit (Domain Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging,LogFileSize,,,,4096,16384,>=,Medium
 10510,"Windows Firewall","Log size limit (Domain Profile)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\Logging,LogFileSize,,,,4096,16384,>=,Medium
 10511,"Windows Firewall","Log dropped packets (Domain Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging,LogDroppedPackets,,,,0,1,=,Medium
@@ -103,8 +103,8 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 10518,"Windows Firewall","Inbound Connections (Private Profile)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile,DefaultInboundAction,,,,1,1,=,Medium
 10519,"Windows Firewall","Outbound Connections (Private Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile,DefaultOutboundAction,,,,0,0,=,Medium
 10520,"Windows Firewall","Outbound Connections (Private Profile)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile,DefaultOutboundAction,,,,0,0,=,Medium
-10521,"Windows Firewall","Display a notification (Private Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile,DisableNotifications,,,,0,0,=,Low
-10522,"Windows Firewall","Display a notification (Private Profile)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile,DisableNotifications,,,,0,0,=,Low
+10521,"Windows Firewall","Display a notification (Private Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile,DisableNotifications,,,,0,1,=,Low
+10522,"Windows Firewall","Display a notification (Private Profile)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile,DisableNotifications,,,,0,1,=,Low
 10523,"Windows Firewall","Log size limit (Private Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging,LogFileSize,,,,4096,16384,>=,Medium
 10524,"Windows Firewall","Log size limit (Private Profile)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\Logging,LogFileSize,,,,4096,16384,>=,Medium
 10525,"Windows Firewall","Log dropped packets (Private Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging,LogDroppedPackets,,,,0,1,=,Medium
@@ -117,8 +117,8 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 10532,"Windows Firewall","Inbound Connections (Public Profile)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile,DefaultInboundAction,,,,1,1,=,Medium
 10533,"Windows Firewall","Outbound Connections (Public Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile,DefaultOutboundAction,,,,0,0,=,Medium
 10534,"Windows Firewall","Outbound Connections (Public Profile)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile,DefaultOutboundAction,,,,0,0,=,Medium
-10535,"Windows Firewall","Display a notification (Public Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile,DisableNotifications,,,,0,0,=,Low
-10536,"Windows Firewall","Display a notification (Public Profile)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile,DisableNotifications,,,,0,0,=,Low
+10535,"Windows Firewall","Display a notification (Public Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile,DisableNotifications,,,,0,1,=,Low
+10536,"Windows Firewall","Display a notification (Public Profile)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile,DisableNotifications,,,,0,1,=,Low
 10537,"Windows Firewall","Apply local firewall rules (Public Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile,AllowLocalPolicyMerge,,,,0,0,=,Low
 10538,"Windows Firewall","Apply local connection security rules (Public Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile,AllowLocalIPsecPolicyMerge,,,,0,0,=,Low
 10539,"Windows Firewall","Log size limit (Public Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging,LogFileSize,,,,4096,16384,>=,Medium
@@ -338,7 +338,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 10971,"Administrative Templates: Windows Components","Search: Allow indexing of encrypted files",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search",AllowIndexingEncryptedStoresOrItems,,,,1,0,=,Medium
 10972,"Microsoft Defender Antivirus","Configure detection for potentially unwanted applications",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender",PUAProtection,,,,0,1,>=,Medium
 10998,"Microsoft Defender Antivirus","Configure the 'Block at First Sight' feature",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Spynet",DisableBlockAtFirstSeen,,,,,0,>=,Medium
-10973,"Microsoft Defender Antivirus","MAPS: Join Microsoft MAPS",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsDefender\Spynet,SpynetReporting,,,,,2,=,Medium
+10973,"Microsoft Defender Antivirus","MAPS: Join Microsoft MAPS",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet",SpynetReporting,,,,,2,=,Medium
 10974,"Microsoft Defender Antivirus","MAPS: Send file samples when further analysis is required",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Spynet",SubmitSamplesConsent,,,,,1,=,Medium
 10999,"Microsoft Defender Antivirus","MpEngine: Select cloud protection level",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\MpEngine",MpCloudBlockLevel,,,,,2,>=,Medium
 11013,"Microsoft Defender Antivirus","Real-time Protection: Scan all downloaded files and attachments",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Real-Time Protection",DisableIOAVProtection,,,,0,0,>=,Medium
@@ -376,7 +376,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 11026,"Microsoft Defender Exploit Guard","ASR: Block Adobe Reader from creating child processes",MpPreferenceAsr,7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c,,,,,,0,1,=,Medium
 10992,"Microsoft Defender Exploit Guard","ASR: Block persistence through WMI event subscription (Policy)",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\rules",e6db77e5-3df2-4cf1-b95a-636979351e5b,,,,0,1,=,Medium
 11027,"Microsoft Defender Exploit Guard","ASR: Block persistence through WMI event subscription",MpPreferenceAsr,e6db77e5-3df2-4cf1-b95a-636979351e5b,,,,,,0,1,=,Medium
-10993,"Microsoft Defender Exploit Guard","Network Protection: Prevent users and apps from accessing dangerous websites",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Microsoft Defender\Microsoft Defender Exploit Guard\Network Protection",EnableNetworkProtection,,,,,1,=,Medium
+10993,"Microsoft Defender Exploit Guard","Network Protection: Prevent users and apps from accessing dangerous websites",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\Network Protection",EnableNetworkProtection,,,,,1,=,Medium
 11000,"Administrative Templates: Windows Components","Windows Game Recording and Broadcasting: Enables or disables Windows Game Recording and Broadcasting",Registry,,HKLM:\Software\Policies\Microsoft\Windows\GameDVR,AllowGameDVR,,,,1,0,=,Low
 11001,"Administrative Templates: Windows Components","Windows Ink Workspace: Allow Windows Ink Workspace",Registry,,HKLM:\Software\Policies\Microsoft\WindowsInkWorkspace,AllowWindowsInkWorkspace,,,,1,1,=,Low
 11002,"Administrative Templates: Windows Components","Windows Installer: Allow user control over installs",Registry,,HKLM:\Software\Policies\Microsoft\Windows\Installer,EnableUserControl,,,,1,0,=,Medium

@@ -183,4 +183,4 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 6181,"Office 2016 / Office 365","IE Security: Scripted Window Security Restrictions (Word)",Registry,,"HKLM:\software\microsoft\internet explorer\main\featurecontrol\feature_window_restrictions",winword.exe,,,,,1,=,Medium
 6182,"Office 2016 / Office 365","MS Security Guide: Block Flash activation in Office documents",Registry,,"HKLM:\SOFTWARE\Microsoft\Office\Common\COM Compatibility",Comment,,,,,"Block all Flash activation",=,Medium
 6183,"Office 2016 / Office 365","Skype for Business: Configure SIP security mode",Registry,,HKLM:\software\policies\microsoft\office\16.0\lync,enablesiphighsecuritymode,,,,,1,=,Medium
-6184,"Office 2016 / Office 365","Skype for Business: Disable HTTP fallback for SIP connection",Registry,,HKLM\software\policies\microsoft\office\16.0\lync,disablehttpconnect,,,,,1,=,Medium
+6184,"Office 2016 / Office 365","Skype for Business: Disable HTTP fallback for SIP connection",Registry,,HKLM:\software\policies\microsoft\office\16.0\lync,disablehttpconnect,,,,,1,=,Medium

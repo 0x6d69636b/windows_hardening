@@ -848,6 +848,7 @@
                     $ResultOutput = Get-MpPreference
                     $ResultAsrIds = $ResultOutput.AttackSurfaceReductionRules_Ids
                     $ResultAsrActions = $ResultOutput.AttackSurfaceReductionRules_Actions
+                    $Result = $Finding.DefaultValue
                     $Counter = 0
 
                     ForEach ($AsrRule in $ResultAsrIds) {
