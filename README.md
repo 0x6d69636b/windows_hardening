@@ -116,7 +116,7 @@ HardeningKitty can be used to audit systems against the following baselines / be
 * [CIS Benchmarks for Microsoft Windows 10 Enterprise Release 2004 v1.9.1](https://www.cisecurity.org/cis-benchmarks/)
 * [CIS Benchmarks for Microsoft Windows Server 2019 RTM Release 1809 v1.1.0](https://www.cisecurity.org/cis-benchmarks/)
 * [Security baseline (FINAL): Windows 10 and Windows Server, version 2004](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-final-windows-10-and-windows-server-version/ba-p/1543631)
-* [Security baseline (DRAFT): Windows 10 and Windows Server, version 20H2](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-draft-windows-10-and-windows-server-version/ba-p/1799721)
+* [Security baseline (FINAL) for Windows 10 and Windows Server, version 20H2](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-final-for-windows-10-and-windows-server/ba-p/1999393)
 * [Kernel DMA Protection for Thunderbolt 3](https://docs.microsoft.com/en-us/windows/security/information-protection/kernel-dma-protection-for-thunderbolt)
 * [BitLocker Countermeasures](https://docs.microsoft.com/en-us/windows/security/information-protection/bitlocker/bitlocker-countermeasures)
 * [Blocking the SBP-2 driver and Thunderbolt controllers to reduce 1394 DMA and Thunderbolt DMA threats to BitLocker](https://support.microsoft.com/en-us/help/2516445/blocking-the-sbp-2-driver-and-thunderbolt-controllers-to-reduce-1394-d)
