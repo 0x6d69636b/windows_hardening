@@ -2,7 +2,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 1000,"Microsoft Edge","Allow users to proceed from the HTTPS warning page",Registry,,HKLM:\Software\Policies\Microsoft\Edge,SSLErrorOverrideAllowed,,,,1,0,=,Low
 1001,"Microsoft Edge","Enable site isolation for every site",Registry,,HKLM:\Software\Policies\Microsoft\Edge,SitePerProcess,,,,0,1,=,Low
 1002,"Microsoft Edge","Minimum TLS version enabled",Registry,,HKLM:\Software\Policies\Microsoft\Edge,SSLVersionMin,,,,0,tls1.2,=,Medium
-1003,"Microsoft Edge","Default Adobe Flash setting",Registry,,HKLM:\Software\Policies\Microsoft\Edge,DefaultPluginsSetting,,,,0,2,=,Low
+1003,"Microsoft Edge","Default Adobe Flash setting (obsolete)",Registry,,HKLM:\Software\Policies\Microsoft\Edge,DefaultPluginsSetting,,,,0,2,=,Low
 1004,"Microsoft Edge","Control which extensions cannot be installed",Registry,,HKLM:\Software\Policies\Microsoft\Edge\ExtensionInstallBlocklist,1,,,,0,*,=,Low
 1005,"Microsoft Edge","Supported authentication schemes",Registry,,HKLM:\Software\Policies\Microsoft\Edge,AuthSchemes,,,,0,"ntlm,negotiate",=,Low
 1006,"Microsoft Edge","Allow user-level native messaging hosts (installed without admin permissions)",Registry,,HKLM:\Software\Policies\Microsoft\Edge,NativeMessagingUserLevelHosts,,,,1,0,=,Low
