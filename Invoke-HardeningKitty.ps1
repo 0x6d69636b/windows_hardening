@@ -70,7 +70,7 @@
 
     .EXAMPLE
         
-        Invoke-HardeningKitty -Mode "Audit" -Log $true -Report $true
+        Invoke-HardeningKitty -Mode "Audit" -Log -Report
         
         Description: HardeningKitty performs an audit, saves the results and creates a log file
     #>
@@ -196,7 +196,7 @@
             $SeverityLevel
         )
 
-        If ($EmojiSupport) {
+        If ($EmojiSupport.IsPresent) {
 
             Switch ($SeverityLevel) {
 
@@ -379,15 +379,16 @@
     # Log and report file
     #
     $Hostname = $env:COMPUTERNAME.ToLower()
-    $FileDate = Get-Date -Format yyyyMMdd-HHmm
+    $FileDate = Get-Date -Format yyyyMMdd-HHmmss
+    $ListName = [System.IO.Path]::GetFileNameWithoutExtension($FileFindingList)
 
-    If ($Log -and $LogFile.Length -eq 0) {
-        $LogFile = "hardeningkitty_log_$Hostname-$FileDate.log"
+    If ($Log.IsPresent -and $LogFile.Length -eq 0) {
+        $LogFile = "hardeningkitty_log_"+$Hostname+"_"+$ListName+"-$FileDate.log"
     }
-    If ($Report -and $ReportFile.Length -eq 0) {
-        $ReportFile = "hardeningkitty_report_$Hostname-$FileDate.csv"
+    If ($Report.IsPresent -and $ReportFile.Length -eq 0) {
+        $ReportFile = "hardeningkitty_report_"+$Hostname+"_"+$ListName+"-$FileDate.csv"
     }
-    If ($Report) {
+    If ($Report.IsPresent) {
         $Message = '"ID","Name","Severity","Result","Recommended"'
         Add-ResultEntry -Text $Message
     }
