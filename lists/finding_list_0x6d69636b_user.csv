@@ -13,7 +13,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 4401,"Office 2016 / Office 365","Microsoft Excel: Always prevent untrusted Microsoft Query files from opening",Registry,,"HKCU:\software\policies\microsoft\office\16.0\excel\security\external content",enableblockunsecurequeryfiles,,,,0,1,=,Medium
 4402,"Office 2016 / Office 365","Microsoft Excel: Don't update links",Registry,,HKCU:\Software\Microsoft\Office\16.0\Excel\Options,DontUpdateLinks,,,,0,1,=,Medium
 4403,"Office 2016 / Office 365","Microsoft Excel: Allow DDE",Registry,,"HKCU:\software\policies\microsoft\office\16.0\excel\security\external content",disableddeserverlaunch,,,,0,1,=,Medium
-4404,"Office 2016 / Office 365","Microsoft Excel: Clean DDE",Registry,,"HKCU:\software\policies\microsoft\office\16.0\excel\security\external content",disableddeserverlookup,,,,0,1,=,Medium
+4404,"Office 2016 / Office 365","Microsoft Excel: Don’t allow Dynamic Data Exchange (DDE) server lookup in Excel",Registry,,"HKCU:\software\policies\microsoft\office\16.0\excel\security\external content",disableddeserverlookup,,,,0,1,=,Medium
 4405,"Office 2016 / Office 365","Microsoft Excel: Don’t allow Dynamic Data Exchange (DDE) server launch in Excel",Registry,,HKCU:\Software\Microsoft\Office\16.0\Excel\Options,DDEAllowed,,,,1,0,=,Medium
 4406,"Office 2016 / Office 365","Microsoft Excel: Don’t allow Dynamic Data Exchange (DDE) server lookup in Excel",Registry,,HKCU:\Software\Microsoft\Office\16.0\Excel\Options,DDECleaned,,,,0,1,=,Medium
 4407,"Office 2016 / Office 365","Microsoft Excel: Block macros from running in Office files from the Internet",Registry,,HKCU:\Software\Policies\Microsoft\Office\16.0\Excel\Security,blockcontentexecutionfrominternet,,,,0,1,=,Medium
@@ -21,7 +21,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 4409,"Office 2016 / Office 365","Microsoft Excel: VBA Macro Notification Settings (Policy)",Registry,,HKCU:\Software\Policies\Microsoft\Office\16.0\Excel\Security,vbawarnings,,,,2,4,=,Medium
 4410,"Office 2016 / Office 365","Microsoft OneNote: Disable embedded files",Registry,,HKCU:\Software\Microsoft\Office\16.0\OneNote\Options,DisableEmbeddedFiles,,,,0,1,=,Medium
 4411,"Office 2016 / Office 365","Microsoft PowerPoint: Block macros from running in Office files from the Internet",Registry,,HKCU:\Software\Policies\Microsoft\Office\16.0\PowerPoint\Security,blockcontentexecutionfrominternet,,,,0,1,=,Medium
-4412,"Office 2016 / Office 365","Microsoft PowerPoint: VBA Macro Notification Settings",Registry,,HKCU:\Software\Policies\Microsoft\Office\16.0\PowerPoint\Security,vbawarnings,,,,2,4,=,Medium
+4412,"Office 2016 / Office 365","Microsoft PowerPoint: VBA Macro Notification Settings (Policy)",Registry,,HKCU:\Software\Policies\Microsoft\Office\16.0\PowerPoint\Security,vbawarnings,,,,2,4,=,Medium
 4413,"Office 2016 / Office 365","Microsoft Word: Don't update links",Registry,,HKCU:\Software\Microsoft\Office\16.0\Word\Options,DontUpdateLinks,,,,0,1,=,Medium
 4414,"Office 2016 / Office 365","Microsoft Word (Mail): Don't update links",Registry,,HKCU:\Software\Microsoft\Office\16.0\Word\Options\WordMail,DontUpdateLinks,,,,0,1,=,Medium
 4415,"Office 2016 / Office 365","Microsoft Word: Block macros from running in Office files from the Internet",Registry,,HKCU:\Software\Policies\Microsoft\Office\16.0\Word\Security,blockcontentexecutionfrominternet,,,,0,1,=,Medium
