@@ -5,7 +5,7 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 ## Basic Hardening
 
 * Use a separate local admin account
-* ID 1708: Use BitLocker with Enhanced PIN
+* ID 1712: Use BitLocker with Enhanced PIN
 * Enable Windows Defender
 * ID 1000: Disable SMBv1 (only needed for Windows <1709 build)
 	* Check Status: `Get-WindowsOptionalFeature -Online -FeatureName smb1protocol`
