@@ -309,8 +309,7 @@
         }
     }    
 
-    Function Get-HashtableValueDeep
-    {
+    Function Get-HashtableValueDeep {
         <#
             .SYNOPSIS
                 Get a value from a tree of hashtables
@@ -369,7 +368,7 @@
         } elseif($Key.Length -eq 1) {
             $Table[$Key[0]] = $Value;
         }
-    }    
+    }
 
     #
     # Start Main
@@ -401,6 +400,7 @@
     $StatsMedium = 0
     $StatsHigh = 0
     $StatsTotal = 0
+    $StatsError = 0
 
     #
     # Header
@@ -410,36 +410,6 @@
     Write-Output "     _(      )/  HardeningKitty"
     Write-Output "`n"    
     Write-ProtocolEntry -Text "Starting HardeningKitty" -LogLevel "Info"
-
-    # 
-    # Definition and check for tools
-    # If a tool is not available, the execution of the script is terminated
-    #
-    If (-Not (Test-Path $BinaryAccesschk)) {
-        Write-ProtocolEntry -Text "Binary for AccessChk not found" -LogLevel "Error"
-        Break
-    }
-    $BinaryAuditpol = "C:\Windows\System32\auditpol.exe"
-    If (-Not (Test-Path $BinaryAuditpol)) {
-        Write-ProtocolEntry -Text "Binary for auditpol not found" -LogLevel "Error"
-        Break
-    }
-    $BinaryNet = "C:\Windows\System32\net.exe"
-    If (-Not (Test-Path $BinaryNet)) {
-        Write-ProtocolEntry -Text "Binary for net not found" -LogLevel "Error"
-        Break
-    }
-    $BinaryBcdedit = "C:\Windows\System32\bcdedit.exe"
-    If (-Not (Test-Path $BinaryBcdedit)) {
-        Write-ProtocolEntry -Text "Binary for bcdedit not found" -LogLevel "Error"
-        Break
-    }
-    
-    $BinarySecedit = "C:\Windows\System32\secedit.exe"
-    If (-Not (Test-Path $BinarySecedit)) {
-        Write-ProtocolEntry -Text "Binary for secedit not found" -LogLevel "Error"
-        Break
-    }
 
     #
     # Machine information
@@ -543,7 +513,18 @@
             #
             ElseIf ($Finding.Method -eq 'secedit') {
 
+                # Check if binary is available, skip test if not
+                $BinarySecedit = "C:\Windows\System32\secedit.exe"
+                If (-Not (Test-Path $BinarySecedit)) {
+                    $StatsError++
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires secedit, and the binary for secedit was not found. Test skipped."
+                    Write-ProtocolEntry -Text $Message -LogLevel "Error"                    
+                    Continue
+                }
+
+                # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
+                    $StatsError++
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
                     Write-ProtocolEntry -Text $Message -LogLevel "Error"
                     Continue
@@ -607,7 +588,18 @@
             #
             ElseIf ($Finding.Method -eq 'auditpol') {
 
+                # Check if binary is available, skip test if not
+                $BinaryAuditpol = "C:\Windows\System32\auditpol.exe"
+                If (-Not (Test-Path $BinaryAuditpol)) {
+                    $StatsError++
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires auditpol, and the binary for auditpol was not found. Test skipped."
+                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Continue
+                }
+                
+                # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
+                    $StatsError++
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
                     Write-ProtocolEntry -Text $Message -LogLevel "Error"
                     Continue
@@ -634,6 +626,15 @@
             # The values of the user executing the script are read out. These may not match the password policy.
             #
             ElseIf ($Finding.Method -eq 'accountpolicy') {
+
+                # Check if binary is available, skip test if not
+                $BinaryNet = "C:\Windows\System32\net.exe"
+                If (-Not (Test-Path $BinaryNet)) {
+                    $StatsError++
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires net, and the binary for net was not found. Test skipped."
+                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Continue
+                }
 
                 try {
                     
@@ -700,7 +701,17 @@
             #
             ElseIf ($Finding.Method -eq 'accesschk') {
 
+                # Check if binary is available, skip test if not
+                If (-Not (Test-Path $BinaryAccesschk)) {
+                    $StatsError++
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires accesschk, and the binary for accesschk was not found. Test skipped."
+                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Continue
+                }
+
+                # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
+                    $StatsError++
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
                     Write-ProtocolEntry -Text $Message -LogLevel "Error"
                     Continue
@@ -736,7 +747,9 @@
             #
             ElseIf ($Finding.Method -eq 'WindowsOptionalFeature') {
 
+                # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
+                    $StatsError++
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
                     Write-ProtocolEntry -Text $Message -LogLevel "Error"
                     Continue
@@ -782,7 +795,9 @@
             #
             ElseIf ($Finding.Method -eq 'BitLockerVolume') {
 
+                # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
+                    $StatsError++
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
                     Write-ProtocolEntry -Text $Message -LogLevel "Error"
                     Continue
@@ -894,8 +909,19 @@
             #
             ElseIf ($Finding.Method -eq 'bcdedit') {
 
+                # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
+                    $StatsError++
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
+                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Continue
+                }
+
+                # Check if binary is available, skip test if not
+                $BinaryBcdedit = "C:\Windows\System32\bcdedit.exe"
+                If (-Not (Test-Path $BinaryBcdedit)) {
+                    $StatsError++
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires bcdedit, and the binary for bcdedit was not found. Test skipped."
                     Write-ProtocolEntry -Text $Message -LogLevel "Error"
                     Continue
                 }
@@ -1068,11 +1094,22 @@
 
             #
             # accesschk
-            # Use secedit to set user rights assignment
+            # For the audit mode, accesschk is used, but the rights are set with secedit.
             #
             If ($Finding.Method -eq 'accesschk') {
 
+                # Check if binary is available, skip test if not
+                $BinarySecedit = "C:\Windows\System32\secedit.exe"
+                If (-Not (Test-Path $BinarySecedit)) {
+                    $StatsError++
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires secedit, and the binary for secedit was not found. Test skipped."
+                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Continue
+                }
+
+                # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
+                    $StatsError++
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
                     Write-ProtocolEntry -Text $Message -LogLevel "Error"
                     Continue
@@ -1161,7 +1198,19 @@
             # Set a security policy
             #
             If ($Finding.Method -eq 'secedit') {
+
+                # Check if binary is available, skip test if not
+                $BinarySecedit = "C:\Windows\System32\secedit.exe"
+                If (-Not (Test-Path $BinarySecedit)) {
+                    $StatsError++
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires secedit, and the binary for secedit was not found. Test skipped."
+                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Continue
+                }
+
+                # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
+                    $StatsError++
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
                     Write-ProtocolEntry -Text $Message -LogLevel "Error"
                     Continue
@@ -1231,7 +1280,18 @@
             #
             If ($Finding.Method -eq 'auditpol') {
 
+                # Check if binary is available, skip test if not
+                $BinaryAuditpol = "C:\Windows\System32\auditpol.exe"
+                If (-Not (Test-Path $BinaryAuditpol)) {
+                    $StatsError++
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires auditpol, and the binary for auditpol was not found. Test skipped."
+                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Continue
+                }
+
+                # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
+                    $StatsError++
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
                     Write-ProtocolEntry -Text $Message -LogLevel "Error"
                     Continue
@@ -1263,8 +1323,19 @@
             #
             If ($Finding.Method -eq 'accountpolicy') {
 
+                # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
+                    $StatsError++
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
+                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Continue
+                }
+
+                # Check if binary is available, skip test if not
+                $BinaryNet = "C:\Windows\System32\net.exe"
+                If (-Not (Test-Path $BinaryNet)) {
+                    $StatsError++
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires net, and the binary for net was not found. Test skipped."
                     Write-ProtocolEntry -Text $Message -LogLevel "Error"
                     Continue
                 }
@@ -1303,7 +1374,9 @@
             #
             If ($Finding.Method -eq 'Registry' -or $Finding.Method -eq 'RegistryList') {
                 
+                # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin) -and -not($Finding.RegistryPath.StartsWith("HKCU:\"))) {
+                    $StatsError++
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
                     Write-ProtocolEntry -Text $Message -LogLevel "Error"
                     Continue
@@ -1394,7 +1467,9 @@
             #
             If ($Finding.Method -eq 'Processmitigation') {
 
+                # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
+                    $StatsError++
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
                     Write-ProtocolEntry -Text $Message -LogLevel "Error"
                     Continue
@@ -1436,7 +1511,9 @@
             #
             If ($Finding.Method -eq 'WindowsOptionalFeature') {
 
+                # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
+                    $StatsError++
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
                     Write-ProtocolEntry -Text $Message -LogLevel "Error"
                     Continue
@@ -1497,7 +1574,9 @@
             #
             If ($Finding.Method -eq 'FirewallRule') {
 
+                # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
+                    $StatsError++
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
                     Write-ProtocolEntry -Text $Message -LogLevel "Error"
                     Continue
@@ -1634,6 +1713,7 @@
     
     Write-Output "`n"
     Write-ProtocolEntry -Text "HardeningKitty is done" -LogLevel "Info"
+
     If ($Mode -eq "Audit") {
 
         # HardeningKitty Score
@@ -1646,6 +1726,10 @@
         # Overwrite HardeningKitty Score if no finding is passed
         If ($StatsPassed -eq 0 ) {
             $HardeningKittyScoreRounded = 1.00
+        }
+
+        If ($StatsError -gt 0) {
+            Write-ProtocolEntry -Text "During the execution of HardeningKitty errors occurred due to missing admin rights or tools. For a complete result, these errors should be resolved. Total errors: $StatsError" -LogLevel "Error"
         }
             
         Write-ProtocolEntry -Text "Your HardeningKitty score is: $HardeningKittyScoreRounded. HardeningKitty Statistics: Total checks: $StatsTotal - Passed: $StatsPassed, Low: $StatsLow, Medium: $StatsMedium, High: $StatsHigh." -LogLevel "Info"
