@@ -434,7 +434,7 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 
 #### Windows PowerShell
 
-* ID 2100, ID 2001: Set _Turn on PowerShell Script Block Logging_ to **Enabled**
+* ID 2100, ID 2101: Set _Turn on PowerShell Script Block Logging_ to **Enabled**
 * ID 2102: Set _Turn on PowerShell Transcription_ to **Enabled**
 * ID 2103, ID 2104: Remove PowerShell Version 2
 
