@@ -473,7 +473,7 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 * ID 1956, ID 1957: Set _Randomize memory allocations (Bottom-up ASLR)_ to **On by default**
 * ID 1958, ID 1959: Set _High-entropy ASLR_ to **On by default**
 * ID 1960, ID 1961, ID 1962: Set _Validate exception chains (SEHOP)_ to **On by default**
-* ID 1953, ID 1964: Set _Validate heap integrity_ to **On by default**
+* ID 1963, ID 1964: Set _Validate heap integrity_ to **On by default**
 
 These settings can be exported as an XML file and loaded via Group Policy _Computer Configuration\Administrative Templates\Windows Components\Windows Defender Exploit Guard\Exploit Protection\Use a common set of exploit protection settings_. It is also possible to configure policies per application.
 
