@@ -98,7 +98,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 1525,"Advanced Audit Policy Configuration","System Integrity",auditpol,,,,,,,"Success and Failure","Success and Failure",=,Low
 1600,"Administrative Templates: Control Panel","Personalization: Prevent enabling lock screen camera",Registry,,HKLM:\Software\Policies\Microsoft\Windows\Personalization,NoLockScreenCamera,,,,0,1,=,Low
 1601,"Administrative Templates: Network","DNS Client: Turn off multicast name resolution (LLMNR)",Registry,,"HKLM:\Software\Policies\Microsoft\Windows NT\DNSClient",EnableMulticast,,,,1,0,=,Medium
-1602,"Administrative Templates: Network","Lanman Workstation: Enable insecure guest logons",Registry,,HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation,AllowInsecureGuestAuth,,,,0,0,=,Medium
+1602,"Administrative Templates: Network","Lanman Workstation: Enable insecure guest logons",Registry,,HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation,AllowInsecureGuestAuth,,,,1,0,=,Medium
 1603,"Administrative Templates: Network","Turn off Microsoft Peer-to-Peer Networking Services",Registry,,HKLM:\Software\policies\Microsoft\Peernet,Disabled,,,,0,1,=,Medium
 1604,"Administrative Templates: Network","WLAN Settings: Allow Windows to automatically connect to suggested open hotspots, to networks shared by contacts, and to hotspots offering paid services",Registry,,HKLM:\Software\Microsoft\wcmsvc\wifinetworkmanager\config,AutoConnectAllowedOEM,,,,1,0,=,Medium
 1605,"Administrative Templates: System","Credentials Delegation: Allow delegation default credentials",Registry,,HKLM:\Software\Policies\Microsoft\Windows\CredentialsDelegation,AllowDefaultCredentials,,,,1,0,=,Medium
