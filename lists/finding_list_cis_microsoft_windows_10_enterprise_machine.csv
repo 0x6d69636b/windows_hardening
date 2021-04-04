@@ -1,19 +1,19 @@
 ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Namespace,Property,DefaultValue,RecommendedValue,Operator,Severity
-1.1.1,"Account Policies","Length of password history maintained",accountpolicy,,,,,,,,24,>=,Low
-1.1.2,"Account Policies","Maximum password age",accountpolicy,,,,,,,,60,<=,Low
-1.1.3,"Account Policies","Minimum password age",accountpolicy,,,,,,,,1,>=,Low
-1.1.4,"Account Policies","Minimum password length",accountpolicy,,,,,,,,14,>=,Medium
+1.1.1,"Account Policies","Length of password history maintained",accountpolicy,,,,,,,None,24,>=,Low
+1.1.2,"Account Policies","Maximum password age",accountpolicy,,,,,,,42,60,<=,Low
+1.1.3,"Account Policies","Minimum password age",accountpolicy,,,,,,,0,1,>=,Low
+1.1.4,"Account Policies","Minimum password length",accountpolicy,,,,,,,0,14,>=,Medium
 1.1.5,"Account Policies","Password must meet complexity requirements",secedit,"System Access\PasswordComplexity",,,,,,0,1,=,Medium
 1.1.6,"Account Policies","Relax minimum password length limits",Registry,,HKLM:\System\CurrentControlSet\Control\SAM,RelaxMinimumPasswordLengthLimits,,,,0,1,=,Medium
 1.1.7,"Account Policies","Store passwords using reversible encryption",secedit,"System Access\ClearTextPassword",,,,,,0,0,=,High
-1.2.1,"Account Policies","Account lockout duration",accountpolicy,,,,,,,,15,>=,Low
-1.2.2,"Account Policies","Account lockout threshold",accountpolicy,,,,,,,0,10,<=,Low
-1.2.3,"Account Policies","Reset account lockout counter",accountpolicy,,,,,,,,15,>=,Low
+1.2.1,"Account Policies","Account lockout duration",accountpolicy,,,,,,,30,15,>=,Low
+1.2.2,"Account Policies","Account lockout threshold",accountpolicy,,,,,,,Never,10,<=,Low
+1.2.3,"Account Policies","Reset account lockout counter",accountpolicy,,,,,,,30,15,>=,Low
 2.2.1,"User Rights Assignment","Access Credential Manager as a trusted caller",accesschk,SeTrustedCredManAccessPrivilege,,,,,,,,=,Medium
-2.2.2,"User Rights Assignment","Access this computer from the network",accesschk,SeNetworkLogonRight,,,,,,"BUILTIN\Administrators;BUILTIN\Backup Operators;BUILTIN\Users;Everyone","BUILTIN\Remote Desktop Users;BUILTIN\Administrators",=,Medium
+2.2.2,"User Rights Assignment","Access this computer from the network",accesschk,SeNetworkLogonRight,,,,,,"BUILTIN\Backup Operators;BUILTIN\Users;BUILTIN\Administrators;Everyone","BUILTIN\Remote Desktop Users;BUILTIN\Administrators",=,Medium
 2.2.3,"User Rights Assignment","Act as part of the operating system",accesschk,SeTcbPrivilege,,,,,,,,=,Medium
 2.2.4,"User Rights Assignment","Adjust memory quotas for a process",accesschk,SeIncreaseQuotaPrivilege,,,,,,"BUILTIN\Administrators;NT AUTHORITY\NETWORK SERVICE;NT AUTHORITY\LOCAL SERVICE","BUILTIN\Administrators;NT AUTHORITY\NETWORK SERVICE;NT AUTHORITY\LOCAL SERVICE",=,Medium
-2.2.5,"User Rights Assignment","Allow log on locally",accesschk,SeInteractiveLogonRight,,,,,,"BUILTIN\Administrators;BUILTIN\Backup Operators;BUILTIN\Users;Everyone",BUILTIN\Users;BUILTIN\Administrators,=,Medium
+2.2.5,"User Rights Assignment","Allow log on locally",accesschk,SeInteractiveLogonRight,,,,,,"BUILTIN\Backup Operators;BUILTIN\Users;BUILTIN\Administrators;COMPUTERNAME\Guest",BUILTIN\Users;BUILTIN\Administrators,=,Medium
 2.2.6,"User Rights Assignment","Allow log on through Remote Desktop Services",accesschk,SeRemoteInteractiveLogonRight,,,,,,"BUILTIN\Remote Desktop Users;BUILTIN\Administrators","BUILTIN\Remote Desktop Users;BUILTIN\Administrators",=,Medium
 2.2.7,"User Rights Assignment","Back up files and directories",accesschk,SeBackupPrivilege,,,,,,"BUILTIN\Administrators;BUILTIN\Backup Operators",BUILTIN\Administrators,=,Medium
 2.2.8,"User Rights Assignment","Change the system time",accesschk,SeSystemTimePrivilege,,,,,,"BUILTIN\Administrators;NT AUTHORITY\LOCAL SERVICE","BUILTIN\Administrators;NT AUTHORITY\LOCAL SERVICE",=,Medium
@@ -25,7 +25,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 2.2.14.1,"User Rights Assignment","Create symbolic links",accesschk,SeCreateSymbolicLinkPrivilege,,,,,,BUILTIN\Administrators,BUILTIN\Administrators,=,Medium
 2.2.14.2,"User Rights Assignment","Create symbolic links (Hyper-V)",accesschk,SeCreateSymbolicLinkPrivilege,,,,,,S-1-5-83-0;BUILTIN\Administrators,S-1-5-83-0;BUILTIN\Administrators,=,Medium
 2.2.15,"User Rights Assignment","Debug programs",accesschk,SeDebugPrivilege,,,,,,BUILTIN\Administrators,BUILTIN\Administrators,=,Medium
-2.2.16,"User Rights Assignment","Deny access to this computer from the network",accesschk,SeDenyNetworkLogonRight,,,,,,BUILTIN\Guests,"Guest;NT AUTHORITY\Local account",=,Medium
+2.2.16,"User Rights Assignment","Deny access to this computer from the network",accesschk,SeDenyNetworkLogonRight,,,,,,COMPUTERNAME\Guest,"Guest;NT AUTHORITY\Local account",=,Medium
 2.2.17,"User Rights Assignment","Deny log on as a batch job",accesschk,SeDenyBatchLogonRight,,,,,,,BUILTIN\Guests,=,Medium
 2.2.18,"User Rights Assignment","Deny log on as a service",accesschk,SeDenyServiceLogonRight,,,,,,,BUILTIN\Guests,=,Medium
 2.2.19,"User Rights Assignment","Deny log on locally",accesschk,SeDenyInteractiveLogonRight,,,,,,BUILTIN\Guests,BUILTIN\Guests,=,Medium
@@ -50,7 +50,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 2.2.37,"User Rights Assignment","Restore files and directories",accesschk,SeRestorePrivilege,,,,,,"BUILTIN\Backup Operators;BUILTIN\Administrators",BUILTIN\Administrators,=,Medium
 2.2.38,"User Rights Assignment","Shut down the system",accesschk,SeShutdownPrivilege,,,,,,"BUILTIN\Backup Operators;BUILTIN\Users;BUILTIN\Administrators",BUILTIN\Users;BUILTIN\Administrators,=,Medium
 2.2.39,"User Rights Assignment","Take ownership of files or other objects",accesschk,SeTakeOwnershipPrivilege,,,,,,BUILTIN\Administrators,BUILTIN\Administrators,=,Medium
-2.3.1.1,"Security Options","Accounts: Administrator account status",localaccount,500,,,,,,True,False,=,Medium
+2.3.1.1,"Security Options","Accounts: Administrator account status",localaccount,500,,,,,,False,False,=,Medium
 2.3.1.2,"Security Options","Accounts: Block Microsoft accounts",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,NoConnectedUser,,,,0,3,=,Low
 2.3.1.3,"Security Options","Accounts: Guest account status",localaccount,501,,,,,,False,False,=,Medium
 2.3.1.4,"Security Options","Accounts: Limit local account use of blank passwords to console logon only",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa,LimitBlankPasswordUse,,,,1,1,=,Medium
@@ -75,7 +75,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 2.3.7.7,"Security Options","Interactive logon: Number of previous logons to cache (in case domain controller is not available)",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,CachedLogonsCount,,,,10,4,<=,Medium
 2.3.7.8.1,"Security Options","Interactive logon: Prompt user to change password before expiration (Max)",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,PasswordExpiryWarning,,,,5,14,<=,Low
 2.3.7.8.2,"Security Options","Interactive logon: Prompt user to change password before expiration (Min)",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,PasswordExpiryWarning,,,,5,5,>=,Low
-2.3.7.9,"Security Options","Interactive logon: Smart card removal behavior",Registry,,"HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Winlogon",ScRemoveOption,,,,,1,=,Low
+2.3.7.9,"Security Options","Interactive logon: Smart card removal behavior",Registry,,"HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Winlogon",ScRemoveOption,,,,0,1,=,Low
 2.3.8.1,"Security Options","Microsoft network client: Digitally sign communications (always)",Registry,,HKLM:\System\CurrentControlSet\Services\LanmanWorkstation\Parameters,RequireSecuritySignature,,,,0,1,=,Medium
 2.3.8.2,"Security Options","Microsoft network client: Digitally sign communications (if server agrees)",Registry,,HKLM:\System\CurrentControlSet\Services\LanmanWorkstation\Parameters,EnableSecuritySignature,,,,1,1,=,Medium
 2.3.8.3,"Security Options","Microsoft network client: Send unencrypted password to third-party SMB servers",Registry,,HKLM:\System\CurrentControlSet\Services\LanmanWorkstation\Parameters,EnablePlainTextPassword,,,,0,0,=,Medium
@@ -118,93 +118,93 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 2.3.17.7,"Security Options","User Account Control: Switch to the secure desktop when prompting for elevation",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,PromptOnSecureDesktop,,,,1,1,=,Medium
 2.3.17.8,"Security Options","User Account Control: Virtualize file and registry write failures to per-user locations",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,EnableVirtualization,,,,1,1,=,Medium
 5.1.1,"System Services","Bluetooth Audio Gateway Service (BTAGService)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\BTAGService,Start,,,,3,4,=,Medium
-5.1.2,"System Services","Bluetooth Audio Gateway Service (BTAGService) (Service Startup type)",service,BTAGService,,,,,,3,Disabled,=,Medium
+5.1.2,"System Services","Bluetooth Audio Gateway Service (BTAGService) (Service Startup type)",service,BTAGService,,,,,,Manual,Disabled,=,Medium
 5.2.1,"System Services","Bluetooth Support Service (bthserv)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\bthserv,Start,,,,3,4,=,Medium
-5.2.2,"System Services","Bluetooth Support Service (bthserv) (Service Startup type)",service,bthserv,,,,,,3,Disabled,=,Medium
+5.2.2,"System Services","Bluetooth Support Service (bthserv) (Service Startup type)",service,bthserv,,,,,,Manual,Disabled,=,Medium
 5.3.1,"System Services","Computer Browser (Browser)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\Browser,Start,,,,,4,=,Medium
-5.3.2,"System Services","Computer Browser (Browser) (Service Startup type)",service,Browser,,,,,,Disabled,Disabled,=,Medium
+5.3.2,"System Services","Computer Browser (Browser) (Service Startup type)",service,Browser,,,,,,Manual,Disabled,=,Medium
 5.4.1,"System Services","Downloaded Maps Manager (MapsBroker)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\MapsBroker,Start,,,,2,4,=,Medium
-5.4.2,"System Services","Downloaded Maps Manager (MapsBroker) (Service Startup type)",service,MapsBroker,,,,,,2,Disabled,=,Medium
+5.4.2,"System Services","Downloaded Maps Manager (MapsBroker) (Service Startup type)",service,MapsBroker,,,,,,Automatic,Disabled,=,Medium
 5.5.1,"System Services","Geolocation Service (lfsvc)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\lfsvc,Start,,,,3,4,=,Medium
-5.5.2,"System Services","Geolocation Service (lfsvc) (Service Startup type)",service,lfsvc,,,,,,3,Disabled,=,Medium
+5.5.2,"System Services","Geolocation Service (lfsvc) (Service Startup type)",service,lfsvc,,,,,,Manual,Disabled,=,Medium
 5.6.1,"System Services","IIS Admin Service (IISADMIN)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\IISADMIN,Start,,,,,4,=,Medium
-5.6.2,"System Services","IIS Admin Service (IISADMIN) (Service Startup type)",service,IISADMIN,,,,,,Disabled,Disabled,=,Medium
+5.6.2,"System Services","IIS Admin Service (IISADMIN) (Service Startup type)",service,IISADMIN,,,,,,"",Disabled,=,Medium
 5.7.1,"System Services","Infrared monitor service (irmon)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\irmon,Start,,,,,4,=,Medium
 5.7.2,"System Services","Infrared monitor service (irmon) (Service Startup type)",service,irmon,,,,,,,Disabled,=,Medium
 5.8.1,"System Services","Internet Connection Sharing (ICS) (SharedAccess)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess,Start,,,,3,4,=,Medium
-5.8.2,"System Services","Internet Connection Sharing (ICS) (SharedAccess) (Service Startup type)",service,SharedAccess,,,,,,3,Disabled,=,Medium
+5.8.2,"System Services","Internet Connection Sharing (ICS) (SharedAccess) (Service Startup type)",service,SharedAccess,,,,,,Manual,Disabled,=,Medium
 5.9.1,"System Services","Link-Layer Topology Discovery Mapper (lltdsvc)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\lltdsvc,Start,,,,3,4,=,Medium
-5.9.2,"System Services","Link-Layer Topology Discovery Mapper (lltdsvc) (Service Startup type)",service,lltdsvc,,,,,,3,Disabled,=,Medium
-5.10.1,"System Services","LxssManager (LxssManager)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\LxssManager,Start,,,,Disabled,4,=,Medium
+5.9.2,"System Services","Link-Layer Topology Discovery Mapper (lltdsvc) (Service Startup type)",service,lltdsvc,,,,,,Manual,Disabled,=,Medium
+5.10.1,"System Services","LxssManager (LxssManager)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\LxssManager,Start,,,,"",4,=,Medium
 5.10.2,"System Services","LxssManager (LxssManager) (Service Startup type)",service,LxssManager,,,,,,,Disabled,=,Medium
 5.11.1,"System Services","Microsoft FTP Service (FTPSVC)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\FTPSVC,Start,,,,,4,=,Medium
-5.11.2,"System Services","Microsoft FTP Service (FTPSVC) (Service Startup type)",service,FTPSVC,,,,,,Disabled,Disabled,=,Medium
+5.11.2,"System Services","Microsoft FTP Service (FTPSVC) (Service Startup type)",service,FTPSVC,,,,,,"",Disabled,=,Medium
 5.12.1,"System Services","Microsoft iSCSI Initiator Service (MSiSCSI)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\MSiSCSI,Start,,,,3,4,=,Medium
-5.12.2,"System Services","Microsoft iSCSI Initiator Service (MsiSCSI) (Service Startup type)",service,MsiSCSI,,,,,,3,Disabled,=,Medium
+5.12.2,"System Services","Microsoft iSCSI Initiator Service (MsiSCSI) (Service Startup type)",service,MsiSCSI,,,,,,Manual,Disabled,=,Medium
 5.13.1,"System Services","OpenSSH SSH Server (sshd)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\sshd,Start,,,,,4,=,Medium
 5.13.2,"System Services","OpenSSH SSH Server (sshd) (Service Startup type)",service,sshd,,,,,,,Disabled,=,Medium
 5.14.1,"System Services","Peer Name Resolution Protocol (PNRPsvc)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\PNRPsvc,Start,,,,3,4,=,Medium
-5.14.2,"System Services","Peer Name Resolution Protocol (PNRPsvc) (Service Startup type)",service,PNRPsvc,,,,,,3,Disabled,=,Medium
+5.14.2,"System Services","Peer Name Resolution Protocol (PNRPsvc) (Service Startup type)",service,PNRPsvc,,,,,,Manual,Disabled,=,Medium
 5.15.1,"System Services","Peer Networking Grouping (p2psvc)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\p2psvc,Start,,,,3,4,=,Medium
-5.15.2,"System Services","Peer Networking Grouping (p2psvc) (Service Startup type)",service,p2psvc,,,,,,3,Disabled,=,Medium
+5.15.2,"System Services","Peer Networking Grouping (p2psvc) (Service Startup type)",service,p2psvc,,,,,,Manual,Disabled,=,Medium
 5.16.1,"System Services","Peer Networking Identity Manager (p2pimsvc)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\p2pimsvc,Start,,,,3,4,=,Medium
-5.16.2,"System Services","Peer Networking Identity Manager (p2pimsvc) (Service Startup type)",service,p2pimsvc,,,,,,3,Disabled,=,Medium
+5.16.2,"System Services","Peer Networking Identity Manager (p2pimsvc) (Service Startup type)",service,p2pimsvc,,,,,,Manual,Disabled,=,Medium
 5.17.1,"System Services","PNRP Machine Name Publication Service (PNRPAutoReg)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\PNRPAutoReg,Start,,,,3,4,=,Medium
-5.17.2,"System Services","PNRP Machine Name Publication Service (PNRPAutoReg) (Service Startup type)",service,PNRPAutoReg,,,,,,3,Disabled,=,Medium
+5.17.2,"System Services","PNRP Machine Name Publication Service (PNRPAutoReg) (Service Startup type)",service,PNRPAutoReg,,,,,,Manual,Disabled,=,Medium
 5.18.1,"System Services","Problem Reports and Solutions Control Panel Support (wercplsupport)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\wercplsupport,Start,,,,3,4,=,Medium
-5.18.2,"System Services","Problem Reports and Solutions Control Panel Support (wercplsupport) (Service Startup type)",service,wercplsupport,,,,,,3,Disabled,=,Medium
+5.18.2,"System Services","Problem Reports and Solutions Control Panel Support (wercplsupport) (Service Startup type)",service,wercplsupport,,,,,,Manual,Disabled,=,Medium
 5.19.1,"System Services","Remote Access Auto Connection Manager (RasAuto)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\RasAuto,Start,,,,3,4,=,Medium
-5.19.2,"System Services","Remote Access Auto Connection Manager (RasAuto) (Service Startup type)",service,RasAuto,,,,,,3,Disabled,=,Medium
+5.19.2,"System Services","Remote Access Auto Connection Manager (RasAuto) (Service Startup type)",service,RasAuto,,,,,,Manual,Disabled,=,Medium
 5.20.1,"System Services","Remote Desktop Configuration (SessionEnv)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SessionEnv,Start,,,,3,4,=,Medium
-5.20.2,"System Services","Remote Desktop Configuration (SessionEnv) (Service Startup type)",service,SessionEnv,,,,,,3,Disabled,=,Medium
+5.20.2,"System Services","Remote Desktop Configuration (SessionEnv) (Service Startup type)",service,SessionEnv,,,,,,Manual,Disabled,=,Medium
 5.21.1,"System Services","Remote Desktop Services (TermService)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\TermService,Start,,,,3,4,=,Medium
-5.21.2,"System Services","Remote Desktop Services (TermService) (Service Startup type)",service,TermService,,,,,,3,Disabled,=,Medium
+5.21.2,"System Services","Remote Desktop Services (TermService) (Service Startup type)",service,TermService,,,,,,Manual,Disabled,=,Medium
 5.22.1,"System Services","Remote Desktop Services UserMode Port Redirector (UmRdpService)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\UmRdpService,Start,,,,3,4,=,Medium
-5.22.1,"System Services","Remote Desktop Services UserMode Port Redirector (UmRdpService) (Service Startup type)",service,UmRdpService,,,,,,3,Disabled,=,Medium
+5.22.1,"System Services","Remote Desktop Services UserMode Port Redirector (UmRdpService) (Service Startup type)",service,UmRdpService,,,,,,Manual,Disabled,=,Medium
 5.23.1,"System Services","Remote Procedure Call (RPC) Locator (RpcLocator)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\RpcLocator,Start,,,,3,4,=,Medium
-5.23.2,"System Services","Remote Procedure Call (RPC) Locator (RpcLocator) (Service Startup type)",service,RpcLocator,,,,,,3,Disabled,=,Medium
-5.24.1,"System Services","Remote Registry (RemoteRegistry)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\RemoteRegistry,Start,,,,0,4,=,Medium
-5.24.2,"System Services","Remote Registry (RemoteRegistry) (Service Startup type)",service,RemoteRegistry,,,,,,0,Disabled,=,Medium
+5.23.2,"System Services","Remote Procedure Call (RPC) Locator (RpcLocator) (Service Startup type)",service,RpcLocator,,,,,,Manual,Disabled,=,Medium
+5.24.1,"System Services","Remote Registry (RemoteRegistry)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\RemoteRegistry,Start,,,,4,4,=,Medium
+5.24.2,"System Services","Remote Registry (RemoteRegistry) (Service Startup type)",service,RemoteRegistry,,,,,,Disabled,Disabled,=,Medium
 5.25.1,"System Services","Routing and Remote Access (RemoteAccess)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\RemoteAccess,Start,,,,4,4,=,Medium
-5.25.2,"System Services","Routing and Remote Access (RemoteAccess) (Service Startup type)",service,RemoteAccess,,,,,,0,Disabled,=,Medium
+5.25.2,"System Services","Routing and Remote Access (RemoteAccess) (Service Startup type)",service,RemoteAccess,,,,,,Disabled,Disabled,=,Medium
 5.26.1,"System Services","Server (LanmanServer)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer,Start,,,,2,4,=,Medium
-5.26.2,"System Services","Server (LanmanServer) (Service Startup type)",service,LanmanServer,,,,,,2,Disabled,=,Medium
+5.26.2,"System Services","Server (LanmanServer) (Service Startup type)",service,LanmanServer,,,,,,Automatic,Disabled,=,Medium
 5.27.1,"System Services","Simple TCP/IP Services (simptcp)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\simptcp,Start,,,,,4,=,Medium
-5.27.2,"System Services","Simple TCP/IP Services (simptcp) (Service Startup type)",service,simptcp,,,,,,Disabled,Disabled,=,Medium
+5.27.2,"System Services","Simple TCP/IP Services (simptcp) (Service Startup type)",service,simptcp,,,,,,"",Disabled,=,Medium
 5.28.1,"System Services","SNMP Service (SNMP)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SNMP,Start,,,,,4,=,Medium
-5.28.2,"System Services","SNMP Service (SNMP) (Service Startup type)",service,SNMP,,,,,,Disabled,Disabled,=,Medium
+5.28.2,"System Services","SNMP Service (SNMP) (Service Startup type)",service,SNMP,,,,,,"",Disabled,=,Medium
 5.29.1,"System Services","Special Administration Console Helper (sacsvr)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\sacsvr,Start,,,,,4,=,Medium
 5.29.2,"System Services","Special Administration Console Helper (sacsvr) (Service Startup type)",service,sacsvr,,,,,,,Disabled,=,Medium
 5.30.1,"System Services","SSDP Discovery (SSDPSRV)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SSDPSRV,Start,,,,3,4,=,Medium
-5.30.2,"System Services","SSDP Discovery (SSDPSRV) (Service Startup type)",service,SSDPSRV,,,,,,3,Disabled,=,Medium
+5.30.2,"System Services","SSDP Discovery (SSDPSRV) (Service Startup type)",service,SSDPSRV,,,,,,Manual,Disabled,=,Medium
 5.31.1,"System Services","UPnP Device Host (upnphost)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\upnphost,Start,,,,3,4,=,Medium
-5.31.2,"System Services","UPnP Device Host (upnphost) (Service Startup type)",service,upnphost,,,,,,3,Disabled,=,Medium
+5.31.2,"System Services","UPnP Device Host (upnphost) (Service Startup type)",service,upnphost,,,,,,Manual,Disabled,=,Medium
 5.32.1,"System Services","Web Management Service (WMSvc)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\WMSvc,Start,,,,,4,=,Medium
-5.32.2,"System Services","Web Management Service (WMSvc) (Service Startup type)",service,WMSvc,,,,,,Disabled,Disabled,=,Medium
+5.32.2,"System Services","Web Management Service (WMSvc) (Service Startup type)",service,WMSvc,,,,,,"",Disabled,=,Medium
 5.33.1,"System Services","Windows Error Reporting Service (WerSvc)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\WerSvc,Start,,,,3,4,=,Medium
-5.33.2,"System Services","Windows Error Reporting Service (WerSvc) (Service Startup type)",service,WerSvc,,,,,,3,Disabled,=,Medium
+5.33.2,"System Services","Windows Error Reporting Service (WerSvc) (Service Startup type)",service,WerSvc,,,,,,Manual,Disabled,=,Medium
 5.34.1,"System Services","Windows Event Collector (Wecsvc)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\Wecsvc,Start,,,,3,4,=,Medium
-5.34.2,"System Services","Windows Event Collector (Wecsvc) (Service Startup type)",service,Wecsvc,,,,,,3,Disabled,=,Medium
-5.35.1,"System Services","Windows Media Player Network Sharing Service (WMPNetworkSvc)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\WMPNetworkSvc,Start,,,,,4,=,Medium
-5.35.2,"System Services","Windows Media Player Network Sharing Service (WMPNetworkSvc) (Service Startup type)",service,WMPNetworkSvc,,,,,,Disabled,Disabled,=,Medium
+5.34.2,"System Services","Windows Event Collector (Wecsvc) (Service Startup type)",service,Wecsvc,,,,,,Manual,Disabled,=,Medium
+5.35.1,"System Services","Windows Media Player Network Sharing Service (WMPNetworkSvc)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\WMPNetworkSvc,Start,,,,3,4,=,Medium
+5.35.2,"System Services","Windows Media Player Network Sharing Service (WMPNetworkSvc) (Service Startup type)",service,WMPNetworkSvc,,,,,,Manual,Disabled,=,Medium
 5.36.1,"System Services","Windows Mobile Hotspot Service (icssvc)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\icssvc,Start,,,,3,4,=,Medium
-5.36.2,"System Services","Windows Mobile Hotspot Service (icssvc) (Service Startup type)",service,icssvc,,,,,,3,Disabled,=,Medium
+5.36.2,"System Services","Windows Mobile Hotspot Service (icssvc) (Service Startup type)",service,icssvc,,,,,,Manual,Disabled,=,Medium
 5.37.1,"System Services","Windows Push Notifications System Service (WpnService)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\WpnService,Start,,,,2,4,=,Medium
-5.37.2,"System Services","Windows Push Notifications System Service (WpnService) (Service Startup type)",service,WpnService,,,,,,2,Disabled,=,Medium
+5.37.2,"System Services","Windows Push Notifications System Service (WpnService) (Service Startup type)",service,WpnService,,,,,,Automatic,Disabled,=,Medium
 5.38.1,"System Services","Windows PushToInstall Service (PushToInstall)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\PushToInstall,Start,,,,3,4,=,Medium
-5.38.2,"System Services","Windows PushToInstall Service (PushToInstall) (Service Startup type)",service,PushToInstall,,,,,,3,Disabled,=,Medium
+5.38.2,"System Services","Windows PushToInstall Service (PushToInstall) (Service Startup type)",service,PushToInstall,,,,,,Manual,Disabled,=,Medium
 5.39.1,"System Services","Windows Remote Management (WS-Management) (WinRM)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\WinRM,Start,,,,3,4,=,Medium
-5.39.2,"System Services","Windows Remote Management (WS-Management) (WinRM) (Service Startup type)",service,WinRM,,,,,,3,Disabled,=,Medium
+5.39.2,"System Services","Windows Remote Management (WS-Management) (WinRM) (Service Startup type)",service,WinRM,,,,,,Manual,Disabled,=,Medium
 5.40.1,"System Services","World Wide Web Publishing Service (W3SVC)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\W3SVC,Start,,,,,4,=,Medium
 5.40.1,"System Services","World Wide Web Publishing Service (W3SVC) (Service Startup type)",service,W3SVC,,,,,,,Disabled,=,Medium
 5.41.1,"System Services","Xbox Accessory Management Service (XboxGipSvc)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\XboxGipSvc,Start,,,,3,4,=,Medium
-5.41.2,"System Services","Xbox Accessory Management Service (XboxGipSvc) (Service Startup type)",service,XboxGipSvc,,,,,,3,Disabled,=,Medium
+5.41.2,"System Services","Xbox Accessory Management Service (XboxGipSvc) (Service Startup type)",service,XboxGipSvc,,,,,,Manual,Disabled,=,Medium
 5.42.1,"System Services","Xbox Live Auth Manager (XblAuthManager)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\XblAuthManager,Start,,,,3,4,=,Medium
-5.42.2,"System Services","Xbox Live Auth Manager (XblAuthManager) (Service Startup type)",service,XblAuthManager,,,,,,3,Disabled,=,Medium
+5.42.2,"System Services","Xbox Live Auth Manager (XblAuthManager) (Service Startup type)",service,XblAuthManager,,,,,,Manual,Disabled,=,Medium
 5.43.1,"System Services","Xbox Live Game Save (XblGameSave)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\XblGameSave,Start,,,,3,4,=,Medium
-5.43.2,"System Services","Xbox Live Game Save (XblGameSave) (Service Startup type)",service,XblGameSave,,,,,,3,Disabled,=,Medium
+5.43.2,"System Services","Xbox Live Game Save (XblGameSave) (Service Startup type)",service,XblGameSave,,,,,,Manual,Disabled,=,Medium
 5.44.1,"System Services","Xbox Live Networking Service (XboxNetApiSvc)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\XboxNetApiSvc,Start,,,,3,4,=,Medium
-5.44.2,"System Services","Xbox Live Networking Service (XboxNetApiSvc) (Service Startup type)",service,XboxNetApiSvc,,,,,,3,Disabled,=,Medium
+5.44.2,"System Services","Xbox Live Networking Service (XboxNetApiSvc) (Service Startup type)",service,XboxNetApiSvc,,,,,,Manual,Disabled,=,Medium
 9.1.1,"Windows Firewall","EnableFirewall (Domain Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile,EnableFirewall,,,,0,1,=,Medium
 9.1.2,"Windows Firewall","Inbound Connections (Domain Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile,DefaultInboundAction,,,,1,1,=,Medium
 9.1.3,"Windows Firewall","Outbound Connections (Domain Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile,DefaultOutboundAction,,,,0,0,=,Medium
@@ -231,32 +231,32 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 9.3.8,"Windows Firewall","Log size limit (Public Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging,LogFileSize,,,,4096,16384,>=,Medium
 9.3.9,"Windows Firewall","Log dropped packets (Public Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging,LogDroppedPackets,,,,0,1,=,Medium
 9.3.10,"Windows Firewall","Log successful connections (Public Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging,LogSuccessfulConnections,,,,0,1,=,Low
-17.1.1,"Advanced Audit Policy Configuration","Credential Validation",auditpol,,,,,,,,"Success and Failure",=,Low
-17.2.1,"Advanced Audit Policy Configuration","Application Group Management",auditpol,,,,,,,,"Success and Failure",=,Low
+17.1.1,"Advanced Audit Policy Configuration","Credential Validation",auditpol,,,,,,,"No Auditing","Success and Failure",=,Low
+17.2.1,"Advanced Audit Policy Configuration","Application Group Management",auditpol,,,,,,,"No Auditing","Success and Failure",=,Low
 17.2.2,"Advanced Audit Policy Configuration","Security Group Management",auditpol,,,,,,,Success,Success,contains,Low
 17.2.3,"Advanced Audit Policy Configuration","User Account Management",auditpol,,,,,,,Success,"Success and Failure",=,Low
-17.3.1,"Advanced Audit Policy Configuration","Plug and Play Events",auditpol,,,,,,,,Success,contains,Low
-17.3.2,"Advanced Audit Policy Configuration","Process Creation",auditpol,,,,,,,,Success,contains,Low
+17.3.1,"Advanced Audit Policy Configuration","Plug and Play Events",auditpol,,,,,,,"No Auditing",Success,contains,Low
+17.3.2,"Advanced Audit Policy Configuration","Process Creation",auditpol,,,,,,,"No Auditing",Success,contains,Low
 17.5.1,"Advanced Audit Policy Configuration","Account Lockout",auditpol,,,,,,,Success,Failure,contains,Low
-17.5.2,"Advanced Audit Policy Configuration","Group Membership",auditpol,,,,,,,,Success,contains,Low
+17.5.2,"Advanced Audit Policy Configuration","Group Membership",auditpol,,,,,,,"No Auditing",Success,contains,Low
 17.5.3,"Advanced Audit Policy Configuration",Logoff,auditpol,,,,,,,Success,Success,contains,Low
-17.5.4,"Advanced Audit Policy Configuration",Logon,auditpol,,,,,,,Success,"Success and Failure",=,Low
-17.5.5,"Advanced Audit Policy Configuration","Other Logon/Logoff Events",auditpol,,,,,,,,"Success and Failure",=,Low
+17.5.4,"Advanced Audit Policy Configuration",Logon,auditpol,,,,,,,"Success and Failure","Success and Failure",=,Low
+17.5.5,"Advanced Audit Policy Configuration","Other Logon/Logoff Events",auditpol,,,,,,,"No Auditing","Success and Failure",=,Low
 17.5.6,"Advanced Audit Policy Configuration","Special Logon",auditpol,,,,,,,Success,Success,contains,Low
-17.6.1,"Advanced Audit Policy Configuration","Detailed File Share",auditpol,,,,,,,,Failure,contains,Low
-17.6.2,"Advanced Audit Policy Configuration","File Share",auditpol,,,,,,,,"Success and Failure",=,Low
-17.6.3,"Advanced Audit Policy Configuration","Other Object Access Events",auditpol,,,,,,,,"Success and Failure",=,Low
-17.6.4,"Advanced Audit Policy Configuration","Removable Storage",auditpol,,,,,,,,"Success and Failure",=,Low
+17.6.1,"Advanced Audit Policy Configuration","Detailed File Share",auditpol,,,,,,,"No Auditing",Failure,contains,Low
+17.6.2,"Advanced Audit Policy Configuration","File Share",auditpol,,,,,,,"No Auditing","Success and Failure",=,Low
+17.6.3,"Advanced Audit Policy Configuration","Other Object Access Events",auditpol,,,,,,,"No Auditing","Success and Failure",=,Low
+17.6.4,"Advanced Audit Policy Configuration","Removable Storage",auditpol,,,,,,,"No Auditing","Success and Failure",=,Low
 17.7.1,"Advanced Audit Policy Configuration","Audit Policy Change",auditpol,,,,,,,Success,Success,contains,Low
 17.7.2,"Advanced Audit Policy Configuration","Authentication Policy Change",auditpol,,,,,,,Success,Success,contains,Low
-17.7.3,"Advanced Audit Policy Configuration","Authorization Policy Change",auditpol,,,,,,,Success,Success,contains,Low
-17.7.4,"Advanced Audit Policy Configuration","MPSSVC Rule-Level Policy Change",auditpol,,,,,,,,"Success and Failure",=,Low
-17.7.5,"Advanced Audit Policy Configuration","Other Policy Change Events",auditpol,,,,,,,,Failure,contains,Low
-17.8.1,"Advanced Audit Policy Configuration","Sensitive Privilege Use",auditpol,,,,,,,,"Success and Failure",=,Low
-17.9.1,"Advanced Audit Policy Configuration","IPsec Driver",auditpol,,,,,,,,"Success and Failure",=,Low
+17.7.3,"Advanced Audit Policy Configuration","Authorization Policy Change",auditpol,,,,,,,"No Auditing",Success,contains,Low
+17.7.4,"Advanced Audit Policy Configuration","MPSSVC Rule-Level Policy Change",auditpol,,,,,,,"No Auditing","Success and Failure",=,Low
+17.7.5,"Advanced Audit Policy Configuration","Other Policy Change Events",auditpol,,,,,,,"No Auditing",Failure,contains,Low
+17.8.1,"Advanced Audit Policy Configuration","Sensitive Privilege Use",auditpol,,,,,,,"No Auditing","Success and Failure",=,Low
+17.9.1,"Advanced Audit Policy Configuration","IPsec Driver",auditpol,,,,,,,"No Auditing","Success and Failure",=,Low
 17.9.2,"Advanced Audit Policy Configuration","Other System Events",auditpol,,,,,,,"Success and Failure","Success and Failure",=,Low
 17.9.3,"Advanced Audit Policy Configuration","Security State Change",auditpol,,,,,,,Success,Success,contains,Low
-17.9.4,"Advanced Audit Policy Configuration","Security System Extension",auditpol,,,,,,,,Success,contains,Low
+17.9.4,"Advanced Audit Policy Configuration","Security System Extension",auditpol,,,,,,,"No Auditing",Success,contains,Low
 17.9.5,"Advanced Audit Policy Configuration","System Integrity",auditpol,,,,,,,"Success and Failure","Success and Failure",=,Low
 18.1.1.1,"Administrative Templates: Control Panel","Personalization: Prevent enabling lock screen camera",Registry,,HKLM:\Software\Policies\Microsoft\Windows\Personalization,NoLockScreenCamera,,,,0,1,=,Low
 18.1.1.2,"Administrative Templates: Control Panel","Personalization: Prevent enabling lock screen slide",Registry,,HKLM:\Software\Policies\Microsoft\Windows\Personalization,NoLockScreenSlideshow,,,,0,1,=,Low
@@ -274,7 +274,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 18.3.4,"MS Security Guide","Enable Structured Exception Handling Overwrite Protection (SEHOP)",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\kernel",DisableExceptionChainValidation,,,,,0,=,Medium
 18.3.5,"MS Security Guide","NetBT NodeType configuration",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\NetBT\Parameters,NodeType,,,,0,2,=,Medium
 18.3.6,"MS Security Guide","WDigest Authentication",Registry,,HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest,UseLogonCredential,,,,,0,=,High
-18.4.1,"MSS (Legacy)","MSS: (AutoAdminLogon) Enable Automatic Logon (not recommended)",Registry,,"HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon",AutoAdminLogon,,,,,0,=,Medium
+18.4.1,"MSS (Legacy)","MSS: (AutoAdminLogon) Enable Automatic Logon (not recommended)",Registry,,"HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon",AutoAdminLogon,,,,0,0,=,Medium
 18.4.2,"MSS (Legacy)","MSS: (DisableIPSourceRouting IPv6) IP source routing protection level (protects against packet spoofing)",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip6\Parameters,DisableIPSourceRouting,,,,,2,=,Medium
 18.4.3,"MSS (Legacy)","MSS: (DisableIPSourceRouting) IP source routing protection level (protects against packet spoofing)",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip\Parameters,DisableIPSourceRouting,,,,,2,=,Medium
 18.4.4,"MSS (Legacy)","MSS: (DisableSavePassword) Prevent the dial-up password from being saved",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\RasMan\Parameters,DisableSavePassword,,,,,1,=,Medium
@@ -289,7 +289,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 18.4.13,"MSS (Legacy)","MSS: (WarningLevel) Percentage threshold for the security event log at which the system will generate a warning",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\Eventlog\Security,WarningLevel,,,,0,90,<=,Medium
 18.5.4.1,"Administrative Templates: Network","DNS Client: Turn off multicast name resolution (LLMNR)",Registry,,"HKLM:\Software\Policies\Microsoft\Windows NT\DNSClient",EnableMulticast,,,,1,0,=,Medium
 18.5.5.1,"Administrative Templates: Network","Fonts: Enable Font Providers",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\System,EnableFontProviders,,,,1,0,=,Medium
-18.5.8.1,"Administrative Templates: Network","Lanman Workstation: Enable insecure guest logons",Registry,,HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation,AllowInsecureGuestAuth,,,,0,0,=,Medium
+18.5.8.1,"Administrative Templates: Network","Lanman Workstation: Enable insecure guest logons",Registry,,HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation,AllowInsecureGuestAuth,,,,1,0,=,Medium
 18.5.9.1.1,"Administrative Templates: Network","Link-Layer Topology Discovery: Turn on Mapper I/O (LLTDIO) driver (AllowLLTDIOOndomain)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\LLTD,AllowLLTDIOOndomain,,,,0,0,=,Medium
 18.5.9.1.2,"Administrative Templates: Network","Link-Layer Topology Discovery: Turn on Mapper I/O (LLTDIO) driver (AllowLLTDIOOnPublicNet)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\LLTD,AllowLLTDIOOnPublicNet,,,,0,0,=,Medium
 18.5.9.1.3,"Administrative Templates: Network","Link-Layer Topology Discovery: Turn on Mapper I/O (LLTDIO) driver (EnableLLTDIO)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\LLTD,EnableLLTDIO,,,,0,0,=,Medium

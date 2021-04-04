@@ -1,9 +1,9 @@
 ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Namespace,Property,DefaultValue,RecommendedValue,Operator,Severity
-10000,"Account Policies","Account lockout duration",accountpolicy,,,,,,,,15,>=,Low
-10001,"Account Policies","Account lockout threshold",accountpolicy,,,,,,,0,10,<=,Low
-10002,"Account Policies","Reset account lockout counter",accountpolicy,,,,,,,,15,>=,Low
-10100,"Account Policies","Length of password history maintained",accountpolicy,,,,,,,,24,>=,Low
-10101,"Account Policies","Minimum password length",accountpolicy,,,,,,,,14,>=,Medium
+10000,"Account Policies","Account lockout duration",accountpolicy,,,,,,,30,15,>=,Low
+10001,"Account Policies","Account lockout threshold",accountpolicy,,,,,,,Never,10,<=,Low
+10002,"Account Policies","Reset account lockout counter",accountpolicy,,,,,,,30,15,>=,Low
+10100,"Account Policies","Length of password history maintained",accountpolicy,,,,,,,None,24,>=,Low
+10101,"Account Policies","Minimum password length",accountpolicy,,,,,,,0,14,>=,Medium
 10102,"Account Policies","Password must meet complexity requirements",secedit,"System Access\PasswordComplexity",,,,,,0,1,=,Medium
 10103,"Account Policies","Store passwords using reversible encryption",secedit,"System Access\ClearTextPassword",,,,,,0,0,=,High
 10200,"Security Options","Accounts: Limit local account use of blank passwords to console logon only",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa,LimitBlankPasswordUse,,,,1,1,=,Medium
@@ -14,7 +14,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 10205,"Security Options","Domain member: Disable machine account password changes",Registry,,HKLM:\System\CurrentControlSet\Services\Netlogon\Parameters,DisablePasswordChange,,,,0,0,=,Medium
 10207,"Security Options","Domain member: Require strong (Windows 2000 or later) session key",Registry,,HKLM:\System\CurrentControlSet\Services\Netlogon\Parameters,RequireStrongKey,,,,1,1,=,Medium
 10208,"Security Options","Interactive logon: Machine inactivity limit",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,InactivityTimeoutSecs,,,,900,900,=,Low
-10209,"Security Options","Interactive logon: Smart card removal behavior",Registry,,"HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Winlogon",ScRemoveOption,,,,,1,=,Low
+10209,"Security Options","Interactive logon: Smart card removal behavior",Registry,,"HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Winlogon",ScRemoveOption,,,,0,1,=,Low
 10210,"Security Options","Microsoft network client: Digitally sign communications (always)",Registry,,HKLM:\System\CurrentControlSet\Services\LanmanWorkstation\Parameters,RequireSecuritySignature,,,,0,1,=,Medium
 10211,"Security Options","Microsoft network client: Send unencrypted password to third-party SMB servers",Registry,,HKLM:\System\CurrentControlSet\Services\LanmanWorkstation\Parameters,EnablePlainTextPassword,,,,0,0,=,Medium
 10212,"Security Options","Microsoft network server: Digitally sign communications (always)",Registry,,HKLM:\System\CurrentControlSet\Services\LanManServer\Parameters,RequireSecuritySignature,,,,0,1,=,Medium
@@ -38,16 +38,16 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 10230,"Security Options","User Account Control: Run all administrators in Admin Approval Mode",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,EnableLUA,,,,1,1,=,Medium
 10231,"Security Options","User Account Control: Virtualize file and registry write failures to per-user locations",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,EnableVirtualization,,,,1,1,=,Medium
 10301,"User Rights Assignment","Access Credential Manager as a trusted caller",accesschk,SeTrustedCredManAccessPrivilege,,,,,,,,=,Medium
-10302,"User Rights Assignment","Access this computer from the network",accesschk,SeNetworkLogonRight,,,,,,"BUILTIN\Administrators;BUILTIN\Backup Operators;BUILTIN\Users;Everyone","BUILTIN\Remote Desktop Users;BUILTIN\Administrators",=,Medium
+10302,"User Rights Assignment","Access this computer from the network",accesschk,SeNetworkLogonRight,,,,,,"BUILTIN\Backup Operators;BUILTIN\Users;BUILTIN\Administrators;Everyone","BUILTIN\Remote Desktop Users;BUILTIN\Administrators",=,Medium
 10303,"User Rights Assignment","Act as part of the operating system",accesschk,SeTcbPrivilege,,,,,,,,=,Medium
-10304,"User Rights Assignment","Allow log on locally",accesschk,SeInteractiveLogonRight,,,,,,"BUILTIN\Administrators;BUILTIN\Backup Operators;BUILTIN\Users;Everyone",BUILTIN\Users;BUILTIN\Administrators,=,Medium
+10304,"User Rights Assignment","Allow log on locally",accesschk,SeInteractiveLogonRight,,,,,,"BUILTIN\Backup Operators;BUILTIN\Users;BUILTIN\Administrators;COMPUTERNAME\Guest",BUILTIN\Users;BUILTIN\Administrators,=,Medium
 10305,"User Rights Assignment","Back up files and directories",accesschk,SeBackupPrivilege,,,,,,"BUILTIN\Administrators;BUILTIN\Backup Operators",BUILTIN\Administrators,=,Medium
 10306,"User Rights Assignment","Create a pagefile",accesschk,SeCreatePagefilePrivilege,,,,,,BUILTIN\Administrators,BUILTIN\Administrators,=,Medium
 10307,"User Rights Assignment","Create a token object",accesschk,SeCreateTokenPrivilege,,,,,,,,=,Medium
 10308,"User Rights Assignment","Create global objects",accesschk,SeCreateGlobalPrivilege,,,,,,"NT AUTHORITY\SERVICE;BUILTIN\Administrators;NT AUTHORITY\NETWORK SERVICE;NT AUTHORITY\LOCAL SERVICE","NT AUTHORITY\SERVICE;BUILTIN\Administrators;NT AUTHORITY\NETWORK SERVICE;NT AUTHORITY\LOCAL SERVICE",=,Medium
 10309,"User Rights Assignment","Create permanent shared objects",accesschk,SeCreatePermanentPrivilege,,,,,,,,=,Medium
 10310,"User Rights Assignment","Debug programs",accesschk,SeDebugPrivilege,,,,,,BUILTIN\Administrators,BUILTIN\Administrators,=,Medium
-10311,"User Rights Assignment","Deny access to this computer from the network",accesschk,SeDenyNetworkLogonRight,,,,,,BUILTIN\Guests,"NT AUTHORITY\Local account",=,Medium
+10311,"User Rights Assignment","Deny access to this computer from the network",accesschk,SeDenyNetworkLogonRight,,,,,,COMPUTERNAME\Guest,"NT AUTHORITY\Local account",=,Medium
 10312,"User Rights Assignment","Deny log on through Remote Desktop Services",accesschk,SeDenyRemoteInteractiveLogonRight,,,,,,,"NT AUTHORITY\Local account",=,Medium
 10313,"User Rights Assignment","Enable computer and user accounts to be trusted for delegation",accesschk,SeEnableDelegationPrivilege,,,,,,,,=,Medium
 10314,"User Rights Assignment","Force shutdown from a remote system",accesschk,SeRemoteShutdownPrivilege,,,,,,BUILTIN\Administrators,BUILTIN\Administrators,=,Medium
@@ -60,31 +60,31 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 10321,"User Rights Assignment","Profile single process",accesschk,SeProfileSingleProcessPrivilege,,,,,,BUILTIN\Administrators,BUILTIN\Administrators,=,Medium
 10322,"User Rights Assignment","Restore files and directories",accesschk,SeRestorePrivilege,,,,,,"BUILTIN\Backup Operators;BUILTIN\Administrators",BUILTIN\Administrators,=,Medium
 10323,"User Rights Assignment","Take ownership of files or other objects",accesschk,SeTakeOwnershipPrivilege,,,,,,BUILTIN\Administrators,BUILTIN\Administrators,=,Medium
-10400,"Advanced Audit Policy Configuration","Credential Validation",auditpol,,,,,,,,"Success and Failure",=,Low
+10400,"Advanced Audit Policy Configuration","Credential Validation",auditpol,,,,,,,"No Auditing","Success and Failure",=,Low
 10401,"Advanced Audit Policy Configuration","Security Group Management",auditpol,,,,,,,Success,Success,contains,Low
 10402,"Advanced Audit Policy Configuration","User Account Management",auditpol,,,,,,,Success,"Success and Failure",=,Low
-10403,"Advanced Audit Policy Configuration","Plug and Play Events",auditpol,,,,,,,,Success,contains,Low
-10404,"Advanced Audit Policy Configuration","Process Creation",auditpol,,,,,,,,Success,contains,Low
+10403,"Advanced Audit Policy Configuration","Plug and Play Events",auditpol,,,,,,,"No Auditing",Success,contains,Low
+10404,"Advanced Audit Policy Configuration","Process Creation",auditpol,,,,,,,"No Auditing",Success,contains,Low
 10405,"Advanced Audit Policy Configuration","Account Lockout",auditpol,,,,,,,Success,Failure,contains,Low
-10406,"Advanced Audit Policy Configuration","Group Membership",auditpol,,,,,,,,Success,contains,Low
-10407,"Advanced Audit Policy Configuration",Logon,auditpol,,,,,,,Success,"Success and Failure",=,Low
-10408,"Advanced Audit Policy Configuration","Other Logon/Logoff Events",auditpol,,,,,,,,"Success and Failure",=,Low
+10406,"Advanced Audit Policy Configuration","Group Membership",auditpol,,,,,,,"No Auditing",Success,contains,Low
+10407,"Advanced Audit Policy Configuration",Logon,auditpol,,,,,,,"Success and Failure","Success and Failure",=,Low
+10408,"Advanced Audit Policy Configuration","Other Logon/Logoff Events",auditpol,,,,,,,"No Auditing","Success and Failure",=,Low
 10409,"Advanced Audit Policy Configuration","Special Logon",auditpol,,,,,,,Success,Success,contains,Low
-10410,"Advanced Audit Policy Configuration","Detailed File Share",auditpol,,,,,,,,Failure,contains,Low
-10411,"Advanced Audit Policy Configuration","File Share",auditpol,,,,,,,,"Success and Failure",=,Low
-10412,"Advanced Audit Policy Configuration","Other Object Access Events",auditpol,,,,,,,,"Success and Failure",=,Low
-10413,"Advanced Audit Policy Configuration","Removable Storage",auditpol,,,,,,,,"Success and Failure",=,Low
+10410,"Advanced Audit Policy Configuration","Detailed File Share",auditpol,,,,,,,"No Auditing",Failure,contains,Low
+10411,"Advanced Audit Policy Configuration","File Share",auditpol,,,,,,,"No Auditing","Success and Failure",=,Low
+10412,"Advanced Audit Policy Configuration","Other Object Access Events",auditpol,,,,,,,"No Auditing","Success and Failure",=,Low
+10413,"Advanced Audit Policy Configuration","Removable Storage",auditpol,,,,,,,"No Auditing","Success and Failure",=,Low
 10414,"Advanced Audit Policy Configuration","Audit Policy Change",auditpol,,,,,,,Success,Success,contains,Low
 10415,"Advanced Audit Policy Configuration","Authentication Policy Change",auditpol,,,,,,,Success,Success,contains,Low
-10416,"Advanced Audit Policy Configuration","MPSSVC Rule-Level Policy Change",auditpol,,,,,,,,"Success and Failure",=,Low
-10417,"Advanced Audit Policy Configuration","Other Policy Change Events",auditpol,,,,,,,,Failure,contains,Low
-10418,"Advanced Audit Policy Configuration","Sensitive Privilege Use",auditpol,,,,,,,,"Success and Failure",=,Low
+10416,"Advanced Audit Policy Configuration","MPSSVC Rule-Level Policy Change",auditpol,,,,,,,"No Auditing","Success and Failure",=,Low
+10417,"Advanced Audit Policy Configuration","Other Policy Change Events",auditpol,,,,,,,"No Auditing",Failure,contains,Low
+10418,"Advanced Audit Policy Configuration","Sensitive Privilege Use",auditpol,,,,,,,"No Auditing","Success and Failure",=,Low
 10419,"Advanced Audit Policy Configuration","Other System Events",auditpol,,,,,,,"Success and Failure","Success and Failure",=,Low
 10420,"Advanced Audit Policy Configuration","Security State Change",auditpol,,,,,,,Success,Success,contains,Low
-10421,"Advanced Audit Policy Configuration","Security System Extension",auditpol,,,,,,,,Success,contains,Low
+10421,"Advanced Audit Policy Configuration","Security System Extension",auditpol,,,,,,,"No Auditing",Success,contains,Low
 10422,"Advanced Audit Policy Configuration","System Integrity",auditpol,,,,,,,"Success and Failure","Success and Failure",=,Low
 10501,"Windows Firewall","EnableFirewall (Domain Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile,EnableFirewall,,,,0,1,=,Medium
-10502,"Windows Firewall","EnableFirewall (Domain Profile)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile,EnableFirewall,,,,0,1,=,Medium
+10502,"Windows Firewall","EnableFirewall (Domain Profile)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile,EnableFirewall,,,,1,1,=,Medium
 10503,"Windows Firewall","Inbound Connections (Domain Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile,DefaultInboundAction,,,,1,1,=,Medium
 10504,"Windows Firewall","Inbound Connections (Domain Profile)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile,DefaultInboundAction,,,,1,1,=,Medium
 10505,"Windows Firewall","Outbound Connections (Domain Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile,DefaultOutboundAction,,,,0,0,=,Medium
@@ -98,7 +98,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 10513,"Windows Firewall","Log successful connections (Domain Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging,LogSuccessfulConnections,,,,0,1,=,Low
 10514,"Windows Firewall","Log successful connections (Domain Profile)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\Logging,LogSuccessfulConnections,,,,0,1,=,Low
 10515,"Windows Firewall","EnableFirewall (Private Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile,EnableFirewall,,,,0,1,=,Medium
-10516,"Windows Firewall","EnableFirewall (Private Profile)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile,EnableFirewall,,,,0,1,=,Medium
+10516,"Windows Firewall","EnableFirewall (Private Profile)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile,EnableFirewall,,,,1,1,=,Medium
 10517,"Windows Firewall","Inbound Connections (Private Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile,DefaultInboundAction,,,,1,1,=,Medium
 10518,"Windows Firewall","Inbound Connections (Private Profile)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile,DefaultInboundAction,,,,1,1,=,Medium
 10519,"Windows Firewall","Outbound Connections (Private Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile,DefaultOutboundAction,,,,0,0,=,Medium
@@ -112,7 +112,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 10527,"Windows Firewall","Log successful connections (Private Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging,LogSuccessfulConnections,,,,0,1,=,Low
 10528,"Windows Firewall","Log successful connections (Private Profile)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\Logging,LogSuccessfulConnections,,,,0,1,=,Low
 10529,"Windows Firewall","EnableFirewall (Public Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile,EnableFirewall,,,,0,1,=,Medium
-10530,"Windows Firewall","EnableFirewall (Public Profile)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile,EnableFirewall,,,,0,1,=,Medium
+10530,"Windows Firewall","EnableFirewall (Public Profile)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile,EnableFirewall,,,,1,1,=,Medium
 10531,"Windows Firewall","Inbound Connections (Public Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile,DefaultInboundAction,,,,1,1,=,Medium
 10532,"Windows Firewall","Inbound Connections (Public Profile)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile,DefaultInboundAction,,,,1,1,=,Medium
 10533,"Windows Firewall","Outbound Connections (Public Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile,DefaultOutboundAction,,,,0,0,=,Medium
@@ -141,7 +141,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 10642,"MSS (Legacy)","MSS: (EnableICMPRedirect) Allow ICMP redirects to override OSPF generated routes",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip\Parameters,EnableICMPRedirect,,,,,0,=,Medium
 10643,"MSS (Legacy)","MSS: (NoNameReleaseOnDemand) Allow the computer to ignore NetBIOS name release requests except from WINS servers",Registry,,HKLM:\System\CurrentControlSet\Services\Netbt\Parameters,NoNameReleaseOnDemand,,,,0,1,=,Medium
 10650,"Administrative Templates: Network","DNS Client: Turn off multicast name resolution (LLMNR)",Registry,,"HKLM:\Software\Policies\Microsoft\Windows NT\DNSClient",EnableMulticast,,,,1,0,=,Medium
-10651,"Administrative Templates: Network","Lanman Workstation: Enable insecure guest logons",Registry,,HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation,AllowInsecureGuestAuth,,,,0,0,=,Medium
+10651,"Administrative Templates: Network","Lanman Workstation: Enable insecure guest logons",Registry,,HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation,AllowInsecureGuestAuth,,,,1,0,=,Medium
 10652,"Administrative Templates: Network","Network Connections: Prohibit use of Internet Connection Sharing on your DNS domain network",Registry,,"HKLM:\Software\Policies\Microsoft\Windows\Network Connections",NC_ShowSharedAccessUI,,,,1,0,=,Medium
 10653,"Administrative Templates: Network","Network Provider: Hardened UNC Paths (NETLOGON)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths,\\*\NETLOGON,,,,,"RequireMutualAuthentication=1,RequireIntegrity=1",=,Medium
 10654,"Administrative Templates: Network","Network Provider: Hardened UNC Paths (SYSVOL)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths,\\*\SYSVOL,,,,,"RequireMutualAuthentication=1,RequireIntegrity=1",=,Medium

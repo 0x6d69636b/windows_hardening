@@ -38,4 +38,4 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 4502,"Windows Settings","System: Shared experiences: Shared across devices 1",Registry,,HKCU:\Software\Microsoft\Windows\CurrentVersion\CDP,RomeSdkChannelUserAuthzPolicy,,,,1,0,=,Low
 4503,"Windows Settings","System: Shared experiences: Shared across devices 2",Registry,,HKCU:\Software\Microsoft\Windows\CurrentVersion\CDP,CdpSessionUserAuthzPolicy,,,,1,0,=,Low
 4504,"Windows Settings","Devices: Typing: Autocorrect misspelled words",Registry,,HKCU:\Software\Microsoft\TabletTip\1.7,EnableAutocorrection,,,,1,0,=,Low
-4505,"Windows Settings","Devices: AutoPlay: Use AutoPlay for all media and devices",Registry,,HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers,DisableAutoplay,,,,1,0,=,Low
+4505,"Windows Settings","Devices: AutoPlay: Use AutoPlay for all media and devices",Registry,,HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers,DisableAutoplay,,,,0,0,=,Low
