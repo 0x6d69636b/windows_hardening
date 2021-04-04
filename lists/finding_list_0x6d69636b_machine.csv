@@ -249,7 +249,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 1928,"Microsoft Defender Exploit Guard","ASR: Block Office communication applications from creating child processes",MpPreferenceAsr,26190899-1602-49e8-8b27-eb1d0a1ce869,,,,,,0,1,=,Medium
 1929,"Microsoft Defender Exploit Guard","ASR: Block Adobe Reader from creating child processes",MpPreferenceAsr,7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c,,,,,,0,1,=,Medium
 1930,"Microsoft Defender Exploit Guard","ASR: Block persistence through WMI event subscription",MpPreferenceAsr,e6db77e5-3df2-4cf1-b95a-636979351e5b,,,,,,0,1,=,Medium
-1950,"Microsoft Defender Exploit Guard","Exploit protection: Control flow guard (CFG)",Processmitigation,Cfg.Enable,,,,,,NOTSET,ON,=,Medium
+1950,"Microsoft Defender Exploit Guard","Exploit protection: Control flow guard (CFG)",Processmitigation,Cfg.Enable,,,,,,ON,ON,=,Medium
 1951,"Microsoft Defender Exploit Guard","Exploit protection: Data Execution Prevention (DEP)",Processmitigation,DEP.Enable,,,,,,NOTSET,ON,=,Medium
 1952,"Microsoft Defender Exploit Guard","Exploit protection: Override Data Execution Prevention (DEP)",Processmitigation,DEP.OverrideDEP,,,,,,False,False,=,Medium
 1953,"Microsoft Defender Exploit Guard","Force use of Data Execution Prevention (DEP)",bcdedit,nx,,,,,,OptIn,AlwaysOn,=,Medium
