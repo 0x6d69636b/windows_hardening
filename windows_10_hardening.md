@@ -15,6 +15,7 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 
 ### Windows Settings\Security Settings\Account Policies
 
+* ID 1103: Set _Password Policy\Store passwords using reversible encryption_ to **Disabled**
 * ID 1100: Set _Account Lockout Policy\Account lockout threshold_ to **10 or fewer invalid logon attempt(s), but not 0**
 * ID 1101: Set _Account Lockout Policy\Account lockout duration_ to **15 or more minute(s)**
 * ID 1102: Set _Account Lockout Policy\Reset account lockout counter after_ to **15 or more minute(s)**
@@ -63,10 +64,13 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 * ID 1309: Set _Network access: Do not allow anonymous enumeration of SAM accounts_ to **Enabled**
 * ID 1310: Set _Network access: Do not allow anonymous enumeration of SAM accounts and shares_ to **Enabled**
 * ID 1311: Set _Network access: Do not allow storage of passwords and credentials for network authentication_ to **Enabled**
+* ID 1324: Set _Network access: Restrict anonymous access to Named Pipes and Shares_ to **Enabled**
+* ID 1325: Set _Network access: Restrict clients allowed to make remote calls to SAM_ to **O:BAG:BAD:(A;;RC;;;BA)** (Remote Access for Administrators allowed, no other groups/user)
 
 ##### Network Security
 
 * ID 1312: Set _Network security: Allow LocalSystem NULL session fallback_ to **Disabled**
+* ID 1326: Set _Network security: Do not store LAN Manager hash value on next password change_ to **Enabled**
 * ID 1313: Set _Network security: LAN Manager authentication level_ to **Send NTLMv2 response only. Refuse LM & NTLM**
 * ID 1314: Set _Network security: LDAP client signing requirements_ to **Negotiate signing**
 * ID 1315: Set _Network security: Minimum session security for NTLM SSP based (including secure RPC) clients_ to **Require NTLMv2 session security, Require 128-bit encryption**
@@ -334,9 +338,6 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 #### Event Log Service
 
 * ID 1728: Set _Application\Specify the maximum log file size (KB)_ to **Enabled: 32768**
-
-
-
 * ID 1729: Set _Security\Specify the maximum log file size (KB)_ to **Enabled: 196608**
 * ID 1730: Set _System\Specify the maximum log file size (KB)_ to **Enabled: 32768**
 
@@ -348,11 +349,11 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 
 * ID 1732: Set _Prevent the computer from joining a homegroup_ to **Enabled**
 
-#### Microsoft Defender Antivirus
+#### Microsoft Defender Antivirus 
 
-* ID 1800: Set _Turn off Windows Defender Antivirus_ to **Disabled**
+* ID 1800: Set _Turn off Microsoft Defender Antivirus_ to **Disabled**
 * ID 1801: Set _Configure detection for potentially unwanted applications_ to **Enabled: Audit Mode**
-* ID 1900: Set _Windows Defender Exploit Guard\Attack Surface Reduction\Configure Attack Surface Reduction rules_ to **Enabled**
+* ID 1900: Set _Microsoft Defender Exploit Guard\Attack Surface Reduction\Configure Attack Surface Reduction rules_ to **Enabled**
 	* Apply these rules (Set 'Value' to '1' (Block Mode)
 	* ID 1901: be9ba2d9-53ea-4cdc-84e5-9b1eeee46550 - Block executable content from email client and webmail
 	* ID 1902: d4f940ab-401b-4efc-aadc-ad5f3c50688a - Block Office applications from creating child processes
@@ -369,6 +370,7 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 	* ID 1913: 26190899-1602-49e8-8b27-eb1d0a1ce869 - Block Office communication applications from creating child processes
 	* ID 1914: 7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c - Block Adobe Reader from creating child processes
 	* ID 1915: e6db77e5-3df2-4cf1-b95a-636979351e5b - Block persistence through WMI event subscription
+* ID 1965: Set _Microsoft Defender Exploit Guard\Network Protection\Prevent users and apps from accessing dangerous websites_ to **Block**
 
 #### OneDrive
 
@@ -453,7 +455,15 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 
 * ID 2204: Set _Enable Safe DLL search mode_ to **Enabled**
 	* Add **SafeDLLSearchMode=dword:00000001** to _HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager_
-	
+* ID 2205: Set _MSS: (DisableIPSourceRouting IPv6) IP source routing protection level (protects against packet spoofing)_ to **Highest protection, source routing is completely disabled**
+	* Add **DisableIPSourceRouting=dword:00000002** to _HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\Tcpip6\Parameters_
+* ID 2206: Set _MSS: (DisableIPSourceRouting) IP source routing protection level (protects against packet spoofing)_ to **Highest protection, source routing is completely disabled**
+	* Add **DisableIPSourceRouting=dword:00000002** to _HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\Tcpip\Parameters_
+* ID 2207: Set _MSS: (EnableICMPRedirect) Allow ICMP redirects to override OSPF generated routes_ to **Disabled**
+	* Add **EnableICMPRedirect=dword:00000000** to _HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\Tcpip\Parameters_
+* ID 2208: Set _MSS: (NoNameReleaseOnDemand) Allow the computer to ignore NetBIOS name release requests except from WINS servers_ to **Enabled**
+	* Add **NoNameReleaseOnDemand=dword:00000001** to _HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\Netbt\Parameters_
+
 ## Windows Security
 
 ### Virus & threat protection
