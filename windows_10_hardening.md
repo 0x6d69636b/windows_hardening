@@ -531,7 +531,7 @@ Example of an XML configuration file:
 
 ### Office 2016 Hardening
 
-Use _Security baseline for Office 365 ProPlus_ for this settings.
+For Office 365 Hardening, lists [Microsoft 365 Apps (Machine)](https://github.com/0x6d69636b/windows_hardening/blob/master/lists/finding_list_msft_security_baseline_microsoft_365_apps_v2103_machine.csv) and [Microsoft 365 Apps (User)](https://github.com/0x6d69636b/windows_hardening/blob/master/lists/finding_list_msft_security_baseline_microsoft_365_apps_v2103_user.csv) should be used. Only stricter recommendations and additional settings are listed here.
 
 #### Security Settings
 
