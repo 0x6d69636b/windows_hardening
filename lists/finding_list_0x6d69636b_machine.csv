@@ -123,6 +123,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 1621,"Administrative Templates: System","Device Guard: Secure Launch Configuration (Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard,ConfigureSystemGuardLaunch,,,,0,1,=,Medium
 1622,"Administrative Templates: System","Device Guard: Windows Defender Application Control deployed (Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard,DeployConfigCIPolicy,,,,0,1,=,Medium
 1623,"Administrative Templates: System","Device Guard: Require UEFI Memory Attributes Table (Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard,HVCIMATRequired,,,,,1,=,Medium
+1624,"Administrative Templates: System","Device Guard: Support for Virtualization Based Security (Microsoft-Hyper-V-Hypervisor)",WindowsOptionalFeature,Microsoft-Hyper-V-Hypervisor,,,,,,Disabled,Enabled,=,Medium
 1630,"Administrative Templates: System","Early Launch Antimalware: Boot-Start Driver Initialization Policy",Registry,,HKLM:\System\CurrentControlSet\Policies\EarlyLaunch,DriverLoadPolicy,,,,0,3,=,Medium
 1631,"Administrative Templates: System","Group Policy: Process even if the Group Policy objects have not changed",Registry,,"HKLM:\Software\Policies\Microsoft\Windows\Group Policy\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}",NoBackgroundPolicy,,,,1,0,=,Low
 1632,"Administrative Templates: System","Group Policy: Do not apply during periodic background processing",Registry,,"HKLM:\Software\Policies\Microsoft\Windows\Group Policy\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}",NoGPOListChanges,,,,0,0,=,Low
@@ -265,7 +266,10 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 1963,"Microsoft Defender Exploit Guard","Exploit protection: Validate heap integrity",Processmitigation,HEAP.TerminateOnError,,,,,,On,ON,=,Medium
 1964,"Microsoft Defender Exploit Guard","Exploit protection: Override validate heap integrity",Processmitigation,HEAP.OverrideHEAP,,,,,,False,False,=,Medium
 1965,"Microsoft Defender Exploit Guard","Network Protection: Prevent users and apps from accessing dangerous websites",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\Network Protection",EnableNetworkProtection,,,,,1,=,Medium
-2000,"Administrative Templates: Windows Components","FIle Explorer: Configure Windows Defender SmartScreen",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\System,EnableSmartScreen,,,,1,1,=,Medium
+1980,"Microsoft Defender Application Guard","Support for Microsoft Defender Application Guard",WindowsOptionalFeature,Windows-Defender-ApplicationGuard,,,,,,Disabled,Enabled,=,Medium
+1981,"Microsoft Defender Application Guard","Turn on Microsoft Defender Application Guard in Managed Mode",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\AppHVSI,AllowAppHVSI_ProviderSet,,,,,3,=,Medium
+1982,"Microsoft Defender Application Guard","Allow auditing events in Microsoft Defender Application Guard",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\AppHVSI,AuditApplicationGuard,,,,,1,=,Medium
+2000,"Administrative Templates: Windows Components","File Explorer: Configure Windows Defender SmartScreen",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\System,EnableSmartScreen,,,,1,1,=,Medium
 2001,"Administrative Templates: Windows Components","File Explorer: Configure Windows Defender SmartScreen to warn and prevent bypass",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\System,ShellSmartScreenLevel,,,,Warn,Block,=,Medium
 2100,PowerShell,"Turn on PowerShell Script Block Logging",Registry,,HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging,EnableScriptBlockLogging,,,,0,1,=,Medium
 2101,PowerShell,"Turn on PowerShell Script Block Logging (Invocation)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging,EnableScriptBlockInvocationLogging,,,,0,1,=,Low
