@@ -195,9 +195,6 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 
 **Update**: VMware Workstation Pro 15.5.5 can now run on Windows 10 hosts with Hyper-V enabled (Device Guard/Credential Guard). This requires Windows 10 version 2004 (20H1 build 19041.264) and above. 
 
-* ID 1623: Enable Support for _Virtualization Based Security_
-	* Check Status: `Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-Hypervisor`
-	* Enable: `Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-Hypervisor`
 * ID 1614: Set _Turn On Virtualization Based Security_ to **Enabled**
 	* ID 1615, ID 1616: Set _Select Plattform Security Level_ to **Secure Boot and DMA Protection**
 	* ID 1617, ID 1619: Set _Credential Guard Configuration_ to **Enabled with UEFI lock**
