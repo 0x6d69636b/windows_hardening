@@ -1507,7 +1507,7 @@
 
             #
             # WindowsOptionalFeature
-            # Remove a Windows feature
+            # Install / Remove a Windows feature
             #
             If ($Finding.Method -eq 'WindowsOptionalFeature') {
 
@@ -1519,53 +1519,78 @@
                     Continue
                 }
 
-                # Check if feature is installed and should be removed
-                If ($Finding.RecommendedValue -eq "Disabled"){
+                #
+                # Check if feature is installed and should be removed, or
+                # it is missing and should be installed
+                #
+                try {
+                    $ResultOutput = Get-WindowsOptionalFeature -Online -FeatureName $Finding.MethodArgument 
+                    $Result = $ResultOutput.State
+                } catch {
+                    $ResultText = "Could not check status"
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
+                    $MessageSeverity = "High"
+                    Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                    Continue
+                }
+
+                # Feature will be installed
+                If ($Result -eq "Enabled" -and $Finding.RecommendedValue -eq "Disabled") {
 
                     try {
-                        $ResultOutput = Get-WindowsOptionalFeature -Online -FeatureName $Finding.MethodArgument 
-                        $Result = $ResultOutput.State
+                        $Result = Disable-WindowsOptionalFeature -Online -FeatureName $Finding.MethodArgument                             
                     } catch {
-                        $ResultText = "Could not check status"
+                        $ResultText = "Could not be removed"
                         $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
                         $MessageSeverity = "High"
                         Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
                         Continue
                     }
 
-                    If($Result -eq "Enabled") {
-
-                        try {
-                            $Result = Disable-WindowsOptionalFeature -Online -FeatureName $Finding.MethodArgument                             
-                        } catch {
-                            $ResultText = "Could not be removed"
-                            $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
-                            $MessageSeverity = "High"
-                            Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-                            Continue
-                        }
-
-                        $ResultText = "Feature removed" 
-                        $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
-                        $MessageSeverity = "Passed"
-                    }
-                    Else {
-                        $ResultText = "Feature is not installed" 
-                        $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
-                        $MessageSeverity = "Passed"
-                    }
-
-                    Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-
-                    If ($Log) {
-                        Add-ProtocolEntry -Text $Message
-                    }
-                    
-                    If ($Report) {
-                        $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$ResultText+'"'
-                        Add-ResultEntry -Text $Message
-                    }
+                    $ResultText = "Feature removed" 
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
+                    $MessageSeverity = "Passed"
                 }
+                # No changes required
+                ElseIf ($Result -eq "Disabled" -and $Finding.RecommendedValue -eq "Disabled") {
+                    $ResultText = "Feature is not installed" 
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
+                    $MessageSeverity = "Passed"
+                }
+                # Feature will be installed
+                ElseIf ($Result -eq "Disabled" -and $Finding.RecommendedValue -eq "Enabled") {
+
+                    try {
+                        $Result = Enable-WindowsOptionalFeature -Online -FeatureName $Finding.MethodArgument                             
+                    } catch {
+                        $ResultText = "Could not be installed"
+                        $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
+                        $MessageSeverity = "High"
+                        Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                        Continue
+                    }
+
+                    $ResultText = "Feature installed" 
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
+                    $MessageSeverity = "Passed"
+                }
+                # No changes required
+                ElseIf ($Result -eq "Enabled" -and $Finding.RecommendedValue -eq "Enabled") {
+                    $ResultText = "Feature is already installed" 
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
+                    $MessageSeverity = "Passed"
+                }                
+
+                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+
+                If ($Log) {
+                    Add-ProtocolEntry -Text $Message
+                }
+                
+                If ($Report) {
+                    $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$ResultText+'"'
+                    Add-ResultEntry -Text $Message
+                }                
             }
 
             #
