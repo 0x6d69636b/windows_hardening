@@ -548,7 +548,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 18.9.72.3,"Administrative Templates: Windows Components","Store: Turn off Automatic Download and Install of updates",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore,AutoDownload,,,,,4,=,Medium
 18.9.72.4,"Administrative Templates: Windows Components","Store: Turn off the offer to update to the latest version of Windows",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore,DisableOSUpgrade,,,,,1,=,Medium
 18.9.72.5,"Administrative Templates: Windows Components","Store: Turn off the Store application",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore,RemoveWindowsStore,,,,,1,=,Medium
-18.9.80.1.1.1,"Administrative Templates: Windows Components","FIle Explorer: Configure Windows Defender SmartScreen",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\System,EnableSmartScreen,,,,1,1,=,Medium
+18.9.80.1.1.1,"Administrative Templates: Windows Components","File Explorer: Configure Windows Defender SmartScreen",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\System,EnableSmartScreen,,,,1,1,=,Medium
 18.9.80.1.1.2,"Administrative Templates: Windows Components","File Explorer: Configure Windows Defender SmartScreen to warn and prevent bypass",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\System,ShellSmartScreenLevel,,,,Warn,Block,=,Medium
 18.9.80.2.1,"Microsoft Edge","Configure Windows Defender SmartScreen",Registry,,HKLM:\Software\Policies\Microsoft\MicrosoftEdge\PhishingFilter,EnabledV9,,,,,1,=,Medium
 18.9.80.2.2,"Microsoft Edge","Prevent bypassing Microsoft Defender SmartScreen prompts for sites",Registry,,HKLM:\Software\Policies\Microsoft\MicrosoftEdge\PhishingFilter,PreventOverride,,,,,1,=,Medium
