@@ -1,13 +1,13 @@
 ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Namespace,Property,DefaultValue,RecommendedValue,Operator,Severity
 1.1.1,"Account Policies","Length of password history maintained",accountpolicy,,,,,,,None,24,>=,Low
-1.1.2,"Account Policies","Maximum password age",accountpolicy,,,,,,,42,60,<=,Low
+1.1.2,"Account Policies","Maximum password age",accountpolicy,,,,,,,42,60,<=!0,Low
 1.1.3,"Account Policies","Minimum password age",accountpolicy,,,,,,,0,1,>=,Low
 1.1.4,"Account Policies","Minimum password length",accountpolicy,,,,,,,0,14,>=,Medium
 1.1.5,"Account Policies","Password must meet complexity requirements",secedit,"System Access\PasswordComplexity",,,,,,0,1,=,Medium
 1.1.6,"Account Policies","Relax minimum password length limits",Registry,,HKLM:\System\CurrentControlSet\Control\SAM,RelaxMinimumPasswordLengthLimits,,,,0,1,=,Medium
 1.1.7,"Account Policies","Store passwords using reversible encryption",secedit,"System Access\ClearTextPassword",,,,,,0,0,=,High
 1.2.1,"Account Policies","Account lockout duration",accountpolicy,,,,,,,30,15,>=,Low
-1.2.2,"Account Policies","Account lockout threshold",accountpolicy,,,,,,,Never,10,<=,Low
+1.2.2,"Account Policies","Account lockout threshold",accountpolicy,,,,,,,Never,10,<=!0,Low
 1.2.3,"Account Policies","Reset account lockout counter",accountpolicy,,,,,,,30,15,>=,Low
 2.2.1,"User Rights Assignment","Access Credential Manager as a trusted caller",accesschk,SeTrustedCredManAccessPrivilege,,,,,,,,=,Medium
 2.2.2,"User Rights Assignment","Access this computer from the network",accesschk,SeNetworkLogonRight,,,,,,"BUILTIN\Backup Operators;BUILTIN\Users;BUILTIN\Administrators;Everyone","BUILTIN\Remote Desktop Users;BUILTIN\Administrators",=,Medium
@@ -64,12 +64,12 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 2.3.6.2,"Security Options","Domain member: Digitally encrypt secure channel data (when possible)",Registry,,HKLM:\System\CurrentControlSet\Services\Netlogon\Parameters,SealSecureChannel,,,,1,1,=,Medium
 2.3.6.3,"Security Options","Domain member: Digitally sign secure channel data (when possible)",Registry,,HKLM:\System\CurrentControlSet\Services\Netlogon\Parameters,SignSecureChannel,,,,1,1,=,Medium
 2.3.6.4,"Security Options","Domain member: Disable machine account password changes",Registry,,HKLM:\System\CurrentControlSet\Services\Netlogon\Parameters,DisablePasswordChange,,,,0,0,=,Medium
-2.3.6.5,"Security Options","Domain member: Maximum machine account password age",Registry,,HKLM:\System\CurrentControlSet\Services\Netlogon\Parameters,MaximumPasswordAge,,,,30,30,<=,Medium
+2.3.6.5,"Security Options","Domain member: Maximum machine account password age",Registry,,HKLM:\System\CurrentControlSet\Services\Netlogon\Parameters,MaximumPasswordAge,,,,30,30,<=!0,Medium
 2.3.6.6,"Security Options","Domain member: Require strong (Windows 2000 or later) session key",Registry,,HKLM:\System\CurrentControlSet\Services\Netlogon\Parameters,RequireStrongKey,,,,1,1,=,Medium
 2.3.7.1,"Security Options","Interactive logon: Do not require CTRL+ALT+DEL",Registry,,HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System,DisableCAD,,,,1,0,=,Low
 2.3.7.2,"Security Options","Interactive logon: Don't display last signed-in",Registry,,HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System,DontDisplayLastUserName,,,,0,1,=,Low
-2.3.7.3,"Security Options","Interactive logon: Machine account lockout threshold",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,MaxDevicePasswordFailedAttempts,,,,10,10,<=,Medium
-2.3.7.4,"Security Options","Interactive logon: Machine inactivity limit",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,InactivityTimeoutSecs,,,,900,900,<=,Medium
+2.3.7.3,"Security Options","Interactive logon: Machine account lockout threshold",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,MaxDevicePasswordFailedAttempts,,,,10,10,<=!0,Medium
+2.3.7.4,"Security Options","Interactive logon: Machine inactivity limit",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,InactivityTimeoutSecs,,,,900,900,<=!0,Medium
 2.3.7.5,"Security Options","Interactive logon: Message text for users attempting to log on",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,LegalNoticeText,,,,,,!=,Low
 2.3.7.6,"Security Options","Interactive logon: Message text for users attempting to log on",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,LegalNoticeCaption,,,,,,!=,Low
 2.3.7.7,"Security Options","Interactive logon: Number of previous logons to cache (in case domain controller is not available)",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,CachedLogonsCount,,,,10,4,<=,Medium
