@@ -96,6 +96,8 @@ HardeningKitty can be used to audit systems against the following baselines / be
 | :--- | :---------------- | :------  |
 | 0x6d69636b (Machine) | 2009 | |
 | 0x6d69636b (User) | 2009 | |
+| CIS Microsoft Windows 10 Enterprise (Machine) | 1909 | 1.8.1 |
+| CIS Microsoft Windows 10 Enterprise (User) | 1909 | 1.8.1 |
 | CIS Microsoft Windows 10 Enterprise (Machine) | 2004 | 1.9.1 |
 | CIS Microsoft Windows 10 Enterprise (User) | 2004 | 1.9.1 |
 | CIS Microsoft Windows 10 Enterprise (Machine) | 2009 | 1.10.1 |
