@@ -69,8 +69,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 2.3.4.1,"Security Options","Devices: Allowed to format and eject removable media",Registry,,"HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon",AllocateDASD,,,,,2,=,Medium
 2.3.4.2,"Security Options","Devices: Prevent users from installing printer drivers",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\Print\Providers\LanManPrint Services\Servers",AddPrinterDrivers,,,,0,1,=,Medium
 2.3.5.1,"Security Options","Domain controller: Allow server operators to schedule tasks (DC)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Control\Lsa,SubmitControl,,,,,0,=,Medium
-2.3.5.2,"Security Options","Domain controller: Allow vulnerable Netlogon
-secure channel connections",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters,VulnerableChannelAllowList,,,,,,=,Medium
+2.3.5.2,"Security Options","Domain controller: Allow vulnerable Netlogon secure channel connections",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters,VulnerableChannelAllowList,,,,,,=,Medium
 2.3.5.3,"Security Options","Domain controller: LDAP server channel binding token requirements",Registry,,HKLM:\System\CurrentControlSet\Services\NTDS\Parameters,LdapEnforceChannelBinding,,,,1,2,=,Medium
 2.3.5.4,"Security Options","Domain controller: LDAP server signing requirements",Registry,,HKLM:\System\CurrentControlSet\Services\NTDS\Parameters,LDAPServerIntegrity,,,,1,2,=,Medium
 2.3.5.5,"Security Options","Domain controller: Refuse machine account password changes (DC)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters,RefusePasswordChange,,,,1,0,=,Medium
