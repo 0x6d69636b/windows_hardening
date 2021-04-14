@@ -882,7 +882,7 @@
             }
 
             #
-            # Exploit protection
+            # Exploit protection (System)
             # The values are saved from a PowerShell function into an object.
             # The desired arguments can be accessed directly.
             # Since the object has several dimensions and there is only one dimension
@@ -902,6 +902,28 @@
                     $Result = $Finding.DefaultValue
                 }
             }
+
+            #
+            # Exploit protection (Application)
+            # The values are saved from a PowerShell function into an object.
+            # The desired arguments can be accessed directly.
+            # Since the object has several dimensions and there is only one dimension
+            # in the finding list (lazy) a workaround with split must be done...
+            #
+            ElseIf ($Finding.Method -eq 'ProcessmitigationApplication') {
+
+                try {  
+
+                    $ResultArgumentArray = $Finding.MethodArgument.Split("/")
+                    $ResultOutput = Get-Processmitigation -Name $ResultArgumentArray[0]                    
+                    $ResultArgument0 = $ResultArgumentArray[1]
+                    $ResultArgument1 = $ResultArgumentArray[2]
+                    $Result = $ResultOutput.$ResultArgument0.$ResultArgument1
+
+                } catch {
+                    $Result = $Finding.DefaultValue
+                }
+            }            
 
             #
             # bcdedit
@@ -1746,7 +1768,9 @@
         $StatsTotal = $StatsPassed + $StatsLow + $StatsMedium + $StatsHigh
         $ScoreTotal = $StatsTotal * 4
         $ScoreAchived = $StatsPassed * 4 + $StatsLow * 2 + $StatsMedium
-        $HardeningKittyScore = ([int] $ScoreAchived / [int] $ScoreTotal) * 5 + 1
+        If ($ScoreTotal -ne 0 ) {
+            $HardeningKittyScore = ([int] $ScoreAchived / [int] $ScoreTotal) * 5 + 1
+        }        
         $HardeningKittyScoreRounded = [math]::round($HardeningKittyScore,2)
 
         # Overwrite HardeningKitty Score if no finding is passed
