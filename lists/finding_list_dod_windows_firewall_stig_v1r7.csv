@@ -1,0 +1,19 @@
+ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Namespace,Property,DefaultValue,RecommendedValue,Operator,Severity
+V-17415,"Windows Firewall","EnableFirewall (Domain Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile,EnableFirewall,,,,0,1,=,Medium
+V-17418,"Windows Firewall","Inbound Connections (Domain Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile,DefaultInboundAction,,,,1,1,=,High
+V-17419,"Windows Firewall","Outbound Connections (Domain Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile,DefaultOutboundAction,,,,0,0,=,Medium
+V-17425,"Windows Firewall","Log size limit (Domain Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging,LogFileSize,,,,4096,16384,=,Low
+V-17426,"Windows Firewall","Log dropped packets (Domain Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging,LogDroppedPackets,,,,0,1,=,Low
+V-17427,"Windows Firewall","Log successful connections (Domain Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging,LogSuccessfulConnections,,,,0,1,=,Low
+V-17416,"Windows Firewall","EnableFirewall (Private Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile,EnableFirewall,,,,0,1,=,Medium
+V-17428,"Windows Firewall","Inbound Connections (Private Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile,DefaultInboundAction,,,,1,1,=,High
+V-17429,"Windows Firewall","Outbound Connections (Private Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile,DefaultOutboundAction,,,,0,0,=,Medium
+V-17435,"Windows Firewall","Log size limit (Private Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging,LogFileSize,,,,4096,16384,=,Low
+V-17436,"Windows Firewall","Log dropped packets (Private Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging,LogDroppedPackets,,,,0,1,=,Low
+V-17437,"Windows Firewall","Log successful connections (Private Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging,LogSuccessfulConnections,,,,0,1,=,Low
+V-17417,"Windows Firewall","EnableFirewall (Public Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile,EnableFirewall,,,,0,1,=,Medium
+V-17438,"Windows Firewall","Inbound Connections (Public Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile,DefaultInboundAction,,,,1,1,=,High
+V-17429,"Windows Firewall","Outbound Connections (Private Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile,DefaultOutboundAction,,,,0,0,=,Medium
+V-17445,"Windows Firewall","Log size limit (Public Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging,LogFileSize,,,,4096,16384,=,Low
+V-17446,"Windows Firewall","Log dropped packets (Public Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging,LogDroppedPackets,,,,0,1,=,Low
+V-17447,"Windows Firewall","Log successful connections (Public Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging,LogSuccessfulConnections,,,,0,1,=,Low
