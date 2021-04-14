@@ -1,0 +1,3 @@
+ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Namespace,Property,DefaultValue,RecommendedValue,Operator,Severity
+V-102625,"Administrative Templates: Windows Components","File Explorer: Explorer Frame Pane: Turn off Preview Pane",Registry,,HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer,NoReadingPane,,,,,1,=,Medium
+V-102625,"Administrative Templates: Windows Components","File Explorer: Explorer Frame Pane: Turn on or off details pane",Registry,,HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer,NoPreviewPane,,,,,1,=,Medium
