@@ -1,0 +1,5 @@
+ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Namespace,Property,DefaultValue,RecommendedValue,Operator,Severity
+V-63839,"Administrative Templates: Start Menu and Taskbar","Notifications: Turn off toast notifications on the lock screen",Registry,,HKCU:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\PushNotifications,NoToastApplicationNotificationOnLockScreen,,,,0,1,=,Low
+V-99563,"Administrative Templates: Windows Components","Cloud Content: Do not suggest third-party content in Windows spotlight",Registry,,HKCU:\Software\Policies\Microsoft\Windows\CloudContent,DisableThirdPartySuggestions,,,,0,1,=,Low
+V-102617,"Administrative Templates: Windows Components","File Explorer: Explorer Frame Pane: Turn off Preview Pane",Registry,,HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer,NoReadingPane,,,,,1,=,Medium
+V-102617,"Administrative Templates: Windows Components","File Explorer: Explorer Frame Pane: Turn on or off details pane",Registry,,HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer,NoPreviewPane,,,,,1,=,Medium
