@@ -110,6 +110,14 @@ HardeningKitty can be used to audit systems against the following baselines / be
 | CIS Microsoft Windows Server 2019 (User) | 1809 | 1.1.0 |
 | CIS Microsoft Windows Server 2019 (Machine) | 1809 | 1.2.0 |
 | CIS Microsoft Windows Server 2019 (User) | 1809 | 1.2.0 |
+| DoD Microsoft Windows 10 STIG (Machine) | 2009 | v2r1 |
+| DoD Microsoft Windows 10 STIG (User) | 2009 | v2r1 |
+| DoD Windows Server 2019 Domain Controller STIG (Machine) | 2009 | v2r1 |
+| DoD Windows Server 2019 Domain Controller STIG (User) | 2009 | v2r1 |
+| DoD Windows Server 2019 Member Server STIG (Machine) | 2009 | v2r1 |
+| DoD Windows Server 2019 Member Server STIG (User) | 2009 | v2r1 |
+| DoD Windows Defender Antivirus STIG | 2009 | v2r1 |
+| DoD Windows Firewall STIG | 2009 | v1r7 |
 | Microsoft Security baseline for Microsoft Edge | 87 | Final |
 | Microsoft Security baseline for Microsoft Edge | 88, 89 | Final |
 | Microsoft Security baseline for Windows 10 | 2004 | Final |
@@ -152,3 +160,4 @@ HardeningKitty can be used to audit systems against the following baselines / be
 * [A hint for Office 365 Telemetry](https://twitter.com/milenkowski/status/1326865844215934979)
 * [BSI: Microsoft Office Telemetry Analysis report](https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Publikationen/Studien/Office_Telemetrie/Office_Telemetrie.pdf?__blob=publicationFile&v=5)
 * [Use policy settings to manage privacy controls for Microsoft 365 Apps for enterprise](https://docs.microsoft.com/en-us/deployoffice/privacy/manage-privacy-controls)
+* [DoD Cyber Exchange Public - Security Technical Implementation Guides (STIGs) - Group Policy Objects](https://public.cyber.mil/stigs/gpo/)
