@@ -98,8 +98,8 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 2.3.10.12,"Security Options","Network access: Sharing and security model for local accounts",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa,ForceGuest,,,,0,0,=,Medium
 2.3.11.1,"Security Options","Network security: Allow Local System to use computer identity for NTLM",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa,UseMachineId,,,,,1,=,Medium
 2.3.11.2,"Security Options","Network security: Allow LocalSystem NULL session fallback",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa\MSV1_0,allownullsessionfallback,,,,0,0,=,Medium
-2.3.11.3,"Security Options","Network Security: Allow PKU2U authentication requests to this computer to use online identities",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa\pku2u,AllowOnlineID,,,,,0,=,Medium
-2.3.11.4,"Security Options","Network Security: Network security: Configure encryption types allowed for Kerberos",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Kerberos\Parameters,SupportedEncryptionTypes,,,,,2147483640,<=,Medium
+2.3.11.3,"Security Options","Network security: Allow PKU2U authentication requests to this computer to use online identities",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa\pku2u,AllowOnlineID,,,,,0,=,Medium
+2.3.11.4,"Security Options","Network security: Configure encryption types allowed for Kerberos",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Kerberos\Parameters,SupportedEncryptionTypes,,,,,2147483640,<=,Medium
 2.3.11.5,"Security Options","Network security: Do not store LAN Manager hash value on next password change",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa,NoLMHash,,,,1,1,=,High
 2.3.11.6,"Security Options","Network security: Force logoff when logon hours expires",secedit,"System Access\ForceLogoffWhenHourExpire",,,,,,0,1,=,Low
 2.3.11.7,"Security Options","Network security: LAN Manager authentication level",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa,LmCompatibilityLevel,,,,3,5,=,Medium
