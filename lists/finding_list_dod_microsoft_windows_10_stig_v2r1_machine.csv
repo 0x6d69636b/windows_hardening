@@ -24,7 +24,7 @@ V-63871,"User Rights Assignment","Deny access to this computer from the network"
 V-63873,"User Rights Assignment","Deny log on as a batch job",accesschk,SeDenyBatchLogonRight,,,,,,,"Domain Admins;Enterprise Admins",=,Medium
 V-63875,"User Rights Assignment","Deny log on as a service",accesschk,SeDenyServiceLogonRight,,,,,,,"Domain Admins;Enterprise Admins",=,Medium
 V-63877,"User Rights Assignment","Deny log on locally",accesschk,SeDenyInteractiveLogonRight,,,,,,BUILTIN\Guests,"BUILTIN\Guests;Domain Admins;Enterprise Admins",=,Medium
-V-63879,"User Rights Assignment","Deny log on through Remote Desktop Services",accesschk,SeDenyRemoteInteractiveLogonRight,,,,,,,"BUILTIN\Guests;NT AUTHORITY\Local account;BUILTIN\Guests;Domain Admins;Enterprise Admins",=,Medium
+V-63879,"User Rights Assignment","Deny log on through Remote Desktop Services",accesschk,SeDenyRemoteInteractiveLogonRight,,,,,,,"NT AUTHORITY\Local account;BUILTIN\Guests;Domain Admins;Enterprise Admins",=,Medium
 V-63881,"User Rights Assignment","Enable computer and user accounts to be trusted for delegation",accesschk,SeEnableDelegationPrivilege,,,,,,,,=,Medium
 V-63883,"User Rights Assignment","Force shutdown from a remote system",accesschk,SeRemoteShutdownPrivilege,,,,,,BUILTIN\Administrators,BUILTIN\Administrators,=,Medium
 V-63889,"User Rights Assignment","Impersonate a client after authentication",accesschk,SeImpersonatePrivilege,,,,,,"NT AUTHORITY\SERVICE;BUILTIN\Administrators;NT AUTHORITY\NETWORK SERVICE;NT AUTHORITY\LOCAL SERVICE","NT AUTHORITY\SERVICE;BUILTIN\Administrators;NT AUTHORITY\NETWORK SERVICE;NT AUTHORITY\LOCAL SERVICE",=,Medium
