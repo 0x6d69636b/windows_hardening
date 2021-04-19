@@ -678,7 +678,7 @@
                     If ($Finding.Name.Contains("account status")){
                         $Result = $ResultOutput.Enabled
                     }
-                    ElseIf ($Finding.Name.Contains("Renames")) {
+                    ElseIf ($Finding.Name.Contains("Rename")) {
                         $Result = $ResultOutput.Name
                     }
                     Else {
