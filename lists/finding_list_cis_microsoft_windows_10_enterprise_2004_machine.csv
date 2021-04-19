@@ -59,7 +59,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 2.3.2.1,"Security Options","Audit: Force audit policy subcategory settings to override audit policy category settings",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa,SCENoApplyLegacyAuditPolicy,,,,"",1,=,Low
 2.3.2.2,"Security Options","Audit: Shut down system immediately if unable to log security audits",Registry,,HKLM:\SYSTEM\CurrentControlSet\Control\Lsa,CrashOnAuditFail,,,,0,0,=,Low
 2.3.4.1,"Security Options","Devices: Allowed to format and eject removable media",Registry,,"HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon",AllocateDASD,,,,,2,=,Medium
-2.3.4.2,"Security Options","Devices: Prevent users from installing printer drivers",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\Print\Providers\LanManPrint Services\Servers",AddPrinterDrivers,,,,0,1,=,Medium
+2.3.4.2,"Security Options","Devices: Prevent users from installing printer drivers",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\Print\Providers\LanMan Print Services\Servers",AddPrinterDrivers,,,,0,1,=,Medium
 2.3.6.1,"Security Options","Domain member: Digitally encrypt or sign secure channel data (always)",Registry,,HKLM:\System\CurrentControlSet\Services\Netlogon\Parameters,RequireSignOrSeal,,,,1,1,=,Medium
 2.3.6.2,"Security Options","Domain member: Digitally encrypt secure channel data (when possible)",Registry,,HKLM:\System\CurrentControlSet\Services\Netlogon\Parameters,SealSecureChannel,,,,1,1,=,Medium
 2.3.6.3,"Security Options","Domain member: Digitally sign secure channel data (when possible)",Registry,,HKLM:\System\CurrentControlSet\Services\Netlogon\Parameters,SignSecureChannel,,,,1,1,=,Medium
