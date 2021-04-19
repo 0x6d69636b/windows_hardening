@@ -511,7 +511,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 18.9.69.3,"Administrative Templates: Windows Components","Store: Turn off Automatic Download and Install of updates",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore,AutoDownload,,,,,4,=,Medium
 18.9.69.4,"Administrative Templates: Windows Components","Store: Turn off the offer to update to the latest version of Windows",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore,DisableOSUpgrade,,,,,1,=,Medium
 18.9.69.5,"Administrative Templates: Windows Components","Store: Turn off the Store application",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore,RemoveWindowsStore,,,,,1,=,Medium
-18.9.77.3.1,"Microsoft Defender Antivirus","MAPS: Configure local setting override for reporting to Microsoft MAPS",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsDefender\Spynet,LocalSettingOverrideSpynetReporting,,,,,0,=,Medium
+18.9.77.3.1,"Microsoft Defender Antivirus","MAPS: Configure local setting override for reporting to Microsoft MAPS",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet",LocalSettingOverrideSpynetReporting,,,,,0,=,Medium
 18.9.77.3.2,"Microsoft Defender Antivirus","MAPS: Join Microsoft MAPS",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet",SpynetReporting,,,,,0,=,Medium
 18.9.77.7.1,"Microsoft Defender Antivirus","Real-time Protection: Turn on behavior monitoring (Policy)",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection",DisableBehaviorMonitoring,,,,,0,=,Medium
 18.9.77.9.1,"Microsoft Defender Antivirus","Reporting: Configure Watson events",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Reporting",DisableGenericRePorts,,,,,1,=,Medium
