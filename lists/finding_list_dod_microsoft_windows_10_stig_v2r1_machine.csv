@@ -81,32 +81,32 @@ V-63829,"Security Options","User Account Control: Run all administrators in Admi
 V-63831,"Security Options","User Account Control: Virtualize file and registry write failures to per-user locations",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,EnableVirtualization,,,,1,1,=,Medium
 V-74719,"System Services","Secondary Logon (seclogon)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\seclogon,Start,,,,3,4,=,Medium
 V-74719,"System Services","Secondary Logon (seclogon) (Service Startup type)",service,seclogon,,,,,,Manual,Disabled,=,Medium
-"V-63431 / V-63435","Advanced Audit Policy Configuration","Credential Validation",auditpol,,,,,,,"No Auditing","Success and Failure",=,Medium
-V-63445,"Advanced Audit Policy Configuration","Security Group Management",auditpol,,,,,,,Success,Success,contains,Medium
-"V-63447 / V-63449","Advanced Audit Policy Configuration","User Account Management",auditpol,,,,,,,Success,"Success and Failure",=,Medium
-V-63451,"Advanced Audit Policy Configuration","Plug and Play Events",auditpol,,,,,,,"No Auditing",Success,contains,Medium
-V-63453,"Advanced Audit Policy Configuration","Process Creation",auditpol,,,,,,,"No Auditing",Success,contains,Medium
-V-71759,"Advanced Audit Policy Configuration","Account Lockout",auditpol,,,,,,,Success,Failure,contains,Medium
-V-63457,"Advanced Audit Policy Configuration","Group Membership",auditpol,,,,,,,"No Auditing",Success,contains,Medium
-V-63459,"Advanced Audit Policy Configuration",Logoff,auditpol,,,,,,,Success,Success,contains,Medium
-"V-63463 / V-63467","Advanced Audit Policy Configuration",Logon,auditpol,,,,,,,"Success and Failure","Success and Failure",=,Medium
-"V-99541 / V-99543","Advanced Audit Policy Configuration","Other Logon/Logoff Events",auditpol,,,,,,,"No Auditing","Success and Failure",=,Medium
-V-63469,"Advanced Audit Policy Configuration","Special Logon",auditpol,,,,,,,Success,Success,contains,Medium
-V-99545,"Advanced Audit Policy Configuration","Detailed File Share",auditpol,,,,,,,"No Auditing",Failure,contains,Medium
-"V-74721 / V-75027","Advanced Audit Policy Configuration","File Share",auditpol,,,,,,,"No Auditing","Success and Failure",=,Medium
-"V-74409 / V-74411","Advanced Audit Policy Configuration","Other Object Access Events",auditpol,,,,,,,"No Auditing","Success and Failure",=,Medium
-"V-63471 / V-63473","Advanced Audit Policy Configuration","Removable Storage",auditpol,,,,,,,"No Auditing","Success and Failure",=,Medium
-V-63479,"Advanced Audit Policy Configuration","Audit Policy Change",auditpol,,,,,,,Success,Success,contains,Medium
-V-63481,"Advanced Audit Policy Configuration","Authentication Policy Change",auditpol,,,,,,,Success,Success,contains,Medium
-V-71761,"Advanced Audit Policy Configuration","Authorization Policy Change",auditpol,,,,,,,"No Auditing",Success,contains,Medium
-"V-99547 / V-99549","Advanced Audit Policy Configuration","MPSSVC Rule-Level Policy Change",auditpol,,,,,,,"No Auditing","Success and Failure",=,Medium
-V-99553,"Advanced Audit Policy Configuration","Other Policy Change Events",auditpol,,,,,,,"No Auditing",Failure,contains,Medium
-"V-63483 / V-63487","Advanced Audit Policy Configuration","Sensitive Privilege Use",auditpol,,,,,,,"No Auditing","Success and Failure",=,Medium
-V-63491,"Advanced Audit Policy Configuration","IPsec Driver",auditpol,,,,,,,"No Auditing",Failure,contains,Medium
-"V-63499 / V-63503","Advanced Audit Policy Configuration","Other System Events",auditpol,,,,,,,"Success and Failure","Success and Failure",=,Medium
-V-63507,"Advanced Audit Policy Configuration","Security State Change",auditpol,,,,,,,Success,Success,contains,Medium
-V-63513,"Advanced Audit Policy Configuration","Security System Extension",auditpol,,,,,,,"No Auditing",Success,contains,Medium
-"V-63515 / V-63517","Advanced Audit Policy Configuration","System Integrity",auditpol,,,,,,,"Success and Failure","Success and Failure",=,Medium
+"V-63431 / V-63435","Advanced Audit Policy Configuration","Credential Validation",auditpol,{0CCE923F-69AE-11D9-BED3-505054503030},,,,,,"No Auditing","Success and Failure",=,Medium
+V-63445,"Advanced Audit Policy Configuration","Security Group Management",auditpol,{0CCE9237-69AE-11D9-BED3-505054503030},,,,,,Success,Success,contains,Medium
+"V-63447 / V-63449","Advanced Audit Policy Configuration","User Account Management",auditpol,{0CCE9235-69AE-11D9-BED3-505054503030},,,,,,Success,"Success and Failure",=,Medium
+V-63451,"Advanced Audit Policy Configuration","Plug and Play Events",auditpol,{0cce9248-69ae-11d9-bed3-505054503030},,,,,,"No Auditing",Success,contains,Medium
+V-63453,"Advanced Audit Policy Configuration","Process Creation",auditpol,{0CCE922B-69AE-11D9-BED3-505054503030},,,,,,"No Auditing",Success,contains,Medium
+V-71759,"Advanced Audit Policy Configuration","Account Lockout",auditpol,{0CCE9217-69AE-11D9-BED3-505054503030},,,,,,Success,Failure,contains,Medium
+V-63457,"Advanced Audit Policy Configuration","Group Membership",auditpol,{0cce9249-69ae-11d9-bed3-505054503030},,,,,,"No Auditing",Success,contains,Medium
+V-63459,"Advanced Audit Policy Configuration",Logoff,auditpol,{0CCE9216-69AE-11D9-BED3-505054503030},,,,,,Success,Success,contains,Medium
+"V-63463 / V-63467","Advanced Audit Policy Configuration",Logon,auditpol,{0CCE9215-69AE-11D9-BED3-505054503030},,,,,,"Success and Failure","Success and Failure",=,Medium
+"V-99541 / V-99543","Advanced Audit Policy Configuration","Other Logon/Logoff Events",auditpol,{0CCE921C-69AE-11D9-BED3-505054503030},,,,,,"No Auditing","Success and Failure",=,Medium
+V-63469,"Advanced Audit Policy Configuration","Special Logon",auditpol,{0CCE921B-69AE-11D9-BED3-505054503030},,,,,,Success,Success,contains,Medium
+V-99545,"Advanced Audit Policy Configuration","Detailed File Share",auditpol,{0CCE9244-69AE-11D9-BED3-505054503030},,,,,,"No Auditing",Failure,contains,Medium
+"V-74721 / V-75027","Advanced Audit Policy Configuration","File Share",auditpol,{0CCE9224-69AE-11D9-BED3-505054503030},,,,,,"No Auditing","Success and Failure",=,Medium
+"V-74409 / V-74411","Advanced Audit Policy Configuration","Other Object Access Events",auditpol,{0CCE9227-69AE-11D9-BED3-505054503030},,,,,,"No Auditing","Success and Failure",=,Medium
+"V-63471 / V-63473","Advanced Audit Policy Configuration","Removable Storage",auditpol,{0CCE9245-69AE-11D9-BED3-505054503030},,,,,,"No Auditing","Success and Failure",=,Medium
+V-63479,"Advanced Audit Policy Configuration","Audit Policy Change",auditpol,{0CCE922F-69AE-11D9-BED3-505054503030},,,,,,Success,Success,contains,Medium
+V-63481,"Advanced Audit Policy Configuration","Authentication Policy Change",auditpol,{0CCE9230-69AE-11D9-BED3-505054503030},,,,,,Success,Success,contains,Medium
+V-71761,"Advanced Audit Policy Configuration","Authorization Policy Change",auditpol,{0CCE9231-69AE-11D9-BED3-505054503030},,,,,,"No Auditing",Success,contains,Medium
+"V-99547 / V-99549","Advanced Audit Policy Configuration","MPSSVC Rule-Level Policy Change",auditpol,{0CCE9232-69AE-11D9-BED3-505054503030},,,,,,"No Auditing","Success and Failure",=,Medium
+V-99553,"Advanced Audit Policy Configuration","Other Policy Change Events",auditpol,{0CCE9234-69AE-11D9-BED3-505054503030},,,,,,"No Auditing",Failure,contains,Medium
+"V-63483 / V-63487","Advanced Audit Policy Configuration","Sensitive Privilege Use",auditpol,{0CCE9228-69AE-11D9-BED3-505054503030},,,,,,"No Auditing","Success and Failure",=,Medium
+V-63491,"Advanced Audit Policy Configuration","IPsec Driver",auditpol,{0CCE9213-69AE-11D9-BED3-505054503030},,,,,,"No Auditing",Failure,contains,Medium
+"V-63499 / V-63503","Advanced Audit Policy Configuration","Other System Events",auditpol,{0CCE9214-69AE-11D9-BED3-505054503030},,,,,,"Success and Failure","Success and Failure",=,Medium
+V-63507,"Advanced Audit Policy Configuration","Security State Change",auditpol,{0CCE9210-69AE-11D9-BED3-505054503030},,,,,,Success,Success,contains,Medium
+V-63513,"Advanced Audit Policy Configuration","Security System Extension",auditpol,{0CCE9211-69AE-11D9-BED3-505054503030},,,,,,"No Auditing",Success,contains,Medium
+"V-63515 / V-63517","Advanced Audit Policy Configuration","System Integrity",auditpol,{0CCE9212-69AE-11D9-BED3-505054503030},,,,,,"Success and Failure","Success and Failure",=,Medium
 V-63545,"Administrative Templates: Control Panel","Personalization: Prevent enabling lock screen camera",Registry,,HKLM:\Software\Policies\Microsoft\Windows\Personalization,NoLockScreenCamera,,,,0,1,=,Medium
 V-63549,"Administrative Templates: Control Panel","Personalization: Prevent enabling lock screen slide",Registry,,HKLM:\Software\Policies\Microsoft\Windows\Personalization,NoLockScreenSlideshow,,,,0,1,=,Low
 V-63597,"MS Security Guide","Apply UAC restrictions to local accounts on network logons",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,LocalAccountTokenFilterPolicy,,,,,0,=,Medium

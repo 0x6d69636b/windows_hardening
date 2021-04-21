@@ -607,7 +607,7 @@
                                             
                 try {
 
-                    $SubCategory = $Finding.Name    
+                    $SubCategory = $Finding.MethodArgument    
                     $ResultOutput = &$BinaryAuditpol /get /subcategory:"$SubCategory"
                     
                     # "Parse" auditpol.exe output

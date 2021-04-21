@@ -230,34 +230,34 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 9.3.8,"Windows Firewall","Log size limit (Public Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging,LogFileSize,,,,4096,16384,>=,Medium
 9.3.9,"Windows Firewall","Log dropped packets (Public Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging,LogDroppedPackets,,,,0,1,=,Medium
 9.3.10,"Windows Firewall","Log successful connections (Public Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging,LogSuccessfulConnections,,,,0,1,=,Low
-17.1.1,"Advanced Audit Policy Configuration","Credential Validation",auditpol,,,,,,,"No Auditing","Success and Failure",=,Low
-17.2.1,"Advanced Audit Policy Configuration","Application Group Management",auditpol,,,,,,,"No Auditing","Success and Failure",=,Low
-17.2.2,"Advanced Audit Policy Configuration","Computer Account Management",auditpol,,,,,,,,"Success and Failure",=,Low
-17.2.3,"Advanced Audit Policy Configuration","Security Group Management",auditpol,,,,,,,Success,Success,contains,Low
-17.2.4,"Advanced Audit Policy Configuration","User Account Management",auditpol,,,,,,,Success,"Success and Failure",=,Low
-17.3.1,"Advanced Audit Policy Configuration","Plug and Play Events",auditpol,,,,,,,"No Auditing",Success,contains,Low
-17.3.2,"Advanced Audit Policy Configuration","Process Creation",auditpol,,,,,,,"No Auditing",Success,contains,Low
-17.5.1,"Advanced Audit Policy Configuration","Account Lockout",auditpol,,,,,,,Success,Failure,contains,Low
-17.5.2,"Advanced Audit Policy Configuration","Group Membership",auditpol,,,,,,,"No Auditing",Success,contains,Low
-17.5.3,"Advanced Audit Policy Configuration",Logoff,auditpol,,,,,,,Success,Success,contains,Low
-17.5.4,"Advanced Audit Policy Configuration",Logon,auditpol,,,,,,,"Success and Failure","Success and Failure",=,Low
-17.5.5,"Advanced Audit Policy Configuration","Other Logon/Logoff Events",auditpol,,,,,,,"No Auditing","Success and Failure",=,Low
-17.5.6,"Advanced Audit Policy Configuration","Special Logon",auditpol,,,,,,,Success,Success,contains,Low
-17.6.1,"Advanced Audit Policy Configuration","Detailed File Share",auditpol,,,,,,,"No Auditing",Failure,contains,Low
-17.6.2,"Advanced Audit Policy Configuration","File Share",auditpol,,,,,,,"No Auditing","Success and Failure",=,Low
-17.6.3,"Advanced Audit Policy Configuration","Other Object Access Events",auditpol,,,,,,,"No Auditing","Success and Failure",=,Low
-17.6.4,"Advanced Audit Policy Configuration","Removable Storage",auditpol,,,,,,,"No Auditing","Success and Failure",=,Low
-17.7.1,"Advanced Audit Policy Configuration","Audit Policy Change",auditpol,,,,,,,Success,Success,contains,Low
-17.7.2,"Advanced Audit Policy Configuration","Authentication Policy Change",auditpol,,,,,,,Success,Success,contains,Low
-17.7.3,"Advanced Audit Policy Configuration","Authorization Policy Change",auditpol,,,,,,,"No Auditing",Success,contains,Low
-17.7.4,"Advanced Audit Policy Configuration","MPSSVC Rule-Level Policy Change",auditpol,,,,,,,"No Auditing","Success and Failure",=,Low
-17.7.5,"Advanced Audit Policy Configuration","Other Policy Change Events",auditpol,,,,,,,"No Auditing",Failure,contains,Low
-17.8.1,"Advanced Audit Policy Configuration","Sensitive Privilege Use",auditpol,,,,,,,"No Auditing","Success and Failure",=,Low
-17.9.1,"Advanced Audit Policy Configuration","IPsec Driver",auditpol,,,,,,,"No Auditing","Success and Failure",=,Low
-17.9.2,"Advanced Audit Policy Configuration","Other System Events",auditpol,,,,,,,"Success and Failure","Success and Failure",=,Low
-17.9.3,"Advanced Audit Policy Configuration","Security State Change",auditpol,,,,,,,Success,Success,contains,Low
-17.9.4,"Advanced Audit Policy Configuration","Security System Extension",auditpol,,,,,,,"No Auditing",Success,contains,Low
-17.9.5,"Advanced Audit Policy Configuration","System Integrity",auditpol,,,,,,,"Success and Failure","Success and Failure",=,Low
+17.1.1,"Advanced Audit Policy Configuration","Credential Validation",auditpol,{0CCE923F-69AE-11D9-BED3-505054503030},,,,,,"No Auditing","Success and Failure",=,Low
+17.2.1,"Advanced Audit Policy Configuration","Application Group Management",auditpol,{0CCE9239-69AE-11D9-BED3-505054503030},,,,,,"No Auditing","Success and Failure",=,Low
+17.2.2,"Advanced Audit Policy Configuration","Computer Account Management",auditpol,{0CCE9236-69AE-11D9-BED3-505054503030},,,,,,,"Success and Failure",=,Low
+17.2.3,"Advanced Audit Policy Configuration","Security Group Management",auditpol,{0CCE9237-69AE-11D9-BED3-505054503030},,,,,,Success,Success,contains,Low
+17.2.4,"Advanced Audit Policy Configuration","User Account Management",auditpol,{0CCE9235-69AE-11D9-BED3-505054503030},,,,,,Success,"Success and Failure",=,Low
+17.3.1,"Advanced Audit Policy Configuration","Plug and Play Events",auditpol,{0cce9248-69ae-11d9-bed3-505054503030},,,,,,"No Auditing",Success,contains,Low
+17.3.2,"Advanced Audit Policy Configuration","Process Creation",auditpol,{0CCE922B-69AE-11D9-BED3-505054503030},,,,,,"No Auditing",Success,contains,Low
+17.5.1,"Advanced Audit Policy Configuration","Account Lockout",auditpol,{0CCE9217-69AE-11D9-BED3-505054503030},,,,,,Success,Failure,contains,Low
+17.5.2,"Advanced Audit Policy Configuration","Group Membership",auditpol,{0cce9249-69ae-11d9-bed3-505054503030},,,,,,"No Auditing",Success,contains,Low
+17.5.3,"Advanced Audit Policy Configuration",Logoff,auditpol,{0CCE9216-69AE-11D9-BED3-505054503030},,,,,,Success,Success,contains,Low
+17.5.4,"Advanced Audit Policy Configuration",Logon,auditpol,{0CCE9215-69AE-11D9-BED3-505054503030},,,,,,"Success and Failure","Success and Failure",=,Low
+17.5.5,"Advanced Audit Policy Configuration","Other Logon/Logoff Events",auditpol,{0CCE921C-69AE-11D9-BED3-505054503030},,,,,,"No Auditing","Success and Failure",=,Low
+17.5.6,"Advanced Audit Policy Configuration","Special Logon",auditpol,{0CCE921B-69AE-11D9-BED3-505054503030},,,,,,Success,Success,contains,Low
+17.6.1,"Advanced Audit Policy Configuration","Detailed File Share",auditpol,{0CCE9244-69AE-11D9-BED3-505054503030},,,,,,"No Auditing",Failure,contains,Low
+17.6.2,"Advanced Audit Policy Configuration","File Share",auditpol,{0CCE9224-69AE-11D9-BED3-505054503030},,,,,,"No Auditing","Success and Failure",=,Low
+17.6.3,"Advanced Audit Policy Configuration","Other Object Access Events",auditpol,{0CCE9227-69AE-11D9-BED3-505054503030},,,,,,"No Auditing","Success and Failure",=,Low
+17.6.4,"Advanced Audit Policy Configuration","Removable Storage",auditpol,{0CCE9245-69AE-11D9-BED3-505054503030},,,,,,"No Auditing","Success and Failure",=,Low
+17.7.1,"Advanced Audit Policy Configuration","Audit Policy Change",auditpol,{0CCE922F-69AE-11D9-BED3-505054503030},,,,,,Success,Success,contains,Low
+17.7.2,"Advanced Audit Policy Configuration","Authentication Policy Change",auditpol,{0CCE9230-69AE-11D9-BED3-505054503030},,,,,,Success,Success,contains,Low
+17.7.3,"Advanced Audit Policy Configuration","Authorization Policy Change",auditpol,{0CCE9231-69AE-11D9-BED3-505054503030},,,,,,"No Auditing",Success,contains,Low
+17.7.4,"Advanced Audit Policy Configuration","MPSSVC Rule-Level Policy Change",auditpol,{0CCE9232-69AE-11D9-BED3-505054503030},,,,,,"No Auditing","Success and Failure",=,Low
+17.7.5,"Advanced Audit Policy Configuration","Other Policy Change Events",auditpol,{0CCE9234-69AE-11D9-BED3-505054503030},,,,,,"No Auditing",Failure,contains,Low
+17.8.1,"Advanced Audit Policy Configuration","Sensitive Privilege Use",auditpol,{0CCE9228-69AE-11D9-BED3-505054503030},,,,,,"No Auditing","Success and Failure",=,Low
+17.9.1,"Advanced Audit Policy Configuration","IPsec Driver",auditpol,{0CCE9213-69AE-11D9-BED3-505054503030},,,,,,"No Auditing","Success and Failure",=,Low
+17.9.2,"Advanced Audit Policy Configuration","Other System Events",auditpol,{0CCE9214-69AE-11D9-BED3-505054503030},,,,,,"Success and Failure","Success and Failure",=,Low
+17.9.3,"Advanced Audit Policy Configuration","Security State Change",auditpol,{0CCE9210-69AE-11D9-BED3-505054503030},,,,,,Success,Success,contains,Low
+17.9.4,"Advanced Audit Policy Configuration","Security System Extension",auditpol,{0CCE9211-69AE-11D9-BED3-505054503030},,,,,,"No Auditing",Success,contains,Low
+17.9.5,"Advanced Audit Policy Configuration","System Integrity",auditpol,{0CCE9212-69AE-11D9-BED3-505054503030},,,,,,"Success and Failure","Success and Failure",=,Low
 18.1.1.1,"Administrative Templates: Control Panel","Personalization: Prevent enabling lock screen camera",Registry,,HKLM:\Software\Policies\Microsoft\Windows\Personalization,NoLockScreenCamera,,,,0,1,=,Low
 18.1.1.2,"Administrative Templates: Control Panel","Personalization: Prevent enabling lock screen slide",Registry,,HKLM:\Software\Policies\Microsoft\Windows\Personalization,NoLockScreenSlideshow,,,,0,1,=,Low
 18.1.2.2,"Administrative Templates: Control Panel","Regional and Language Options: Allow users to enable online speech recognition services",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\InputPersonalization,AllowInputPersonalization,,,,1,0,=,Medium
