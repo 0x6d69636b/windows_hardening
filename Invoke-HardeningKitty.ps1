@@ -607,7 +607,7 @@
                                             
                 try {
 
-                    $SubCategory = $Finding.MethodArgument    
+                    $SubCategory = $Finding.MethodArgument
                     $ResultOutput = &$BinaryAuditpol /get /subcategory:"$SubCategory"
                     
                     # "Parse" auditpol.exe output
@@ -1323,7 +1323,7 @@
                 $Success = if($Finding.RecommendedValue -ilike "*success*") {"enable"} else {"disable"}
                 $Failure = if($Finding.RecommendedValue -ilike "*failure*") {"enable"} else {"disable"}
 
-                $SubCategory = $Finding.Name
+                $SubCategory = $Finding.MethodArgument
 
                 &$BinaryAuditpol /set /subcategory:"$($SubCategory)" /success:$($Success) /failure:$($Failure) | Out-Null
 
