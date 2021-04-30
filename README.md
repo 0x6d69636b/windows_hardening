@@ -128,8 +128,8 @@ HardeningKitty can be used to audit systems against the following baselines / be
 | Microsoft Security baseline for Windows Server (Member) | 2009 | Final |
 | Microsoft Security baseline for Office 365 ProPlus (Machine) | Sept 2019 | Final |
 | Microsoft Security baseline for Office 365 ProPlus (User) | Sept 2019 | Final |
-| Microsoft Security Baseline for Microsoft 365 Apps for enterprise (Machine) | March 2021 | Draft |
-| Microsoft Security Baseline for Microsoft 365 Apps for enterprise (User) | March 2021 | Draft |
+| Microsoft Security Baseline for Microsoft 365 Apps for enterprise (Machine) | March 2021 | Final |
+| Microsoft Security Baseline for Microsoft 365 Apps for enterprise (User) | March 2021 | Final |
 
 ## Sources
 
@@ -152,7 +152,7 @@ HardeningKitty can be used to audit systems against the following baselines / be
 * [Microsoft Security Compliance Toolkit 1.0](https://www.microsoft.com/en-us/download/details.aspx?id=55319)
 * [Policy Analyzer](https://blogs.technet.microsoft.com/secguide/2016/01/22/new-tool-policy-analyzer/)
 * [Security baseline for Office 365 ProPlus (v1908, Sept 2019) - FINAL](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-for-office-365-proplus-v1908-sept-2019-final/ba-p/873084)
-* [Security baseline for Microsoft 365 Apps for enterprise (v2103, March 2021) - DRAFT](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-for-microsoft-365-apps-for-enterprise-v2103/ba-p/2228388)
+* [Security baseline for Microsoft 365 Apps for enterprise v2104 - FINAL](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-for-microsoft-365-apps-for-enterprise-v2104/ba-p/2307695)
 * [mackwage/windows_hardening.cmd](https://gist.github.com/mackwage/08604751462126599d7e52f233490efe)
 * [Security baseline for Microsoft Edge version 87](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-for-microsoft-edge-version-87/ba-p/1950297)
 * [Security baseline for Microsoft Edge version 89](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-for-microsoft-edge-version-89/ba-p/2186265)
