@@ -882,6 +882,39 @@
             }
 
             #
+            # Microsoft Defender Preferences - Exclusion lists
+            # The values are saved from a PowerShell function into an object.
+            # The desired arguments can be accessed directly.
+            #
+            ElseIf ($Finding.Method -eq 'MpPreferenceExclusion') {
+
+                # Check if the user has admin rights, skip test if not
+                # Normal users are not allowed to get exclusions
+                If (-not($IsAdmin)) {
+                    $StatsError++
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
+                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Continue
+                }                
+
+                try {
+
+                    $ResultOutput = Get-MpPreference
+                    $ExclusionType = $Finding.MethodArgument
+                    $ResultExclusions = $ResultOutput.$ExclusionType
+
+                    ForEach ($Exclusion in $ResultExclusions) {
+                        $Result += $Exclusion+";"
+                    }
+                    # Remove last character
+                    $Result = $Result -replace “.$”
+
+                } catch {
+                    $Result = $Finding.DefaultValue
+                }
+            }            
+
+            #
             # Exploit protection (System)
             # The values are saved from a PowerShell function into an object.
             # The desired arguments can be accessed directly.

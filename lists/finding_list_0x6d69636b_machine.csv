@@ -221,6 +221,12 @@ strength (for operating system drives)",Registry,,HKLM:\Software\Policies\Micros
 1803,"Microsoft Defender Antivirus","Automatic sample submission",MpPreference,SubmitSamplesConsent,,,,,,1,0,=,Medium
 1804,"Microsoft Defender Antivirus","Controlled folder access",MpPreference,EnableControlledFolderAccess,,,,,,0,1,=,Medium
 1805,"Microsoft Defender Antivirus","Real time monitoring",MpPreference,DisableRealtimeMonitoring,,,,,,False,False,=,High
+1806,"Microsoft Defender Antivirus","Exclusions: Extension Exclusions (Policy)",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Exclusions",Exclusions_Extensions,,,,,,=,Medium
+1807,"Microsoft Defender Antivirus","Exclusions: List Extension Exclusions",MpPreferenceExclusion,ExclusionExtension,,,,,,,,=,Medium
+1808,"Microsoft Defender Antivirus","Exclusions: Path Exclusions (Policy)",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Exclusions",Exclusions_Paths,,,,,,=,Medium
+1809,"Microsoft Defender Antivirus","Exclusions: List Path Exclusions",MpPreferenceExclusion,ExclusionPath,,,,,,,,=,Medium
+1810,"Microsoft Defender Antivirus","Exclusions: Process Exclusions (Policy)",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Exclusions",Exclusions_Processes,,,,,,=,Medium
+1811,"Microsoft Defender Antivirus","Exclusions: List Process Exclusions",MpPreferenceExclusion,ExclusionProcess,,,,,,,,=,Medium
 1900,"Microsoft Defender Exploit Guard","Attack Surface Reduction rules",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR",ExploitGuard_ASR_Rules,,,,0,1,=,Medium
 1901,"Microsoft Defender Exploit Guard","ASR: Block executable content from email client and webmail (Policy)",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\rules",be9ba2d9-53ea-4cdc-84e5-9b1eeee46550,,,,0,1,=,Medium
 1902,"Microsoft Defender Exploit Guard","ASR: Block Office applications from creating child processes (Policy)",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\rules",d4f940ab-401b-4efc-aadc-ad5f3c50688a,,,,0,1,=,Medium

@@ -355,6 +355,12 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 
 * ID 1800: Set _Turn off Microsoft Defender Antivirus_ to **Disabled**
 * ID 1801: Set _Configure detection for potentially unwanted applications_ to **Enabled: Audit Mode**
+* ID 1806: Do not use exclusions: _Extensions (Policy)_
+* ID 1807: Do not use exclusions for extensions: **empty list**
+* ID 1808: Do not use exclusions: _Paths (Policy)_
+* ID 1809: Do not use exclusions for paths: **empty list**
+* ID 1810: Do not use exclusions: _Processes (Policy)_
+* ID 1811: Do not use exclusions for processes: **empty list**
 * ID 1900: Set _Microsoft Defender Exploit Guard\Attack Surface Reduction\Configure Attack Surface Reduction rules_ to **Enabled**
 	* Apply these rules (Set 'Value' to '1' (Block Mode)
 	* ID 1901: be9ba2d9-53ea-4cdc-84e5-9b1eeee46550 - Block executable content from email client and webmail
