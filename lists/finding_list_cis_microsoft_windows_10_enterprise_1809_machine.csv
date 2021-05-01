@@ -439,8 +439,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 18.9.11.3.16,"Administrative Templates: Windows Components","BitLocker Drive Encryption: Removable Data Drives: Configure use of smart cards on removable data drives: Require use of smart cards on removable data drives",Registry,,HKLM:\Software\Policies\Microsoft\FVE,RDVEnforceUserCert,,,,,1,=,Medium
 18.9.11.3.17,"Administrative Templates: Windows Components","BitLocker Drive Encryption: Removable Data Drives: Deny write access to removable drives not protected by BitLocker",Registry,,HKLM:\System\CurrentControlSet\Policies\Microsoft\FVE,RDVDenyWriteAccess,,,,,1,=,Medium
 18.9.11.3.18,"Administrative Templates: Windows Components","BitLocker Drive Encryption: Removable Data Drives: Do not allow write access to devices configured in another organization",Registry,,HKLM:\Software\Policies\Microsoft\FVE,RDVDenyCrossOrg,,,,,0,=,Medium
-18.9.11.4.1,"Administrative Templates: Windows Components","BitLocker Drive Encryption: Choose drive encryption method and cipher
-strength (for operating system drives)",Registry,,HKLM:\Software\Policies\Microsoft\FVE,EncryptionMethodWithXtsOs,,,,6,7,=,Medium
+18.9.11.4.1,"Administrative Templates: Windows Components","BitLocker Drive Encryption: Choose drive encryption method and cipher strength (for operating system drives)",Registry,,HKLM:\Software\Policies\Microsoft\FVE,EncryptionMethodWithXtsOs,,,,6,7,=,Medium
 18.9.11.4.2,"Administrative Templates: Windows Components","BitLocker Drive Encryption: Choose drive encryption method and cipher
 strength (for fixed data drives)",Registry,,HKLM:\Software\Policies\Microsoft\FVE,EncryptionMethodWithXtsFdv,,,,6,7,=,Medium
 18.9.11.4.3,"Administrative Templates: Windows Components","BitLocker Drive Encryption: Choose drive encryption method and cipher
