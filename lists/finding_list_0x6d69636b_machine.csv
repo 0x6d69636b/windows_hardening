@@ -274,6 +274,8 @@ strength (for operating system drives)",Registry,,HKLM:\Software\Policies\Micros
 1963,"Microsoft Defender Exploit Guard","Exploit protection: Validate heap integrity",Processmitigation,HEAP.TerminateOnError,,,,,,On,ON,=,Medium
 1964,"Microsoft Defender Exploit Guard","Exploit protection: Override validate heap integrity",Processmitigation,HEAP.OverrideHEAP,,,,,,False,False,=,Medium
 1965,"Microsoft Defender Exploit Guard","Network Protection: Prevent users and apps from accessing dangerous websites",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\Network Protection",EnableNetworkProtection,,,,,1,=,Medium
+1966,"Microsoft Defender Exploit Guard","ASR: Exclude files and paths from Attack Surface Reduction Rules (Policy)",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR",ExploitGuard_ASR_ASROnlyExclusions,,,,,,=,Medium
+1967,"Microsoft Defender Exploit Guard","ASR: List of excluded files and paths from Attack Surface Reduction Rules",MpPreferenceExclusion,AttackSurfaceReductionOnlyExclusions,,,,,,,,=,Medium
 1980,"Microsoft Defender Application Guard","Support for Microsoft Defender Application Guard",WindowsOptionalFeature,Windows-Defender-ApplicationGuard,,,,,,Disabled,Enabled,=,Medium
 1981,"Microsoft Defender Application Guard","Turn on Microsoft Defender Application Guard in Managed Mode",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\AppHVSI,AllowAppHVSI_ProviderSet,,,,,3,=,Medium
 1982,"Microsoft Defender Application Guard","Allow auditing events in Microsoft Defender Application Guard",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\AppHVSI,AuditApplicationGuard,,,,,1,=,Medium

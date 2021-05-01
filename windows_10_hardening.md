@@ -355,11 +355,11 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 
 * ID 1800: Set _Turn off Microsoft Defender Antivirus_ to **Disabled**
 * ID 1801: Set _Configure detection for potentially unwanted applications_ to **Enabled: Audit Mode**
-* ID 1806: Do not use exclusions: _Extensions (Policy)_
+* ID 1806: Set _Exclusions\Extension Exclusions_ to **Disabled**
 * ID 1807: Do not use exclusions for extensions: **empty list**
-* ID 1808: Do not use exclusions: _Paths (Policy)_
+* ID 1808: Set _Exclusions\Path Exclusions_ to **Disabled**
 * ID 1809: Do not use exclusions for paths: **empty list**
-* ID 1810: Do not use exclusions: _Processes (Policy)_
+* ID 1810: Set _Exclusions\Process Exclusions_ to **Disabled**
 * ID 1811: Do not use exclusions for processes: **empty list**
 * ID 1900: Set _Microsoft Defender Exploit Guard\Attack Surface Reduction\Configure Attack Surface Reduction rules_ to **Enabled**
 	* Apply these rules (Set 'Value' to '1' (Block Mode)
@@ -378,6 +378,8 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 	* ID 1913: 26190899-1602-49e8-8b27-eb1d0a1ce869 - Block Office communication applications from creating child processes
 	* ID 1914: 7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c - Block Adobe Reader from creating child processes
 	* ID 1915: e6db77e5-3df2-4cf1-b95a-636979351e5b - Block persistence through WMI event subscription
+* ID 1966: Set _Microsoft Defender Exploit Guard\Attack Surface Reduction\Exclude files and paths from Attack Surface Reduction Rules (Policy)_ to **Disabled**
+* ID 1967: Do not use exclusions for ASR Rules: **empty list**
 * ID 1965: Set _Microsoft Defender Exploit Guard\Network Protection\Prevent users and apps from accessing dangerous websites_ to **Block**
 
 #### Microsoft Defender Application Guard
