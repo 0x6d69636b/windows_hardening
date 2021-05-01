@@ -303,6 +303,8 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 
 #### BitLocker Drive Encryption
 
+* ID 1761: Set _Choose drive encryption method and cipher strength (for operating system drives)_ to **XTS-AES 128-bit**
+* ID 1762: Check used _BitLocker drive encryption method (for operation system drives)_: **XTS-AES 128-bit**
 * ID 1709: Set _Disable new DMA devices when this computer is locked_ to **Enabled**
 * ID 1710: Set _Operating System Drives\Allow Secure Boot for integrity validation_ to **Enabled**
 * ID 1711: Set _Operating System Drives\Require additional authentication at startup_ to **Enabled**

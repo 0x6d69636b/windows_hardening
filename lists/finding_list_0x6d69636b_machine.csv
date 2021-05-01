@@ -212,6 +212,9 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 1758,"Administrative Templates: Windows Components","WinRM Service: Allow unencrypted traffic",Registry,,HKLM:\Software\Policies\Microsoft\Windows\WinRM\Service,AllowUnencryptedTraffic,,,,1,0,=,Medium
 1759,"Administrative Templates: Windows Components","WinRM Service: Disallow WinRM from storing RunAs credentials",Registry,,HKLM:\Software\Policies\Microsoft\Windows\WinRM\Service,DisableRunAs,,,,0,1,=,Medium
 1760,"Administrative Templates: Windows Components","Windows Remote Shell: Allow Remote Shell Access",Registry,,HKLM:\Software\Policies\Microsoft\Windows\WinRM\Service\WinRS,AllowRemoteShellAccess,,,,1,0,=,Medium
+1761,"Administrative Templates: Windows Components","BitLocker Drive Encryption: Choose drive encryption method and cipher
+strength (for operating system drives)",Registry,,HKLM:\Software\Policies\Microsoft\FVE,EncryptionMethodWithXtsOs,,,,6,6,=,Medium
+1762,"Administrative Templates: Windows Components","BitLocker Drive Encryption: Drive encryption method (for operating system drives)",BitLockerVolume,EncryptionMethod,,,,,,None,"XTS-AES 128",=,Medium
 1800,"Microsoft Defender Antivirus","Turn off Windows Defender Antivirus",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender",DisableAntiSpyware,,,,0,0,=,Medium
 1801,"Microsoft Defender Antivirus","Configure detection for potentially unwanted applications",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender",PUAProtection,,,,0,1,>=,Medium
 1802,"Microsoft Defender Antivirus","Cloud-delivered protection",MpPreference,MAPSReporting,,,,,,2,2,=,Medium
