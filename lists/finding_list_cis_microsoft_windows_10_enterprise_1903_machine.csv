@@ -22,7 +22,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 2.2.12,"User Rights Assignment","Create global objects",accesschk,SeCreateGlobalPrivilege,,,,,,"NT AUTHORITY\SERVICE;BUILTIN\Administrators;NT AUTHORITY\NETWORK SERVICE;NT AUTHORITY\LOCAL SERVICE","NT AUTHORITY\SERVICE;BUILTIN\Administrators;NT AUTHORITY\NETWORK SERVICE;NT AUTHORITY\LOCAL SERVICE",=,Medium
 2.2.13,"User Rights Assignment","Create permanent shared objects",accesschk,SeCreatePermanentPrivilege,,,,,,,,=,Medium
 2.2.14.1,"User Rights Assignment","Create symbolic links",accesschk,SeCreateSymbolicLinkPrivilege,,,,,,BUILTIN\Administrators,BUILTIN\Administrators,=,Medium
-2.2.14.2,"User Rights Assignment","Create symbolic links (Hyper-V)",accesschk,SeCreateSymbolicLinkPrivilege,,,,,,S-1-5-83-0;BUILTIN\Administrators,S-1-5-83-0;BUILTIN\Administrators,=,Medium
+2.2.14.2,"User Rights Assignment","Create symbolic links (Hyper-V)",accesschk,SeCreateSymbolicLinkPrivilege,,,,,,S-1-5-83-0;BUILTIN\Administrators,"NT VIRTUAL MACHINE\Virtual Machines;BUILTIN\Administrators",=,Medium
 2.2.15,"User Rights Assignment","Debug programs",accesschk,SeDebugPrivilege,,,,,,BUILTIN\Administrators,BUILTIN\Administrators,=,Medium
 2.2.16,"User Rights Assignment","Deny access to this computer from the network",accesschk,SeDenyNetworkLogonRight,,,,,,COMPUTERNAME\Guest,"Guest;NT AUTHORITY\Local account",=,Medium
 2.2.17,"User Rights Assignment","Deny log on as a batch job",accesschk,SeDenyBatchLogonRight,,,,,,,BUILTIN\Guests,=,Medium
@@ -38,7 +38,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 2.2.27,"User Rights Assignment","Lock pages in memory",accesschk,SeLockMemoryPrivilege,,,,,,,,=,Medium
 2.2.28,"User Rights Assignment","Log on as a batch job",accesschk,SeBatchLogonRight,,,,,,"BUILTIN\Performance Log Users;BUILTIN\Backup Operators;BUILTIN\Administrators",BUILTIN\Administrators,=,Medium
 2.2.29.1,"User Rights Assignment","Log on as a service",accesschk,SeServiceLogonRight,,,,,,"NT SERVICE\ALL SERVICES;NT AUTHORITY\NETWORK SERVICE",,=,Medium
-2.2.29.2,"User Rights Assignment","Log on as a service (Hyper-V)",accesschk,SeServiceLogonRight,,,,,,"S-1-5-83-0;NT SERVICE\ALL SERVICES;NT AUTHORITY\NETWORK SERVICE",S-1-5-83-0,=,Medium
+2.2.29.2,"User Rights Assignment","Log on as a service (Hyper-V)",accesschk,SeServiceLogonRight,,,,,,"S-1-5-83-0;NT SERVICE\ALL SERVICES;NT AUTHORITY\NETWORK SERVICE","NT VIRTUAL MACHINE\Virtual Machines",=,Medium
 2.2.30,"User Rights Assignment","Manage auditing and security log",accesschk,SeSecurityPrivilege,,,,,,BUILTIN\Administrators,BUILTIN\Administrators,=,Medium
 2.2.31,"User Rights Assignment","Modify an object label",accesschk,SeReLabelPrivilege,,,,,,,,=,Medium
 2.2.32,"User Rights Assignment","Modify firmware environment values",accesschk,SeSystemEnvironmentPrivilege,,,,,,BUILTIN\Administrators,BUILTIN\Administrators,=,Medium
@@ -281,7 +281,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 18.4.6,"MSS (Legacy)","MSS: (KeepAliveTime) How often keep-alive packets are sent in milliseconds",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters,KeepAliveTime,,,,,300000,<=,Medium
 18.4.7,"MSS (Legacy)","MSS: (NoNameReleaseOnDemand) Allow the computer to ignore NetBIOS name release requests except from WINS servers",Registry,,HKLM:\System\CurrentControlSet\Services\Netbt\Parameters,NoNameReleaseOnDemand,,,,0,1,=,Medium
 18.4.8,"MSS (Legacy)","MSS: (PerformRouterDiscovery) Allow IRDP to detect and configure Default Gateway addresses (could lead to DoS)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters,PerformRouterDiscovery,,,,,0,=,Medium
-18.4.9,"MSS (Legacy)","Enable Safe DLL search mode",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager",SafeDLLSearchMode,,,,0,1,=,Medium
+18.4.9,"MSS (Legacy)","MSS: (SafeDllSearchMode) Enable Safe DLL search mode (recommended)",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager",SafeDLLSearchMode,,,,0,1,=,Medium
 18.4.10,"MSS (Legacy)","MSS: (ScreenSaverGracePeriod) The time in seconds before the screen saver grace period expires (0 recommended)",Registry,,"HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon",ScreenSaverGracePeriod,,,,5,5,<=,Medium
 18.4.11,"MSS (Legacy)","MSS: (TcpMaxDataRetransmissions IPv6) How many times unacknowledged data is retransmitted",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip6\Parameters,TcpMaxDataRetransmissions,,,,5,3,<=,Medium
 18.4.12,"MSS (Legacy)","MSS: (TcpMaxDataRetransmissions) How many times unacknowledged data is retransmitted",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip\Parameters,TcpMaxDataRetransmissions,,,,5,3,<=,Medium

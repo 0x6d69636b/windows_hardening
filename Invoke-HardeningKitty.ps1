@@ -470,7 +470,7 @@
             "BUILTIN\Guests" { $AccountSid = "S-1-5-32-546"; Break}
             "BUILTIN\Power Users" { $AccountSid = "S-1-5-32-547"; Break}
             "BUILTIN\Print Operators" { $AccountSid = "S-1-5-32-550"; Break}
-            "BUILTIN\Remote Desktop Users" { $AccountSid = "S-1-5-13"; Break}
+            "BUILTIN\Remote Desktop Users" { $AccountSid = "S-1-5-32-555"; Break}
             "BUILTIN\Server Operators" { $AccountSid = "S-1-5-32-549"; Break}
             "BUILTIN\Users" { $AccountSid = "S-1-5-32-545"; Break}
             "Everyone" { $AccountSid = "S-1-1-0"; Break}
@@ -482,7 +482,7 @@
             "NT AUTHORITY\Local account" { $AccountSid = "S-1-5-113"; Break}
             "NT AUTHORITY\LOCAL SERVICE" { $AccountSid = "S-1-5-19"; Break}
             "NT AUTHORITY\NETWORK SERVICE" { $AccountSid = "S-1-5-20"; Break}
-            "NT AUTHORITY\SERVICE" { $AccountSid = "S-1-5-80"; Break}
+            "NT AUTHORITY\SERVICE" { $AccountSid = "S-1-5-6"; Break}
             "NT AUTHORITY\SYSTEM" { $AccountSid = "S-1-5-18"; Break}
             "NT SERVICE\WdiServiceHost" { $AccountSid = "S-1-5-80-3139157870-2983391045-3678747466-658725712-1809340420"; Break}
             "NT VIRTUAL MACHINE\Virtual Machines" { $AccountSid = "S-1-5-83-0"; Break}
@@ -1158,6 +1158,39 @@
             # There are two output formats, one for command line output and one for the CSV file.
             #
             If ($Mode -eq "Audit") {
+
+                $RecommendedValue = $Finding.RecommendedValue
+
+                #
+                # User Right Assignment
+                # For multilingual support, a SID translation takes place and then the known SID values are compared with each other.
+                #
+                If ($Finding.Method -eq 'accesschk') {
+
+                    If ($Result -ne '') {
+
+                        $SaveResult = $Result
+                        $SaveRecommendedValue = $Finding.RecommendedValue
+                        $ListRecommended = $Finding.RecommendedValue.Split(";")
+                        $ListResult = $Result.Split(";")
+
+                        ForEach ($AccountName in $ListRecommended) {
+                            $AccountSid = Translate-SidFromWellkownAccount -AccountName $AccountName
+                            [String] $RecommendedValueSid += $AccountSid.Trim()+";"
+                        }
+                        $RecommendedValueSid = $RecommendedValueSid -replace ".$"
+
+                        ForEach ($AccountName in $ListResult) {
+                            $AccountSid = Get-SidFromAccount -AccountName $AccountName
+                            [String] $ResultSid += $AccountSid.Trim()+";"
+                        }
+                        $ResultSid = $ResultSid -replace ".$"
+
+                        $Result = $ResultSid
+                        $Finding.RecommendedValue = $RecommendedValueSid
+                        Clear-Variable -Name ("ResultSid", "RecommendedValueSid")
+                    }
+                }
  
                 $ResultPassed = $false
                 Switch($Finding.Operator) {
@@ -1169,6 +1202,13 @@
                     "contains" { If ($Result.Contains($Finding.RecommendedValue)) { $ResultPassed = $true }; Break}
                     "!="  { If ([string] $Result -ne $Finding.RecommendedValue) { $ResultPassed = $true }; Break}
                 }
+
+                # Restore Result after SID translation
+                If ($Finding.Method -eq 'accesschk') {
+
+                    $Result = $SaveResult
+                    $Finding.RecommendedValue = $SaveRecommendedValue
+                }                
 
                 If ($ResultPassed) {
 

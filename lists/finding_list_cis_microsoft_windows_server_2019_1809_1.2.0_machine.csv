@@ -26,7 +26,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 2.2.16,"User Rights Assignment","Create permanent shared objects",accesschk,SeCreatePermanentPrivilege,,,,,,,,=,Medium
 2.2.17,"User Rights Assignment","Create symbolic links (DC)",accesschk,SeCreateSymbolicLinkPrivilege,,,,,,BUILTIN\Administrators,BUILTIN\Administrators,=,Medium
 2.2.18.1,"User Rights Assignment","Create symbolic links (Member)",accesschk,SeCreateSymbolicLinkPrivilege,,,,,,BUILTIN\Administrators,BUILTIN\Administrators,=,Medium
-2.2.18.2,"User Rights Assignment","Create symbolic links (Member, Hyper-V)",accesschk,SeCreateSymbolicLinkPrivilege,,,,,,S-1-5-83-0;BUILTIN\Administrators,S-1-5-83-0;BUILTIN\Administrators,=,Medium
+2.2.18.2,"User Rights Assignment","Create symbolic links (Member, Hyper-V)",accesschk,SeCreateSymbolicLinkPrivilege,,,,,,S-1-5-83-0;BUILTIN\Administrators,"NT VIRTUAL MACHINE\Virtual Machines;BUILTIN\Administrators",=,Medium
 2.2.19,"User Rights Assignment","Debug programs",accesschk,SeDebugPrivilege,,,,,,BUILTIN\Administrators,BUILTIN\Administrators,=,Medium
 2.2.20,"User Rights Assignment","Deny access to this computer from the network (DC)",accesschk,SeDenyNetworkLogonRight,,,,,,BUILTIN\Guests,BUILTIN\Guests,=,Medium
 2.2.21,"User Rights Assignment","Deny access to this computer from the network (Member)",accesschk,SeDenyNetworkLogonRight,,,,,,BUILTIN\Guests,"BUILTIN\Guests;NT AUTHORITY\Local account and member of Administrators group",=,Medium
@@ -214,7 +214,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 18.4.5,"MSS (Legacy)","MSS: (KeepAliveTime) How often keep-alive packets are sent in milliseconds",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters,KeepAliveTime,,,,,300000,<=,Medium
 18.4.6,"MSS (Legacy)","MSS: (NoNameReleaseOnDemand) Allow the computer to ignore NetBIOS name release requests except from WINS servers",Registry,,HKLM:\System\CurrentControlSet\Services\Netbt\Parameters,NoNameReleaseOnDemand,,,,0,1,=,Medium
 18.4.7,"MSS (Legacy)","MSS: (PerformRouterDiscovery) Allow IRDP to detect and configure Default Gateway addresses (could lead to DoS)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters,PerformRouterDiscovery,,,,,0,=,Medium
-18.4.8,"MSS (Legacy)","Enable Safe DLL search mode",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager",SafeDLLSearchMode,,,,0,1,=,Medium
+18.4.8,"MSS (Legacy)","MSS: (SafeDllSearchMode) Enable Safe DLL search mode (recommended)",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager",SafeDLLSearchMode,,,,0,1,=,Medium
 18.4.9,"MSS (Legacy)","MSS: (ScreenSaverGracePeriod) The time in seconds before the screen saver grace period expires (0 recommended)",Registry,,"HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon",ScreenSaverGracePeriod,,,,5,5,<=,Medium
 18.4.10,"MSS (Legacy)","MSS: (TcpMaxDataRetransmissions IPv6) How many times unacknowledged data is retransmitted",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip6\Parameters,TcpMaxDataRetransmissions,,,,5,3,<=,Medium
 18.4.11,"MSS (Legacy)","MSS: (TcpMaxDataRetransmissions) How many times unacknowledged data is retransmitted",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip\Parameters,TcpMaxDataRetransmissions,,,,5,3,<=,Medium
