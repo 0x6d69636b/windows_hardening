@@ -280,11 +280,14 @@
     }
 
     Function Out-IniFile($InputObject, $FilePath, $Encoding) {
+
         <#
             .SYNOPSIS
+
                 Write a hashtable out to a .ini file
 
             .NOTES
+
                 Original source see https://devblogs.microsoft.com/scripting/use-powershell-to-work-with-any-ini-file/
         #>
 
@@ -310,15 +313,21 @@
     }    
 
     Function Get-HashtableValueDeep {
+
         <#
             .SYNOPSIS
+
                 Get a value from a tree of hashtables
         #>
 
         [CmdletBinding()]
         Param (
-            [Hashtable] $Table,
-            [String] $Path
+
+            [Hashtable]
+            $Table,
+
+            [String]
+            $Path
         )
 
         $Key = $Path.Split('\', 2)
@@ -341,16 +350,24 @@
     }
 
     Function Set-HashtableValueDeep {
+
         <#
             .SYNOPSIS
+
                 Set a value in a tree of hashtables
         #>
 
         [CmdletBinding()]
         Param (
-            [Hashtable] $Table,
-            [String] $Path,
-            [String] $Value
+
+            [Hashtable]
+            $Table,
+
+            [String]
+            $Path,
+
+            [String]
+            $Value
         )
 
         $Key = $Path.Split('\', 2)
@@ -368,6 +385,112 @@
         } elseif($Key.Length -eq 1) {
             $Table[$Key[0]] = $Value;
         }
+    }
+
+    Function Get-SidFromAccount {
+
+        <#
+            .SYNOPSIS
+
+                Translate the account name (user or group) into the Security Identifier (SID)
+        #>
+    
+        [CmdletBinding()]
+        Param (
+            
+            [String]
+            $AccountName
+        )
+
+        try {
+
+            $AccountObject = New-Object System.Security.Principal.NTAccount($AccountName)
+            $AccountSid = $AccountObject.Translate([System.Security.Principal.SecurityIdentifier]).Value            
+
+        } catch {
+
+            # If translation fails, return account name
+            $AccountSid = $AccountName 
+        }
+
+        Return $AccountSid
+    }
+
+    Function Get-AccountFromSid {
+
+        <#
+            .SYNOPSIS
+
+                Translate the Security Identifier (SID) into the account name (user or group)
+        #>
+    
+        [CmdletBinding()]
+        Param (
+            
+            [String]
+            $AccountSid
+        )
+
+        try {
+
+            $AccountObject = New-Object System.Security.Principal.SecurityIdentifier ($AccountSid)
+            $AccountName = $AccountObject.Translate([System.Security.Principal.NTAccount]).Value            
+
+        } catch {
+
+            # If translation fails, return account SID
+            $AccountName = $AccountSid 
+        }
+
+        Return $AccountName
+    }
+
+    Function Translate-SidFromWellkownAccount {
+
+        <#
+            .SYNOPSIS
+
+                Translate the well-known account name (user or group) into the Security Identifier (SID)
+                No attempt is made to get a Computer SID or Domain SID to identify groups such as Domain Admins,
+                as the possibility for false positives is too great. In this case the account name is returned.
+        #>
+    
+        [CmdletBinding()]
+        Param (
+            
+            [String]
+            $AccountName
+        )     
+
+        Switch ($AccountName) {
+
+            "BUILTIN\Account Operators" { $AccountSid = "S-1-5-32-548"; Break}
+            "BUILTIN\Administrators" { $AccountSid = "S-1-5-32-544"; Break}
+            "BUILTIN\Backup Operators" { $AccountSid = "S-1-5-32-551"; Break}
+            "BUILTIN\Guests" { $AccountSid = "S-1-5-32-546"; Break}
+            "BUILTIN\Power Users" { $AccountSid = "S-1-5-32-547"; Break}
+            "BUILTIN\Print Operators" { $AccountSid = "S-1-5-32-550"; Break}
+            "BUILTIN\Remote Desktop Users" { $AccountSid = "S-1-5-13"; Break}
+            "BUILTIN\Server Operators" { $AccountSid = "S-1-5-32-549"; Break}
+            "BUILTIN\Users" { $AccountSid = "S-1-5-32-545"; Break}
+            "Everyone" { $AccountSid = "S-1-1-0"; Break}
+            "NT AUTHORITY\ANONYMOUS LOGON" { $AccountSid = "S-1-5-7"; Break}
+            "NT AUTHORITY\Authenticated Users" { $AccountSid = "S-1-5-11"; Break}
+            "NT AUTHORITY\ENTERPRISE DOMAIN CONTROLLERS" { $AccountSid = "S-1-5-9"; Break}
+            "NT AUTHORITY\IUSR" { $AccountSid = "S-1-5-17"; Break}
+            "NT AUTHORITY\Local account and member of Administrators group" { $AccountSid = "S-1-5-114"; Break}
+            "NT AUTHORITY\Local account" { $AccountSid = "S-1-5-113"; Break}
+            "NT AUTHORITY\LOCAL SERVICE" { $AccountSid = "S-1-5-19"; Break}
+            "NT AUTHORITY\NETWORK SERVICE" { $AccountSid = "S-1-5-20"; Break}
+            "NT AUTHORITY\SERVICE" { $AccountSid = "S-1-5-80"; Break}
+            "NT AUTHORITY\SYSTEM" { $AccountSid = "S-1-5-18"; Break}
+            "NT SERVICE\WdiServiceHost" { $AccountSid = "S-1-5-80-3139157870-2983391045-3678747466-658725712-1809340420"; Break}
+            "NT VIRTUAL MACHINE\Virtual Machines" { $AccountSid = "S-1-5-83-0"; Break}
+            "Window Manager\Window Manager Group" { $AccountSid = "S-1-5-90-0"; Break}
+            Default  { $AccountSid = $AccountName }
+        }        
+
+        Return $AccountSid
     }
 
     #
