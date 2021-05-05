@@ -496,6 +496,7 @@
     #
     # Start Main
     #
+    $HardeningKittyVersion = "0.5.5-1620232435"
 
     #
     # Log and report file
@@ -530,7 +531,7 @@
     #
     Write-Output "`n"
     Write-Output "      =^._.^="
-    Write-Output "     _(      )/  HardeningKitty"
+    Write-Output "     _(      )/  HardeningKitty $HardeningKittyVersion"
     Write-Output "`n"    
     Write-ProtocolEntry -Text "Starting HardeningKitty" -LogLevel "Info"
 
