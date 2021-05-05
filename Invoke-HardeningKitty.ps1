@@ -12,7 +12,7 @@
 
         Author:  Michael Schneider
         License: MIT
-        Required Dependencies: AccessChk by Mark Russinovich
+        Required Dependencies: None
         Optional Dependencies: None
 
 
@@ -62,12 +62,6 @@
 
         The name and location of the report file can be defined by the user.
 
-
-    .PARAMETER BinaryAccesschk
-
-        The path of the AccessChk binary can be defined by the user.
-
-
     .EXAMPLE
         
         Invoke-HardeningKitty -Mode "Audit" -Log -Report
@@ -106,12 +100,7 @@
 
         # Define name and path of the report file
         [String]
-        $ReportFile,
-
-        # Define path to accessak binary
-        [ValidateScript({Test-Path $_})]
-        [String]
-        $BinaryAccesschk = "C:\tmp\accesschk64.exe"
+        $ReportFile
     )
 
     Function Write-ProtocolEntry {
@@ -426,7 +415,7 @@
     
         [CmdletBinding()]
         Param (
-            
+
             [String]
             $AccountSid
         )
@@ -454,7 +443,7 @@
                 No attempt is made to get a Computer SID or Domain SID to identify groups such as Domain Admins,
                 as the possibility for false positives is too great. In this case the account name is returned.
         #>
-    
+
         [CmdletBinding()]
         Param (
             
@@ -603,7 +592,7 @@
             # Category
             #
             If ($LastCategory -ne $Finding.Category) {
-                         
+
                 $Message = "Starting Category " + $Finding.Category
                 Write-Output "`n"                
                 Write-ProtocolEntry -Text $Message -LogLevel "Info"
@@ -720,7 +709,7 @@
                     Write-ProtocolEntry -Text $Message -LogLevel "Error"
                     Continue
                 }
-                
+
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
                     $StatsError++
@@ -728,7 +717,7 @@
                     Write-ProtocolEntry -Text $Message -LogLevel "Error"
                     Continue
                 }
-                                            
+
                 try {
 
                     $SubCategory = $Finding.MethodArgument
@@ -816,20 +805,22 @@
 
             #
             # User Rights Assignment
-            # Unfortunately there is no easy way to read out these results. Therefore the Sysinternals tool
-            # accesschk is used and its output is parsed. To simplify parsing, the output is reduced.
-            # If several users/groups have the appropriate rights, these are displayed per line. Therefore,
-            # a loop must be performed over the output and all users/groups are combined in one variable at the end.
-            # The values used are from the Microsoft documentation at:
-            # https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/user-rights-assignment
+            # This method was first developed with the tool accessck.exe, hence the name.
+            # Due to compatibility problems in languages other than English, secedit.exe is
+            # now used to read the User Rights Assignments.
+            #
+            # Secedit configures and analyzes system security, results are written
+            # to a file, which means HardeningKitty must create a temporary file
+            # and afterwards delete it. HardeningKitty is very orderly.   
             #
             ElseIf ($Finding.Method -eq 'accesschk') {
 
                 # Check if binary is available, skip test if not
-                If (-Not (Test-Path $BinaryAccesschk)) {
+                $BinarySecedit = "C:\Windows\System32\secedit.exe"
+                If (-Not (Test-Path $BinarySecedit)) {
                     $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires accesschk, and the binary for accesschk was not found. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires secedit, and the binary for secedit was not found. Test skipped."
+                    Write-ProtocolEntry -Text $Message -LogLevel "Error"                    
                     Continue
                 }
 
@@ -841,28 +832,27 @@
                     Continue
                 }
 
+                $TempFileName = [System.IO.Path]::GetTempFileName()
+
                 try { 
                                    
-                    $ResultOutput = &$BinaryAccesschk -accepteula -nobanner -a $Finding.MethodArgument
+                    &$BinarySecedit /export /cfg $TempFileName /areas USER_RIGHTS | Out-Null
+                    $ResultOutputRaw = Get-Content -Encoding unicode $TempFileName | Select-String $Finding.MethodArgument
 
-                    # "Parse" accesschk.exe output
-                    ForEach($ResultEntry in $ResultOutput) {
-
-                        If ($ResultEntry.Contains("No accounts granted")) {
-                            
-                            $Result = ""
-                            Break
-
-                        } Else {
-
-                            [String] $Result += $ResultEntry.Trim()+";"
-                        }
+                    If ($ResultOutputRaw -eq $null) {
+                        $Result = ""
                     }
-                    # Remove last character
-                    $Result = $Result -replace “.$”
+                    Else {
+                        $ResultOutputList = $ResultOutputRaw.ToString().split("=").Trim()
+                        $Result = $ResultOutputList[1] -Replace "\*",""
+                        $Result = $Result -Replace ",",";"
+                    }
+
                 } catch {
                     $Result = $Finding.DefaultValue
                 }
+
+                Remove-Item $TempFileName
             }
 
             #
@@ -1160,36 +1150,35 @@
             #
             If ($Mode -eq "Audit") {
 
-                $RecommendedValue = $Finding.RecommendedValue
-
                 #
                 # User Right Assignment
                 # For multilingual support, a SID translation takes place and then the known SID values are compared with each other.
+                # The results are already available as SID (from secedit) and therefore the specifications are now also translated and still sorted.
                 #
                 If ($Finding.Method -eq 'accesschk') {
 
                     If ($Result -ne '') {
 
-                        $SaveResult = $Result
                         $SaveRecommendedValue = $Finding.RecommendedValue
                         $ListRecommended = $Finding.RecommendedValue.Split(";")
-                        $ListResult = $Result.Split(";")
+                        $ListRecommendedSid = @()
 
+                        # SID Translation
                         ForEach ($AccountName in $ListRecommended) {
                             $AccountSid = Translate-SidFromWellkownAccount -AccountName $AccountName
-                            [String] $RecommendedValueSid += $AccountSid.Trim()+";"
+                            $ListRecommendedSid += $AccountSid                            
                         }
+                        # Sort SID List
+                        $ListRecommendedSid = $ListRecommendedSid | Sort-Object
+                        
+                        # Build String
+                        ForEach ($AccountName in $ListRecommendedSid) {
+                            [String] $RecommendedValueSid += $AccountName+";"
+                        }                
+
                         $RecommendedValueSid = $RecommendedValueSid -replace ".$"
-
-                        ForEach ($AccountName in $ListResult) {
-                            $AccountSid = Get-SidFromAccount -AccountName $AccountName
-                            [String] $ResultSid += $AccountSid.Trim()+";"
-                        }
-                        $ResultSid = $ResultSid -replace ".$"
-
-                        $Result = $ResultSid
                         $Finding.RecommendedValue = $RecommendedValueSid
-                        Clear-Variable -Name ("ResultSid", "RecommendedValueSid")
+                        Clear-Variable -Name ("RecommendedValueSid")
                     }
                 }
  
@@ -1204,10 +1193,24 @@
                     "!="  { If ([string] $Result -ne $Finding.RecommendedValue) { $ResultPassed = $true }; Break}
                 }
 
+                #
                 # Restore Result after SID translation
+                # The results are already available as SID, for better readability they are translated into their names
+                #
                 If ($Finding.Method -eq 'accesschk') {
 
-                    $Result = $SaveResult
+                    If ($Result -ne "") {
+
+                        $ListResult = $Result.Split(";")
+                        ForEach ($AccountSid in $ListResult) {
+                            $AccountName = Get-AccountFromSid -AccountSid $AccountSid
+                            [String] $ResultName += $AccountName.Trim()+";"
+                        }
+                        $ResultName = $ResultName -replace ".$"
+                        $Result = $ResultName
+                        Clear-Variable -Name ("ResultName")
+                    }
+                                        
                     $Finding.RecommendedValue = $SaveRecommendedValue
                 }                
 
