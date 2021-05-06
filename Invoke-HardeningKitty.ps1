@@ -485,7 +485,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.5.5-1620232435"
+    $HardeningKittyVersion = "0.5.5-1620277835"
 
     #
     # Log and report file
@@ -849,7 +849,11 @@
                     }
 
                 } catch {
-                    $Result = $Finding.DefaultValue
+                    # If secedit did not work, throw an error instead of using the DefaultValue
+                    $StatsError++
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", secedit.exe could not read the configuration. Test skipped."
+                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Continue
                 }
 
                 Remove-Item $TempFileName
