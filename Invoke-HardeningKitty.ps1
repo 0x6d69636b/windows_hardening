@@ -485,7 +485,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.5.5-1620277835"
+    $HardeningKittyVersion = "0.5.5-1620477920"
 
     #
     # Log and report file
@@ -1195,6 +1195,7 @@
                     ">=" { try { If ([int]$Result -ge [int]$Finding.RecommendedValue) { $ResultPassed = $true }} catch { $ResultPassed = $false }; Break}
                     "contains" { If ($Result.Contains($Finding.RecommendedValue)) { $ResultPassed = $true }; Break}
                     "!="  { If ([string] $Result -ne $Finding.RecommendedValue) { $ResultPassed = $true }; Break}
+                    "=|0" { try { If ([string]$Result -eq $Finding.RecommendedValue -or $Result.Length -eq 0) { $ResultPassed = $true }} catch { $ResultPassed = $false }; Break}
                 }
 
                 #
