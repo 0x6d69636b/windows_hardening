@@ -536,7 +536,7 @@
     #
     # Machine information
     #
-    Îf (-not($SkipMachineInformation)) {
+    If (-not($SkipMachineInformation)) {
         Write-Output "`n" 
         Write-ProtocolEntry -Text "Getting machine information" -LogLevel "Info"
         $MachineInformation = Get-ComputerInfo
