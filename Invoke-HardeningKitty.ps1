@@ -62,6 +62,11 @@
 
         The name and location of the report file can be defined by the user.
 
+    .PARAMETER SkipMachineInformation
+
+        Information about the system is not queried and displayed. This may be useful while debugging or
+        using multiple lists on the same system.
+
     .EXAMPLE
         
         Invoke-HardeningKitty -Mode "Audit" -Log -Report
@@ -89,6 +94,10 @@
         # Create a log file
         [Switch]
         $Log = $false,
+
+        # Skip machine information, useful when debugging
+        [Switch]
+        $SkipMachineInformation = $false,        
 
         # Define name and path of the log file
         [String]
@@ -485,7 +494,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.5.5-1620477920"
+    $HardeningKittyVersion = "0.5.5-1620478957"
 
     #
     # Log and report file
@@ -527,30 +536,32 @@
     #
     # Machine information
     #
-    Write-Output "`n" 
-    Write-ProtocolEntry -Text "Getting machine information" -LogLevel "Info"
-    $MachineInformation = Get-ComputerInfo
+    Îf (-not($SkipMachineInformation)) {
+        Write-Output "`n" 
+        Write-ProtocolEntry -Text "Getting machine information" -LogLevel "Info"
+        $MachineInformation = Get-ComputerInfo
 
-    $Message = "Hostname: "+$MachineInformation.CsDNSHostName
-    Write-ProtocolEntry -Text $Message -LogLevel "Notime"
-    $Message = "Domain: "+$MachineInformation.CsDomain
-    Write-ProtocolEntry -Text $Message -LogLevel "Notime"
-    $Message = "Domain role: "+$MachineInformation.CsDomainRole
-    Write-ProtocolEntry -Text $Message -LogLevel "Notime"
-    $Message = "Install date: "+$MachineInformation.OsInstallDate
-    Write-ProtocolEntry -Text $Message -LogLevel "Notime"
-    $Message = "Last Boot Time: "+$MachineInformation.OsLastBootUpTime
-    Write-ProtocolEntry -Text $Message -LogLevel "Notime"
-    $Message = "Uptime: "+$MachineInformation.OsUptime
-    Write-ProtocolEntry -Text $Message -LogLevel "Notime"
-    $Message = "Windows: "+$MachineInformation.WindowsProductName
-    Write-ProtocolEntry -Text $Message -LogLevel "Notime"
-    $Message = "Windows edition: "+$MachineInformation.WindowsEditionId
-    Write-ProtocolEntry -Text $Message -LogLevel "Notime"
-    $Message = "Windows version: "+$MachineInformation.WindowsVersion
-    Write-ProtocolEntry -Text $Message -LogLevel "Notime"
-    $Message = "Windows build: "+$MachineInformation.WindowsBuildLabEx
-    Write-ProtocolEntry -Text $Message -LogLevel "Notime"
+        $Message = "Hostname: "+$MachineInformation.CsDNSHostName
+        Write-ProtocolEntry -Text $Message -LogLevel "Notime"
+        $Message = "Domain: "+$MachineInformation.CsDomain
+        Write-ProtocolEntry -Text $Message -LogLevel "Notime"
+        $Message = "Domain role: "+$MachineInformation.CsDomainRole
+        Write-ProtocolEntry -Text $Message -LogLevel "Notime"
+        $Message = "Install date: "+$MachineInformation.OsInstallDate
+        Write-ProtocolEntry -Text $Message -LogLevel "Notime"
+        $Message = "Last Boot Time: "+$MachineInformation.OsLastBootUpTime
+        Write-ProtocolEntry -Text $Message -LogLevel "Notime"
+        $Message = "Uptime: "+$MachineInformation.OsUptime
+        Write-ProtocolEntry -Text $Message -LogLevel "Notime"
+        $Message = "Windows: "+$MachineInformation.WindowsProductName
+        Write-ProtocolEntry -Text $Message -LogLevel "Notime"
+        $Message = "Windows edition: "+$MachineInformation.WindowsEditionId
+        Write-ProtocolEntry -Text $Message -LogLevel "Notime"
+        $Message = "Windows version: "+$MachineInformation.WindowsVersion
+        Write-ProtocolEntry -Text $Message -LogLevel "Notime"
+        $Message = "Windows build: "+$MachineInformation.WindowsBuildLabEx
+        Write-ProtocolEntry -Text $Message -LogLevel "Notime"
+    }
 
     #
     # User information
