@@ -1,0 +1,5 @@
+ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Namespace,Property,DefaultValue,RecommendedValue,Operator,Severity
+38,"Administrative Templates: System","Internet Communication Management: Internet Communication Settings: Turn off Help Experience Improvement Program",Registry,,HKCU:\Software\Policies\Microsoft\Assistance\Client\1.0,NoImplicitFeedback,,,,0,1,=,Medium
+110,"Administrative Templates: Windows Components","Cloud Content: Turn off all Windows spotlight features",Registry,,HKCU:\Software\Policies\Microsoft\Windows\CloudContent,DisableWindowsSpotlightFeatures,,,,0,1,=,Medium
+111,"Administrative Templates: Windows Components","Cloud Content: Do not use diagnostic data for tailored experiences",Registry,,HKCU:\Software\Policies\Microsoft\Windows\CloudContent,DisableTailoredExperiencesWithDiagnosticData,,,,0,1,=,Medium
+182,"Administrative Templates: Windows Components","Windows Media Player: Playback: Prevent Codec Download",Registry,,HKCU:\Software\Policies\Microsoft\WindowsMediaPlayer,PreventCodecDownload,,,,,1,=,Medium

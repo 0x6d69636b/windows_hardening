@@ -1,0 +1,12 @@
+ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Namespace,Property,DefaultValue,RecommendedValue,Operator,Severity
+37,"Administrative Templates: Start Menu and Taskbar","Notifications: Turn off toast notifications on the lock screen",Registry,,HKCU:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\PushNotifications,NoToastApplicationNotificationOnLockScreen,,,,0,1,=,Medium
+96,"Administrative Templates: Control Panel","Force specific screen saver: Screen saver executable name",Registry,,"HKCU:\Software\Policies\Microsoft\Windows\Control Panel\Desktop",SCRNSAVE.EXE,,,,,scrnsave.scr,=,Medium
+97,"Administrative Templates: Control Panel","Enable screen saver",Registry,,"HKCU:\Software\Policies\Microsoft\Windows\Control Panel\Desktop",ScreenSaveActive,,,,,1,=,Medium
+98,"Administrative Templates: Control Panel","Password protect the screen saver",Registry,,"HKCU:\Software\Policies\Microsoft\Windows\Control Panel\Desktop",ScreenSaverIsSecure,,,,,1,=,Medium
+99,"Administrative Templates: Control Panel","Screen saver timeout",Registry,,"HKCU:\Software\Policies\Microsoft\Windows\Control Panel\Desktop",ScreenSaveTimeOut,,,,,900,<=!0,Medium
+102,"Administrative Templates: Windows Components","Attachment Manager: Notify antivirus programs when opening attachments",Registry,,HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments,ScanWithAntiVirus,,,,,3,=,Medium
+103,"Administrative Templates: Windows Components","Attachment Manager: Do not preserve zone information in file attachments",Registry,,HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments,SaveZoneInformation,,,,,2,=,Medium
+112,"Administrative Templates: Windows Components","Cloud Content: Do not suggest third-party content in Windows spotlight",Registry,,HKCU:\Software\Policies\Microsoft\Windows\CloudContent,DisableThirdPartySuggestions,,,,0,1,=,Medium
+114,"Administrative Templates: Windows Components","Cloud Content: Configure Windows spotlight on lock screen",Registry,,HKCU:\Software\Policies\Microsoft\Windows\CloudContent,ConfigureWindowsSpotlight,,,,,2,=,Medium
+126,"Administrative Templates: Windows Components","Network Sharing: Prevent users from sharing files within their profile",Registry,,HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer,NoInplaceSharing,,,,0,1,=,Medium
+181,"Administrative Templates: Windows Components","Windows Installer: Always install with elevated privileges",Registry,,HKCU:\Software\Policies\Microsoft\Windows\Installer,AlwaysInstallElevated,,,,1,0,=,Medium
