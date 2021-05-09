@@ -136,6 +136,7 @@ HardeningKitty can be used to audit systems against the following baselines / be
 | Microsoft Security baseline for Office 365 ProPlus (User) | Sept 2019 | Final |
 | Microsoft Security Baseline for Microsoft 365 Apps for enterprise (Machine) | March 2021 | Final |
 | Microsoft Security Baseline for Microsoft 365 Apps for enterprise (User) | March 2021 | Final |
+| Microsoft Windows Server TLS Settings | 1809 | 1.0 |
 
 ## Sources
 
@@ -168,3 +169,6 @@ HardeningKitty can be used to audit systems against the following baselines / be
 * [Use policy settings to manage privacy controls for Microsoft 365 Apps for enterprise](https://docs.microsoft.com/en-us/deployoffice/privacy/manage-privacy-controls)
 * [DoD Cyber Exchange Public - Security Technical Implementation Guides (STIGs) - Group Policy Objects](https://public.cyber.mil/stigs/gpo/)
 * [BSI SiSyPHuS Win10: Windows 10 Hardening Guideline](https://www.bsi.bund.de/EN/Topics/Cyber-Security/Recommendations/SiSyPHuS_Win10/AP11/SiSyPHuS_AP11.html)
+* [Setup Microsoft Windows or IIS for SSL Perfect Forward Secrecy and TLS 1.2](https://www.hass.de/content/setup-microsoft-windows-or-iis-ssl-perfect-forward-secrecy-and-tls-12)
+* [Nartac Software - IIS Crypto](https://www.nartac.com/Products/IISCrypto/)
+* [Transport Layer Security (TLS) best practices with the .NET Framework](https://docs.microsoft.com/en-us/dotnet/framework/network-programming/tls)
