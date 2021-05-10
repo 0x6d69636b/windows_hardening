@@ -137,6 +137,7 @@ HardeningKitty can be used to audit systems against the following baselines / be
 | Microsoft Security Baseline for Microsoft 365 Apps for enterprise (Machine) | March 2021 | Final |
 | Microsoft Security Baseline for Microsoft 365 Apps for enterprise (User) | March 2021 | Final |
 | Microsoft Windows Server TLS Settings | 1809 | 1.0 |
+| Microsoft Windows Server TLS Settings (Future Use with TLSv1.3) | 1903 | 1.0 |
 
 ## Sources
 
@@ -172,3 +173,5 @@ HardeningKitty can be used to audit systems against the following baselines / be
 * [Setup Microsoft Windows or IIS for SSL Perfect Forward Secrecy and TLS 1.2](https://www.hass.de/content/setup-microsoft-windows-or-iis-ssl-perfect-forward-secrecy-and-tls-12)
 * [Nartac Software - IIS Crypto](https://www.nartac.com/Products/IISCrypto/)
 * [Transport Layer Security (TLS) best practices with the .NET Framework](https://docs.microsoft.com/en-us/dotnet/framework/network-programming/tls)
+* [Microsoft TLS 1.3 Support Reference](https://devblogs.microsoft.com/premier-developer/microsoft-tls-1-3-support-reference/)
+* [TLS Cipher Suites in Windows Server 2022](https://docs.microsoft.com/en-us/windows/win32/secauthn/tls-cipher-suites-in-windows-server-2022)
