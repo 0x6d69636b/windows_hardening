@@ -94,8 +94,8 @@ HardeningKitty can be used to audit systems against the following baselines / be
 
 | Name | System Version    | Version  |
 | :--- | :---------------- | :------  |
-| 0x6d69636b (Machine) | 2009 | |
-| 0x6d69636b (User) | 2009 | |
+| 0x6d69636b (Machine) | 20H2 | |
+| 0x6d69636b (User) | 20H2 | |
 | BSI SiSyPHuS Windows 10 hoher Schutzbedarf Domänenmitglied (Machine) | 1809 | 1.0 |
 | BSI SiSyPHuS Windows 10 hoher Schutzbedarf Domänenmitglied (User) | 1809| 1.0
 | BSI SiSyPHuS Windows 10 normaler Schutzbedarf Domänenmitglied (Machine) | 1809| 1.0 |
@@ -110,8 +110,8 @@ HardeningKitty can be used to audit systems against the following baselines / be
 | CIS Microsoft Windows 10 Enterprise (User) | 1909 | 1.8.1 |
 | CIS Microsoft Windows 10 Enterprise (Machine) | 2004 | 1.9.1 |
 | CIS Microsoft Windows 10 Enterprise (User) | 2004 | 1.9.1 |
-| CIS Microsoft Windows 10 Enterprise (Machine) | 2009 | 1.10.1 |
-| CIS Microsoft Windows 10 Enterprise (User) | 2009 | 1.10.1 |
+| CIS Microsoft Windows 10 Enterprise (Machine) | 20H2 | 1.10.1 |
+| CIS Microsoft Windows 10 Enterprise (User) | 20H2 | 1.10.1 |
 | CIS Microsoft Windows Server 2012 R2 (Machine) | R2 | 2.4.0 |
 | CIS Microsoft Windows Server 2012 R2 (User) | R2 | 2.4.0 |
 | CIS Microsoft Windows Server 2016 (Machine) | 1607 | 1.2.0 |
@@ -120,22 +120,22 @@ HardeningKitty can be used to audit systems against the following baselines / be
 | CIS Microsoft Windows Server 2019 (User) | 1809 | 1.1.0 |
 | CIS Microsoft Windows Server 2019 (Machine) | 1809 | 1.2.0 |
 | CIS Microsoft Windows Server 2019 (User) | 1809 | 1.2.0 |
-| DoD Microsoft Windows 10 STIG (Machine) | 2009 | v2r1 |
-| DoD Microsoft Windows 10 STIG (User) | 2009 | v2r1 |
-| DoD Windows Server 2019 Domain Controller STIG (Machine) | 2009 | v2r1 |
-| DoD Windows Server 2019 Domain Controller STIG (User) | 2009 | v2r1 |
-| DoD Windows Server 2019 Member Server STIG (Machine) | 2009 | v2r1 |
-| DoD Windows Server 2019 Member Server STIG (User) | 2009 | v2r1 |
-| DoD Windows Defender Antivirus STIG | 2009 | v2r1 |
-| DoD Windows Firewall STIG | 2009 | v1r7 |
+| DoD Microsoft Windows 10 STIG (Machine) | 20H2 | v2r1 |
+| DoD Microsoft Windows 10 STIG (User) | 20H2 | v2r1 |
+| DoD Windows Server 2019 Domain Controller STIG (Machine) | 20H2 | v2r1 |
+| DoD Windows Server 2019 Domain Controller STIG (User) | 20H2 | v2r1 |
+| DoD Windows Server 2019 Member Server STIG (Machine) | 20H2 | v2r1 |
+| DoD Windows Server 2019 Member Server STIG (User) | 20H2 | v2r1 |
+| DoD Windows Defender Antivirus STIG | 20H2 | v2r1 |
+| DoD Windows Firewall STIG | 20H2 | v1r7 |
 | Microsoft Security baseline for Microsoft Edge | 87 | Final |
 | Microsoft Security baseline for Microsoft Edge | 88, 89, 90 | Final |
 | Microsoft Security baseline for Windows 10 | 2004 | Final |
-| Microsoft Security baseline for Windows 10 | 2009, 21H1 | Final |
+| Microsoft Security baseline for Windows 10 | 20H2, 21H1 | Final |
 | Microsoft Security baseline for Windows Server (DC) | 2004 | Final |
 | Microsoft Security baseline for Windows Server (Member) | 2004 | Final |
-| Microsoft Security baseline for Windows Server (DC) | 2009 | Final |
-| Microsoft Security baseline for Windows Server (Member) | 2009 | Final |
+| Microsoft Security baseline for Windows Server (DC) | 20H2 | Final |
+| Microsoft Security baseline for Windows Server (Member) | 20H2 | Final |
 | Microsoft Security baseline for Office 365 ProPlus (Machine) | Sept 2019 | Final |
 | Microsoft Security baseline for Office 365 ProPlus (User) | Sept 2019 | Final |
 | Microsoft Security Baseline for Microsoft 365 Apps for enterprise (Machine) | March 2021 | Final |
