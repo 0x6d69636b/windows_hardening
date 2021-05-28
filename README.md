@@ -129,7 +129,7 @@ HardeningKitty can be used to audit systems against the following baselines / be
 | DoD Windows Defender Antivirus STIG | 20H2 | v2r1 |
 | DoD Windows Firewall STIG | 20H2 | v1r7 |
 | Microsoft Security baseline for Microsoft Edge | 87 | Final |
-| Microsoft Security baseline for Microsoft Edge | 88, 89, 90 | Final |
+| Microsoft Security baseline for Microsoft Edge | 88, 89, 90, 91 | Final |
 | Microsoft Security baseline for Windows 10 | 2004 | Final |
 | Microsoft Security baseline for Windows 10 | 20H2, 21H1 | Final |
 | Microsoft Security baseline for Windows Server (DC) | 2004 | Final |
