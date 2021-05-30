@@ -378,6 +378,7 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 	* ID 1913: 26190899-1602-49e8-8b27-eb1d0a1ce869 - Block Office communication applications from creating child processes
 	* ID 1914: 7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c - Block Adobe Reader from creating child processes
 	* ID 1915: e6db77e5-3df2-4cf1-b95a-636979351e5b - Block persistence through WMI event subscription
+	* ID 1930: 56a863a9-875e-4185-98a7-b882c64b5ce5 - Block abuse of exploited vulnerable signed drivers
 * ID 1966: Set _Microsoft Defender Exploit Guard\Attack Surface Reduction\Exclude files and paths from Attack Surface Reduction Rules (Policy)_ to **Disabled**
 * ID 1967: Do not use exclusions for ASR Rules: **empty list**
 * ID 1965: Set _Microsoft Defender Exploit Guard\Network Protection\Prevent users and apps from accessing dangerous websites_ to **Block**
