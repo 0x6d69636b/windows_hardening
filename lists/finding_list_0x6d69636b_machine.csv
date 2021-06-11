@@ -36,7 +36,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 1319,"Security Options","Network security: Restrict NTLM: Outgoing NTLM traffic to remote servers",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa\MSV1_0,RestrictSendingNTLMTraffic,,,,0,1,=,Medium
 1320,"Security Options","Shutdown: Allow system to be shut down without having to log on",Registry,,HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System,ShutdownWithoutLogon,,,,1,0,=,Medium
 1321,"Security Options","User Account Control: Admin Approval Mode for the Built-in Administrator account",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,FilterAdministratorToken,,,,0,1,=,Medium
-1322,"Security Options","User Account Control: Behavior of the elevation prompt for administrators in Admin Approval Mode",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,ConsentPromptBehaviorAdmin,,,,0,5,=,Medium
+1322,"Security Options","User Account Control: Behavior of the elevation prompt for administrators in Admin Approval Mode",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,ConsentPromptBehaviorAdmin,,,,5,5,=,Medium
 1323,"Security Options","User Account Control: Behavior of the elevation prompt for standard users",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,ConsentPromptBehaviorUser,,,,0,1,=,Medium
 1400,"Windows Firewall","EnableFirewall (Domain Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile,EnableFirewall,,,,0,1,=,Medium
 1418,"Windows Firewall","EnableFirewall (Domain Profile)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile,EnableFirewall,,,,1,1,=,Medium
