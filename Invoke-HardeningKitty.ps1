@@ -1437,6 +1437,77 @@
                 Remove-Item $TempFileName
                 Remove-Item $TempDbFileName
             }
+            
+            #
+            # MpPreference
+            # Set a Windows Defender policy
+            #
+            If ($Finding.Method -eq 'MpPreference') {
+
+                # Check if the user has admin rights, skip test if not
+                If (-not($IsAdmin)) {
+                    $StatsError++
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
+                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Continue
+                }
+
+                try {
+
+                    $ResultOutput = Set-MpPreference
+                    $ResultArgument = $Finding.MethodArgument
+                    $ResultRecommendedValue = $Finding.RecommendedValue
+                    $Result = $ResultOutput.$ResultArgument.$ResultRecommendedValue
+
+                } catch {
+                    $Result = $Finding.DefaultValue
+                }
+                $PassedMpPreference = 0
+                switch ($ResultArgument)
+                {
+                    'MAPSReporting' {
+                      Set-MpPreference -MAPSReporting $ResultRecommendedValue | Out-Null
+                      if($LastExitCode -eq 0) {
+                          $PassedMpPreference = 1
+                      }
+                    }
+                    'SubmitSamplesConsent' {
+                      Set-MpPreference -SubmitSamplesConsent $ResultRecommendedValue | Out-Null
+                      if($LastExitCode -eq 0) {
+                          $PassedMpPreference = 1
+                      }
+                    }
+                    'EnableControlledFolderAccess' {
+                      Set-MpPreference -EnableControlledFolderAccess $ResultRecommendedValue | Out-Null
+                      if($LastExitCode -eq 0) {
+                          $PassedMpPreference = 1
+                      }
+                    }
+                    'DisableRealtimeMonitoring' {
+                      if($ResultRecommendedValue -eq "False"){
+                        $ResultRecommendedValue=$False
+                      }else{
+                        $ResultRecommendedValue=$True
+                      }
+                      Set-MpPreference -DisableRealtimeMonitoring $ResultRecommendedValue | Out-Null
+                      if($LastExitCode -eq 0) {
+                          $PassedMpPreference = 1
+                      }
+                    }
+                }
+
+                if($PassedMpPreference -eq 1) {
+                    $ResultText = "Method value modified"
+                    $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", " + $ResultText
+                    $MessageSeverity = "Passed"
+                } else {
+                    $ResultText = "Failed to change Method value"
+                    $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", " + $ResultText
+                    $MessageSeverity = "High"
+                }
+
+                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+            }
 
             #
             # secedit
