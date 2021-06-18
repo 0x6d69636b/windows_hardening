@@ -1452,51 +1452,19 @@
                     Continue
                 }
 
-                try {
+                $ResultMethodArgument = $Finding.MethodArgument
+                $ResultRecommendedValue = $Finding.RecommendedValue
 
-                    $ResultOutput = Set-MpPreference
-                    $ResultArgument = $Finding.MethodArgument
-                    $ResultRecommendedValue = $Finding.RecommendedValue
-                    $Result = $ResultOutput.$ResultArgument.$ResultRecommendedValue
-
-                } catch {
-                    $Result = $Finding.DefaultValue
-                }
-                $PassedMpPreference = 0
-                switch ($ResultArgument)
-                {
-                    'MAPSReporting' {
-                      Set-MpPreference -MAPSReporting $ResultRecommendedValue | Out-Null
-                      if($LastExitCode -eq 0) {
-                          $PassedMpPreference = 1
-                      }
-                    }
-                    'SubmitSamplesConsent' {
-                      Set-MpPreference -SubmitSamplesConsent $ResultRecommendedValue | Out-Null
-                      if($LastExitCode -eq 0) {
-                          $PassedMpPreference = 1
-                      }
-                    }
-                    'EnableControlledFolderAccess' {
-                      Set-MpPreference -EnableControlledFolderAccess $ResultRecommendedValue | Out-Null
-                      if($LastExitCode -eq 0) {
-                          $PassedMpPreference = 1
-                      }
-                    }
-                    'DisableRealtimeMonitoring' {
-                      if($ResultRecommendedValue -eq "False"){
-                        $ResultRecommendedValue=$False
-                      }else{
-                        $ResultRecommendedValue=$True
-                      }
-                      Set-MpPreference -DisableRealtimeMonitoring $ResultRecommendedValue | Out-Null
-                      if($LastExitCode -eq 0) {
-                          $PassedMpPreference = 1
-                      }
-                    }
+                Switch($ResultRecommendedValue) {
+                    "True" { $ResultRecommendedValue = 1; Break }
+                    "False" { $ResultRecommendedValue = 0; Break }
                 }
 
-                if($PassedMpPreference -eq 1) {
+                $ResultCommand = "Set-MpPreference -$ResultMethodArgument $ResultRecommendedValue"
+
+                $Result = Invoke-Expression $ResultCommand
+
+                if($LastExitCode -eq 1) {
                     $ResultText = "Method value modified"
                     $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", " + $ResultText
                     $MessageSeverity = "Passed"
