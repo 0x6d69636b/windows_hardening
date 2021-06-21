@@ -62,6 +62,10 @@
 
         The name and location of the report file can be defined by the user.
 
+    .PARAMETER Backup
+
+        The retrieved settings and their assessment result are stored in CSV format in a machine-readable format with all value to backup your previous config.
+
     .PARAMETER SkipMachineInformation
 
         Information about the system is not queried and displayed. This may be useful while debugging or
@@ -115,7 +119,15 @@
 
         # Define name and path of the report file
         [String]
-        $ReportFile
+        $ReportFile,
+
+        # Create a backup config file in CSV format
+        [Switch]
+        $Backup = $false,
+
+        # Define name and path of the report file
+        [String]
+        $BackupFile
     )
 
     Function Write-ProtocolEntry {
@@ -245,6 +257,30 @@
         } catch {
             Write-ProtocolEntry -Text "Error while writing the result into $ReportFile. Aborting..." -LogLevel "Error"
             Break            
+        }
+    }
+    
+    Function Add-ResultBackup {
+
+        <#
+        .SYNOPSIS
+
+            The result of the test is saved in a CSV file with the retrieved
+             all values from the original csv file.
+        #>
+
+        [CmdletBinding()]
+        Param (
+
+            [String]
+            $Text
+        )
+
+        try {
+            Add-Content -Path $BackupFile -Value $Text -ErrorAction Stop
+        } catch {
+            Write-ProtocolEntry -Text "Error while writing the result into $BackupFile. Aborting..." -LogLevel "Error"
+            Break
         }
     }
 
@@ -503,7 +539,7 @@
     $HardeningKittyVersion = "0.6.1-1624083064"
 
     #
-    # Log and report file
+    # Log, report and backup file
     #
     $Hostname = $env:COMPUTERNAME.ToLower()
     $FileDate = Get-Date -Format yyyyMMdd-HHmmss
@@ -518,6 +554,13 @@
     If ($Report.IsPresent) {
         $Message = '"ID","Name","Severity","Result","Recommended"'
         Add-ResultEntry -Text $Message
+    }
+    If ($Backup.IsPresent -and $BackupFile.Length -eq 0) {
+        $BackupFile = "hardeningkitty_backup_"+$Hostname+"_"+$ListName+"-$FileDate.csv"
+    }
+    If ($Backup.IsPresent) {
+        $Message = '"ID","Category","Name","Method","MethodArgument","RegistryPath","RegistryItem","ClassName","Namespace","Property","DefaultValue","RecommendedValue","Operator","Severity"'
+        Add-ResultBackup -Text $Message
     }
 
     #
@@ -1298,6 +1341,10 @@
                 If ($Report) {
                     $Message = '"'+$Finding.ID+'","'+$Finding.Name+'",,"'+$Result+'",'
                     Add-ResultEntry -Text $Message
+                }
+                If ($Backup) {
+                    $Message = '"'+$Finding.ID+'","'+$Finding.Category+'","'+$Finding.Name+'","'+$Finding.Method+'","'+$Finding.MethodArgument+'","'+$Finding.RegistryPath+'","'+$Finding.RegistryItem+'","'+$Finding.ClassName+'","'+$Finding.Namespace+'","'+$Finding.Property+'","'+$Finding.DefaultValue+'","'+$Result+'","'+$Finding.Operator+'","'+$Finding.Severity+'",'
+                    Add-ResultBackup -Text $Message
                 }
             }
         }
