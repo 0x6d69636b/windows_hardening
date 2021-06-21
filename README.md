@@ -22,12 +22,53 @@ _HardeningKitty_ supports hardening of a Windows system. The configuration of th
 
 The script was developed for English systems. It is possible that in other languages the analysis is incorrect. Please create an issue if this occurs.
 
-### How to run
+### How to run ?
 
-Run the script with administrative privileges to access machine settings. For the user settings it is better to execute them with a normal user account. Ideally, the user account is used for daily work.
-
+Run the script with administrative privileges to access machine settings. For the user settings it is better to execute them with a normal user account. Ideally, the user account is used for daily work. 
 Download _HardeningKitty_ and copy it to the target system (script and lists). Then HardeningKitty can be imported and executed:
 
+#### How can i use HardeningKitty ?
+
+1. Download the HardeningKitty script
+2. Import the ps1 script : 
+```powershell
+Import-Module .\Invoke-HardeningKitty.ps1
+```
+
+#### How can i run HardeningKitty audit mode ?
+
+1. From the default file 
+```powershell
+Invoke-HardeningKitty -Mode Audit 
+```
+> The default file will be `finding_list_0x6d69636b_machine.csv` in `list` directory.
+  
+2. From your own CSV file configuration :
+```powershell
+Invoke-HardeningKitty -Mode Audit -FileFindingList <file.csv> 
+```
+
+#### How can i keep my previous configuration ?
+
+1. Run this command :
+```powershell
+Invoke-HardeningKitty -Mode Config -FileFindingList <file.csv> -Backup
+```
+> This command will save your configuration in the `RecommendedValue` Column in order to apply this file if you want to backup your previous configuration after having applied the HailMary mode.
+                                                       
+
+#### How can i apply a configuration ?
+
+1. Run this command :
+```powershell
+Invoke-HardeningKitty -Mode HailMary
+```                                  
+> Like the Audit mode, you can give your own configuration csv file with `-FileFindingList <file.csv>`
+
+
+### Example
+
+Also, you can use `-EmojiSupport` to get Audit mode with Emoji :
 ```powershell
 PS C:\> Import-Module Invoke-HardeningKitty.ps1
 PS C:\> Invoke-HardeningKitty -EmojiSupport
