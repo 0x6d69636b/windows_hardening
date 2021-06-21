@@ -536,7 +536,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.6.1-1624083064"
+    $HardeningKittyVersion = "0.6.1-1624286822"
 
     #
     # Log, report and backup file
@@ -1339,7 +1339,7 @@
                     Add-ProtocolEntry -Text $Message
                 }
                 If ($Report) {
-                    $Message = '"'+$Finding.ID+'","'+$Finding.Name+'",,"'+$Result+'",'
+                    $Message = '"'+$Finding.ID+'","'+$Finding.Name+'",,"'+$Result+'",'+$Finding.RecommendedValue
                     Add-ResultEntry -Text $Message
                 }
                 If ($Backup) {
