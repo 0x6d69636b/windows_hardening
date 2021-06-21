@@ -163,33 +163,36 @@
         }
     
         If ($Log) {
-            Add-ProtocolEntry -Text $Message
+            Add-MessageToFile -Text $Message -File $LogFile
         }       
     }
 
-    Function Add-ProtocolEntry {
+    Function Add-MessageToFile {
 
         <#
         .SYNOPSIS
 
-            Output of an event with timestamp and different formatting
-            depending on the level. If the Log parameter is set, the
-            output is also stored in a file.
+            Write message to a file, this function can be used for logs,
+            reports, backups and more.
         #>
     
         [CmdletBinding()]
         Param (
             
             [String]
-            $Text
+            $Text,
+
+            [String]
+            $File          
         )     
 
         try {
-            Add-Content -Path $LogFile -Value $Text -ErrorAction Stop
+            Add-Content -Path $File -Value $Text -ErrorAction Stop
         } catch {
-            Write-ProtocolEntry -Text "Error while writing log entries into $LogFile. Aborting..." -LogLevel "Error"
+            Write-ProtocolEntry -Text "Error while writing log entries into $File. Aborting..." -LogLevel "Error"
             Break            
         }
+
     }
 
     Function Write-ResultEntry {
@@ -233,54 +236,6 @@
                 "High"   { $Message = "[!] $Text"; Write-Host -ForegroundColor Red $Message; Break}
                 Default  { $Message = "[*] $Text"; Write-Host $Message; }
             }
-        }
-    }
-
-    Function Add-ResultEntry {
-
-        <#
-        .SYNOPSIS
-
-            The result of the test is saved in a CSV file with the retrieved
-            value, the severity level and the recommended value.
-        #>
-    
-        [CmdletBinding()]
-        Param (
-            
-            [String]
-            $Text
-        )
-
-        try {
-            Add-Content -Path $ReportFile -Value $Text -ErrorAction Stop
-        } catch {
-            Write-ProtocolEntry -Text "Error while writing the result into $ReportFile. Aborting..." -LogLevel "Error"
-            Break            
-        }
-    }
-    
-    Function Add-ResultBackup {
-
-        <#
-        .SYNOPSIS
-
-            The result of the test is saved in a CSV file with the retrieved
-             all values from the original csv file.
-        #>
-
-        [CmdletBinding()]
-        Param (
-
-            [String]
-            $Text
-        )
-
-        try {
-            Add-Content -Path $BackupFile -Value $Text -ErrorAction Stop
-        } catch {
-            Write-ProtocolEntry -Text "Error while writing the result into $BackupFile. Aborting..." -LogLevel "Error"
-            Break
         }
     }
 
@@ -536,7 +491,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.6.1-1624286822"
+    $HardeningKittyVersion = "0.6.1-1624286989"
 
     #
     # Log, report and backup file
@@ -553,14 +508,14 @@
     }
     If ($Report.IsPresent) {
         $Message = '"ID","Name","Severity","Result","Recommended"'
-        Add-ResultEntry -Text $Message
+        Add-MessageToFile -Text $Message -File $ReportFile
     }
     If ($Backup.IsPresent -and $BackupFile.Length -eq 0) {
         $BackupFile = "hardeningkitty_backup_"+$Hostname+"_"+$ListName+"-$FileDate.csv"
     }
     If ($Backup.IsPresent) {
         $Message = '"ID","Category","Name","Method","MethodArgument","RegistryPath","RegistryItem","ClassName","Namespace","Property","DefaultValue","RecommendedValue","Operator","Severity"'
-        Add-ResultBackup -Text $Message
+        Add-MessageToFile -Text $Message -File $BackupFile
     }
 
     #
@@ -1286,12 +1241,12 @@
                     Write-ResultEntry -Text $Message -SeverityLevel "Passed"
 
                     If ($Log) {
-                        Add-ProtocolEntry -Text $Message
+                        Add-MessageToFile -Text $Message -File $LogFile
                     }
 
                     If ($Report) {
                         $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","Passed","'+$Result+'"'
-                        Add-ResultEntry -Text $Message
+                        Add-MessageToFile -Text $Message -File $ReportFile
                     }
 
                     # Increment Counter
@@ -1310,12 +1265,12 @@
                     Write-ResultEntry -Text $Message -SeverityLevel $Finding.Severity
 
                     If ($Log) {
-                        Add-ProtocolEntry -Text $Message
+                        Add-MessageToFile -Text $Message -File $LogFile
                     }
 
                     If ($Report) {
                         $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$Finding.Severity+'","'+$Result+'","'+$Finding.RecommendedValue+'"'
-                        Add-ResultEntry -Text $Message
+                        Add-MessageToFile -Text $Message -File $ReportFile
                     }
 
                     # Increment Counter
@@ -1336,15 +1291,15 @@
                 Write-ResultEntry -Text $Message
 
                 If ($Log) {
-                    Add-ProtocolEntry -Text $Message
+                    Add-MessageToFile -Text $Message -File $LogFile
                 }
                 If ($Report) {
                     $Message = '"'+$Finding.ID+'","'+$Finding.Name+'",,"'+$Result+'",'+$Finding.RecommendedValue
-                    Add-ResultEntry -Text $Message
+                    Add-MessageToFile -Text $Message -File $ReportFile
                 }
                 If ($Backup) {
                     $Message = '"'+$Finding.ID+'","'+$Finding.Category+'","'+$Finding.Name+'","'+$Finding.Method+'","'+$Finding.MethodArgument+'","'+$Finding.RegistryPath+'","'+$Finding.RegistryItem+'","'+$Finding.ClassName+'","'+$Finding.Namespace+'","'+$Finding.Property+'","'+$Finding.DefaultValue+'","'+$Result+'","'+$Finding.Operator+'","'+$Finding.Severity+'",'
-                    Add-ResultBackup -Text $Message
+                    Add-MessageToFile -Text $Message -File $BackupFile
                 }
             }
         }
@@ -1915,12 +1870,12 @@
                 Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
 
                 If ($Log) {
-                    Add-ProtocolEntry -Text $Message
+                    Add-MessageToFile -Text $Message -File $LogFile
                 }
                 
                 If ($Report) {
                     $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$ResultText+'"'
-                    Add-ResultEntry -Text $Message
+                    Add-MessageToFile -Text $Message -File $ReportFile
                 }                
             }
 
@@ -1994,12 +1949,12 @@
                 Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
 
                 If ($Log) {
-                    Add-ProtocolEntry -Text $Message
+                    Add-MessageToFile -Text $Message -File $LogFile
                 }
                     
                 If ($Report) {
                     $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$ResultText+'"'
-                    Add-ResultEntry -Text $Message
+                    Add-MessageToFile -Text $Message -File $ReportFile
                 }
             }
         }
