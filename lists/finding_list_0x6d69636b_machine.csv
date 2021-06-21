@@ -246,7 +246,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 1742,"Administrative Templates: Windows Components","Search: Allow Cortana above lock screen",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search",AllowCortanaAboveLock,,,,1,0,=,Medium
 1743,"Administrative Templates: Windows Components","Search: Allow indexing of encrypted files",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search",AllowIndexingEncryptedStoresOrItems,,,,1,0,=,Medium
 1744,"Administrative Templates: Windows Components","Search: Allow search and Cortana to use location",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search",AllowSearchToUseLocation,,,,1,0,=,Medium
-1745,"Administrative Templates: Windows Components","Search: Set what information is shared in Search",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search",ConnectedSearchPrivacy,,,,1,0,=,Medium
+1745,"Administrative Templates: Windows Components","Search: Set what information is shared in Search",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search",ConnectedSearchPrivacy,,,,1,3,=,Medium
 1746,"Administrative Templates: Windows Components","Windows Error Reporting: Disable Windows Error Reporting",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting",Disabled,,,,0,1,=,Medium
 1747,"Administrative Templates: Windows Components","Windows Game Recording and Broadcasting: Enables or disables Windows Game Recording and Broadcasting",Registry,,HKLM:\Software\Policies\Microsoft\Windows\GameDVR,AllowGameDVR,,,,1,0,=,Low
 1748,"Administrative Templates: Windows Components","Windows Ink Workspace: Allow Windows Ink Workspace",Registry,,HKLM:\Software\Policies\Microsoft\WindowsInkWorkspace,AllowWindowsInkWorkspace,,,,1,0,=,Medium
@@ -278,7 +278,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 2206,"MSS (Legacy)","MSS: (DisableIPSourceRouting) IP source routing protection level (protects against packet spoofing)",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip\Parameters,DisableIPSourceRouting,,,,,2,=,Medium
 2207,"MSS (Legacy)","MSS: (EnableICMPRedirect) Allow ICMP redirects to override OSPF generated routes",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip\Parameters,EnableICMPRedirect,,,,,0,=,Medium
 2208,"MSS (Legacy)","MSS: (NoNameReleaseOnDemand) Allow the computer to ignore NetBIOS name release requests except from WINS servers",Registry,,HKLM:\System\CurrentControlSet\Services\Netbt\Parameters,NoNameReleaseOnDemand,,,,0,1,=,Medium
-1802,"Microsoft Defender Antivirus","Cloud-delivered protection",MpPreference,MAPSReporting,,,,,,2,0,=,Medium
+1802,"Microsoft Defender Antivirus","Cloud-delivered protection",MpPreference,MAPSReporting,,,,,,2,2,=,Medium
 1803,"Microsoft Defender Antivirus","Automatic sample submission",MpPreference,SubmitSamplesConsent,,,,,,1,2,=,Medium
 1804,"Microsoft Defender Antivirus","Controlled folder access",MpPreference,EnableControlledFolderAccess,,,,,,0,1,=,Medium
 1805,"Microsoft Defender Antivirus","Real time monitoring",MpPreference,DisableRealtimeMonitoring,,,,,,False,False,=,High
