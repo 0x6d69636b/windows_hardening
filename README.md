@@ -71,6 +71,46 @@ PS C:\> Invoke-HardeningKitty -EmojiSupport
 [*] 5/28/2020 4:39:34 PM - HardeningKitty is done
 ```
 
+### Examples
+
+#### Audit
+
+HardeningKitty performs an audit, saves the results in a CSV file and creates a log file. The files are automatically named and receive a timestamp. Using the parameters _ReportFile_ or _LogFile_, it is also possible to assign your own name and path. 
+
+```powershell
+Invoke-HardeningKitty -Mode Audit -Log -Report
+```
+
+HardeningKitty can be executed with a specific list defined by the parameter _FileFindingList_. If HardeningKitty is run several times on the same system, it may be useful to hide the machine information. The parameter _SkipMachineInformation_ is used for this purpose.
+
+```powershell
+Invoke-HardeningKitty -FileFindingList .\lists\finding_list_0x6d69636b_user.csv -SkipMachineInformation
+```
+
+HardeningKitty ready only the setting with the default list, and saves the results in a specific file
+
+```powershell
+Invoke-HardeningKitty -Mode Config -Report -Report C:\tmp\my_hardeningkitty_report.log
+```
+
+#### Backup
+
+Backups are important. Really important. Therefore, HardeningKitty also has a function to retrieve the current configuration and save it in a form that can be easily restored. The _Backup_ switch specifies that the file is written in form of a finding list and can thus be used for the _HailMary_ mode. The name and path of the backup can be specified with the parameter _BackupFile_.
+
+```powershell
+Invoke-HardeningKitty -Mode Config -Backup
+```
+
+Please test this function to see if it really works properly on the target system before making any serious changes. A Schrödinger's backup is dangerous.
+
+#### HailMary
+
+The _HailMary_ method is very powerful. It can be used to deploy a finding list on a system. All findings are set on this system as recommended in the list. With power comes responsibility. Please use this mode only if you know what you are doing. Be sure to have a backup of the system.
+
+```powershell
+Invoke-HardeningKitty -Mode HailMary -Log -Report -FileFindingList .\lists\finding_list_0x6d69636b_machine.csv
+```
+
 ### HardeningKitty Score
 
 Each Passed finding gives 4 points, a Low finding gives 2 points, a Medium finding gives 1 point and a High Finding gives 0 points.
