@@ -325,7 +325,6 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 #### Credential User Interface
 
 * ID 1722: Set _Do not display the password reveal button_ to **Enabled**
-* ID 1723: Set _Require trusted path for credential entry_ to **Enabled**
 * ID 1724: Set _Enumerate administrator accounts on elevation_ to **Disabled**
 
 #### Data Collection and Preview Builds
