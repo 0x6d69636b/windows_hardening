@@ -137,7 +137,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 1660,"Administrative Templates: System","Logon: Turn on convenience PIN sign-in",Registry,,HKLM:\Software\Policies\Microsoft\Windows\System,AllowDomainPINLogon,,,,1,0,=,Medium
 1661,"Administrative Templates: System","Logon: Turn off app notifications on the lock screen",Registry,,HKLM:\Software\Policies\Microsoft\Windows\System,DisableLockScreenAppNotifications,,,,0,1,=,Medium
 1662,"Administrative Templates: System","Logon: Do not display network selection UI",Registry,,HKLM:\Software\Policies\Microsoft\Windows\System,DontDisplayNetworkSelectionUI,,,,0,1,=,Medium
-1663,"Administrative Templates: System","Logon: Minimum PIN length",Registry,,HKLM:\Software\Policies\Microsoft\FVE,MinimumPIN,,,,6,6,=,Medium
+1663,"Administrative Templates: System","Logon: Minimum PIN length",Registry,,HKLM:\Software\Policies\Microsoft\FVE,MinimumPIN,,,,6,8,=,Medium
 1670,"Administrative Templates: System","Mitigation Options: Untrusted Font Blocking",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\MitigationOptions",MitigationOptions_FontBocking,,,,0,1000000000000,=,Medium
 1680,"Administrative Templates: System","OS Policies: Allow Clipboard synchronization across devices",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\System,AllowCrossDeviceClipboard,,,,1,0,=,Medium
 1685,"Administrative Templates: System","Sleep Settings: Require a password when a computer wakes (plugged in)",Registry,,HKLM:\Software\Policies\Microsoft\Power\PowerSettings\0e796bdb-100d-47d6-a2d5-f7d2daa51f51,ACSettingIndex,,,,0,1,=,Medium
