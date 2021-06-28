@@ -316,6 +316,7 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 * ID 1712: Set _Operating System Drives\Allow enhanced PINs for startup_ to **Enabled**
 * ID 1713: Set _Operating System Drives\Configure use of hardware-based encryption for operating system drives_ to **Enabled**
 	* ID 1714: Set _Use BitLocker software-based encryption when hardware encryption is not available_ to **True**
+* ID 1763: Set _Operating System Drives: Configure minimum PIN length for startup_ to **8 or higher**
 
 #### Cloud Content
 
