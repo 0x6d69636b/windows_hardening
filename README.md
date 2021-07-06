@@ -128,6 +128,10 @@ The formula for the HardeningKitty Score is _(Points achieved / Maximum points) 
 | 2 | 🙀 Weak | Insufficient |
 | 1 | 😾 Bogus | Insufficient |
 
+### HardeningKitty Interface
+
+[ataumo](https://github.com/ataumo) build a web based interface for HardeningKitty. The tool can be used to create your own lists and provides additional information on the hardening settings. The [source code](https://github.com/ataumo/windows_hardening_interface) is under AGPL license and there is a [demo site](https://ataumo-photo.fr/windows_hardening_interface/).
+
 ### Last Update
 
 HardeningKitty can be used to audit systems against the following baselines / benchmarks:
