@@ -361,6 +361,7 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 * ID 1809: Do not use exclusions for paths: **empty list**
 * ID 1810: Set _Exclusions\Process Exclusions_ to **Disabled**
 * ID 1811: Do not use exclusions for processes: **empty list**
+* ID 1812: Enable sandboxing for Microsoft Defender Antivirus
 * ID 1900: Set _Microsoft Defender Exploit Guard\Attack Surface Reduction\Configure Attack Surface Reduction rules_ to **Enabled**
 	* Apply these rules (Set 'Value' to '1' (Block Mode)
 	* ID 1901: be9ba2d9-53ea-4cdc-84e5-9b1eeee46550 - Block executable content from email client and webmail

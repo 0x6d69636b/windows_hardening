@@ -563,6 +563,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 213,"Microsoft Defender Antivirus","Cloud-delivered protection",,,
 212,"Microsoft Defender Antivirus","Configure detection for potentially unwanted applications",DE,"Microsoft Defender Antivirus","Konfigurieren der Erkennung für potenziell unerwünschte Anwendungen"
 215,"Microsoft Defender Antivirus","Controlled folder access",,,
+1642,"Microsoft Defender Antivirus","Enable sandboxing for Microsoft Defender Antivirus",,,
 1539,"Microsoft Defender Antivirus","Exclusions: Extension Exclusions (Policy)",,,
 1542,"Microsoft Defender Antivirus","Exclusions: List Extension Exclusions",,,
 1543,"Microsoft Defender Antivirus","Exclusions: List Path Exclusions",,,
