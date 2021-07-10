@@ -273,7 +273,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 18.3.3,"MS Security Guide","Configure SMB v1 server",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters,SMB1,,,,,0,=,Medium
 18.3.4,"MS Security Guide","Enable Structured Exception Handling Overwrite Protection (SEHOP)",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\kernel",DisableExceptionChainValidation,,,,,0,=,Medium
 18.3.5,"MS Security Guide","NetBT NodeType configuration",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\NetBT\Parameters,NodeType,,,,0,2,=,Medium
-18.3.6,"MS Security Guide","WDigest Authentication",Registry,,HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest,UseLogonCredential,,,,,0,=,High
+18.3.6,"MS Security Guide","WDigest Authentication",Registry,,HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest,UseLogonCredential,,,,0,0,=,High
 18.4.1,"MSS (Legacy)","MSS: (AutoAdminLogon) Enable Automatic Logon (not recommended)",Registry,,"HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon",AutoAdminLogon,,,,0,0,=,Medium
 18.4.2,"MSS (Legacy)","MSS: (DisableIPSourceRouting IPv6) IP source routing protection level (protects against packet spoofing)",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip6\Parameters,DisableIPSourceRouting,,,,,2,=,Medium
 18.4.3,"MSS (Legacy)","MSS: (DisableIPSourceRouting) IP source routing protection level (protects against packet spoofing)",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip\Parameters,DisableIPSourceRouting,,,,,2,=,Medium

@@ -109,7 +109,7 @@ V-93399,"Administrative Templates: Control Panel","Personalization: Prevent enab
 V-93519,"MS Security Guide","Apply UAC restrictions to local accounts on network logons (Member)",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,LocalAccountTokenFilterPolicy,,,,,0,=,Medium
 V-93395,"MS Security Guide","Configure SMB v1 client driver",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\MrxSmb10,Start,,,,,4,=,Medium
 V-93393,"MS Security Guide","Configure SMB v1 server",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters,SMB1,,,,,0,=,Medium
-V-93401,"MS Security Guide","WDigest Authentication",Registry,,HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest,UseLogonCredential,,,,,0,=,Medium
+V-93401,"MS Security Guide","WDigest Authentication",Registry,,HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest,UseLogonCredential,,,,0,0,=,Medium
 V-93233,"MSS (Legacy)","MSS: (DisableIPSourceRouting IPv6) IP source routing protection level (protects against packet spoofing)",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip6\Parameters,DisableIPSourceRouting,,,,,2,=,Low
 V-93235,"MSS (Legacy)","MSS: (DisableIPSourceRouting) IP source routing protection level (protects against packet spoofing)",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip\Parameters,DisableIPSourceRouting,,,,,2,=,Low
 V-93237,"MSS (Legacy)","MSS: (EnableICMPRedirect) Allow ICMP redirects to override OSPF generated routes",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip\Parameters,EnableICMPRedirect,,,,,0,=,Low

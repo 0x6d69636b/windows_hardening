@@ -276,7 +276,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 2200,"MS Security Guide","LSA Protection",Registry,,HKLM:\SYSTEM\CurrentControlSet\Control\Lsa,RunAsPPL,,,,,1,=,Medium
 2201,"MS Security Guide","Lsass.exe audit mode",Registry,,"HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\LSASS.exe",AuditLevel,,,,,8,=,Low
 2202,"MS Security Guide","NetBT NodeType configuration",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\NetBT\Parameters,NodeType,,,,0,2,=,Medium
-2203,"MS Security Guide","WDigest Authentication",Registry,,HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest,UseLogonCredential,,,,,0,=,High
+2203,"MS Security Guide","WDigest Authentication",Registry,,HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest,UseLogonCredential,,,,0,0,=,High
 2204,"MSS (Legacy)","MSS: (SafeDllSearchMode) Enable Safe DLL search mode (recommended)",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager",SafeDLLSearchMode,,,,0,1,=,Medium
 2205,"MSS (Legacy)","MSS: (DisableIPSourceRouting IPv6) IP source routing protection level (protects against packet spoofing)",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip6\Parameters,DisableIPSourceRouting,,,,,2,=,Medium
 2206,"MSS (Legacy)","MSS: (DisableIPSourceRouting) IP source routing protection level (protects against packet spoofing)",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip\Parameters,DisableIPSourceRouting,,,,,2,=,Medium

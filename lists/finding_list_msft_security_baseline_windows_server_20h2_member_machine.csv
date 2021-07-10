@@ -109,7 +109,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 10622,"MS Security Guide","Configure SMB v1 server",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters,SMB1,,,,,0,=,Medium
 10623,"MS Security Guide","Enable Structured Exception Handling Overwrite Protection (SEHOP)",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\kernel",DisableExceptionChainValidation,,,,,0,=,Medium
 10624,"MS Security Guide","NetBT NodeType configuration",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\NetBT\Parameters,NodeType,,,,0,2,=,Medium
-10625,"MS Security Guide","WDigest Authentication",Registry,,HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest,UseLogonCredential,,,,,0,=,High
+10625,"MS Security Guide","WDigest Authentication",Registry,,HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest,UseLogonCredential,,,,0,0,=,High
 10640,"MSS (Legacy)","MSS: (DisableIPSourceRouting IPv6) IP source routing protection level (protects against packet spoofing)",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip6\Parameters,DisableIPSourceRouting,,,,,2,=,Medium
 10641,"MSS (Legacy)","MSS: (DisableIPSourceRouting) IP source routing protection level (protects against packet spoofing)",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip\Parameters,DisableIPSourceRouting,,,,,2,=,Medium
 10642,"MSS (Legacy)","MSS: (EnableICMPRedirect) Allow ICMP redirects to override OSPF generated routes",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip\Parameters,EnableICMPRedirect,,,,,0,=,Medium

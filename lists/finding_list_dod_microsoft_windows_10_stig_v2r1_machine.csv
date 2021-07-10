@@ -117,7 +117,7 @@ V-72329,"MS Security Guide","Remove ""Run As Different User"" from context menus
 V-72329,"MS Security Guide","Remove ""Run As Different User"" from context menus (cmdfile)",Registry,,HKLM:\SOFTWARE\Classes\cmdfile\shell\runasuser," SuppressionPolicy",,,,,1000,=,Medium
 V-72329,"MS Security Guide","Remove ""Run As Different User"" from context menus (exefile)",Registry,,HKLM:\SOFTWARE\Classes\exefile\shell\runasuser," SuppressionPolicy",,,,,1000,=,Medium
 V-72329,"MS Security Guide","Remove ""Run As Different User"" from context menus (mscfile)",Registry,,HKLM:\SOFTWARE\Classes\mscfile\shell\runasuser," SuppressionPolicy",,,,,1000,=,Medium
-V-71763,"MS Security Guide","WDigest Authentication",Registry,,HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest,UseLogonCredential,,,,,0,=,Medium
+V-71763,"MS Security Guide","WDigest Authentication",Registry,,HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest,UseLogonCredential,,,,0,0,=,Medium
 V-63555,"MSS (Legacy)","MSS: (DisableIPSourceRouting IPv6) IP source routing protection level (protects against packet spoofing)",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip6\Parameters,DisableIPSourceRouting,,,,,2,=,Medium
 V-63559,"MSS (Legacy)","MSS: (DisableIPSourceRouting) IP source routing protection level (protects against packet spoofing)",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip\Parameters,DisableIPSourceRouting,,,,,2,=,Medium
 V-63563,"MSS (Legacy)","MSS: (EnableICMPRedirect) Allow ICMP redirects to override OSPF generated routes",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip\Parameters,EnableICMPRedirect,,,,,0,=,Low
