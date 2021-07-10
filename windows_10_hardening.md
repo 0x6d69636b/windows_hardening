@@ -171,6 +171,21 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 
 * ID 1604: Set _WLAN Service\WLAN Settings\Allow Windows to automatically connect to suggested open hotspots, to networks shared by contacts, and to hotspots offering paid services_ to **Disabled**
 
+### Administrative Templates\Printer
+
+These settings are already set by default. If these settings are different, the system is vulnerable to [CVE-2021-34527](https://vuldb.com/?id.177880).
+
+* ID 1764: Set _Point and Print Restrictions\When installing drivers for a new connection_ to **Show warning and elevation prompt**
+* ID 1765: Set _Point and Print Restrictions\When updating drivers for an existing connection_ to **Show warning and elevation prompt**
+
+**Optional:** Override _Point and Print Restrictions_ so that only administrators can install print drivers on printer servers.
+
+* ID 1766: Set the registry key _RestrictDriverInstallationToAdministrators_ to **1**
+
+```
+reg add "HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Printers\PointAndPrint" /v RestrictDriverInstallationToAdministrators /t REG_DWORD /d 1 /f
+```
+
 ### Administrative Templates\System
 
 #### Credentials Delegation
@@ -245,21 +260,6 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 * ID 1686: Set _Sleep Settings\Require a password when a computer wakes (on battery)_ to **Enabled**
 * ID 1687: Set _Sleep Settings\Allow standby states (S1-S3) when sleeping (plugged in)_ to **Disabled**
 * ID 1688: Set _Sleep Settings\Allow standby states (S1-S3) when sleeping (on battery)_ to **Disabled**
-
-#### Printer
-
-These settings are already set by default. If these settings are different, the system is vulnerable to [CVE-2021-34527](https://vuldb.com/?id.177880).
-
-* ID 1764: Set _Point and Print Restrictions\When installing drivers for a new connection_ to **Show warning and elevation prompt**
-* ID 1765: Set _Point and Print Restrictions\When updating drivers for an existing connection_ to **Show warning and elevation prompt**
-
-**Optional:** Override _Point and Print Restrictions_ so that only administrators can install print drivers on printer servers.
-
-* ID 1766: Set the registry key _RestrictDriverInstallationToAdministrators_ to **1**
-
-```
-reg add "HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Printers\PointAndPrint" /v RestrictDriverInstallationToAdministrators /t REG_DWORD /d 1 /f
-```
 
 #### Remote Assistance
 
