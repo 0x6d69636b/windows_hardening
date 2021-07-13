@@ -252,7 +252,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 157,"Administrative Templates: Windows Components","Search: Allow search and Cortana to use location",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search",AllowSearchToUseLocation,,,,1,0,=,Medium
 158,"Administrative Templates: Windows Components","Search: Allow indexing of encrypted files",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search",AllowIndexingEncryptedStoresOrItems,,,,1,0,=,Medium
 159,"Administrative Templates: Windows Components","Text Input: Improve inking and typing recognition",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\TextInput,AllowLinguisticDataCollection,,,,,0,=,Medium
-160,"Administrative Templates: Windows Components","Delivery Optimization: Download Mode",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization,DODownloadMode,,,,3,99,=,Medium
+160,"Administrative Templates: Windows Components","Delivery Optimization: Download Mode",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization,DODownloadMode,,,,1,99,=,Medium
 161,"Administrative Templates: Windows Components","Connect: Require pin for pairing",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\Connect,RequirePinForPairing,,,,0,1,>=,Medium
 162,"Microsoft Defender Antivirus","Configure detection for potentially unwanted applications",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender",PUAProtection,,,,0,1,=,Medium
 163,"Microsoft Defender Antivirus","Turn off Windows Defender Antivirus",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender",DisableAntiSpyware,,,,0,0,=,Medium

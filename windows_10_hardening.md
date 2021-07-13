@@ -350,7 +350,7 @@ reg add "HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Printers\Poin
 
 #### Delivery Optimization
 
-* ID 1727: Set _Download Mode_ to **Disabled**
+* ID 1727: Set _Download Mode_ to **Enabled: Simple (99)**
 
 #### Event Log Service
 
