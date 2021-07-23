@@ -90,7 +90,7 @@ Invoke-HardeningKitty -FileFindingList .\lists\finding_list_0x6d69636b_user.csv 
 HardeningKitty ready only the setting with the default list, and saves the results in a specific file
 
 ```powershell
-Invoke-HardeningKitty -Mode Config -Report -Report C:\tmp\my_hardeningkitty_report.log
+Invoke-HardeningKitty -Mode Config -Report -ReportFile C:\tmp\my_hardeningkitty_report.log
 ```
 
 #### Backup
