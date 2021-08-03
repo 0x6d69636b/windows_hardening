@@ -491,7 +491,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.6.1-1624286989"
+    $HardeningKittyVersion = "0.6.1-1628003775"
 
     #
     # Log, report and backup file
@@ -1370,29 +1370,24 @@
                 if($Finding.RecommendedValue -eq "") {
                     (Get-Content -Encoding unicode $TempFileName) -replace "$($Finding.MethodArgument).*", "$($Finding.MethodArgument) = " | Out-File $TempFileName
                 } else {
-                    # Check if SID actually exists on the system
+                    $ListTranslated = @()
                     $List = $Finding.RecommendedValue -split ';'| Where-Object {
-                        if($_ -like 'S-*') {
-                            try {
-                                $sid = new-object System.Security.Principal.SecurityIdentifier($_)
-                                return [bool]$_.Translate([System.Security.Principal.NTAccount])
-                            } catch {
-                                return $false
-                            }
-                        } else {
-                            return $true;
-                        }
+                        # Get SID to translate the account name
+                        $AccountSid = Translate-SidFromWellkownAccount -AccountName $_
+                        # Get account name from system with SID (local translation)
+                        $AccountName = Get-AccountFromSid -AccountSid $AccountSid
+                        $ListTranslated += $AccountName
                      }
 
                      # If User Right Assignment exists, replace values
                      If ( ((Get-Content -Encoding unicode $TempFileName) | Select-String $($Finding.MethodArgument)).Count -gt 0 ) {
-                        (Get-Content -Encoding unicode $TempFileName) -replace "$($Finding.MethodArgument).*", "$($Finding.MethodArgument) = $($List -join ',')" | Out-File $TempFileName
+                        (Get-Content -Encoding unicode $TempFileName) -replace "$($Finding.MethodArgument).*", "$($Finding.MethodArgument) = $($ListTranslated -join ',')" | Out-File $TempFileName
                      }
                      # If it does not exist, add a new entry into the file at the right position
                      Else {
                         $TempFileContent = Get-Content -Encoding unicode $TempFileName
                         $LineNumber = $TempFileContent.Count
-                        $TempFileContent[$LineNumber-3] = "$($Finding.MethodArgument) = $($List -join ',')"
+                        $TempFileContent[$LineNumber-3] = "$($Finding.MethodArgument) = $($ListTranslated -join ',')"
                         $TempFileContent[$LineNumber-2] = "[Version]"
                         $TempFileContent[$LineNumber-1] = 'signature="$CHICAGO$"'
                         $TempFileContent += "Revision=1"
