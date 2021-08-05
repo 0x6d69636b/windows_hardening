@@ -22,6 +22,10 @@ _HardeningKitty_ supports hardening of a Windows system. The configuration of th
 
 The script was developed for English systems. It is possible that in other languages the analysis is incorrect. Please create an issue if this occurs.
 
+### Signed version
+
+The development of _HardeningKitty_ happens in this repository. In the [repository of scip AG](https://github.com/scipag/HardeningKitty) is a stable version of _HardeningKitty_ that has been *signed* with the code signing certificate of _scip AG_. This means that _HardeningKitty_ can also be run on systems that only allow signed scripts.
+
 ### How to run
 
 Run the script with administrative privileges to access machine settings. For the user settings it is better to execute them with a normal user account. Ideally, the user account is used for daily work.
