@@ -297,6 +297,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 673,"Administrative Templates: Windows Components","Messaging: Allow Message Service Cloud Sync",DE,"Administrative Vorlagen: Windows-Komponenten","Nachrichten: Synchronisierung von Nachrichtendienstcloud zulassen"
 674,"Administrative Templates: Windows Components","Microsoft account: Block all consumer Microsoft account user authentication",DE,"Administrative Vorlagen: Windows-Komponenten","Microsoft-Konto: Benutzerauthentifizierung von Microsoft-Konten aller Anwender blockieren"
 742,"Administrative Templates: Windows Components","Network Sharing: Prevent users from sharing files within their profile",DE,"Administrative Vorlagen: Windows-Komponenten","Netzwerkfreigabe: Verhindert, dass Benutzer Dateien innerhalb ihres Profils freigeben"
+1649,"Administrative Templates: Windows Components","News and interests: Enable news and interests on the taskbar",,,
 183,"Administrative Templates: Windows Components","OneDrive: Prevent the usage of OneDrive for file storage",DE,"Administrative Vorlagen: Windows-Komponenten","OneDrive: Verwendung von OneDrive für die Dateispeicherung verhindern"
 1637,"Administrative Templates: Windows Components","OneDrive: Prevent the usage of OneDrive for file storage on Windows 8.1",,,
 704,"Administrative Templates: Windows Components","Push To Install: Turn off Push To Install service",DE,"Administrative Vorlagen: Windows-Komponenten","Pushinstallation ausführen: Pushinstallationdienst deaktivieren"
@@ -856,6 +857,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 693,"Microsoft Edge","Allow InPrivate Browsing",,,
 694,"Microsoft Edge","Allow Sideloading of extension",,,
 802,"Microsoft Edge","Allow certificates signed using SHA-1 when issued by local trust anchors (deprecated)",,,
+1646,"Microsoft Edge","Allow unconfigured sites to be reloaded in Internet Explorer mode",,,
 809,"Microsoft Edge","Allow user-level native messaging hosts (installed without admin permissions)",,,
 803,"Microsoft Edge","Allow users to proceed from the HTTPS warning page",,,
 811,"Microsoft Edge","Configure Microsoft Defender SmartScreen",,,
@@ -877,6 +879,8 @@ Id,CategoryEN,NameEN,Language,Category,Name
 814,"Microsoft Edge","Prevent bypassing of Microsoft Defender SmartScreen warnings about downloads",,,
 702,"Microsoft Edge","Prevent certificate error overrides",,,
 703,"Microsoft Edge","Prevent using Localhost IP address for WebRTC",,,
+1648,"Microsoft Edge","Specifies whether SharedArrayBuffers can be used in a non cross-origin-isolated context",,,
+1647,"Microsoft Edge","Specifies whether to allow insecure websites to make requests to more-private network endpoints",,,
 808,"Microsoft Edge","Supported authentication schemes",,,
 1000,"Office 2016 / Office 365","Global Options: Disable UI extending from documents and templates (Access)",,,
 1001,"Office 2016 / Office 365","Global Options: Disable UI extending from documents and templates (Excel)",,,

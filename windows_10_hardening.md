@@ -411,6 +411,10 @@ In enterprise-managed mode, trusted zones can be defined via the network isolati
 * ID 1981: Set _Turn on Microsoft Defender Application Guard in Managed Mode_ to **Enabled: 3** (Enable Microsoft Defender Application Guard for Microsoft Edge AND isolated Windows environments)
 * ID 1982: Set _Allow auditing events in Microsoft Defender Application Guard_ to **Enabled**
 
+#### News and interests
+
+* ID 1761: Set _Enable news and interests on the taskbar_ to **Disabled**
+
 #### OneDrive
 
 * ID 1733: Set _Prevent the usage of OneDrive for file storage_ to **Enabled**
