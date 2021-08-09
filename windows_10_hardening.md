@@ -413,7 +413,7 @@ In enterprise-managed mode, trusted zones can be defined via the network isolati
 
 #### News and interests
 
-* ID 1761: Set _Enable news and interests on the taskbar_ to **Disabled**
+* ID 1767: Set _Enable news and interests on the taskbar_ to **Disabled**
 
 #### OneDrive
 
