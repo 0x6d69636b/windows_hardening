@@ -132,8 +132,8 @@ The formula for the HardeningKitty Score is _(Points achieved / Maximum points) 
 | 5 | 😺 Well done | Good |
 | 4 | 😼 Sufficient | Sufficient |
 | 3 | 😿 You should do better | Insufficient |
-| 2 | 🙀 Weak | Insufficient |
-| 1 | 😾 Bogus | Insufficient |
+| 2 | 🙀 Weak | Weak |
+| 1 | 😾 Bogus | Critical |
 
 ### HardeningKitty Interface
 
