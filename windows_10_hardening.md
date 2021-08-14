@@ -173,8 +173,10 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 
 ### Administrative Templates\Printer
 
-These settings are already set by default. If these settings are different, the system is vulnerable to [CVE-2021-34527](https://vuldb.com/?id.177880).
+These settings are already set by default. If these settings are different, the system is vulnerable to [CVE-2021-34527](https://vuldb.com/?id.177880) and [CVE-2021-36958](https://vuldb.com/?id.180784).
 
+* ID 1768: Set _Only use Package Point and Print_ to **Enabled**
+* ID 1769: Set _Package Point and Print - Approved servers_ to **Enabled** and add a list of servers or a fake entry
 * ID 1764: Set _Point and Print Restrictions\When installing drivers for a new connection_ to **Show warning and elevation prompt**
 * ID 1765: Set _Point and Print Restrictions\When updating drivers for an existing connection_ to **Show warning and elevation prompt**
 

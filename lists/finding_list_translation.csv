@@ -68,6 +68,8 @@ Id,CategoryEN,NameEN,Language,Category,Name
 574,"Administrative Templates: Network","Windows Connect Now: Prohibit access of the Windows Connect Now wizards",DE,"Administrative Vorlagen: Netzwerk","Windows-Sofortverbindung: Zugriff auf Windows-Sofortverbindungs-Assistenten verweigern"
 575,"Administrative Templates: Network","Windows Connection Manager: Minimize the number of simultaneous connections to the Internet or a Windows Domain",DE,"Administrative Vorlagen: Netzwerk","Windows-Verbindungs-Manager: Anzahl gleichzeitiger Verbindungen mit dem Internet oder einer Windows-Domäne minimieren"
 576,"Administrative Templates: Network","Windows Connection Manager: Prohibit connection to non-domain networks when connected to domain authenticated network",DE,"Administrative Vorlagen: Netzwerk","Windows-Verbindungs-Manager: Verbindung mit Nicht-Domänennetzwerken bei vorhandener Verbindung mit domänenauthentifiziertem Netzwerk nicht zulassen"
+1650,"Administrative Templates: Printer","Only use Package Point and Print (CVE-2021-36958)",,,
+1651,"Administrative Templates: Printer","Package Point and Print - Approved servers (CVE-2021-36958)",,,
 1645,"Administrative Templates: Printer","Point and Print Restrictions: Only administrators can install printer drivers on a print server (CVE-2021-34527)",,,
 1643,"Administrative Templates: Printer","Point and Print Restrictions: When installing drivers for a new connection (CVE-2021-34527)",,,
 1644,"Administrative Templates: Printer","Point and Print Restrictions: When updating drivers for an existing connection (CVE-2021-34527)",,,
