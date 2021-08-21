@@ -491,7 +491,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.6.1-1628003775"
+    $HardeningKittyVersion = "0.6.1-1629520511"
 
     #
     # Log, report and backup file
@@ -1669,7 +1669,7 @@
                 # Basically this is true, but there is an exception for the finding "MitigationOptions_FontBocking",
                 # the value "10000000000" is written to the registry as a string
                 #
-                If ($Finding.RegistryItem -eq "MitigationOptions_FontBocking") {
+                If ($Finding.RegistryItem -eq "MitigationOptions_FontBocking" -Or $Finding.RegistryItem -eq "Retention") {
                     $RegType = "String"
                 } ElseIf ($Finding.RecommendedValue -match "^\d+$") {
                     $RegType = "DWord"                    
