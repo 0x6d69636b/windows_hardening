@@ -2007,6 +2007,11 @@
                     $ResultText = "Setting enabled. Please restart the system to activate it" 
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
                     $MessageSeverity = "Passed"
+                } Else {
+
+                    $ResultText = "Setting is already set correct" 
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
+                    $MessageSeverity = "Passed"
                 }
 
                 Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
