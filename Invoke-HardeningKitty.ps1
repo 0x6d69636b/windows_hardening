@@ -491,7 +491,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.6.1-1629520511"
+    $HardeningKittyVersion = "0.6.1-1629523153"
 
     #
     # Log, report and backup file
@@ -1947,6 +1947,74 @@
                     Add-MessageToFile -Text $Message -File $LogFile
                 }
                     
+                If ($Report) {
+                    $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$ResultText+'"'
+                    Add-MessageToFile -Text $Message -File $ReportFile
+                }
+            }
+
+            #
+            # bcdedit
+            # Force use of Data Execution Prevention, if it is not already set
+            #
+            If ($Finding.Method -eq 'bcdedit') {
+
+                # Check if the user has admin rights, skip test if not
+                If (-not($IsAdmin)) {
+                    $StatsError++
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
+                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Continue
+                }
+
+                # Check if binary is available, skip test if not
+                $BinaryBcdedit = "C:\Windows\System32\bcdedit.exe"
+                If (-Not (Test-Path $BinaryBcdedit)) {
+                    $StatsError++
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires bcdedit, and the binary for bcdedit was not found. Test skipped."
+                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Continue
+                }
+
+                try {
+
+                    $ResultOutput = &$BinaryBcdedit
+                    $ResultOutput = $ResultOutput | Where-Object { $_ -like "*"+$Finding.RecommendedValue+"*" }
+
+                    If ($ResultOutput -match ' ([a-z,A-Z]+)') {
+                        $Result = $Matches[1]
+                    } Else {
+                        $Result = $Finding.DefaultValue
+                    }
+
+                } catch {
+                    $Result = $Finding.DefaultValue
+                }
+
+                If ($Result -ne $Finding.RecommendedValue) {
+
+                    try {
+
+                        $ResultOutput = &$BinaryBcdedit "/set" $Finding.MethodArgument $Finding.RecommendedValue
+
+                    } catch {
+
+                        $ResultText = "Setting could not be enabled" 
+                        $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
+                        $MessageSeverity = "High"
+                    }
+
+                    $ResultText = "Setting enabled. Please restart the system to activate it" 
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
+                    $MessageSeverity = "Passed"
+                }
+
+                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+
+                If ($Log) {
+                    Add-MessageToFile -Text $Message -File $LogFile
+                }
+                
                 If ($Report) {
                     $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$ResultText+'"'
                     Add-MessageToFile -Text $Message -File $ReportFile
