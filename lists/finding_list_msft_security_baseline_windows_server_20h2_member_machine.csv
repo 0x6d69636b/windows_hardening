@@ -47,7 +47,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 10308,"User Rights Assignment","Create global objects",accesschk,SeCreateGlobalPrivilege,,,,,,"NT AUTHORITY\SERVICE;BUILTIN\Administrators;NT AUTHORITY\NETWORK SERVICE;NT AUTHORITY\LOCAL SERVICE","NT AUTHORITY\SERVICE;BUILTIN\Administrators;NT AUTHORITY\NETWORK SERVICE;NT AUTHORITY\LOCAL SERVICE",=,Medium
 10309,"User Rights Assignment","Create permanent shared objects",accesschk,SeCreatePermanentPrivilege,,,,,,,,=,Medium
 10310,"User Rights Assignment","Debug programs",accesschk,SeDebugPrivilege,,,,,,BUILTIN\Administrators,BUILTIN\Administrators,=,Medium
-10311,"User Rights Assignment","Deny access to this computer from the network",accesschk,SeDenyNetworkLogonRight,,,,,,COMPUTERNAME\Guest,"NT AUTHORITY\Local account;BUILTIN\Administrators",=,Medium
+10311,"User Rights Assignment","Deny access to this computer from the network",accesschk,SeDenyNetworkLogonRight,,,,,,COMPUTERNAME\Guest,"NT AUTHORITY\Local account and member of Administrators group",=,Medium
 10312,"User Rights Assignment","Deny log on through Remote Desktop Services",accesschk,SeDenyRemoteInteractiveLogonRight,,,,,,,"NT AUTHORITY\Local account",=,Medium
 10313,"User Rights Assignment","Enable computer and user accounts to be trusted for delegation",accesschk,SeEnableDelegationPrivilege,,,,,,,,=,Medium
 10314,"User Rights Assignment","Force shutdown from a remote system",accesschk,SeRemoteShutdownPrivilege,,,,,,BUILTIN\Administrators,BUILTIN\Administrators,=,Medium
@@ -287,7 +287,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 10999,"Microsoft Defender Antivirus","MpEngine: Select cloud protection level",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\MpEngine",MpCloudBlockLevel,,,,,2,>=,Medium
 11013,"Microsoft Defender Antivirus","Real-time Protection: Scan all downloaded files and attachments",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Real-Time Protection",DisableIOAVProtection,,,,0,0,=,Medium
 11014,"Microsoft Defender Antivirus","Real-time Protection: Turn off real-time protection",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Real-Time Protection",DisableRealtimeMonitoring,,,,0,0,=,Medium
-11015,"Microsoft Defender Antivirus","Real-time Protection: Turn on behavior monitoring (Policy)",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection",DisableBehaviorMonitoring,,,,,0,=,Medium
+11015,"Microsoft Defender Antivirus","Real-time Protection: Turn on behavior monitoring (Policy)",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection",DisableBehaviorMonitoring,,,,0,0,=,Medium
 10976,"Microsoft Defender Antivirus","Scan: Scan removable drives",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Scan",DisableRemovableDriveScanning,,,,,0,=,Medium
 10977,"Microsoft Defender Exploit Guard","Attack Surface Reduction rules",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR",ExploitGuard_ASR_Rules,,,,0,1,=,Medium
 10978,"Microsoft Defender Exploit Guard","ASR: Block executable content from email client and webmail (Policy)",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\rules",be9ba2d9-53ea-4cdc-84e5-9b1eeee46550,,,,0,1,=,Medium

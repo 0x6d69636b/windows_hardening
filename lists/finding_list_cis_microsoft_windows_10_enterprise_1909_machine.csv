@@ -513,7 +513,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 18.9.69.5,"Administrative Templates: Windows Components","Store: Turn off the Store application",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore,RemoveWindowsStore,,,,,1,=,Medium
 18.9.77.3.1,"Microsoft Defender Antivirus","MAPS: Configure local setting override for reporting to Microsoft MAPS",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet",LocalSettingOverrideSpynetReporting,,,,,0,=,Medium
 18.9.77.3.2,"Microsoft Defender Antivirus","MAPS: Join Microsoft MAPS",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet",SpynetReporting,,,,,0,=|0,Medium
-18.9.77.7.1,"Microsoft Defender Antivirus","Real-time Protection: Turn on behavior monitoring (Policy)",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection",DisableBehaviorMonitoring,,,,,0,=,Medium
+18.9.77.7.1,"Microsoft Defender Antivirus","Real-time Protection: Turn on behavior monitoring (Policy)",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection",DisableBehaviorMonitoring,,,,0,0,=,Medium
 18.9.77.9.1,"Microsoft Defender Antivirus","Reporting: Configure Watson events",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Reporting",DisableGenericRePorts,,,,,1,=,Medium
 18.9.77.10.1,"Microsoft Defender Antivirus","Scan: Scan removable drives",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Scan",DisableRemovableDriveScanning,,,,,0,=,Medium
 18.9.77.10.2,"Microsoft Defender Antivirus","Scan: Turn on e-mail scanning",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Scan",DisableEmailScanning,,,,,0,=,Medium

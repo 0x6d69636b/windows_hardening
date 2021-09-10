@@ -500,7 +500,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 18.9.45.5.1,"Microsoft Defender Antivirus","MpEngine: Enable file hash computation feature",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\MpEngine",EnableFileHashComputation,,,,,1,=,Medium
 18.9.45.8.1,"Microsoft Defender Antivirus","Real-time Protection: Scan all downloaded files and attachments",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Real-Time Protection",DisableIOAVProtection,,,,0,0,=,Medium
 18.9.45.8.2,"Microsoft Defender Antivirus","Real-time Protection: Turn off real-time protection",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Real-Time Protection",DisableRealtimeMonitoring,,,,0,0,=,Medium
-18.9.45.8.3,"Microsoft Defender Antivirus","Real-time Protection: Turn on behavior monitoring (Policy)",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection",DisableBehaviorMonitoring,,,,,0,=,Medium
+18.9.45.8.3,"Microsoft Defender Antivirus","Real-time Protection: Turn on behavior monitoring (Policy)",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection",DisableBehaviorMonitoring,,,,0,0,=,Medium
 18.9.45.10.1,"Microsoft Defender Antivirus","Reporting: Configure Watson events",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Reporting",DisableGenericRePorts,,,,,1,=,Medium
 18.9.45.11.1,"Microsoft Defender Antivirus","Scan: Scan removable drives",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Scan",DisableRemovableDriveScanning,,,,,0,=,Medium
 18.9.45.11.2,"Microsoft Defender Antivirus","Scan: Turn on e-mail scanning",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Scan",DisableEmailScanning,,,,,0,=,Medium

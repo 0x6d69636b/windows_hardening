@@ -225,7 +225,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 162,"Microsoft Defender Antivirus","Configure detection for potentially unwanted applications",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender",PUAProtection,,,,0,1,=,Medium
 163,"Microsoft Defender Antivirus","Turn off Windows Defender Antivirus",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender",DisableAntiSpyware,,,,0,0,=,Medium
 164,"Microsoft Defender Antivirus","Reporting: Configure Watson events",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Reporting",DisableGenericRePorts,,,,,1,=,Medium
-165,"Microsoft Defender Antivirus","Real-time Protection: Turn on behavior monitoring (Policy)",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection",DisableBehaviorMonitoring,,,,,0,=,Medium
+165,"Microsoft Defender Antivirus","Real-time Protection: Turn on behavior monitoring (Policy)",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection",DisableBehaviorMonitoring,,,,0,0,=,Medium
 167,"Microsoft Defender Antivirus","MAPS: Configure local setting override for reporting to Microsoft MAPS",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet",LocalSettingOverrideSpynetReporting,,,,,0,=,Medium
 168,"Microsoft Defender Antivirus","Scan: Turn on e-mail scanning",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Scan",DisableEmailScanning,,,,,0,=,Medium
 169,"Microsoft Defender Antivirus","Scan: Scan removable drives",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Scan",DisableRemovableDriveScanning,,,,,0,=,Medium

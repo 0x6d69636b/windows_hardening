@@ -47,7 +47,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 10308,"User Rights Assignment","Create global objects",accesschk,SeCreateGlobalPrivilege,,,,,,"NT AUTHORITY\SERVICE;BUILTIN\Administrators;NT AUTHORITY\NETWORK SERVICE;NT AUTHORITY\LOCAL SERVICE","NT AUTHORITY\SERVICE;BUILTIN\Administrators;NT AUTHORITY\NETWORK SERVICE;NT AUTHORITY\LOCAL SERVICE",=,Medium
 10309,"User Rights Assignment","Create permanent shared objects",accesschk,SeCreatePermanentPrivilege,,,,,,,,=,Medium
 10310,"User Rights Assignment","Debug programs",accesschk,SeDebugPrivilege,,,,,,BUILTIN\Administrators,BUILTIN\Administrators,=,Medium
-10311,"User Rights Assignment","Deny access to this computer from the network",accesschk,SeDenyNetworkLogonRight,,,,,,COMPUTERNAME\Guest,"NT AUTHORITY\Local account;BUILTIN\Administrators",=,Medium
+10311,"User Rights Assignment","Deny access to this computer from the network",accesschk,SeDenyNetworkLogonRight,,,,,,COMPUTERNAME\Guest,"NT AUTHORITY\Local account and member of Administrators group",=,Medium
 10312,"User Rights Assignment","Deny log on through Remote Desktop Services",accesschk,SeDenyRemoteInteractiveLogonRight,,,,,,,"NT AUTHORITY\Local account",=,Medium
 10313,"User Rights Assignment","Enable computer and user accounts to be trusted for delegation",accesschk,SeEnableDelegationPrivilege,,,,,,,,=,Medium
 10314,"User Rights Assignment","Force shutdown from a remote system",accesschk,SeRemoteShutdownPrivilege,,,,,,BUILTIN\Administrators,BUILTIN\Administrators,=,Medium

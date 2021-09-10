@@ -48,7 +48,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 10308,"User Rights Assignment","Create global objects",accesschk,SeCreateGlobalPrivilege,,,,,,"NT AUTHORITY\SERVICE;BUILTIN\Administrators;NT AUTHORITY\NETWORK SERVICE;NT AUTHORITY\LOCAL SERVICE","NT AUTHORITY\SERVICE;BUILTIN\Administrators;NT AUTHORITY\NETWORK SERVICE;NT AUTHORITY\LOCAL SERVICE",=,Medium
 10309,"User Rights Assignment","Create permanent shared objects",accesschk,SeCreatePermanentPrivilege,,,,,,,,=,Medium
 10310,"User Rights Assignment","Debug programs",accesschk,SeDebugPrivilege,,,,,,BUILTIN\Administrators,BUILTIN\Administrators,=,Medium
-10311,"User Rights Assignment","Deny access to this computer from the network",accesschk,SeDenyNetworkLogonRight,,,,,,COMPUTERNAME\Guest,"NT AUTHORITY\Local account;BUILTIN\Administrators",=,Medium
+10311,"User Rights Assignment","Deny access to this computer from the network",accesschk,SeDenyNetworkLogonRight,,,,,,COMPUTERNAME\Guest,"NT AUTHORITY\Local account and member of Administrators group",=,Medium
 10312,"User Rights Assignment","Deny log on through Remote Desktop Services",accesschk,SeDenyRemoteInteractiveLogonRight,,,,,,,"NT AUTHORITY\Local account",=,Medium
 10313,"User Rights Assignment","Enable computer and user accounts to be trusted for delegation",accesschk,SeEnableDelegationPrivilege,,,,,,,,=,Medium
 10314,"User Rights Assignment","Force shutdown from a remote system",accesschk,SeRemoteShutdownPrivilege,,,,,,BUILTIN\Administrators,BUILTIN\Administrators,=,Medium
@@ -118,7 +118,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 10643,"MSS (Legacy)","MSS: (NoNameReleaseOnDemand) Allow the computer to ignore NetBIOS name release requests except from WINS servers",Registry,,HKLM:\System\CurrentControlSet\Services\Netbt\Parameters,NoNameReleaseOnDemand,,,,0,1,=,Medium
 10650,"Administrative Templates: Network","DNS Client: Turn off multicast name resolution (LLMNR)",Registry,,"HKLM:\Software\Policies\Microsoft\Windows NT\DNSClient",EnableMulticast,,,,1,0,=,Medium
 10651,"Administrative Templates: Network","Lanman Workstation: Enable insecure guest logons",Registry,,HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation,AllowInsecureGuestAuth,,,,1,0,=,Medium
-10653,"Administrative Templates: Network","Network Provider: Hardened UNC Paths (NETLOGON)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths,\\*\NETLOGON,,,,,"RequireMutualAuthentication=1, RequireIntegrity=1",=,Medium
+10653,"Administrative Templates: Network","Network Provider: Hardened UNC Paths (NETLOGON)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths,\\*\NETLOGON,,,,,"RequireMutualAuthentication=1,RequireIntegrity=1",=,Medium
 10654,"Administrative Templates: Network","Network Provider: Hardened UNC Paths (SYSVOL)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths,\\*\SYSVOL,,,,,"RequireMutualAuthentication=1, RequireIntegrity=1",=,Medium
 10670,"Administrative Templates: System","Credentials Delegation: Encryption Oracle Remediation",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\CredSSP\Parameters,AllowEncryptionOracle,,,,0,0,=,Medium
 10671,"Administrative Templates: System","Credentials Delegation: Remote host allows delegation of non-exportable credentials",Registry,,HKLM:\Software\Policies\Microsoft\Windows\CredentialsDelegation,AllowProtectedCreds,,,,,1,=,Medium
@@ -314,7 +314,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 10999,"Microsoft Defender Antivirus","MpEngine: Select cloud protection level",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\MpEngine",MpCloudBlockLevel,,,,,2,>=,Medium
 11013,"Microsoft Defender Antivirus","Real-time Protection: Scan all downloaded files and attachments",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Real-Time Protection",DisableIOAVProtection,,,,0,0,=,Medium
 11014,"Microsoft Defender Antivirus","Real-time Protection: Turn off real-time protection",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Real-Time Protection",DisableRealtimeMonitoring,,,,0,0,=,Medium
-11015,"Microsoft Defender Antivirus","Real-time Protection: Turn on behavior monitoring (Policy)",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection",DisableBehaviorMonitoring,,,,,0,=,Medium
+11015,"Microsoft Defender Antivirus","Real-time Protection: Turn on behavior monitoring (Policy)",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection",DisableBehaviorMonitoring,,,,0,0,=,Medium
 11031,"Microsoft Defender Antivirus","Real-time Protection: Turn on script scanning",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Real-Time Protection",DisableScriptScanning,,,,0,0,=,Medium
 10976,"Microsoft Defender Antivirus","Scan: Scan removable drives",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Scan",DisableRemovableDriveScanning,,,,,0,=,Medium
 10960,"Administrative Templates: Windows Components","Remote Desktop Connection Client: Do not allow passwords to be saved",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services",DisablePasswordSaving,,,,0,1,=,Medium
