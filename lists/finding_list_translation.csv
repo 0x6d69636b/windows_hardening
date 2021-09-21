@@ -612,6 +612,8 @@ Id,CategoryEN,NameEN,Language,Category,Name
 690,"Microsoft Defender Application Guard","Turn on Microsoft Defender Application Guard in Managed Mode",,,
 245,"Microsoft Defender Exploit Guard","ASR: Block Adobe Reader from creating child processes",DE,"Microsoft Defender Exploit Guard","ASR: Adobe Reader am Erstellen von untergeordneten Prozessen hindern"
 244,"Microsoft Defender Exploit Guard","ASR: Block Adobe Reader from creating child processes (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Adobe Reader am Erstellen von untergeordneten Prozessen hindern (Richtlinie)"
+227,"Microsoft Defender Exploit Guard","ASR: Block JavaScript or VBScript from launching downloaded executable content",DE,"Microsoft Defender Exploit Guard","ASR: JavaScript und VBScript am Starten heruntergeladener ausführbarer Inhalte hindern"
+226,"Microsoft Defender Exploit Guard","ASR: Block JavaScript or VBScript from launching downloaded executable content (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: JavaScript und VBScript am Starten heruntergeladener ausführbarer Inhalte hindern (Richtlinie)"
 221,"Microsoft Defender Exploit Guard","ASR: Block Office applications from creating child processes",DE,"Microsoft Defender Exploit Guard","ASR: Alle Office-Anwendungen am Erstellen von untergeordneten Prozessen hindern"
 220,"Microsoft Defender Exploit Guard","ASR: Block Office applications from creating child processes (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Alle Office-Anwendungen am Erstellen von untergeordneten Prozessen hindern (Richtlinie)"
 223,"Microsoft Defender Exploit Guard","ASR: Block Office applications from creating executable content",DE,"Microsoft Defender Exploit Guard","ASR: Office-Anwendungen am Erstellen ausführbarer Inhalte hindern"
@@ -639,8 +641,6 @@ Id,CategoryEN,NameEN,Language,Category,Name
 241,"Microsoft Defender Exploit Guard","ASR: Block untrusted and unsigned processes that run from USB",DE,"Microsoft Defender Exploit Guard","ASR: Nicht vertrauenswürdige und nicht signierte Prozess, die von USB ausgeführt werden, blockieren"
 240,"Microsoft Defender Exploit Guard","ASR: Block untrusted and unsigned processes that run from USB (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Nicht vertrauenswürdige und nicht signierte Prozess, die von USB ausgeführt werden, blockieren (Richtlinie)"
 1545,"Microsoft Defender Exploit Guard","ASR: Exclude files and paths from Attack Surface Reduction Rules (Policy)",,,
-227,"Microsoft Defender Exploit Guard","ASR: Impede JavaScript and VBScript to launch executables",DE,"Microsoft Defender Exploit Guard","ASR: JavaScript und VBScript am Starten heruntergeladener ausführbarer Inhalte hindern"
-226,"Microsoft Defender Exploit Guard","ASR: Impede JavaScript and VBScript to launch executables (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: JavaScript und VBScript am Starten heruntergeladener ausführbarer Inhalte hindern (Richtlinie)"
 1546,"Microsoft Defender Exploit Guard","ASR: List of excluded files and paths from Attack Surface Reduction Rules",,,
 235,"Microsoft Defender Exploit Guard","ASR: Use advanced protection against ransomware",,,
 234,"Microsoft Defender Exploit Guard","ASR: Use advanced protection against ransomware (Policy)",,,
