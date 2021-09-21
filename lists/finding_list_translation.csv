@@ -874,6 +874,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 699,"Microsoft Edge","Configure the Adobe Flash Click-to-Run setting",,,
 807,"Microsoft Edge","Control which extensions cannot be installed",,,
 806,"Microsoft Edge","Default Adobe Flash setting (obsolete)",,,
+1654,"Microsoft Edge","Enable 3DES cipher suites in TLS",,,
 810,"Microsoft Edge","Enable saving passwords to the password manager",,,
 804,"Microsoft Edge","Enable site isolation for every site",,,
 805,"Microsoft Edge","Minimum TLS version enabled",,,
