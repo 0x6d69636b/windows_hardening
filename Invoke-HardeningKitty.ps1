@@ -491,7 +491,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.6.1-1629523153"
+    $HardeningKittyVersion = "0.6.1-1632233044"
 
     #
     # Log, report and backup file
@@ -736,11 +736,12 @@
                 try {
 
                     $SubCategory = $Finding.MethodArgument
-                    $ResultOutput = &$BinaryAuditpol /get /subcategory:"$SubCategory"
+                    $ResultOutputCsv = &$BinaryAuditpol /get /subcategory:"$SubCategory" /r
                     
-                    # "Parse" auditpol.exe output
-                    $ResultOutput[4] -match '  ([a-z, /-]+)  ([a-z, ]+)' | Out-Null
-                    $Result = $Matches[2]
+                    # "Parse" auditpol.exe csv output
+                    $ResultOutput = $ResultOutputCsv[2] -split ","
+                    $Result = $ResultOutput[4]
+                    Clear-Variable -Name ("ResultOutputCsv", "ResultOutput")
 
                 } catch {
                     $Result = $Finding.DefaultValue
