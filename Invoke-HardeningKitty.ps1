@@ -499,6 +499,8 @@
     $Hostname = $env:COMPUTERNAME.ToLower()
     $FileDate = Get-Date -Format yyyyMMdd-HHmmss
     $ListName = [System.IO.Path]::GetFileNameWithoutExtension($FileFindingList)
+    $WinSystemLocale = GET-WinSystemLocale
+    $PowerShellVersion = "$($PSVersionTable.PSVersion.Major).$($PSVersionTable.PSVersion.Minor)"
 
     If ($Log.IsPresent -and $LogFile.Length -eq 0) {
         $LogFile = "hardeningkitty_log_"+$Hostname+"_"+$ListName+"-$FileDate.log"
@@ -564,6 +566,10 @@
         $Message = "Windows version: "+$MachineInformation.WindowsVersion
         Write-ProtocolEntry -Text $Message -LogLevel "Notime"
         $Message = "Windows build: "+$MachineInformation.WindowsBuildLabEx
+        Write-ProtocolEntry -Text $Message -LogLevel "Notime"
+        $Message = "System-locale: "+$WinSystemLocale.Name
+        Write-ProtocolEntry -Text $Message -LogLevel "Notime"
+        $Message = "Powershell Version: "+$PowerShellVersion
         Write-ProtocolEntry -Text $Message -LogLevel "Notime"
     }
 
