@@ -182,7 +182,7 @@ HardeningKitty can be used to audit systems against the following baselines / be
 | Microsoft Security baseline for Microsoft Edge | 87 | Final |
 | Microsoft Security baseline for Microsoft Edge | 88, 89, 90, 91 | Final |
 | Microsoft Security baseline for Microsoft Edge | 92 | Final |
-| Microsoft Security baseline for Microsoft Edge | 93 | Final |
+| Microsoft Security baseline for Microsoft Edge | 93, 94 | Final |
 | Microsoft Security baseline for Windows 10 | 2004 | Final |
 | Microsoft Security baseline for Windows 10 | 20H2, 21H1 | Final |
 | Microsoft Security baseline for Windows Server (DC) | 2004 | Final |
