@@ -1468,7 +1468,7 @@
 
                 $Result = Invoke-Expression $ResultCommand
 
-                if($LastExitCode -eq 1) {
+                if($LastExitCode -eq 0) {
                     $ResultText = "Method value modified"
                     $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", " + $ResultText
                     $MessageSeverity = "Passed"
