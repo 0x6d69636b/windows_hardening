@@ -749,7 +749,7 @@
                     $ResultFormatted = $ResultOutput[4]
 
                     # Preparing for translation (FR‚GER‚ES)
-                    $translate = @{"succès"="Success" ; "échec"="Failure" ; "Succès et échec"="Success and Failure" ; "SuccŠs et ‚chec"="Success and Failure" ; "SuccŠs"="Success" ; "‚chec"="Failure" ; "Erfolg und Fehler"="Success and Failure" ; "Erfolg"="Success" ; "Fehler"="Failure" ; "Aciertos y errores"="Success and Failure" ; "Aciertos"="Success" ; "errores"="Failure"}
+                    $translate = @{"Réussite"="Success" ; "échec"="Failure" ; "Succès et échec"="Success and Failure" ; "SuccŠs et ‚chec"="Success and Failure" ; "SuccŠs"="Success" ; "‚chec"="Failure" ; "Erfolg und Fehler"="Success and Failure" ; "Erfolg"="Success" ; "Fehler"="Failure" ; "Aciertos y errores"="Success and Failure" ; "Aciertos"="Success" ; "errores"="Failure"}
 
                     if ($translate.ContainsKey($ResultFormatted)) {
                         $Result = $translate.$ResultFormatted
