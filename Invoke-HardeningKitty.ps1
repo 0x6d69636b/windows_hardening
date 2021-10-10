@@ -491,7 +491,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.6.1-1632233044"
+    $HardeningKittyVersion = "0.6.1-1633878081"
 
     #
     # Log, report and backup file
@@ -742,12 +742,25 @@
                 try {
 
                     $SubCategory = $Finding.MethodArgument
-                    $ResultOutputCsv = &$BinaryAuditpol /get /subcategory:"$SubCategory" /r
-                    
-                    # "Parse" auditpol.exe csv output
-                    $ResultOutput = $ResultOutputCsv[2] -split ","
-                    $Result = $ResultOutput[4]
-                    Clear-Variable -Name ("ResultOutputCsv", "ResultOutput")
+
+                    # auditpol.exe does not write a backup in an existing file, so we have to build a name instead of create one    
+                    $TempFileName = [System.IO.Path]::GetTempPath()+"HardeningKitty_auditpol-"+$(Get-Date -Format yyyyMMdd-HHmmss)+".csv"
+                    &$BinaryAuditpol /backup /file:$TempFileName > $null
+                    $ResultOutputCsv = Import-Csv -Path $TempFileName -Delimiter ","
+                    $ResultOutputObject = $ResultOutputCsv | Where-Object { $_.'Subcategory GUID' -eq $SubCategory }
+                    $ResultOutput = $ResultOutputObject.'Setting Value'
+
+                    # Translate setting value (works only for English list, so this is workaround)
+                    Switch ($ResultOutput) {
+                        "0" { $Result = "No Auditing"; Break}
+                        "1" { $Result = "Success"; Break}
+                        "2" { $Result = "Failure"; Break}
+                        "3" { $Result = "Success and Failure"; Break}
+                    }
+
+                    # House cleaning
+                    Remove-Item $TempFileName
+                    Clear-Variable -Name ("ResultOutputCsv", "ResultOutputObject", "ResultOutput")
 
                 } catch {
                     $Result = $Finding.DefaultValue
