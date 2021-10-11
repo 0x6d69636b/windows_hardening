@@ -742,23 +742,27 @@
                 try {
 
                     $SubCategory = $Finding.MethodArgument
-                    $ResultOutputCsv = &$BinaryAuditpol /get /subcategory:"$SubCategory" /r
-                    
-                    # "Parse" auditpol.exe csv output
-                    $ResultOutput = $ResultOutputCsv[2] -split ","
-                    $ResultFormatted = $ResultOutput[4]
 
-                    # Preparing for translation (FR‚GER‚ES)
-                    $translate = @{"Réussite"="Success" ; "échec"="Failure" ; "Succès et échec"="Success and Failure" ; "SuccŠs et ‚chec"="Success and Failure" ; "SuccŠs"="Success" ; "‚chec"="Failure" ; "Erfolg und Fehler"="Success and Failure" ; "Erfolg"="Success" ; "Fehler"="Failure" ; "Aciertos y errores"="Success and Failure" ; "Aciertos"="Success" ; "errores"="Failure"}
-
-                    if ($translate.ContainsKey($ResultFormatted)) {
-                        $Result = $translate.$ResultFormatted
-                    }
-                    else{
-                        $Result = $ResultFormatted
-                    }
+                    # auditpol.exe does not write a backup in an existing file, so we have to build a name instead of create one    
+                    $TempFileName = [System.IO.Path]::GetTempPath()+"HardeningKitty_auditpol-"+$(Get-Date -Format yyyyMMdd-HHmmss)+".csv"
+                    &$BinaryAuditpol /backup /file:$TempFileName > $null
+                    $ResultOutputLoad = Get-Content $TempFileName
                     
-                    Clear-Variable -Name ("ResultOutputCsv", "ResultOutput")
+                    foreach ($line in $ResultOutputLoad){
+                        $table = $line.Split(",")
+                        if ($table[3] -eq $SubCategory){
+                            Switch ($table[6]) {
+                                            "0" { $Result = "No Auditing"; Break}
+                                            "1" { $Result = "Success"; Break}
+                                            "2" { $Result = "Failure"; Break}
+                                            "3" { $Result = "Success and Failure"; Break}
+                            }
+                        }
+                    }
+
+                    # House cleaning
+                    Remove-Item $TempFileName
+                    Clear-Variable -Name ("ResultOutputLoad", "table")
 
                 } catch {
                     $Result = $Finding.DefaultValue
