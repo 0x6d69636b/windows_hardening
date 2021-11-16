@@ -456,6 +456,8 @@ In enterprise-managed mode, trusted zones can be defined via the network isolati
 * ID 1749: Set _Always install with elevated privileges_ to **Disabled**
 * ID 1750: Set _Allow user control over installs_ to **Disabled**
 * ID 1751: Set _Prevent Internet Explorer security prompt for Windows Installer scripts_ to **Disabled**
+* ID 1770: Disable Co-Installer (USB AutoInstall)
+	* Add **DisableCoInstallers=dword:00000001** to _HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Device Installer_
 
 #### Windows Logon Options
 
