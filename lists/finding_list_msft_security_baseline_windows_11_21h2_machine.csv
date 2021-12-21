@@ -390,3 +390,11 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 11010,"Administrative Templates: Windows Components","WinRM Service: Allow Basic authentication",Registry,,HKLM:\Software\Policies\Microsoft\Windows\WinRM\Service,AllowBasic,,,,1,0,=,Medium
 11011,"Administrative Templates: Windows Components","WinRM Service: Allow unencrypted traffic",Registry,,HKLM:\Software\Policies\Microsoft\Windows\WinRM\Service,AllowUnencryptedTraffic,,,,1,0,=,Medium
 11012,"Administrative Templates: Windows Components","WinRM Service: Disallow WinRM from storing RunAs credentials",Registry,,HKLM:\Software\Policies\Microsoft\Windows\WinRM\Service,DisableRunAs,,,,0,1,=,Medium
+11050,"System Services","Xbox Accessory Management Service (XboxGipSvc)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\XboxGipSvc,Start,,,,3,4,=,Medium
+11051,"System Services","Xbox Accessory Management Service (XboxGipSvc) (Service Startup type)",service,XboxGipSvc,,,,,,Manual,Disabled,=,Medium
+11052,"System Services","Xbox Live Auth Manager (XblAuthManager)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\XblAuthManager,Start,,,,3,4,=,Medium
+11053,"System Services","Xbox Live Auth Manager (XblAuthManager) (Service Startup type)",service,XblAuthManager,,,,,,Manual,Disabled,=,Medium
+11054,"System Services","Xbox Live Game Save (XblGameSave)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\XblGameSave,Start,,,,3,4,=,Medium
+11055,"System Services","Xbox Live Game Save (XblGameSave) (Service Startup type)",service,XblGameSave,,,,,,Manual,Disabled,=,Medium
+11056,"System Services","Xbox Live Networking Service (XboxNetApiSvc)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\XboxNetApiSvc,Start,,,,3,4,=,Medium
+11057,"System Services","Xbox Live Networking Service (XboxNetApiSvc) (Service Startup type)",service,XboxNetApiSvc,,,,,,Manual,Disabled,=,Medium
