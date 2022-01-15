@@ -880,6 +880,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 1655,"Microsoft Edge","Enable browser legacy extension point blocking",,,
 810,"Microsoft Edge","Enable saving passwords to the password manager",,,
 804,"Microsoft Edge","Enable site isolation for every site",,,
+1661,"Microsoft Edge","Enhance images enabled",,,
 805,"Microsoft Edge","Minimum TLS version enabled",,,
 700,"Microsoft Edge","Prevent access to the about:flags page in Microsoft Edge",,,
 701,"Microsoft Edge","Prevent bypassing Microsoft Defender SmartScreen prompts for files",,,
