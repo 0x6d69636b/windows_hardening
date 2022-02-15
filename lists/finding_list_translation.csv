@@ -865,6 +865,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 1646,"Microsoft Edge","Allow unconfigured sites to be reloaded in Internet Explorer mode",,,
 809,"Microsoft Edge","Allow user-level native messaging hosts (installed without admin permissions)",,,
 803,"Microsoft Edge","Allow users to proceed from the HTTPS warning page",,,
+1662,"Microsoft Edge","Allow using the deprecated U2F Security Key API (deprecated)",,,
 1659,"Microsoft Edge","Configure Edge TyposquattingChecker",,,
 811,"Microsoft Edge","Configure Microsoft Defender SmartScreen",,,
 812,"Microsoft Edge","Configure Microsoft Defender SmartScreen to block potentially unwanted apps",,,
