@@ -495,7 +495,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.7.0-1645549679"
+    $HardeningKittyVersion = "0.7.0-1645551271"
 
     #
     # Log, report and backup file
@@ -660,7 +660,15 @@
         If ($FileFindingList.Length -eq 0) {
 
             $CurrentLocation = Get-Location
-            $FileFindingList = "$CurrentLocation\lists\finding_list_0x6d69636b_machine.csv"
+            $DefaultList = "$CurrentLocation\lists\finding_list_0x6d69636b_machine.csv"            
+
+            If (Test-Path -Path $DefaultList) {
+                $FileFindingList = $DefaultList
+            } Else {
+                $Message = "The finding list $DefaultList was not found."
+                Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                Continue
+            }
         }
 
         $FindingList = Import-Csv -Path $FileFindingList -Delimiter ","
@@ -1406,7 +1414,15 @@
         If ($FileFindingList.Length -eq 0) {
 
             $CurrentLocation = Get-Location
-            $FileFindingList = "$CurrentLocation\lists\finding_list_0x6d69636b_machine.csv"
+            $DefaultList = "$CurrentLocation\lists\finding_list_0x6d69636b_machine.csv"            
+
+            If (Test-Path -Path $DefaultList) {
+                $FileFindingList = $DefaultList
+            } Else {
+                $Message = "The finding list $DefaultList was not found."
+                Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                Continue
+            }           
         }
 
         $FindingList = Import-Csv -Path $FileFindingList -Delimiter ","
