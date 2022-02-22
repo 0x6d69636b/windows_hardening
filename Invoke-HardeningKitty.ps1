@@ -495,7 +495,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.7.0-1640190489"
+    $HardeningKittyVersion = "0.7.0-1645549679"
 
     #
     # Log, report and backup file
@@ -659,8 +659,8 @@
         # A CSV finding list is imported. HardeningKitty has one machine and one user list.
         If ($FileFindingList.Length -eq 0) {
 
-            $CurrentLication = Get-Location
-            $FileFindingList = "$CurrentLication\lists\finding_list_0x6d69636b_machine.csv"
+            $CurrentLocation = Get-Location
+            $FileFindingList = "$CurrentLocation\lists\finding_list_0x6d69636b_machine.csv"
         }
 
         $FindingList = Import-Csv -Path $FileFindingList -Delimiter ","
@@ -1405,8 +1405,8 @@
         # A CSV finding list is imported
         If ($FileFindingList.Length -eq 0) {
 
-            $CurrentLication = Get-Location
-            $FileFindingList = "$CurrentLication\lists\finding_list_0x6d69636b_machine.csv"
+            $CurrentLocation = Get-Location
+            $FileFindingList = "$CurrentLocation\lists\finding_list_0x6d69636b_machine.csv"
         }
 
         $FindingList = Import-Csv -Path $FileFindingList -Delimiter ","
