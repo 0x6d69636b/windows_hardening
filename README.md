@@ -167,6 +167,8 @@ HardeningKitty can be used to audit systems against the following baselines / be
 | CIS Microsoft Windows Server 2012 R2 (User) | R2 | 2.4.0 |
 | CIS Microsoft Windows Server 2016 (Machine) | 1607 | 1.2.0 |
 | CIS Microsoft Windows Server 2016 (User) | 1607 | 1.2.0 |
+| CIS Microsoft Windows Server 2016 (Machine) | 1607 | 1.3.0 |
+| CIS Microsoft Windows Server 2016 (User) | 1607 | 1.3.0 |
 | CIS Microsoft Windows Server 2019 (Machine) | 1809 | 1.1.0 |
 | CIS Microsoft Windows Server 2019 (User) | 1809 | 1.1.0 |
 | CIS Microsoft Windows Server 2019 (Machine) | 1809 | 1.2.0 |
