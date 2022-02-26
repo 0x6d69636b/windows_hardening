@@ -152,7 +152,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 5.17.1,"System Services","PNRP Machine Name Publication Service (PNRPAutoReg)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\PNRPAutoReg,Start,,,,3,4,=,Medium
 5.17.2,"System Services","PNRP Machine Name Publication Service (PNRPAutoReg) (Service Startup type)",service,PNRPAutoReg,,,,,,Manual,Disabled,=,Medium
 5.18.1,"System Services","Print Spooler (Spooler)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\Spooler,Start,,,,2,4,=,Medium
-5.18.2,"System Services","Print Spooler (Spooler) (Service Startup type)",service,DiagTrack,,,,,,Automatic,Disabled,=,Medium
+5.18.2,"System Services","Print Spooler (Spooler) (Service Startup type)",service,Spooler,,,,,,Automatic,Disabled,=,Medium
 5.19.1,"System Services","Problem Reports and Solutions Control Panel Support (wercplsupport)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\wercplsupport,Start,,,,3,4,=,Medium
 5.19.2,"System Services","Problem Reports and Solutions Control Panel Support (wercplsupport) (Service Startup type)",service,wercplsupport,,,,,,Manual,Disabled,=,Medium
 5.20.1,"System Services","Remote Access Auto Connection Manager (RasAuto)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\RasAuto,Start,,,,3,4,=,Medium
