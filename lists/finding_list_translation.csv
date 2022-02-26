@@ -101,6 +101,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 581,"Administrative Templates: System","Device Guard: Virtualization Based Protection of Code Integrity (Policy)",,,
 112,"Administrative Templates: System","Device Guard: Virtualization Based Security Status",,,
 121,"Administrative Templates: System","Device Guard: Windows Defender Application Control deployed (Policy)",,,
+1684,"Administrative Templates: System","Device Installation: Device Installation Restrictions: Prevent device metadata retrieval from the Internet",,,
 107,"Administrative Templates: System","Device Installation: Device Installation Restrictions: Prevent installation of devices that match ID PCI\CC_0C0010 (Firewire)",,,
 108,"Administrative Templates: System","Device Installation: Device Installation Restrictions: Prevent installation of devices that match ID PCI\CC_0C0A (Thunderbolt)",DE,"Administrative Vorlagen: System","Geräteinstallation: Einschränkungen bei der Geräteinstallation: Installation von Geräten mit diesen Geräte-IDs verhindern PCI\CC_0C0A (Thunderbolt)"
 105,"Administrative Templates: System","Device Installation: Device Installation Restrictions: Prevent installation of devices that match an ID",DE,"Administrative Vorlagen: System","Geräteinstallation: Einschränkungen bei der Geräteinstallation: Installation von Geräten mit diesen Geräte-IDs verhindern"
@@ -158,6 +159,8 @@ Id,CategoryEN,NameEN,Language,Category,Name
 795,"Administrative Templates: System","Remote Procedure Call: Enable RPC Endpoint Mapper Client Authentication (Member)",,,
 144,"Administrative Templates: System","Remote Procedure Call: Restrict Unauthenticated RPC clients",DE,"Administrative Vorlagen: System","Remoteprozeduraufruf: Nicht authentifizierte RPC-Clients einschränken"
 796,"Administrative Templates: System","Remote Procedure Call: Restrict Unauthenticated RPC clients (Member)",,,
+1685,"Administrative Templates: System","Security Account Manager: Configure validation of ROCA-vulnerable WHfB keys during authentication",,,
+1686,"Administrative Templates: System","Security Account Manager: Configure validation of ROCA-vulnerable WHfB keys during authentication (DC only)",,,
 145,"Administrative Templates: System","Security Settings: Enable svchost.exe mitigation options",,,
 607,"Administrative Templates: System","Sleep Settings: Allow network connectivity during connected-standby (on battery)",DE,"Administrative Vorlagen: System","Standbymoduseinstellungen: Netzwerkverbindungen im verbundenen Standbymodus zulassen (Akkubetrieb)"
 608,"Administrative Templates: System","Sleep Settings: Allow network connectivity during connected-standby (plugged in)",DE,"Administrative Vorlagen: System","Standbymoduseinstellungen: Netzwerkverbindungen im verbundenen Standbymodus zulassen (Netzbetrieb)"
@@ -1470,7 +1473,11 @@ Id,CategoryEN,NameEN,Language,Category,Name
 458,"System Services","Peer Networking Identity Manager (p2pimsvc)",DE,Systemdienste,"Peernetzwerkidentitäts-Manager (p2pimsvc)"
 459,"System Services","Peer Networking Identity Manager (p2pimsvc) (Service Startup type)",DE,Systemdienste,"Peernetzwerkidentitäts-Manager (p2pimsvc) (Dienst Starttyp)"
 1664,"System Services","Print Spooler (Spooler)",,,
+1680,"System Services","Print Spooler (Spooler) (DC only) ",,,
+1682,"System Services","Print Spooler (Spooler) (MS only)",,,
 1665,"System Services","Print Spooler (Spooler) (Service Startup type)",,,
+1681,"System Services","Print Spooler (Spooler) (Service Startup type) (DC only) ",,,
+1683,"System Services","Print Spooler (Spooler) (Service Startup type) (MS only)",,,
 462,"System Services","Problem Reports and Solutions Control Panel Support (wercplsupport)",DE,Systemdienste,"Unterstützung in der Systemsteuerung unter Lösungen für Probleme (wercplsupport)"
 463,"System Services","Problem Reports and Solutions Control Panel Support (wercplsupport) (Service Startup type)",DE,Systemdienste,"Unterstützung in der Systemsteuerung unter Lösungen für Probleme (wercplsupport) (Dienst Starttyp)"
 464,"System Services","Remote Access Auto Connection Manager (RasAuto)",DE,Systemdienste,"Verwaltung für automatische RAS-Verbindung (RasAuto)"
