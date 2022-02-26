@@ -17,6 +17,9 @@ Id,CategoryEN,NameEN,Language,Category,Name
 343,"Account Policies","Relax minimum password length limits",,,
 4,"Account Policies","Reset account lockout counter",DE,Kontorichtlinien,"Zurücksetzungsdauer des Kontosperrungszählers"
 344,"Account Policies","Store passwords using reversible encryption",DE,Kontorichtlinien,"Kennwort mit umkehrbarer Verschlüsselung speichern"
+1667,"Administrative Templates","Printers: Allow Print Spooler to accept client connections",,,
+1668,"Administrative Templates","Printers: Point and Print Restrictions: When installing drivers for a new connection",,,
+1669,"Administrative Templates","Printers: Point and Print Restrictions: When updating drivers for an existing connection",,,
 530,"Administrative Templates: Control Panel","Allow Online Tips",DE,"Administrative Vorlagen: Systemsteuerung","Onlinetipps zulassen"
 735,"Administrative Templates: Control Panel","Enable screen saver",DE,"Administrative Vorlagen: Systemsteuerung","Bildschirmschoner aktivieren"
 801,"Administrative Templates: Control Panel","Force specific screen saver: Screen saver executable name",DE,"Administrative Vorlagen: Systemsteuerung","Bestimmten Bildschirmschoner erzwingen"
@@ -39,6 +42,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 787,"Administrative Templates: LAPS","Password Settings: Password Complexity (Member)",,,
 535,"Administrative Templates: LAPS","Password Settings: Password Length",,,
 788,"Administrative Templates: LAPS","Password Settings: Password Length (Member)",,,
+1666,"Administrative Templates: Network","DNS Client: Configure DNS over HTTPS (DoH) name resolution",,,
 99,"Administrative Templates: Network","DNS Client: Turn off multicast name resolution (LLMNR)",DE,"Administrative Vorlagen: Netzwerk","DNS-Client: Multicastnamensauflösung deaktivieren (LLMNR)"
 568,"Administrative Templates: Network","Disable IPv6",,,
 553,"Administrative Templates: Network","Fonts: Enable Font Providers",DE,"Administrative Vorlagen: Netzwerk","Schriftarten: Schriftartenanbieter aktivieren"
@@ -253,17 +257,23 @@ Id,CategoryEN,NameEN,Language,Category,Name
 302,"Administrative Templates: Windows Components","Cloud Content: Do not suggest third-party content in Windows spotlight",DE,"Administrative Vorlagen: Windows-Komponenten","Cloudinhalt: Keine Inhalte von Drittanbietern in Windows-Blickpunkt vorschlagen"
 301,"Administrative Templates: Windows Components","Cloud Content: Do not use diagnostic data for tailored experiences",DE,"Administrative Vorlagen: Windows-Komponenten","Cloudinhalt: Keine Diagnosedaten zur Personalisierung der Benutzererfahrung verwenden"
 171,"Administrative Templates: Windows Components","Cloud Content: Turn off Microsoft consumer experiences",DE,"Administrative Vorlagen: Windows-Komponenten","Cloudinhalt: Microsoft-Anwenderfeatures deaktivieren"
+1663,"Administrative Templates: Windows Components","Cloud Content: Turn off Spotlight collection on Desktop",,,
 741,"Administrative Templates: Windows Components","Cloud Content: Turn off all Windows spotlight features",DE,"Administrative Vorlagen: Windows-Komponenten","Cloudinhalt: Features von Windows-Blickpunkt deaktivieren"
+1670,"Administrative Templates: Windows Components","Cloud Content: Turn off cloud consumer account state content",,,
 1313,"Administrative Templates: Windows Components","Cloud Content: Turn off cloud optimized content",,,
 659,"Administrative Templates: Windows Components","Connect: Require pin for pairing",DE,"Administrative Vorlagen: Windows-Komponenten","Verbinden: PIN für die Kopplung anfordern"
 172,"Administrative Templates: Windows Components","Credential User Interface: Do not display the password reveal button",DE,"Administrative Vorlagen: Windows-Komponenten","Benutzerschnittstelle für Anmeldeinformationen: Schaltfläche zum Anzeigen von Kennwörtern nicht anzeigen"
 174,"Administrative Templates: Windows Components","Credential User Interface: Enumerate administrator accounts on elevation",DE,"Administrative Vorlagen: Windows-Komponenten","Benutzerschnittstelle für Anmeldeinformationen: Bei Ausführung mit erhöhten Rechten Administratorkonten auflisten"
 660,"Administrative Templates: Windows Components","Credential User Interface: Prevent the use of security questions for local accounts",,,
 173,"Administrative Templates: Windows Components","Credential User Interface: Require trusted path for credential entry",,,
-175,"Administrative Templates: Windows Components","Data Collection and Preview Builds: Allow Telemetry",DE,"Administrative Vorlagen: Windows-Komponenten","Datensammlung und Vorabversionen: Telemetrie zulassen"
+175,"Administrative Templates: Windows Components","Data Collection and Preview Builds: Allow Diagnostic Data",DE,"Administrative Vorlagen: Windows-Komponenten","Datensammlung und Vorabversionen: Telemetrie zulassen"
 176,"Administrative Templates: Windows Components","Data Collection and Preview Builds: Allow device name to be sent in Windows diagnostic data",DE,"Administrative Vorlagen: Windows-Komponenten","Datensammlung und Vorabversionen: Übermitteln des Gerätenamens in Windows-Diagnosedaten zulassen"
 661,"Administrative Templates: Windows Components","Data Collection and Preview Builds: Configure Authenticated Proxy usage for the Connected User Experience and Telemetry service",DE,"Administrative Vorlagen: Windows-Komponenten","Datensammlung und Vorabversionen: Verwendung des authentifizierenden Proxys für den Dienst ""Benutzererfahrung und Telemetrie im verbundenen Modus"
+1671,"Administrative Templates: Windows Components","Data Collection and Preview Builds: Disable OneSettings Downloads",,,
 662,"Administrative Templates: Windows Components","Data Collection and Preview Builds: Do not show feedback notifications",DE,"Administrative Vorlagen: Windows-Komponenten","Datensammlung und Vorabversionen: Feedbackbenachrichtigungen nicht mehr anzeigen"
+1672,"Administrative Templates: Windows Components","Data Collection and Preview Builds: Enable OneSettings Auditing",,,
+1673,"Administrative Templates: Windows Components","Data Collection and Preview Builds: Limit Diagnostic Log Collection",,,
+1674,"Administrative Templates: Windows Components","Data Collection and Preview Builds: Limit Dump Collection",,,
 964,"Administrative Templates: Windows Components","Data Collection and Preview Builds: Limit Enhanced diagnostic data to the minimum required by Windows Analytics",,,
 663,"Administrative Templates: Windows Components","Data Collection and Preview Builds: Toggle user control over Insider builds",DE,"Administrative Vorlagen: Windows-Komponenten","Datensammlung und Vorabversionen: Benutzersteuerung für Insider-Builds ein-/ausschalten  Hinweis: Diese Gruppenrichtlinie ist nur auf Windows 10 Versionen bis einschließlich der Version 1703 anwendbar. Für Versionen ab 1709 wird die Gruppenrichtlinie ""Vorabversionen verwalten"" verwendet (siehe CIS Benchmark Referenz 18.9.102.1.1)."
 177,"Administrative Templates: Windows Components","Delivery Optimization: Download Mode",DE,"Administrative Vorlagen: Windows-Komponenten","Übermittlungsoptimierung: Downloadmodus"
@@ -307,9 +317,11 @@ Id,CategoryEN,NameEN,Language,Category,Name
 184,"Administrative Templates: Windows Components","Remote Desktop Connection Client: Do not allow passwords to be saved",DE,"Administrative Vorlagen: Windows-Komponenten","Remotedesktopverbindungs-Client: Speichern von Kennwörtern nicht zulassen"
 185,"Administrative Templates: Windows Components","Remote Desktop Session Host: Allow users to connect remotely by using Remote Desktop Services",DE,"Administrative Vorlagen: Windows-Komponenten","Remotedesktopsitzungs-Host: Remoteverbindungen für Benutzer mithilfe der Remotedesktopdienste zulassen"
 798,"Administrative Templates: Windows Components","Remote Desktop Session Host: Connections: Restrict Remote Desktop Services users to a single Remote Desktop Services session",,,
+1675,"Administrative Templates: Windows Components","Remote Desktop Session Host: Device and Resource Redirection: Allow UI Automation redirection",,,
 705,"Administrative Templates: Windows Components","Remote Desktop Session Host: Device and Resource Redirection: Do not allow COM port redirection",DE,"Administrative Vorlagen: Windows-Komponenten","Remotedesktopsitzungs-Host/Geräte- und Ressourcenumleitung: COM-Anschlussumleitung nicht zulassen"
 706,"Administrative Templates: Windows Components","Remote Desktop Session Host: Device and Resource Redirection: Do not allow LPT port redirection",DE,"Administrative Vorlagen: Windows-Komponenten","Remotedesktopsitzungs-Host/Geräte- und Ressourcenumleitung: LPT-Anschlussumleitung nicht zulassen"
 186,"Administrative Templates: Windows Components","Remote Desktop Session Host: Device and Resource Redirection: Do not allow drive redirection",DE,"Administrative Vorlagen: Windows-Komponenten","Remotedesktopsitzungs-Host/Geräte- und Ressourcenumleitung: Laufwerkumleitung nicht zulassen"
+1676,"Administrative Templates: Windows Components","Remote Desktop Session Host: Device and Resource Redirection: Do not allow location redirection",,,
 707,"Administrative Templates: Windows Components","Remote Desktop Session Host: Device and Resource Redirection: Do not allow supported Plug and Play device redirection",DE,"Administrative Vorlagen: Windows-Komponenten","Remotedesktopsitzungs-Host/Geräte- und Ressourcenumleitung: Umleitung bei unterstützten Plug & Play-Geräten nicht zulassen"
 187,"Administrative Templates: Windows Components","Remote Desktop Session Host: Security: Always prompt for password upon connection",DE,"Administrative Vorlagen: Windows-Komponenten","Remotedesktopsitzungs-Host: Sicherheit: Bei der Verbindungsherstellung immer zur Kennworteingabe auffordern"
 188,"Administrative Templates: Windows Components","Remote Desktop Session Host: Security: Require secure RPC communication",DE,"Administrative Vorlagen: Windows-Komponenten","Remotedesktopsitzungs-Host: Sicherheit: Sichere RPC-Kommunikation anfordern"
@@ -334,6 +346,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 719,"Administrative Templates: Windows Components","Store: Turn off the Store application",DE,"Administrative Vorlagen: Windows-Komponenten","Store: Store-Anwendung deaktivieren"
 718,"Administrative Templates: Windows Components","Store: Turn off the offer to update to the latest version of Windows",DE,"Administrative Vorlagen: Windows-Komponenten","Store: Deaktivieren des Angebots zum Update auf die aktuelle Version von Windows"
 1554,"Administrative Templates: Windows Components","Text Input: Improve inking and typing recognition",DE,"Administrative Vorlagen: Windows-Komponenten","Texteingabe: Freihand- und Eingabeerkennung verbessern"
+1677,"Administrative Templates: Windows Components","Widgest: Allow widgets",,,
 203,"Administrative Templates: Windows Components","WinRM Client: Allow Basic authentication",DE,"Administrative Vorlagen: Windows-Komponenten","WinRM-Client: Basic-Authentifizierung zulassen"
 204,"Administrative Templates: Windows Components","WinRM Client: Allow unencrypted traffic",DE,"Administrative Vorlagen: Windows-Komponenten","WinRM-Client: Unverschlüsselten Verkehr zulassen"
 205,"Administrative Templates: Windows Components","WinRM Client: Disallow Digest authentication",DE,"Administrative Vorlagen: Windows-Komponenten","WinRM-Client: Digest-Authentifizierung nicht zulassen"
@@ -356,18 +369,20 @@ Id,CategoryEN,NameEN,Language,Category,Name
 202,"Administrative Templates: Windows Components","Windows Logon Options: Sign-in and lock last interactive user automatically after a restart",DE,"Administrative Vorlagen: Windows-Komponenten","Windows-Anmeldeoptionen: Automatisches Anmelden des letzten interaktiven Benutzers nach einem vom System initiierten Neustart"
 744,"Administrative Templates: Windows Components","Windows Media Player: Playback: Prevent Codec Download",DE,"Administrative Vorlagen: Windows-Komponenten","Windows Media Player: Wiedergabe: Codec-Download verhindern"
 210,"Administrative Templates: Windows Components","Windows Remote Shell: Allow Remote Shell Access",DE,"Administrative Vorlagen: Windows-Komponenten","Windows-Remoteshell: Remoteshellzugriff zulassen"
-730,"Administrative Templates: Windows Components","Windows Update: Configure Automatic Updates",DE,"Administrative Vorlagen: Windows-Komponenten","Windows Update: Automatische Updates konfigurieren"
+1678,"Administrative Templates: Windows Components","Windows Sandbox: Allow clipboard sharing with Windows Sandbox",,,
+1679,"Administrative Templates: Windows Components","Windows Sandbox: Allow networking in Windows Sandbox",,,
 1557,"Administrative Templates: Windows Components","Windows Update: Configure Automatic Updates: Configure automatic updating",DE,"Administrative Vorlagen: Windows-Komponenten","Windows Update: Automatische Updates konfigurieren"
-731,"Administrative Templates: Windows Components","Windows Update: Configure Automatic Updates: Scheduled install day",DE,"Administrative Vorlagen: Windows-Komponenten","Windows Update: Automatische Updates konfigurieren: Geplanter Installationstag"
-732,"Administrative Templates: Windows Components","Windows Update: No auto-restart with logged on users for scheduled automatic updates installations",DE,"Administrative Vorlagen: Windows-Komponenten","Windows Update: Keinen automatischen Neustart für geplante Installationen automatischer Updates durchführen, wenn Benutzer angemeldet sind"
-733,"Administrative Templates: Windows Components","Windows Update: Remove access to 'Pause updates' feature",DE,"Administrative Vorlagen: Windows-Komponenten","Windows Update: Zugriff auf Feature ""Updates aussetzen"" entfernen"
-723,"Administrative Templates: Windows Components","Windows Update: Windows Update for Business: Manage preview builds (ManagePreviewBuilds)",,,
-724,"Administrative Templates: Windows Components","Windows Update: Windows Update for Business: Manage preview builds (ManagePreviewBuildsPolicyValue)",,,
-726,"Administrative Templates: Windows Components","Windows Update: Windows Update for Business: Select when Preview Builds and Feature Updates are received (BranchReadinessLevel)",,,
-725,"Administrative Templates: Windows Components","Windows Update: Windows Update for Business: Select when Preview Builds and Feature Updates are received (DeferFeatureUpdates)",,,
-727,"Administrative Templates: Windows Components","Windows Update: Windows Update for Business: Select when Preview Builds and Feature Updates are received (DeferFeatureUpdatesPeriodInDays)",,,
-728,"Administrative Templates: Windows Components","Windows Update: Windows Update for Business: Select when Quality Updates are received (DeferQualityUpdates)",,,
-729,"Administrative Templates: Windows Components","Windows Update: Windows Update for Business: Select when Quality Updates are received (DeferQualityUpdatesPeriodInDays)",,,
+732,"Administrative Templates: Windows Components","Windows Update: Legacy Policies: No auto-restart with logged on users for scheduled automatic updates installations",DE,"Administrative Vorlagen: Windows-Komponenten","Windows Update: Keinen automatischen Neustart für geplante Installationen automatischer Updates durchführen, wenn Benutzer angemeldet sind"
+730,"Administrative Templates: Windows Components","Windows Update: Manage end user experience: Configure Automatic Updates",DE,"Administrative Vorlagen: Windows-Komponenten","Windows Update: Automatische Updates konfigurieren"
+731,"Administrative Templates: Windows Components","Windows Update: Manage end user experience: Configure Automatic Updates: Scheduled install day",DE,"Administrative Vorlagen: Windows-Komponenten","Windows Update: Automatische Updates konfigurieren: Geplanter Installationstag"
+733,"Administrative Templates: Windows Components","Windows Update: Manage end user experience: Remove access to 'Pause updates' feature",DE,"Administrative Vorlagen: Windows-Komponenten","Windows Update: Zugriff auf Feature ""Updates aussetzen"" entfernen"
+723,"Administrative Templates: Windows Components","Windows Update: Manage updates offered from Windows Update: Manage preview builds (ManagePreviewBuilds)",,,
+724,"Administrative Templates: Windows Components","Windows Update: Manage updates offered from Windows Update: Manage preview builds (ManagePreviewBuildsPolicyValue)",,,
+726,"Administrative Templates: Windows Components","Windows Update: Manage updates offered from Windows Update: Select when Preview Builds and Feature Updates are received (BranchReadinessLevel)",,,
+725,"Administrative Templates: Windows Components","Windows Update: Manage updates offered from Windows Update: Select when Preview Builds and Feature Updates are received (DeferFeatureUpdates)",,,
+727,"Administrative Templates: Windows Components","Windows Update: Manage updates offered from Windows Update: Select when Preview Builds and Feature Updates are received (DeferFeatureUpdatesPeriodInDays)",,,
+728,"Administrative Templates: Windows Components","Windows Update: Manage updates offered from Windows Update: Select when Quality Updates are received (DeferQualityUpdates)",,,
+729,"Administrative Templates: Windows Components","Windows Update: Manage updates offered from Windows Update: Select when Quality Updates are received (DeferQualityUpdatesPeriodInDays)",,,
 78,"Advanced Audit Policy Configuration","Account Lockout",,,
 524,"Advanced Audit Policy Configuration","Application Group Management",,,
 89,"Advanced Audit Policy Configuration","Audit Policy Change",,,
@@ -1454,6 +1469,8 @@ Id,CategoryEN,NameEN,Language,Category,Name
 457,"System Services","Peer Networking Grouping (p2psvc) (Service Startup type)",DE,Systemdienste,"Peernetzwerk-Gruppenzuordnung (p2psvc) (Dienst Starttyp)"
 458,"System Services","Peer Networking Identity Manager (p2pimsvc)",DE,Systemdienste,"Peernetzwerkidentitäts-Manager (p2pimsvc)"
 459,"System Services","Peer Networking Identity Manager (p2pimsvc) (Service Startup type)",DE,Systemdienste,"Peernetzwerkidentitäts-Manager (p2pimsvc) (Dienst Starttyp)"
+1664,"System Services","Print Spooler (Spooler)",,,
+1665,"System Services","Print Spooler (Spooler) (Service Startup type)",,,
 462,"System Services","Problem Reports and Solutions Control Panel Support (wercplsupport)",DE,Systemdienste,"Unterstützung in der Systemsteuerung unter Lösungen für Probleme (wercplsupport)"
 463,"System Services","Problem Reports and Solutions Control Panel Support (wercplsupport) (Service Startup type)",DE,Systemdienste,"Unterstützung in der Systemsteuerung unter Lösungen für Probleme (wercplsupport) (Dienst Starttyp)"
 464,"System Services","Remote Access Auto Connection Manager (RasAuto)",DE,Systemdienste,"Verwaltung für automatische RAS-Verbindung (RasAuto)"
