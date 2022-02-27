@@ -108,7 +108,7 @@ V-63507,"Advanced Audit Policy Configuration","Security State Change",auditpol,{
 V-63513,"Advanced Audit Policy Configuration","Security System Extension",auditpol,{0CCE9211-69AE-11D9-BED3-505054503030},,,,,,"No Auditing",Success,contains,Medium
 "V-63515 / V-63517","Advanced Audit Policy Configuration","System Integrity",auditpol,{0CCE9212-69AE-11D9-BED3-505054503030},,,,,,"Success and Failure","Success and Failure",=,Medium
 V-63545,"Administrative Templates: Control Panel","Personalization: Prevent enabling lock screen camera",Registry,,HKLM:\Software\Policies\Microsoft\Windows\Personalization,NoLockScreenCamera,,,,0,1,=,Medium
-V-63549,"Administrative Templates: Control Panel","Personalization: Prevent enabling lock screen slide",Registry,,HKLM:\Software\Policies\Microsoft\Windows\Personalization,NoLockScreenSlideshow,,,,0,1,=,Low
+V-63549,"Administrative Templates: Control Panel","Personalization: Prevent enabling lock screen slide show",Registry,,HKLM:\Software\Policies\Microsoft\Windows\Personalization,NoLockScreenSlideshow,,,,0,1,=,Low
 V-63597,"MS Security Guide","Apply UAC restrictions to local accounts on network logons",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,LocalAccountTokenFilterPolicy,,,,,0,=,Medium
 V-74725,"MS Security Guide","Configure SMB v1 client driver",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\MrxSmb10,Start,,,,,4,=,Medium
 V-74723,"MS Security Guide","Configure SMB v1 server",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters,SMB1,,,,,0,=,Medium
@@ -168,9 +168,9 @@ V-71771,"Administrative Templates: Windows Components","Cloud Content: Turn off 
 V-63679,"Administrative Templates: Windows Components","Credential User Interface: Enumerate administrator accounts on elevation",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\CredUI,EnumerateAdministrators,,,,1,0,=,Medium
 V-63683,"Administrative Templates: Windows Components","Data Collection and Preview Builds: Allow Diagnostic Data",Registry,,HKLM:\Software\Policies\Microsoft\Windows\DataCollection,AllowTelemetry,,,,2,2,=,Medium
 V-65681,"Administrative Templates: Windows Components","Delivery Optimization: Download Mode",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization,DODownloadMode,,,,1,2,=,Medium
-V-63519,"Administrative Templates: Windows Components","Event Log Service: Specify the maximum Application log file size (KB)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\EventLog\Application,MaxSize,,,,4096,32768,>=,Medium
-V-63523,"Administrative Templates: Windows Components","Event Log Service: Specify the maximum Security log file size (KB)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\EventLog\Security,MaxSize,,,,4096,1024000,>=,Medium
-V-63527,"Administrative Templates: Windows Components","Event Log Service: Specify the maximum System log file size (KB)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\EventLog\System,MaxSize,,,,4096,32768,>=,Medium
+V-63519,"Administrative Templates: Windows Components","Event Log Service: Application: Specify the maximum log file size (KB)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\EventLog\Application,MaxSize,,,,4096,32768,>=,Medium
+V-63523,"Administrative Templates: Windows Components","Event Log Service: Security: Specify the maximum log file size (KB)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\EventLog\Security,MaxSize,,,,4096,1024000,>=,Medium
+V-63527,"Administrative Templates: Windows Components","Event Log Service: System: Specify the maximum log file size (KB)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\EventLog\System,MaxSize,,,,4096,32768,>=,Medium
 V-63709,"Microsoft Edge","Configure Password Manager",Registry,,HKLM:\Software\Policies\Microsoft\MicrosoftEdge\Main,"FormSuggest Passwords",,,,,no,=,Medium
 V-63701,"Microsoft Edge","Prevent bypassing Microsoft Defender SmartScreen prompts for files",Registry,,HKLM:\Software\Policies\Microsoft\MicrosoftEdge\PhishingFilter,PreventOverrideAppRepUnknown,,,,,1,=,Medium
 V-82139,"Microsoft Edge","Prevent certificate error overrides",Registry,,"HKLM:\Software\Policies\Microsoft\MicrosoftEdge\Internet Settings",PreventCertErrorOverrides,,,,,1,=,Medium

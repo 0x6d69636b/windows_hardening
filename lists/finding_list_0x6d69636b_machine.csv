@@ -154,7 +154,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 1693,"Administrative Templates: System","Remote Procedure Call: Restrict Unauthenticated RPC clients",Registry,,"HKLM:\Software\Policies\Microsoft\Windows NT\Rpc",RestrictRemoteClients,,,,0,2,=,Medium
 1694,"Administrative Templates: System","Security Settings: Enable svchost.exe mitigation options",Registry,,HKLM:\SYSTEM\CurrentControlSet\Control\SCMConfig,EnableSvchostMitigationPolicy,,,,0,1,=,Medium
 1695,"Administrative Templates: System","Windows Performance PerfTrack: Enable/Disable PerfTrack",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\WDI\{9c5a40da-b965-4fc3-8781-88dd50a6299d},ScenarioExecutionEnabled,,,,1,0,=,Medium
-1696,"Administrative Templates: System","User Profiles: Turn of the advertising ID",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo,DisabledByGroupPolicy,,,,0,1,=,Medium
+1696,"Administrative Templates: System","User Profiles: Turn off the advertising ID",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo,DisabledByGroupPolicy,,,,0,1,=,Medium
 1697,"Administrative Templates: System","Time Providers: Enable Windows NTP Client",Registry,,HKLM:\Software\Policies\Microsoft\W32time\TimeProviders\NtpClient,Enabled,,,,0,1,=,Medium
 1698,"Administrative Templates: System","Time Providers: Enable Windows NTP Server",Registry,,HKLM:\Software\Policies\Microsoft\W32time\TimeProviders\NtpServer,Enabled,,,,0,0,=,Medium
 1700,"Administrative Templates: Windows Components","App Package Deployment: Allow a Windows app to share application data between users",Registry,,HKLM:\Software\Policies\Microsoft\Windows\CurrentVersion\AppModel\StateManager,AllowSharedLocalAppData,,,,1,0,=,Medium
@@ -187,12 +187,12 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 1725,"Administrative Templates: Windows Components","Data Collection and Preview Builds: Allow Diagnostic Data",Registry,,HKLM:\Software\Policies\Microsoft\Windows\DataCollection,AllowTelemetry,,,,2,1,<=,Medium
 1726,"Administrative Templates: Windows Components","Data Collection and Preview Builds: Allow device name to be sent in Windows diagnostic data",Registry,,HKLM:\Software\Policies\Microsoft\Windows\DataCollection,AllowDeviceNameInTelemetry,,,,1,0,=,Medium
 1727,"Administrative Templates: Windows Components","Delivery Optimization: Download Mode",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization,DODownloadMode,,,,1,99,=,Medium
-1728,"Administrative Templates: Windows Components","Event Log Service: Specify the maximum Application log file size (KB)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\EventLog\Application,MaxSize,,,,4096,32768,>=,Medium
-1729,"Administrative Templates: Windows Components","Event Log Service: Specify the maximum Security log file size (KB)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\EventLog\Security,MaxSize,,,,4096,196608,>=,Medium
-1730,"Administrative Templates: Windows Components","Event Log Service: Specify the maximum System log file size (KB)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\EventLog\System,MaxSize,,,,4096,32768,>=,Medium
+1728,"Administrative Templates: Windows Components","Event Log Service: Application: Specify the maximum log file size (KB)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\EventLog\Application,MaxSize,,,,4096,32768,>=,Medium
+1729,"Administrative Templates: Windows Components","Event Log Service: Security: Specify the maximum log file size (KB)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\EventLog\Security,MaxSize,,,,4096,196608,>=,Medium
+1730,"Administrative Templates: Windows Components","Event Log Service: System: Specify the maximum log file size (KB)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\EventLog\System,MaxSize,,,,4096,32768,>=,Medium
 1731,"Administrative Templates: Windows Components","File Explorer: Allow the use of remote paths in file shortcut icons",Registry,,HKLM:\Software\Policies\Microsoft\Windows\Explorer,EnableShellShortcutIconRemotePath,,,,0,0,=,Medium
 1732,"Administrative Templates: Windows Components","HomeGroup: Prevent the computer from joining a homegroup",Registry,,HKLM:\Software\Policies\Microsoft\Windows\HomeGroup,DisableHomeGroup,,,,0,1,=,Medium
-1800,"Microsoft Defender Antivirus","Turn off Windows Defender Antivirus",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender",DisableAntiSpyware,,,,0,0,=,Medium
+1800,"Microsoft Defender Antivirus","Turn off Microsoft Defender Antivirus",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender",DisableAntiSpyware,,,,0,0,=,Medium
 1801,"Microsoft Defender Antivirus","Configure detection for potentially unwanted applications",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender",PUAProtection,,,,0,1,>=,Medium
 1806,"Microsoft Defender Antivirus","Exclusions: Extension Exclusions (Policy)",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Exclusions",Exclusions_Extensions,,,,,,=,Medium
 1807,"Microsoft Defender Antivirus","Exclusions: List Extension Exclusions",MpPreferenceExclusion,ExclusionExtension,,,,,,,,=,Medium

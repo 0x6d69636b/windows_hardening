@@ -183,7 +183,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 89,"Administrative Templates: System","Trusted Platform Module Services: Standard User Lockout Duration",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\TPM,StandardUserAuthorizationFailureDuration,,,,,30,=,Medium
 90,"Administrative Templates: System","Trusted Platform Module Services: Standard User Total Lockout Threshold",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\TPM,StandardUserAuthorizationFailureTotalThreshold,,,,,5,=,Medium
 88,"Administrative Templates: System","Trusted Platform Module Services: Ignore the default list of blocked TPM commands",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\TPM\BlockedCommands,IgnoreDefaultList,,,,,0,=,Medium
-94,"Administrative Templates: Control Panel","Personalization: Prevent enabling lock screen slide",Registry,,HKLM:\Software\Policies\Microsoft\Windows\Personalization,NoLockScreenSlideshow,,,,0,1,=,Low
+94,"Administrative Templates: Control Panel","Personalization: Prevent enabling lock screen slide show",Registry,,HKLM:\Software\Policies\Microsoft\Windows\Personalization,NoLockScreenSlideshow,,,,0,1,=,Low
 95,"Administrative Templates: Control Panel","Personalization: Prevent enabling lock screen camera",Registry,,HKLM:\Software\Policies\Microsoft\Windows\Personalization,NoLockScreenCamera,,,,0,1,=,Low
 100,"Administrative Templates: Control Panel","Regional and Language Options: Handwriting personalization: Turn off automatic learning (RestrictImplicitInkCollection)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\InputPersonalization,RestrictImplicitInkCollection,,,,,1,=,Medium
 100,"Administrative Templates: Control Panel","Regional and Language Options: Handwriting personalization: Turn off automatic learning (RestrictImplicitTextCollection)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\InputPersonalization,RestrictImplicitTextCollection,,,,,1,=,Medium
@@ -223,7 +223,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 160,"Administrative Templates: Windows Components","Delivery Optimization: Download Mode",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization,DODownloadMode,,,,1,99,=,Medium
 161,"Administrative Templates: Windows Components","Connect: Require pin for pairing",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\Connect,RequirePinForPairing,,,,0,1,>=,Medium
 162,"Microsoft Defender Antivirus","Configure detection for potentially unwanted applications",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender",PUAProtection,,,,0,1,=,Medium
-163,"Microsoft Defender Antivirus","Turn off Windows Defender Antivirus",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender",DisableAntiSpyware,,,,0,0,=,Medium
+163,"Microsoft Defender Antivirus","Turn off Microsoft Defender Antivirus",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender",DisableAntiSpyware,,,,0,0,=,Medium
 164,"Microsoft Defender Antivirus","Reporting: Configure Watson events",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Reporting",DisableGenericRePorts,,,,,1,=,Medium
 165,"Microsoft Defender Antivirus","Real-time Protection: Turn on behavior monitoring (Policy)",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection",DisableBehaviorMonitoring,,,,0,0,=,Medium
 167,"Microsoft Defender Antivirus","MAPS: Configure local setting override for reporting to Microsoft MAPS",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet",LocalSettingOverrideSpynetReporting,,,,,0,=,Medium

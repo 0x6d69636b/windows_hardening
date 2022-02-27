@@ -112,7 +112,7 @@ V-93099,"Advanced Audit Policy Configuration","Authorization Policy Change",audi
 V-93113,"Advanced Audit Policy Configuration","Security State Change",auditpol,{0CCE9210-69AE-11D9-BED3-505054503030},,,,,,Success,Success,contains,Medium
 V-93115,"Advanced Audit Policy Configuration","Security System Extension",auditpol,{0CCE9211-69AE-11D9-BED3-505054503030},,,,,,"No Auditing",Success,contains,Medium
 "V-93117 / V-93119","Advanced Audit Policy Configuration","System Integrity",auditpol,{0CCE9212-69AE-11D9-BED3-505054503030},,,,,,"Success and Failure","Success and Failure",=,Medium
-V-93399,"Administrative Templates: Control Panel","Personalization: Prevent enabling lock screen slide",Registry,,HKLM:\Software\Policies\Microsoft\Windows\Personalization,NoLockScreenSlideshow,,,,0,1,=,Low
+V-93399,"Administrative Templates: Control Panel","Personalization: Prevent enabling lock screen slide show",Registry,,HKLM:\Software\Policies\Microsoft\Windows\Personalization,NoLockScreenSlideshow,,,,0,1,=,Low
 V-93395,"MS Security Guide","Configure SMB v1 client driver",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\MrxSmb10,Start,,,,,4,=,Medium
 V-93393,"MS Security Guide","Configure SMB v1 server",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters,SMB1,,,,,0,=,Medium
 V-93401,"MS Security Guide","WDigest Authentication",Registry,,HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest,UseLogonCredential,,,,0,0,=,Medium
@@ -144,9 +144,9 @@ V-93377,"Administrative Templates: Windows Components","AutoPlay Policies: Turn 
 V-93517,"Administrative Templates: Windows Components","Credential User Interface: Enumerate administrator accounts on elevation",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\CredUI,EnumerateAdministrators,,,,1,0,=,Medium
 V-93257,"Administrative Templates: Windows Components","Data Collection and Preview Builds: Allow Diagnostic Data",Registry,,HKLM:\Software\Policies\Microsoft\Windows\DataCollection,AllowTelemetry,,,,2,1,=,Medium
 V-93259,"Administrative Templates: Windows Components","Delivery Optimization: Download Mode",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization,DODownloadMode,,,,1,2,=,Medium
-V-93177,"Administrative Templates: Windows Components","Event Log Service: Specify the maximum Application log file size (KB)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\EventLog\Application,MaxSize,,,,4096,32768,>=,Medium
-V-93179,"Administrative Templates: Windows Components","Event Log Service: Specify the maximum Security log file size (KB)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\EventLog\Security,MaxSize,,,,4096,196608,>=,Medium
-V-93181,"Administrative Templates: Windows Components","Event Log Service: Specify the maximum System log file size (KB)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\EventLog\System,MaxSize,,,,4096,32768,>=,Medium
+V-93177,"Administrative Templates: Windows Components","Event Log Service: Application: Specify the maximum log file size (KB)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\EventLog\Application,MaxSize,,,,4096,32768,>=,Medium
+V-93179,"Administrative Templates: Windows Components","Event Log Service: Security: Specify the maximum log file size (KB)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\EventLog\Security,MaxSize,,,,4096,196608,>=,Medium
+V-93181,"Administrative Templates: Windows Components","Event Log Service: System: Specify the maximum log file size (KB)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\EventLog\System,MaxSize,,,,4096,32768,>=,Medium
 V-93425,"Administrative Templates: Windows Components","Remote Desktop Connection Client: Do not allow passwords to be saved",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services",DisablePasswordSaving,,,,0,1,=,Medium
 V-93533,"Administrative Templates: Windows Components","Remote Desktop Session Host: Device and Resource Redirection: Do not allow drive redirection",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services",fDisableCdm,,,,0,1,=,Medium
 V-93427,"Administrative Templates: Windows Components","Remote Desktop Session Host: Security: Always prompt for password upon connection",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services",fPromptForPassword,,,,0,1,=,Medium
