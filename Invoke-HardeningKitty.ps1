@@ -495,7 +495,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.7.0-1645810640"
+    $HardeningKittyVersion = "0.7.0-1646070221"
 
     #
     # Log, report and backup file
@@ -1773,11 +1773,21 @@
                 # Basically this is true, but there is an exception for the finding "MitigationOptions_FontBocking",
                 # the value "10000000000" is written to the registry as a string...
                 #
-                # ... and more exceptions are added over time
+                # ... and more exceptions are added over time:
                 #
-                If ($Finding.RegistryItem -eq "MitigationOptions_FontBocking" -Or $Finding.RegistryItem -eq "Retention" -Or $Finding.RegistryItem -eq "AllocateDASD" -Or $Finding.RegistryItem -eq "ScRemoveOption") {
+                # MitigationOptions_FontBocking => Mitigation Options: Untrusted Font Blocking
+                # Machine => Network access: Remotely accessible registry paths
+                # Retention => Event Log Service: *: Control Event Log behavior when the log file reaches its maximum size
+                # AllocateDASD => Devices: Allowed to format and eject removable media
+                # ScRemoveOption => Interactive logon: Smart card removal behavior
+                # AutoAdminLogon => MSS: (AutoAdminLogon) Enable Automatic Logon (not recommended)
+                #
+                If ($Finding.RegistryItem -eq "MitigationOptions_FontBocking" -Or $Finding.RegistryItem -eq "Retention" -Or $Finding.RegistryItem -eq "AllocateDASD" -Or $Finding.RegistryItem -eq "ScRemoveOption" -Or $Finding.RegistryItem -eq "AutoAdminLogon") {
                     $RegType = "String"
-                } ElseIf ($Finding.RecommendedValue -match "^\d+$") {
+                } ElseIf ($Finding.RegistryItem -eq "Machine") {
+                    $RegType = "MultiString"                    
+                }
+                 ElseIf ($Finding.RecommendedValue -match "^\d+$") {
                     $RegType = "DWord"                    
                 }
 
