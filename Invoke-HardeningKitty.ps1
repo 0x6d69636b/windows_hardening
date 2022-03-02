@@ -495,16 +495,21 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.7.0-1646070221"
+    $HardeningKittyVersion = "0.7.0-1646238477"
 
     #
     # Log, report and backup file
     #
     $Hostname = $env:COMPUTERNAME.ToLower()
     $FileDate = Get-Date -Format yyyyMMdd-HHmmss
-    $ListName = [System.IO.Path]::GetFileNameWithoutExtension($FileFindingList)
     $WinSystemLocale = Get-WinSystemLocale
     $PowerShellVersion = "$($PSVersionTable.PSVersion.Major).$($PSVersionTable.PSVersion.Minor)"
+
+    If ($FileFindingList.Length -eq 0) {
+        $ListName = "finding_list_0x6d69636b_machine"
+    } Else {
+        $ListName = [System.IO.Path]::GetFileNameWithoutExtension($FileFindingList)
+    }
 
     If ($Log.IsPresent -and $LogFile.Length -eq 0) {
         $LogFile = "hardeningkitty_log_"+$Hostname+"_"+$ListName+"-$FileDate.log"
