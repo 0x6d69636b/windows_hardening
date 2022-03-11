@@ -495,7 +495,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.7.0-1646238477"
+    $HardeningKittyVersion = "0.7.0-1647024219"
 
     #
     # Log, report and backup file
@@ -1301,6 +1301,14 @@
                         Clear-Variable -Name ("RecommendedValueSid")
                     }
                 }
+
+                # 
+                # Exception handling for special registry keys
+                # Machine => Network access: Remotely accessible registry paths
+                #
+                If ($Finding.Method -eq 'Registry' -and $Finding.RegistryItem -eq "Machine"){
+                    $Finding.RecommendedValue = $Finding.RecommendedValue.Replace(";"," ")
+                }                
  
                 $ResultPassed = $false
                 Switch($Finding.Operator) {
@@ -1790,7 +1798,8 @@
                 If ($Finding.RegistryItem -eq "MitigationOptions_FontBocking" -Or $Finding.RegistryItem -eq "Retention" -Or $Finding.RegistryItem -eq "AllocateDASD" -Or $Finding.RegistryItem -eq "ScRemoveOption" -Or $Finding.RegistryItem -eq "AutoAdminLogon") {
                     $RegType = "String"
                 } ElseIf ($Finding.RegistryItem -eq "Machine") {
-                    $RegType = "MultiString"                    
+                    $RegType = "MultiString"
+                    $Finding.RecommendedValue = $Finding.RecommendedValue -split ";"
                 }
                  ElseIf ($Finding.RecommendedValue -match "^\d+$") {
                     $RegType = "DWord"                    
