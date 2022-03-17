@@ -495,7 +495,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.7.0-1647024219"
+    $HardeningKittyVersion = "0.7.0-1647540083"
 
     #
     # Log, report and backup file
@@ -1277,9 +1277,10 @@
                 #
                 If ($Finding.Method -eq 'accesschk') {
 
+                    $SaveRecommendedValue = $Finding.RecommendedValue
+
                     If ($Result -ne '') {
 
-                        $SaveRecommendedValue = $Finding.RecommendedValue
                         $ListRecommended = $Finding.RecommendedValue.Split(";")
                         $ListRecommendedSid = @()
 
