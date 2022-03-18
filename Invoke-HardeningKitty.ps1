@@ -495,7 +495,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.7.0-1647540083"
+    $HardeningKittyVersion = "0.7.0-1647622711"
 
     #
     # Log, report and backup file
@@ -1619,12 +1619,12 @@
                 $Result = Invoke-Expression $ResultCommand
 
                 if($LastExitCode -eq 0) {
-                    $ResultText = "ASR rule added"
-                    $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", " + $ResultText
+                    $ResultText = "ASR rule added to list"
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", "+$Finding.MethodArgument+", " + $ResultText
                     $MessageSeverity = "Passed"
                 } else {
                     $ResultText = "Failed to add ASR rule"
-                    $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", " + $ResultText
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", "+$Finding.MethodArgument+", " + $ResultText
                     $MessageSeverity = "High"
                 }
 
