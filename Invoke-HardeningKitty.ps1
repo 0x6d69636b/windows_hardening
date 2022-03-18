@@ -1591,6 +1591,45 @@
 
                 Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
             }
+            
+                        #
+            # Microsoft Defender Preferences - Attack surface reduction rules (ASR rules)
+            # The values are saved from a PowerShell function into an object.
+            # The desired arguments can be accessed directly.
+            #
+            If ($Finding.Method -eq 'MpPreferenceAsr') {
+
+                # Check if the user has admin rights, skip test if not
+                If (-not($IsAdmin)) {
+                    $StatsError++
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
+                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Continue
+                }
+
+                $ResultMethodArgument = $Finding.MethodArgument
+                $ResultRecommendedValue = $Finding.RecommendedValue
+                
+                Switch($ResultRecommendedValue) {
+                    "True" { $ResultRecommendedValue = 1; Break }
+                    "False" { $ResultRecommendedValue = 0; Break }
+                }
+
+                $ResultCommand = "Add-MpPreference -AttackSurfaceReductionRules_Ids $ResultMethodArgument -AttackSurfaceReductionRules_Actions $ResultRecommendedValue"
+                $Result = Invoke-Expression $ResultCommand
+
+                if($LastExitCode -eq 0) {
+                    $ResultText = "ASR rule added"
+                    $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", " + $ResultText
+                    $MessageSeverity = "Passed"
+                } else {
+                    $ResultText = "Failed to add ASR rule"
+                    $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", " + $ResultText
+                    $MessageSeverity = "High"
+                }
+
+                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+            }
 
             #
             # secedit
