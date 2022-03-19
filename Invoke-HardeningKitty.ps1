@@ -1592,7 +1592,7 @@
                 Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
             }
             
-                        #
+            #
             # Microsoft Defender Preferences - Attack surface reduction rules (ASR rules)
             # The values are saved from a PowerShell function into an object.
             # The desired arguments can be accessed directly.
