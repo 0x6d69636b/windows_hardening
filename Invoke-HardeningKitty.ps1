@@ -495,7 +495,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.7.0-1647797496"
+    $HardeningKittyVersion = "0.7.0-1647797768"
 
     #
     # Log, report and backup file
@@ -1985,11 +1985,11 @@
                     Continue
                 }
 
-                # Feature will be removed
+                # Feature will be removed, a reboot will be suppressed
                 If ($Result -eq "Enabled" -and $Finding.RecommendedValue -eq "Disabled") {
 
                     try {
-                        $Result = Disable-WindowsOptionalFeature -Online -FeatureName $Finding.MethodArgument                             
+                        $Result = Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName $Finding.MethodArgument                             
                     } catch {
                         $ResultText = "Could not be removed"
                         $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
