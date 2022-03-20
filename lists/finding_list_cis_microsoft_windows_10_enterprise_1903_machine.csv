@@ -222,7 +222,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 9.2.8,"Windows Firewall","Log successful connections (Private Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging,LogSuccessfulConnections,,,,0,1,=,Low
 9.3.1,"Windows Firewall","EnableFirewall (Public Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile,EnableFirewall,,,,0,1,=,Medium
 9.3.2,"Windows Firewall","Inbound Connections (Public Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile,DefaultInboundAction,,,,1,1,=,Medium
-9.3.3,"Windows Firewall","Outbound Connections (Private Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile,DefaultOutboundAction,,,,0,0,=,Medium
+9.3.3,"Windows Firewall","Outbound Connections (Public Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile,DefaultOutboundAction,,,,0,0,=,Medium
 9.3.4,"Windows Firewall","Display a notification (Public Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile,DisableNotifications,,,,0,1,=,Low
 9.3.5,"Windows Firewall","Apply local firewall rules (Public Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile,AllowLocalPolicyMerge,,,,0,0,=,Low
 9.3.6,"Windows Firewall","Apply local connection security rules (Public Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile,AllowLocalIPsecPolicyMerge,,,,0,0,=,Low
