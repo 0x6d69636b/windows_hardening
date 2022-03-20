@@ -495,7 +495,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.7.0-1647622711"
+    $HardeningKittyVersion = "0.7.0-1647797496"
 
     #
     # Log, report and backup file
@@ -1985,7 +1985,7 @@
                     Continue
                 }
 
-                # Feature will be installed
+                # Feature will be removed
                 If ($Result -eq "Enabled" -and $Finding.RecommendedValue -eq "Disabled") {
 
                     try {
@@ -2008,11 +2008,11 @@
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
                     $MessageSeverity = "Passed"
                 }
-                # Feature will be installed
+                # Feature will be installed, a reboot will be suppressed
                 ElseIf ($Result -eq "Disabled" -and $Finding.RecommendedValue -eq "Enabled") {
 
                     try {
-                        $Result = Enable-WindowsOptionalFeature -Online -FeatureName $Finding.MethodArgument                             
+                        $Result = Enable-WindowsOptionalFeature -NoRestart -Online -FeatureName $Finding.MethodArgument                             
                     } catch {
                         $ResultText = "Could not be installed"
                         $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
