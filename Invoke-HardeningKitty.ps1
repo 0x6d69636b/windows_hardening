@@ -1,4 +1,4 @@
-Function Invoke-HardeningKitty {
+﻿Function Invoke-HardeningKitty {
 
     <#
     .SYNOPSIS
@@ -526,6 +526,14 @@ Function Invoke-HardeningKitty {
     }
 
     #
+    # Binary Locations
+    #
+    $BinarySecedit  = "C:\Windows\System32\secedit.exe"
+    $BinaryAuditpol = "C:\Windows\System32\auditpol.exe"
+    $BinaryNet      = "C:\Windows\System32\net.exe"
+    $BinaryBcdedit  = "C:\Windows\System32\bcdedit.exe"
+
+    #
     # Start Main
     #
     $HardeningKittyVersion = "0.7.0-1647797768"
@@ -757,8 +765,7 @@ Function Invoke-HardeningKitty {
             #
             ElseIf ($Finding.Method -eq 'secedit') {
 
-                # Check if binary is available, skip test if not
-                $BinarySecedit = "C:\Windows\System32\secedit.exe"
+                # Check if Secedit binary is available, skip test if not
                 If (-Not (Test-Path $BinarySecedit)) {
                     Write-BinaryError $BinarySecedit $Finding.ID $Finding.Name $Finding.Method
                     Continue
@@ -828,8 +835,7 @@ Function Invoke-HardeningKitty {
             #
             ElseIf ($Finding.Method -eq 'auditpol') {
 
-                # Check if binary is available, skip test if not
-                $BinaryAuditpol = "C:\Windows\System32\auditpol.exe"
+                # Check if Auditpol binary is available, skip test if not
                 If (-Not (Test-Path $BinaryAuditpol)) {
                     Write-BinaryError $BinaryAuditpol $Finding.ID $Finding.Name $Finding.Method
                     Continue
@@ -881,8 +887,7 @@ Function Invoke-HardeningKitty {
             #
             ElseIf ($Finding.Method -eq 'accountpolicy') {
 
-                # Check if binary is available, skip test if not
-                $BinaryNet = "C:\Windows\System32\net.exe"
+                # Check if net binary is available, skip test if not
                 If (-Not (Test-Path $BinaryNet)) {
                     Write-BinaryError $BinaryNet $Finding.ID $Finding.Name $Finding.Method
                     Continue
@@ -954,8 +959,7 @@ Function Invoke-HardeningKitty {
             #
             ElseIf ($Finding.Method -eq 'accesschk') {
 
-                # Check if binary is available, skip test if not
-                $BinarySecedit = "C:\Windows\System32\secedit.exe"
+                # Check if Secedit binary is available, skip test if not
                 If (-Not (Test-Path $BinarySecedit)) {
                     Write-BinaryError $BinarySecedit $Finding.ID $Finding.Name $Finding.Method               
                     Continue
@@ -1217,8 +1221,7 @@ Function Invoke-HardeningKitty {
                     Continue
                 }
 
-                # Check if binary is available, skip test if not
-                $BinaryBcdedit = "C:\Windows\System32\bcdedit.exe"
+                # Check if Bcdedit binary is available, skip test if not
                 If (-Not (Test-Path $BinaryBcdedit)) {
                     Write-BinaryError $BinaryBcdedit $Finding.ID $Finding.Name $Finding.Method
                     Continue
@@ -1472,8 +1475,7 @@ Function Invoke-HardeningKitty {
             #
             If ($Finding.Method -eq 'accesschk') {
 
-                # Check if binary is available, skip test if not
-                $BinarySecedit = "C:\Windows\System32\secedit.exe"
+                # Check if Secedit binary is available, skip test if not
                 If (-Not (Test-Path $BinarySecedit)) {
                     Write-BinaryError $BinarySecedit $Finding.ID $Finding.Name $Finding.Method
                     Continue
@@ -1638,8 +1640,7 @@ Function Invoke-HardeningKitty {
             #
             If ($Finding.Method -eq 'secedit') {
 
-                # Check if binary is available, skip test if not
-                $BinarySecedit = "C:\Windows\System32\secedit.exe"
+                # Check if Secedit binary is available, skip test if not
                 If (-Not (Test-Path $BinarySecedit)) {
                     Write-BinaryError $BinarySecedit $Finding.ID $Finding.Name $Finding.Method
                     Continue
@@ -1715,8 +1716,7 @@ Function Invoke-HardeningKitty {
             #
             If ($Finding.Method -eq 'auditpol') {
 
-                # Check if binary is available, skip test if not
-                $BinaryAuditpol = "C:\Windows\System32\auditpol.exe"
+                # Check if Auditpol binary is available, skip test if not
                 If (-Not (Test-Path $BinaryAuditpol)) {
                     Write-BinaryError $BinaryAuditpol $Finding.ID $Finding.Name $Finding.Method
                     Continue
@@ -1760,8 +1760,7 @@ Function Invoke-HardeningKitty {
                     Continue
                 }
 
-                # Check if binary is available, skip test if not
-                $BinaryNet = "C:\Windows\System32\net.exe"
+                # Check if net binary is available, skip test if not
                 If (-Not (Test-Path $BinaryNet)) {
                     Write-BinaryError $BinaryNet $Finding.ID $Finding.Name $Finding.Method
                     Continue
@@ -2116,8 +2115,7 @@ Function Invoke-HardeningKitty {
                     Continue
                 }
 
-                # Check if binary is available, skip test if not
-                $BinaryBcdedit = "C:\Windows\System32\bcdedit.exe"
+                # Check if Bcdedit binary is available, skip test if not
                 If (-Not (Test-Path $BinaryBcdedit)) {
                     Write-BinaryError $BinaryBcdedit $Finding.ID $Finding.Name $Finding.Method
                     Continue
