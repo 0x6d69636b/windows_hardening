@@ -1,4 +1,4 @@
-﻿Function Invoke-HardeningKitty {
+Function Invoke-HardeningKitty {
 
     <#
     .SYNOPSIS
@@ -508,6 +508,23 @@
         Write-ProtocolEntry -Text $Message -LogLevel "Error"
     }
 
+    function Write-BinaryError {
+        [CmdletBinding()]
+        param (
+            [String]
+            $Binary,
+            [Int]
+            $FindingID,
+            [String]
+            $FindingName,
+            [string]
+            $FindingMethod
+        )
+        $script:StatsError++
+        $Message = "ID "+$FindingID+", "+$FindingName+", Method "+$FindingMethod+" requires $Binary and it was not found. Test skipped."
+        Write-ProtocolEntry -Text $Message -LogLevel "Error"
+    }
+
     #
     # Start Main
     #
@@ -743,9 +760,7 @@
                 # Check if binary is available, skip test if not
                 $BinarySecedit = "C:\Windows\System32\secedit.exe"
                 If (-Not (Test-Path $BinarySecedit)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires secedit, and the binary for secedit was not found. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"                    
+                    Write-BinaryError $BinarySecedit $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -816,9 +831,7 @@
                 # Check if binary is available, skip test if not
                 $BinaryAuditpol = "C:\Windows\System32\auditpol.exe"
                 If (-Not (Test-Path $BinaryAuditpol)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires auditpol, and the binary for auditpol was not found. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-BinaryError $BinaryAuditpol $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -871,9 +884,7 @@
                 # Check if binary is available, skip test if not
                 $BinaryNet = "C:\Windows\System32\net.exe"
                 If (-Not (Test-Path $BinaryNet)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires net, and the binary for net was not found. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-BinaryError $BinaryNet $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -946,9 +957,7 @@
                 # Check if binary is available, skip test if not
                 $BinarySecedit = "C:\Windows\System32\secedit.exe"
                 If (-Not (Test-Path $BinarySecedit)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires secedit, and the binary for secedit was not found. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"                    
+                    Write-BinaryError $BinarySecedit $Finding.ID $Finding.Name $Finding.Method               
                     Continue
                 }
 
@@ -1211,9 +1220,7 @@
                 # Check if binary is available, skip test if not
                 $BinaryBcdedit = "C:\Windows\System32\bcdedit.exe"
                 If (-Not (Test-Path $BinaryBcdedit)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires bcdedit, and the binary for bcdedit was not found. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-BinaryError $BinaryBcdedit $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -1468,9 +1475,7 @@
                 # Check if binary is available, skip test if not
                 $BinarySecedit = "C:\Windows\System32\secedit.exe"
                 If (-Not (Test-Path $BinarySecedit)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires secedit, and the binary for secedit was not found. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-BinaryError $BinarySecedit $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -1636,9 +1641,7 @@
                 # Check if binary is available, skip test if not
                 $BinarySecedit = "C:\Windows\System32\secedit.exe"
                 If (-Not (Test-Path $BinarySecedit)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires secedit, and the binary for secedit was not found. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-BinaryError $BinarySecedit $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -1715,9 +1718,7 @@
                 # Check if binary is available, skip test if not
                 $BinaryAuditpol = "C:\Windows\System32\auditpol.exe"
                 If (-Not (Test-Path $BinaryAuditpol)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires auditpol, and the binary for auditpol was not found. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-BinaryError $BinaryAuditpol $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -1762,9 +1763,7 @@
                 # Check if binary is available, skip test if not
                 $BinaryNet = "C:\Windows\System32\net.exe"
                 If (-Not (Test-Path $BinaryNet)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires net, and the binary for net was not found. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-BinaryError $BinaryNet $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -2120,9 +2119,7 @@
                 # Check if binary is available, skip test if not
                 $BinaryBcdedit = "C:\Windows\System32\bcdedit.exe"
                 If (-Not (Test-Path $BinaryBcdedit)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires bcdedit, and the binary for bcdedit was not found. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-BinaryError $BinaryBcdedit $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
