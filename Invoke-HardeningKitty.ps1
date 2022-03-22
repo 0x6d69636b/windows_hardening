@@ -492,6 +492,22 @@
         Return $AccountSid
     }
 
+    function Write-NotAdminError {
+        [CmdletBinding()]
+        param (
+            [Int]
+            $FindingID,
+            [String]
+            $FindingName,
+            [string]
+            $FindingMethod
+        )
+
+        $script:StatsError++
+        $Message = "ID "+$FindingID+", "+$FindingName+", Method "+$FindingMethod+" requires admin priviliges. Test skipped."
+        Write-ProtocolEntry -Text $Message -LogLevel "Error"
+    }
+
     #
     # Start Main
     #
@@ -537,7 +553,7 @@
     $StatsMedium = 0
     $StatsHigh = 0
     $StatsTotal = 0
-    $StatsError = 0
+    $script:StatsError = 0
 
     #
     # Header
@@ -735,9 +751,7 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -810,9 +824,7 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -942,9 +954,7 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -983,9 +993,7 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -1031,9 +1039,7 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -1125,9 +1131,7 @@
                 # Check if the user has admin rights, skip test if not
                 # Normal users are not allowed to get exclusions
                 If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }                
 
@@ -1200,9 +1204,7 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -1474,9 +1476,7 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -1561,9 +1561,7 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -1601,9 +1599,7 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -1648,9 +1644,7 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -1729,9 +1723,7 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -1763,9 +1755,7 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -1814,9 +1804,7 @@
                 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin) -and -not($Finding.RegistryPath.StartsWith("HKCU:\"))) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -1920,9 +1908,7 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -1964,9 +1950,7 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -2052,9 +2036,7 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -2131,9 +2113,7 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
