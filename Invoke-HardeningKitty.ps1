@@ -1997,8 +1997,6 @@
                 }
 
                 $SettingArgumentArray = $Finding.MethodArgument.Split(".") 
-                $SettingArgument0 = $SettingArgumentArray[0]
-                $SettingArgument1 = $SettingArgumentArray[1]
 
                 If ( $Finding.RecommendedValue -eq "ON") {
 
