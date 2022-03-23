@@ -374,7 +374,7 @@
         $Entry = $Table[$Key[0]]
 
         if($Key.Length -eq 2) {
-            if($Entry -eq $null) {
+            if($null -eq $Entry) {
                 $Table[$Key[0]] = @{}
             } elseif($Entry -isnot [hashtable]) {
                 throw "Not hashtable"
@@ -792,7 +792,7 @@
 
                 $Value = Get-HashtableValueDeep $Data $Finding.MethodArgument
 
-                if($Value -eq $null) {
+                if($null -eq $Value) {
                     $Result = $null
                 } else {
                     $Result = $Value -as [int]
@@ -978,7 +978,7 @@
                     &$BinarySecedit /export /cfg $TempFileName /areas USER_RIGHTS | Out-Null
                     $ResultOutputRaw = Get-Content -Encoding unicode $TempFileName | Select-String $Finding.MethodArgument
 
-                    If ($ResultOutputRaw -eq $null) {
+                    If ($null -eq $ResultOutputRaw) {
                         $Result = ""
                     }
                     Else {
@@ -2093,7 +2093,7 @@
                     Add-MessageToFile -Text $Message -File $ReportFile
                 }
             }
-            
+
             #
             # FirewallRule
             # Create a firewall rule. First it will be checked if the rule already exists
