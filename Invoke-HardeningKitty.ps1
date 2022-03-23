@@ -1756,13 +1756,13 @@
                     (Get-Content -Encoding unicode $TempFileName) -replace "$($Finding.MethodArgument).*", "$($Finding.MethodArgument) = " | Out-File $TempFileName
                 } else {
                     $ListTranslated = @()
-                    $List = $Finding.RecommendedValue -split ';'| Where-Object {
+                    $Finding.RecommendedValue -split ';'| Where-Object {
                         # Get SID to translate the account name
                         $AccountSid = Translate-SidFromWellkownAccount -AccountName $_
                         # Get account name from system with SID (local translation)
                         $AccountName = Get-AccountFromSid -AccountSid $AccountSid
                         $ListTranslated += $AccountName
-                     }
+                    }
 
                      # If User Right Assignment exists, replace values
                      If ( ((Get-Content -Encoding unicode $TempFileName) | Select-String $($Finding.MethodArgument)).Count -gt 0 ) {
