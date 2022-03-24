@@ -560,7 +560,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 18.9.90.2,"Administrative Templates: Windows Components","Windows Installer: Always install with elevated privileges",Registry,,HKLM:\Software\Policies\Microsoft\Windows\Installer,AlwaysInstallElevated,,,,1,0,=,Medium
 18.9.90.3,"Administrative Templates: Windows Components","Windows Installer: Prevent Internet Explorer security prompt for Windows Installer scripts",Registry,,HKLM:\Software\Policies\Microsoft\Windows\Installer,SafeForScripting,,,,1,0,=,Medium
 18.9.91.1,"Administrative Templates: Windows Components","Windows Logon Options: Sign-in and lock last interactive user automatically after a restart",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,DisableAutomaticRestartSignOn,,,,0,1,=,Medium
-18.9.100.1,PowerShell,"Turn on PowerShell Script Block Logging",Registry,,HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging,EnableScriptBlockLogging,,,,0,0,=,Medium
+18.9.100.1,PowerShell,"Turn on PowerShell Script Block Logging",Registry,,HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging,EnableScriptBlockLogging,,,,0,1,=,Medium
 18.9.100.2,PowerShell,"Turn on PowerShell Transcription",Registry,,HKLM:\Software\Policies\Microsoft\Windows\PowerShell\Transcription,EnableTranscripting,,,,0,0,=,Medium
 18.9.102.1.1,"Administrative Templates: Windows Components","WinRM Client: Allow Basic authentication",Registry,,HKLM:\Software\Policies\Microsoft\Windows\WinRM\Client,AllowBasic,,,,1,0,=,Medium
 18.9.102.1.2,"Administrative Templates: Windows Components","WinRM Client: Allow unencrypted traffic",Registry,,HKLM:\Software\Policies\Microsoft\Windows\WinRM\Client,AllowUnencryptedTraffic,,,,1,0,=,Medium
