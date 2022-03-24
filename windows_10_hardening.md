@@ -283,7 +283,7 @@ reg add "HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Printers\Poin
 
 #### User Profiles
 
-* ID 1696: Set _Turn of the advertising ID_ to **Enabled**
+* ID 1696: Set _Turn off the advertising ID_ to **Enabled**
 
 #### Windows Time Service
 
