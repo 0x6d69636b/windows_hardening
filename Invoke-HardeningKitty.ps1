@@ -374,7 +374,7 @@
         $Entry = $Table[$Key[0]]
 
         if($Key.Length -eq 2) {
-            if($Entry -eq $null) {
+            if($null -eq $Entry) {
                 $Table[$Key[0]] = @{}
             } elseif($Entry -isnot [hashtable]) {
                 throw "Not hashtable"
@@ -492,10 +492,51 @@
         Return $AccountSid
     }
 
+    function Write-NotAdminError {
+        [CmdletBinding()]
+        param (
+            [String]
+            $FindingID,
+            [String]
+            $FindingName,
+            [string]
+            $FindingMethod
+        )
+
+        $Script:StatsError++
+        $Message = "ID "+$FindingID+", "+$FindingName+", Method "+$FindingMethod+" requires admin priviliges. Test skipped."
+        Write-ProtocolEntry -Text $Message -LogLevel "Error"
+    }
+
+    function Write-BinaryError {
+        [CmdletBinding()]
+        param (
+            [String]
+            $Binary,
+            [String]
+            $FindingID,
+            [String]
+            $FindingName,
+            [string]
+            $FindingMethod
+        )
+        $Script:StatsError++
+        $Message = "ID "+$FindingID+", "+$FindingName+", Method "+$FindingMethod+" requires $Binary and it was not found. Test skipped."
+        Write-ProtocolEntry -Text $Message -LogLevel "Error"
+    }
+
+    #
+    # Binary Locations
+    #
+    $BinarySecedit  = "C:\Windows\System32\secedit.exe"
+    $BinaryAuditpol = "C:\Windows\System32\auditpol.exe"
+    $BinaryNet      = "C:\Windows\System32\net.exe"
+    $BinaryBcdedit  = "C:\Windows\System32\bcdedit.exe"
+
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.7.0-1647797768"
+    $HardeningKittyVersion = "0.7.0-1648200026"
 
     #
     # Log, report and backup file
@@ -537,7 +578,7 @@
     $StatsMedium = 0
     $StatsHigh = 0
     $StatsTotal = 0
-    $StatsError = 0
+    $Script:StatsError = 0
 
     #
     # Header
@@ -724,20 +765,15 @@
             #
             ElseIf ($Finding.Method -eq 'secedit') {
 
-                # Check if binary is available, skip test if not
-                $BinarySecedit = "C:\Windows\System32\secedit.exe"
+                # Check if Secedit binary is available, skip test if not
                 If (-Not (Test-Path $BinarySecedit)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires secedit, and the binary for secedit was not found. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"                    
+                    Write-BinaryError $BinarySecedit $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -756,7 +792,7 @@
 
                 $Value = Get-HashtableValueDeep $Data $Finding.MethodArgument
 
-                if($Value -eq $null) {
+                if($null -eq $Value) {
                     $Result = $null
                 } else {
                     $Result = $Value -as [int]
@@ -799,20 +835,15 @@
             #
             ElseIf ($Finding.Method -eq 'auditpol') {
 
-                # Check if binary is available, skip test if not
-                $BinaryAuditpol = "C:\Windows\System32\auditpol.exe"
+                # Check if Auditpol binary is available, skip test if not
                 If (-Not (Test-Path $BinaryAuditpol)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires auditpol, and the binary for auditpol was not found. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-BinaryError $BinaryAuditpol $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -856,12 +887,9 @@
             #
             ElseIf ($Finding.Method -eq 'accountpolicy') {
 
-                # Check if binary is available, skip test if not
-                $BinaryNet = "C:\Windows\System32\net.exe"
+                # Check if net binary is available, skip test if not
                 If (-Not (Test-Path $BinaryNet)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires net, and the binary for net was not found. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-BinaryError $BinaryNet $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -931,20 +959,15 @@
             #
             ElseIf ($Finding.Method -eq 'accesschk') {
 
-                # Check if binary is available, skip test if not
-                $BinarySecedit = "C:\Windows\System32\secedit.exe"
+                # Check if Secedit binary is available, skip test if not
                 If (-Not (Test-Path $BinarySecedit)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires secedit, and the binary for secedit was not found. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"                    
+                    Write-BinaryError $BinarySecedit $Finding.ID $Finding.Name $Finding.Method               
                     Continue
                 }
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -955,7 +978,7 @@
                     &$BinarySecedit /export /cfg $TempFileName /areas USER_RIGHTS | Out-Null
                     $ResultOutputRaw = Get-Content -Encoding unicode $TempFileName | Select-String $Finding.MethodArgument
 
-                    If ($ResultOutputRaw -eq $null) {
+                    If ($null -eq $ResultOutputRaw) {
                         $Result = ""
                     }
                     Else {
@@ -966,7 +989,7 @@
 
                 } catch {
                     # If secedit did not work, throw an error instead of using the DefaultValue
-                    $StatsError++
+                    $Script:StatsError++
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", secedit.exe could not read the configuration. Test skipped."
                     Write-ProtocolEntry -Text $Message -LogLevel "Error"
                     Continue
@@ -983,9 +1006,7 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -1031,9 +1052,7 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -1125,9 +1144,7 @@
                 # Check if the user has admin rights, skip test if not
                 # Normal users are not allowed to get exclusions
                 If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }                
 
@@ -1200,18 +1217,13 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
-                # Check if binary is available, skip test if not
-                $BinaryBcdedit = "C:\Windows\System32\bcdedit.exe"
+                # Check if Bcdedit binary is available, skip test if not
                 If (-Not (Test-Path $BinaryBcdedit)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires bcdedit, and the binary for bcdedit was not found. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-BinaryError $BinaryBcdedit $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -1458,355 +1470,6 @@
             }
 
             #
-            # accesschk
-            # For the audit mode, accesschk is used, but the rights are set with secedit.
-            #
-            If ($Finding.Method -eq 'accesschk') {
-
-                # Check if binary is available, skip test if not
-                $BinarySecedit = "C:\Windows\System32\secedit.exe"
-                If (-Not (Test-Path $BinarySecedit)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires secedit, and the binary for secedit was not found. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
-                    Continue
-                }
-
-                # Check if the user has admin rights, skip test if not
-                If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
-                    Continue
-                }
-
-                $TempFileName = [System.IO.Path]::GetTempFileName()
-                $TempDbFileName = [System.IO.Path]::GetTempFileName()
-
-                &$BinarySecedit /export /cfg $TempFileName /areas USER_RIGHTS | Out-Null
-
-                if($Finding.RecommendedValue -eq "") {
-                    (Get-Content -Encoding unicode $TempFileName) -replace "$($Finding.MethodArgument).*", "$($Finding.MethodArgument) = " | Out-File $TempFileName
-                } else {
-                    $ListTranslated = @()
-                    $List = $Finding.RecommendedValue -split ';'| Where-Object {
-                        # Get SID to translate the account name
-                        $AccountSid = Translate-SidFromWellkownAccount -AccountName $_
-                        # Get account name from system with SID (local translation)
-                        $AccountName = Get-AccountFromSid -AccountSid $AccountSid
-                        $ListTranslated += $AccountName
-                     }
-
-                     # If User Right Assignment exists, replace values
-                     If ( ((Get-Content -Encoding unicode $TempFileName) | Select-String $($Finding.MethodArgument)).Count -gt 0 ) {
-                        (Get-Content -Encoding unicode $TempFileName) -replace "$($Finding.MethodArgument).*", "$($Finding.MethodArgument) = $($ListTranslated -join ',')" | Out-File $TempFileName
-                     }
-                     # If it does not exist, add a new entry into the file at the right position
-                     Else {
-                        $TempFileContent = Get-Content -Encoding unicode $TempFileName
-                        $LineNumber = $TempFileContent.Count
-                        $TempFileContent[$LineNumber-3] = "$($Finding.MethodArgument) = $($ListTranslated -join ',')"
-                        $TempFileContent[$LineNumber-2] = "[Version]"
-                        $TempFileContent[$LineNumber-1] = 'signature="$CHICAGO$"'
-                        $TempFileContent += "Revision=1"
-                        $TempFileContent | Set-Content -Encoding unicode $TempFileName
-                     }
-                }
-
-                &$BinarySecedit /import /cfg $TempFileName /overwrite /areas USER_RIGHTS /db $TempDbFileName /quiet | Out-Null
-
-                if($LastExitCode -ne 0) {
-                    $ResultText = "Failed to import user right assignment into temporary database" 
-                    $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
-                    $MessageSeverity = "High"
-                    Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-                    Remove-Item $TempFileName
-                    Remove-Item $TempDbFileName
-                    Continue
-                }
-
-                $ResultText = "Imported user right assignment into temporary database" 
-                $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
-                $MessageSeverity = "Passed"
-
-                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-
-                &$BinarySecedit /configure /db $TempDbFileName /overwrite /areas USER_RIGHTS /quiet | Out-Null
-
-                if($LastExitCode -ne 0) {
-                    $ResultText = "Failed to configure system user right assignment"
-                    $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
-                    $MessageSeverity = "High"
-                    Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-                    Remove-Item $TempFileName
-                    Remove-Item $TempDbFileName
-                    Continue
-                }
-
-                $ResultText = "Configured system user right assignment"
-                $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
-                $MessageSeverity = "Passed"
-
-                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-
-                Remove-Item $TempFileName
-                Remove-Item $TempDbFileName
-            }
-            
-            #
-            # MpPreference
-            # Set a Windows Defender policy
-            #
-            If ($Finding.Method -eq 'MpPreference') {
-
-                # Check if the user has admin rights, skip test if not
-                If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
-                    Continue
-                }
-
-                $ResultMethodArgument = $Finding.MethodArgument
-                $ResultRecommendedValue = $Finding.RecommendedValue
-
-                Switch($ResultRecommendedValue) {
-                    "True" { $ResultRecommendedValue = 1; Break }
-                    "False" { $ResultRecommendedValue = 0; Break }
-                }
-
-                $ResultCommand = "Set-MpPreference -$ResultMethodArgument $ResultRecommendedValue"
-
-                $Result = Invoke-Expression $ResultCommand
-
-                if($LastExitCode -eq 0) {
-                    $ResultText = "Method value modified"
-                    $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", " + $ResultText
-                    $MessageSeverity = "Passed"
-                } else {
-                    $ResultText = "Failed to change Method value"
-                    $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", " + $ResultText
-                    $MessageSeverity = "High"
-                }
-
-                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-            }
-            
-            #
-            # Microsoft Defender Preferences - Attack surface reduction rules (ASR rules)
-            # The values are saved from a PowerShell function into an object.
-            # The desired arguments can be accessed directly.
-            #
-            If ($Finding.Method -eq 'MpPreferenceAsr') {
-
-                # Check if the user has admin rights, skip test if not
-                If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
-                    Continue
-                }
-
-                $ResultMethodArgument = $Finding.MethodArgument
-                $ResultRecommendedValue = $Finding.RecommendedValue
-                
-                Switch($ResultRecommendedValue) {
-                    "True" { $ResultRecommendedValue = 1; Break }
-                    "False" { $ResultRecommendedValue = 0; Break }
-                }
-
-                $ResultCommand = "Add-MpPreference -AttackSurfaceReductionRules_Ids $ResultMethodArgument -AttackSurfaceReductionRules_Actions $ResultRecommendedValue"
-                $Result = Invoke-Expression $ResultCommand
-
-                if($LastExitCode -eq 0) {
-                    $ResultText = "ASR rule added to list"
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", "+$Finding.MethodArgument+", " + $ResultText
-                    $MessageSeverity = "Passed"
-                } else {
-                    $ResultText = "Failed to add ASR rule"
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", "+$Finding.MethodArgument+", " + $ResultText
-                    $MessageSeverity = "High"
-                }
-
-                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-            }
-
-            #
-            # secedit
-            # Set a security policy
-            #
-            If ($Finding.Method -eq 'secedit') {
-
-                # Check if binary is available, skip test if not
-                $BinarySecedit = "C:\Windows\System32\secedit.exe"
-                If (-Not (Test-Path $BinarySecedit)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires secedit, and the binary for secedit was not found. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
-                    Continue
-                }
-
-                # Check if the user has admin rights, skip test if not
-                If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
-                    Continue
-                }
-
-                $Area = "";
-
-                Switch($Finding.Category) {
-                    "Account Policies" { $Area = "SECURITYPOLICY"; Break }
-                    "Security Options" { $Area = "SECURITYPOLICY"; Break }
-                }
-
-                $TempFileName = [System.IO.Path]::GetTempFileName()
-                $TempDbFileName = [System.IO.Path]::GetTempFileName()
-
-                &$BinarySecedit /export /cfg $TempFileName /areas $Area | Out-Null
-
-                $Data = Get-IniContent $TempFileName
-
-                Set-HashtableValueDeep $Data $Finding.MethodArgument $Finding.RecommendedValue
-
-                Out-IniFile $Data $TempFileName unicode $true
-
-                &$BinarySecedit /import /cfg $TempFileName /overwrite /areas $Area /db $TempDbFileName /quiet | Out-Null
-
-                if($LastExitCode -ne 0) {
-                    $ResultText = "Failed to import security policy into temporary database"
-                    $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
-                    $MessageSeverity = "High"
-                    Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-                    Remove-Item $TempFileName
-                    Remove-Item $TempDbFileName
-                    Continue
-                }
-
-                $ResultText = "Imported security policy into temporary database"
-                $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
-                $MessageSeverity = "Passed"
-
-                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-
-                &$BinarySecedit /configure /db $TempDbFileName /overwrite /areas SECURITYPOLICY /quiet | Out-Null
-
-                if($LastExitCode -ne 0) {
-                    $ResultText = "Failed to configure security policy"
-                    $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
-                    $MessageSeverity = "High"
-                    Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-                    Remove-Item $TempFileName
-                    Remove-Item $TempDbFileName
-                    Continue
-                }
-
-                $ResultText = "Configured security policy"
-                $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
-                $MessageSeverity = "Passed"
-
-                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-
-                Remove-Item $TempFileName
-                Remove-Item $TempDbFileName
-            }
-
-            #
-            # auditpol
-            # Set an audit policy
-            #
-            If ($Finding.Method -eq 'auditpol') {
-
-                # Check if binary is available, skip test if not
-                $BinaryAuditpol = "C:\Windows\System32\auditpol.exe"
-                If (-Not (Test-Path $BinaryAuditpol)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires auditpol, and the binary for auditpol was not found. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
-                    Continue
-                }
-
-                # Check if the user has admin rights, skip test if not
-                If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
-                    Continue
-                }
-
-                $Success = if($Finding.RecommendedValue -ilike "*success*") {"enable"} else {"disable"}
-                $Failure = if($Finding.RecommendedValue -ilike "*failure*") {"enable"} else {"disable"}
-
-                $SubCategory = $Finding.MethodArgument
-
-                &$BinaryAuditpol /set /subcategory:"$($SubCategory)" /success:$($Success) /failure:$($Failure) | Out-Null
-
-                if($LastExitCode -eq 0) {
-                    $ResultText = "Audit policy set" 
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", "+$Finding.RecommendedValue+", " + $ResultText
-                    $MessageSeverity = "Passed"
-                } else {
-                    $ResultText = "Failed to set audit policy" 
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", "+$Finding.RecommendedValue+", " + $ResultText
-                    $MessageSeverity = "High"
-                }
-
-                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-            }
-
-            #
-            # accountpolicy
-            # Set a user account policy
-            #
-            If ($Finding.Method -eq 'accountpolicy') {
-
-                # Check if the user has admin rights, skip test if not
-                If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
-                    Continue
-                }
-
-                # Check if binary is available, skip test if not
-                $BinaryNet = "C:\Windows\System32\net.exe"
-                If (-Not (Test-Path $BinaryNet)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires net, and the binary for net was not found. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
-                    Continue
-                }
-
-                $Sw = "";
-
-                Switch ($Finding.Name) {
-                    "Force user logoff how long after time expires" { $Sw = "/FORCELOGOFF:$($Finding.RecommendedValue)"; Break }
-                    "Minimum password age" { $Sw = "/MINPWAGE:$($Finding.RecommendedValue)"; Break }
-                    "Maximum password age" { $Sw = "/MAXPWAGE:$($Finding.RecommendedValue)"; Break }
-                    "Minimum password length" { $Sw = "/MINPWLEN:$($Finding.RecommendedValue)"; Break }
-                    "Length of password history maintained" { $Sw = "/UNIQUEPW:$($Finding.RecommendedValue)"; Break }
-                    "Account lockout threshold" { $Sw = "/lockoutthreshold:$($Finding.RecommendedValue)"; Break; }
-                    "Account lockout duration" { $Sw = @("/lockoutwindow:$($Finding.RecommendedValue)", "/lockoutduration:$($Finding.RecommendedValue)"); Break }
-                    "Reset account lockout counter" { $Sw = "/lockoutwindow:$($Finding.RecommendedValue)"; Break }
-                }
-
-                &$BinaryNet accounts $Sw | Out-Null
-
-                if($LastExitCode -eq 0) {
-                    $ResultText = "Account policy set" 
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", "+$Finding.RecommendedValue+", " + $ResultText
-                    $MessageSeverity = "Passed"
-                } else {
-                    $ResultText = "Failed to set account policy" 
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", "+$Finding.RecommendedValue+", " + $ResultText
-                    $MessageSeverity = "High"
-                }
-
-                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-            }
-
-            #
             # Registry
             # Create or modify a registry value.
             #
@@ -1814,9 +1477,7 @@
                 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin) -and -not($Finding.RegistryPath.StartsWith("HKCU:\"))) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -1907,55 +1568,258 @@
 
                 Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
             }
+            
+            #
+            # secedit
+            # Set a security policy
+            #
+            If ($Finding.Method -eq 'secedit') {
 
-            #
-            # Exploit protection
-            # Set exploit protection values
-            #
-            # I noticed irregularities when the process mitigations were set individually,
-            # in some cases settings that had already been set were then reset. Therefore,
-            # the settings are collected in an array and finally set at the end of the processing.
-            #
-            If ($Finding.Method -eq 'Processmitigation') {
-
-                # Check if the user has admin rights, skip test if not
-                If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                # Check if Secedit binary is available, skip test if not
+                If (-Not (Test-Path $BinarySecedit)) {
+                    Write-BinaryError $BinarySecedit $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
-                $SettingArgumentArray = $Finding.MethodArgument.Split(".") 
-                $SettingArgument0 = $SettingArgumentArray[0]
-                $SettingArgument1 = $SettingArgumentArray[1]
-
-                If ( $Finding.RecommendedValue -eq "ON") {
-
-                    If ( $SettingArgumentArray[1] -eq "Enable" ) {
-                        $ProcessmitigationEnableArray += $SettingArgumentArray[0]
-                    } Else                    {
-                        $ProcessmitigationEnableArray += $SettingArgumentArray[1]
-                    }                    
+                # Check if the user has admin rights, skip test if not
+                If (-not($IsAdmin)) {
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+                    Continue
                 }
-                ElseIf ( $Finding.RecommendedValue -eq "OFF") {
 
-                    If ($SettingArgumentArray[1] -eq "TelemetryOnly") {
-                        $ProcessmitigationDisableArray += "SEHOPTelemetry"
-                    }
-                    ElseIf ( $SettingArgumentArray[1] -eq "Enable" ) {
-                        $ProcessmitigationDisableArray += $SettingArgumentArray[0]
-                    }
-                    Else {
-                        $ProcessmitigationDisableArray += $SettingArgumentArray[1]
-                    }
+                $Area = "";
+
+                Switch($Finding.Category) {
+                    "Account Policies" { $Area = "SECURITYPOLICY"; Break }
+                    "Security Options" { $Area = "SECURITYPOLICY"; Break }
                 }
-                $ResultText = "setting added to list" 
-                $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
+
+                $TempFileName = [System.IO.Path]::GetTempFileName()
+                $TempDbFileName = [System.IO.Path]::GetTempFileName()
+
+                &$BinarySecedit /export /cfg $TempFileName /areas $Area | Out-Null
+
+                $Data = Get-IniContent $TempFileName
+
+                Set-HashtableValueDeep $Data $Finding.MethodArgument $Finding.RecommendedValue
+
+                Out-IniFile $Data $TempFileName unicode $true
+
+                &$BinarySecedit /import /cfg $TempFileName /overwrite /areas $Area /db $TempDbFileName /quiet | Out-Null
+
+                if($LastExitCode -ne 0) {
+                    $ResultText = "Failed to import security policy into temporary database"
+                    $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
+                    $MessageSeverity = "High"
+                    Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                    Remove-Item $TempFileName
+                    Remove-Item $TempDbFileName
+                    Continue
+                }
+
+                $ResultText = "Imported security policy into temporary database"
+                $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
                 $MessageSeverity = "Passed"
+
+                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+
+                &$BinarySecedit /configure /db $TempDbFileName /overwrite /areas SECURITYPOLICY /quiet | Out-Null
+
+                if($LastExitCode -ne 0) {
+                    $ResultText = "Failed to configure security policy"
+                    $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
+                    $MessageSeverity = "High"
+                    Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                    Remove-Item $TempFileName
+                    Remove-Item $TempDbFileName
+                    Continue
+                }
+
+                $ResultText = "Configured security policy"
+                $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
+                $MessageSeverity = "Passed"
+
+                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+
+                Remove-Item $TempFileName
+                Remove-Item $TempDbFileName
+            }
+
+            #
+            # auditpol
+            # Set an audit policy
+            #
+            If ($Finding.Method -eq 'auditpol') {
+
+                # Check if Auditpol binary is available, skip test if not
+                If (-Not (Test-Path $BinaryAuditpol)) {
+                    Write-BinaryError $BinaryAuditpol $Finding.ID $Finding.Name $Finding.Method
+                    Continue
+                }
+
+                # Check if the user has admin rights, skip test if not
+                If (-not($IsAdmin)) {
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+                    Continue
+                }
+
+                $Success = if($Finding.RecommendedValue -ilike "*success*") {"enable"} else {"disable"}
+                $Failure = if($Finding.RecommendedValue -ilike "*failure*") {"enable"} else {"disable"}
+
+                $SubCategory = $Finding.MethodArgument
+
+                &$BinaryAuditpol /set /subcategory:"$($SubCategory)" /success:$($Success) /failure:$($Failure) | Out-Null
+
+                if($LastExitCode -eq 0) {
+                    $ResultText = "Audit policy set" 
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", "+$Finding.RecommendedValue+", " + $ResultText
+                    $MessageSeverity = "Passed"
+                } else {
+                    $ResultText = "Failed to set audit policy" 
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", "+$Finding.RecommendedValue+", " + $ResultText
+                    $MessageSeverity = "High"
+                }
+
                 Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
             }
 
+            #
+            # accountpolicy
+            # Set a user account policy
+            #
+            If ($Finding.Method -eq 'accountpolicy') {
+
+                # Check if the user has admin rights, skip test if not
+                If (-not($IsAdmin)) {
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+                    Continue
+                }
+
+                # Check if net binary is available, skip test if not
+                If (-Not (Test-Path $BinaryNet)) {
+                    Write-BinaryError $BinaryNet $Finding.ID $Finding.Name $Finding.Method
+                    Continue
+                }
+
+                $Sw = "";
+
+                Switch ($Finding.Name) {
+                    "Force user logoff how long after time expires" { $Sw = "/FORCELOGOFF:$($Finding.RecommendedValue)"; Break }
+                    "Minimum password age" { $Sw = "/MINPWAGE:$($Finding.RecommendedValue)"; Break }
+                    "Maximum password age" { $Sw = "/MAXPWAGE:$($Finding.RecommendedValue)"; Break }
+                    "Minimum password length" { $Sw = "/MINPWLEN:$($Finding.RecommendedValue)"; Break }
+                    "Length of password history maintained" { $Sw = "/UNIQUEPW:$($Finding.RecommendedValue)"; Break }
+                    "Account lockout threshold" { $Sw = "/lockoutthreshold:$($Finding.RecommendedValue)"; Break; }
+                    "Account lockout duration" { $Sw = @("/lockoutwindow:$($Finding.RecommendedValue)", "/lockoutduration:$($Finding.RecommendedValue)"); Break }
+                    "Reset account lockout counter" { $Sw = "/lockoutwindow:$($Finding.RecommendedValue)"; Break }
+                }
+
+                &$BinaryNet accounts $Sw | Out-Null
+
+                if($LastExitCode -eq 0) {
+                    $ResultText = "Account policy set" 
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", "+$Finding.RecommendedValue+", " + $ResultText
+                    $MessageSeverity = "Passed"
+                } else {
+                    $ResultText = "Failed to set account policy" 
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", "+$Finding.RecommendedValue+", " + $ResultText
+                    $MessageSeverity = "High"
+                }
+
+                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+            }
+
+            #
+            # accesschk
+            # For the audit mode, accesschk is used, but the rights are set with secedit.
+            #
+            If ($Finding.Method -eq 'accesschk') {
+
+                # Check if Secedit binary is available, skip test if not
+                If (-Not (Test-Path $BinarySecedit)) {
+                    Write-BinaryError $BinarySecedit $Finding.ID $Finding.Name $Finding.Method
+                    Continue
+                }
+
+                # Check if the user has admin rights, skip test if not
+                If (-not($IsAdmin)) {
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+                    Continue
+                }
+
+                $TempFileName = [System.IO.Path]::GetTempFileName()
+                $TempDbFileName = [System.IO.Path]::GetTempFileName()
+
+                &$BinarySecedit /export /cfg $TempFileName /areas USER_RIGHTS | Out-Null
+
+                if($Finding.RecommendedValue -eq "") {
+                    (Get-Content -Encoding unicode $TempFileName) -replace "$($Finding.MethodArgument).*", "$($Finding.MethodArgument) = " | Out-File $TempFileName
+                } else {
+                    $ListTranslated = @()
+                    $Finding.RecommendedValue -split ';'| Where-Object {
+                        # Get SID to translate the account name
+                        $AccountSid = Translate-SidFromWellkownAccount -AccountName $_
+                        # Get account name from system with SID (local translation)
+                        $AccountName = Get-AccountFromSid -AccountSid $AccountSid
+                        $ListTranslated += $AccountName
+                    }
+
+                     # If User Right Assignment exists, replace values
+                     If ( ((Get-Content -Encoding unicode $TempFileName) | Select-String $($Finding.MethodArgument)).Count -gt 0 ) {
+                        (Get-Content -Encoding unicode $TempFileName) -replace "$($Finding.MethodArgument).*", "$($Finding.MethodArgument) = $($ListTranslated -join ',')" | Out-File $TempFileName
+                     }
+                     # If it does not exist, add a new entry into the file at the right position
+                     Else {
+                        $TempFileContent = Get-Content -Encoding unicode $TempFileName
+                        $LineNumber = $TempFileContent.Count
+                        $TempFileContent[$LineNumber-3] = "$($Finding.MethodArgument) = $($ListTranslated -join ',')"
+                        $TempFileContent[$LineNumber-2] = "[Version]"
+                        $TempFileContent[$LineNumber-1] = 'signature="$CHICAGO$"'
+                        $TempFileContent += "Revision=1"
+                        $TempFileContent | Set-Content -Encoding unicode $TempFileName
+                     }
+                }
+
+                &$BinarySecedit /import /cfg $TempFileName /overwrite /areas USER_RIGHTS /db $TempDbFileName /quiet | Out-Null
+
+                if($LastExitCode -ne 0) {
+                    $ResultText = "Failed to import user right assignment into temporary database" 
+                    $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
+                    $MessageSeverity = "High"
+                    Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                    Remove-Item $TempFileName
+                    Remove-Item $TempDbFileName
+                    Continue
+                }
+
+                $ResultText = "Imported user right assignment into temporary database" 
+                $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
+                $MessageSeverity = "Passed"
+
+                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+
+                &$BinarySecedit /configure /db $TempDbFileName /overwrite /areas USER_RIGHTS /quiet | Out-Null
+
+                if($LastExitCode -ne 0) {
+                    $ResultText = "Failed to configure system user right assignment"
+                    $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
+                    $MessageSeverity = "High"
+                    Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                    Remove-Item $TempFileName
+                    Remove-Item $TempDbFileName
+                    Continue
+                }
+
+                $ResultText = "Configured system user right assignment"
+                $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
+                $MessageSeverity = "Passed"
+
+                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+
+                Remove-Item $TempFileName
+                Remove-Item $TempDbFileName
+            }
+            
             #
             # WindowsOptionalFeature
             # Install / Remove a Windows feature
@@ -1964,9 +1828,7 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -2043,6 +1905,192 @@
                     Add-MessageToFile -Text $Message -File $ReportFile
                 }                
             }
+            
+            #
+            # MpPreference
+            # Set a Windows Defender policy
+            #
+            If ($Finding.Method -eq 'MpPreference') {
+
+                # Check if the user has admin rights, skip test if not
+                If (-not($IsAdmin)) {
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+                    Continue
+                }
+
+                $ResultMethodArgument = $Finding.MethodArgument
+                $ResultRecommendedValue = $Finding.RecommendedValue
+
+                Switch($ResultRecommendedValue) {
+                    "True" { $ResultRecommendedValue = 1; Break }
+                    "False" { $ResultRecommendedValue = 0; Break }
+                }
+
+                $ResultCommand = "Set-MpPreference -$ResultMethodArgument $ResultRecommendedValue"
+
+                $Result = Invoke-Expression $ResultCommand
+
+                if($LastExitCode -eq 0) {
+                    $ResultText = "Method value modified"
+                    $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", " + $ResultText
+                    $MessageSeverity = "Passed"
+                } else {
+                    $ResultText = "Failed to change Method value"
+                    $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", " + $ResultText
+                    $MessageSeverity = "High"
+                }
+
+                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+            }
+            
+            #
+            # Microsoft Defender Preferences - Attack surface reduction rules (ASR rules)
+            # The values are saved from a PowerShell function into an object.
+            # The desired arguments can be accessed directly.
+            #
+            If ($Finding.Method -eq 'MpPreferenceAsr') {
+
+                # Check if the user has admin rights, skip test if not
+                If (-not($IsAdmin)) {
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+                    Continue
+                }
+
+                $ResultMethodArgument = $Finding.MethodArgument
+                $ResultRecommendedValue = $Finding.RecommendedValue
+                
+                Switch($ResultRecommendedValue) {
+                    "True" { $ResultRecommendedValue = 1; Break }
+                    "False" { $ResultRecommendedValue = 0; Break }
+                }
+
+                $ResultCommand = "Add-MpPreference -AttackSurfaceReductionRules_Ids $ResultMethodArgument -AttackSurfaceReductionRules_Actions $ResultRecommendedValue"
+                $Result = Invoke-Expression $ResultCommand
+
+                if($LastExitCode -eq 0) {
+                    $ResultText = "ASR rule added to list"
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", "+$Finding.MethodArgument+", " + $ResultText
+                    $MessageSeverity = "Passed"
+                } else {
+                    $ResultText = "Failed to add ASR rule"
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", "+$Finding.MethodArgument+", " + $ResultText
+                    $MessageSeverity = "High"
+                }
+
+                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+            }
+
+            #
+            # Exploit protection
+            # Set exploit protection values
+            #
+            # I noticed irregularities when the process mitigations were set individually,
+            # in some cases settings that had already been set were then reset. Therefore,
+            # the settings are collected in an array and finally set at the end of the processing.
+            #
+            If ($Finding.Method -eq 'Processmitigation') {
+
+                # Check if the user has admin rights, skip test if not
+                If (-not($IsAdmin)) {
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+                    Continue
+                }
+
+                $SettingArgumentArray = $Finding.MethodArgument.Split(".") 
+
+                If ( $Finding.RecommendedValue -eq "ON") {
+
+                    If ( $SettingArgumentArray[1] -eq "Enable" ) {
+                        $ProcessmitigationEnableArray += $SettingArgumentArray[0]
+                    } Else                    {
+                        $ProcessmitigationEnableArray += $SettingArgumentArray[1]
+                    }                    
+                }
+                ElseIf ( $Finding.RecommendedValue -eq "OFF") {
+
+                    If ($SettingArgumentArray[1] -eq "TelemetryOnly") {
+                        $ProcessmitigationDisableArray += "SEHOPTelemetry"
+                    }
+                    ElseIf ( $SettingArgumentArray[1] -eq "Enable" ) {
+                        $ProcessmitigationDisableArray += $SettingArgumentArray[0]
+                    }
+                    Else {
+                        $ProcessmitigationDisableArray += $SettingArgumentArray[1]
+                    }
+                }
+                $ResultText = "setting added to list" 
+                $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
+                $MessageSeverity = "Passed"
+                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+            }
+
+            #
+            # bcdedit
+            # Force use of Data Execution Prevention, if it is not already set
+            #
+            If ($Finding.Method -eq 'bcdedit') {
+
+                # Check if the user has admin rights, skip test if not
+                If (-not($IsAdmin)) {
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+                    Continue
+                }
+
+                # Check if Bcdedit binary is available, skip test if not
+                If (-Not (Test-Path $BinaryBcdedit)) {
+                    Write-BinaryError $BinaryBcdedit $Finding.ID $Finding.Name $Finding.Method
+                    Continue
+                }
+
+                try {
+
+                    $ResultOutput = &$BinaryBcdedit
+                    $ResultOutput = $ResultOutput | Where-Object { $_ -like "*"+$Finding.RecommendedValue+"*" }
+
+                    If ($ResultOutput -match ' ([a-z,A-Z]+)') {
+                        $Result = $Matches[1]
+                    } Else {
+                        $Result = $Finding.DefaultValue
+                    }
+
+                } catch {
+                    $Result = $Finding.DefaultValue
+                }
+
+                If ($Result -ne $Finding.RecommendedValue) {
+
+                    try {
+
+                        $ResultOutput = &$BinaryBcdedit "/set" $Finding.MethodArgument $Finding.RecommendedValue
+
+                    } catch {
+
+                        $ResultText = "Setting could not be enabled" 
+                        $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
+                        $MessageSeverity = "High"
+                    }
+
+                    $ResultText = "Setting enabled. Please restart the system to activate it" 
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
+                    $MessageSeverity = "Passed"
+                } Else {
+
+                    $ResultText = "Setting is already set correct" 
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
+                    $MessageSeverity = "Passed"
+                }
+
+                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+
+                If ($Log) {
+                    Add-MessageToFile -Text $Message -File $LogFile
+                }
+                
+                If ($Report) {
+                    $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$ResultText+'"'
+                    Add-MessageToFile -Text $Message -File $ReportFile
+                }
+            }
 
             #
             # FirewallRule
@@ -2052,9 +2100,7 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
 
@@ -2117,79 +2163,6 @@
                     Add-MessageToFile -Text $Message -File $LogFile
                 }
                     
-                If ($Report) {
-                    $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$ResultText+'"'
-                    Add-MessageToFile -Text $Message -File $ReportFile
-                }
-            }
-
-            #
-            # bcdedit
-            # Force use of Data Execution Prevention, if it is not already set
-            #
-            If ($Finding.Method -eq 'bcdedit') {
-
-                # Check if the user has admin rights, skip test if not
-                If (-not($IsAdmin)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires admin priviliges. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
-                    Continue
-                }
-
-                # Check if binary is available, skip test if not
-                $BinaryBcdedit = "C:\Windows\System32\bcdedit.exe"
-                If (-Not (Test-Path $BinaryBcdedit)) {
-                    $StatsError++
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Method "+$Finding.Method+" requires bcdedit, and the binary for bcdedit was not found. Test skipped."
-                    Write-ProtocolEntry -Text $Message -LogLevel "Error"
-                    Continue
-                }
-
-                try {
-
-                    $ResultOutput = &$BinaryBcdedit
-                    $ResultOutput = $ResultOutput | Where-Object { $_ -like "*"+$Finding.RecommendedValue+"*" }
-
-                    If ($ResultOutput -match ' ([a-z,A-Z]+)') {
-                        $Result = $Matches[1]
-                    } Else {
-                        $Result = $Finding.DefaultValue
-                    }
-
-                } catch {
-                    $Result = $Finding.DefaultValue
-                }
-
-                If ($Result -ne $Finding.RecommendedValue) {
-
-                    try {
-
-                        $ResultOutput = &$BinaryBcdedit "/set" $Finding.MethodArgument $Finding.RecommendedValue
-
-                    } catch {
-
-                        $ResultText = "Setting could not be enabled" 
-                        $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
-                        $MessageSeverity = "High"
-                    }
-
-                    $ResultText = "Setting enabled. Please restart the system to activate it" 
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
-                    $MessageSeverity = "Passed"
-                } Else {
-
-                    $ResultText = "Setting is already set correct" 
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
-                    $MessageSeverity = "Passed"
-                }
-
-                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-
-                If ($Log) {
-                    Add-MessageToFile -Text $Message -File $LogFile
-                }
-                
                 If ($Report) {
                     $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$ResultText+'"'
                     Add-MessageToFile -Text $Message -File $ReportFile
@@ -2279,8 +2252,8 @@
             $HardeningKittyScoreRounded = 1.00
         }
 
-        If ($StatsError -gt 0) {
-            Write-ProtocolEntry -Text "During the execution of HardeningKitty errors occurred due to missing admin rights or tools. For a complete result, these errors should be resolved. Total errors: $StatsError" -LogLevel "Error"
+        If ($Script:StatsError -gt 0) {
+            Write-ProtocolEntry -Text "During the execution of HardeningKitty errors occurred due to missing admin rights or tools. For a complete result, these errors should be resolved. Total errors: $Script:StatsError" -LogLevel "Error"
         }
             
         Write-ProtocolEntry -Text "Your HardeningKitty score is: $HardeningKittyScoreRounded. HardeningKitty Statistics: Total checks: $StatsTotal - Passed: $StatsPassed, Low: $StatsLow, Medium: $StatsMedium, High: $StatsHigh." -LogLevel "Info"
