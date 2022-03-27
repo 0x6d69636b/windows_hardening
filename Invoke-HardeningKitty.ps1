@@ -374,7 +374,7 @@
         $Entry = $Table[$Key[0]]
 
         if($Key.Length -eq 2) {
-            if($Entry -eq $null) {
+            if($null -eq $Entry) {
                 $Table[$Key[0]] = @{}
             } elseif($Entry -isnot [hashtable]) {
                 throw "Not hashtable"
@@ -536,7 +536,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.7.0-1647797768"
+    $HardeningKittyVersion = "0.7.0-1648200026"
 
     #
     # Log, report and backup file
@@ -792,7 +792,7 @@
 
                 $Value = Get-HashtableValueDeep $Data $Finding.MethodArgument
 
-                if($Value -eq $null) {
+                if($null -eq $Value) {
                     $Result = $null
                 } else {
                     $Result = $Value -as [int]
@@ -978,7 +978,7 @@
                     &$BinarySecedit /export /cfg $TempFileName /areas USER_RIGHTS | Out-Null
                     $ResultOutputRaw = Get-Content -Encoding unicode $TempFileName | Select-String $Finding.MethodArgument
 
-                    If ($ResultOutputRaw -eq $null) {
+                    If ($null -eq $ResultOutputRaw) {
                         $Result = ""
                     }
                     Else {
@@ -1470,170 +1470,105 @@
             }
 
             #
-            # accesschk
-            # For the audit mode, accesschk is used, but the rights are set with secedit.
+            # Registry
+            # Create or modify a registry value.
             #
-            If ($Finding.Method -eq 'accesschk') {
-
-                # Check if Secedit binary is available, skip test if not
-                If (-Not (Test-Path $BinarySecedit)) {
-                    Write-BinaryError $BinarySecedit $Finding.ID $Finding.Name $Finding.Method
-                    Continue
-                }
-
-                # Check if the user has admin rights, skip test if not
-                If (-not($IsAdmin)) {
-                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
-                    Continue
-                }
-
-                $TempFileName = [System.IO.Path]::GetTempFileName()
-                $TempDbFileName = [System.IO.Path]::GetTempFileName()
-
-                &$BinarySecedit /export /cfg $TempFileName /areas USER_RIGHTS | Out-Null
-
-                if($Finding.RecommendedValue -eq "") {
-                    (Get-Content -Encoding unicode $TempFileName) -replace "$($Finding.MethodArgument).*", "$($Finding.MethodArgument) = " | Out-File $TempFileName
-                } else {
-                    $ListTranslated = @()
-                    $List = $Finding.RecommendedValue -split ';'| Where-Object {
-                        # Get SID to translate the account name
-                        $AccountSid = Translate-SidFromWellkownAccount -AccountName $_
-                        # Get account name from system with SID (local translation)
-                        $AccountName = Get-AccountFromSid -AccountSid $AccountSid
-                        $ListTranslated += $AccountName
-                     }
-
-                     # If User Right Assignment exists, replace values
-                     If ( ((Get-Content -Encoding unicode $TempFileName) | Select-String $($Finding.MethodArgument)).Count -gt 0 ) {
-                        (Get-Content -Encoding unicode $TempFileName) -replace "$($Finding.MethodArgument).*", "$($Finding.MethodArgument) = $($ListTranslated -join ',')" | Out-File $TempFileName
-                     }
-                     # If it does not exist, add a new entry into the file at the right position
-                     Else {
-                        $TempFileContent = Get-Content -Encoding unicode $TempFileName
-                        $LineNumber = $TempFileContent.Count
-                        $TempFileContent[$LineNumber-3] = "$($Finding.MethodArgument) = $($ListTranslated -join ',')"
-                        $TempFileContent[$LineNumber-2] = "[Version]"
-                        $TempFileContent[$LineNumber-1] = 'signature="$CHICAGO$"'
-                        $TempFileContent += "Revision=1"
-                        $TempFileContent | Set-Content -Encoding unicode $TempFileName
-                     }
-                }
-
-                &$BinarySecedit /import /cfg $TempFileName /overwrite /areas USER_RIGHTS /db $TempDbFileName /quiet | Out-Null
-
-                if($LastExitCode -ne 0) {
-                    $ResultText = "Failed to import user right assignment into temporary database" 
-                    $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
-                    $MessageSeverity = "High"
-                    Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-                    Remove-Item $TempFileName
-                    Remove-Item $TempDbFileName
-                    Continue
-                }
-
-                $ResultText = "Imported user right assignment into temporary database" 
-                $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
-                $MessageSeverity = "Passed"
-
-                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-
-                &$BinarySecedit /configure /db $TempDbFileName /overwrite /areas USER_RIGHTS /quiet | Out-Null
-
-                if($LastExitCode -ne 0) {
-                    $ResultText = "Failed to configure system user right assignment"
-                    $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
-                    $MessageSeverity = "High"
-                    Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-                    Remove-Item $TempFileName
-                    Remove-Item $TempDbFileName
-                    Continue
-                }
-
-                $ResultText = "Configured system user right assignment"
-                $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
-                $MessageSeverity = "Passed"
-
-                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-
-                Remove-Item $TempFileName
-                Remove-Item $TempDbFileName
-            }
-            
-            #
-            # MpPreference
-            # Set a Windows Defender policy
-            #
-            If ($Finding.Method -eq 'MpPreference') {
-
-                # Check if the user has admin rights, skip test if not
-                If (-not($IsAdmin)) {
-                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
-                    Continue
-                }
-
-                $ResultMethodArgument = $Finding.MethodArgument
-                $ResultRecommendedValue = $Finding.RecommendedValue
-
-                Switch($ResultRecommendedValue) {
-                    "True" { $ResultRecommendedValue = 1; Break }
-                    "False" { $ResultRecommendedValue = 0; Break }
-                }
-
-                $ResultCommand = "Set-MpPreference -$ResultMethodArgument $ResultRecommendedValue"
-
-                $Result = Invoke-Expression $ResultCommand
-
-                if($LastExitCode -eq 0) {
-                    $ResultText = "Method value modified"
-                    $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", " + $ResultText
-                    $MessageSeverity = "Passed"
-                } else {
-                    $ResultText = "Failed to change Method value"
-                    $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", " + $ResultText
-                    $MessageSeverity = "High"
-                }
-
-                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-            }
-            
-            #
-            # Microsoft Defender Preferences - Attack surface reduction rules (ASR rules)
-            # The values are saved from a PowerShell function into an object.
-            # The desired arguments can be accessed directly.
-            #
-            If ($Finding.Method -eq 'MpPreferenceAsr') {
-
-                # Check if the user has admin rights, skip test if not
-                If (-not($IsAdmin)) {
-                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
-                    Continue
-                }
-
-                $ResultMethodArgument = $Finding.MethodArgument
-                $ResultRecommendedValue = $Finding.RecommendedValue
+            If ($Finding.Method -eq 'Registry' -or $Finding.Method -eq 'RegistryList') {
                 
-                Switch($ResultRecommendedValue) {
-                    "True" { $ResultRecommendedValue = 1; Break }
-                    "False" { $ResultRecommendedValue = 0; Break }
+                # Check if the user has admin rights, skip test if not
+                If (-not($IsAdmin) -and -not($Finding.RegistryPath.StartsWith("HKCU:\"))) {
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+                    Continue
                 }
 
-                $ResultCommand = "Add-MpPreference -AttackSurfaceReductionRules_Ids $ResultMethodArgument -AttackSurfaceReductionRules_Actions $ResultRecommendedValue"
-                $Result = Invoke-Expression $ResultCommand
+                $RegType = "String"
 
-                if($LastExitCode -eq 0) {
-                    $ResultText = "ASR rule added to list"
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", "+$Finding.MethodArgument+", " + $ResultText
+                #
+                # Basically this is true, but there is an exception for the finding "MitigationOptions_FontBocking",
+                # the value "10000000000" is written to the registry as a string...
+                #
+                # ... and more exceptions are added over time:
+                #
+                # MitigationOptions_FontBocking => Mitigation Options: Untrusted Font Blocking
+                # Machine => Network access: Remotely accessible registry paths
+                # Retention => Event Log Service: *: Control Event Log behavior when the log file reaches its maximum size
+                # AllocateDASD => Devices: Allowed to format and eject removable media
+                # ScRemoveOption => Interactive logon: Smart card removal behavior
+                # AutoAdminLogon => MSS: (AutoAdminLogon) Enable Automatic Logon (not recommended)
+                #
+                If ($Finding.RegistryItem -eq "MitigationOptions_FontBocking" -Or $Finding.RegistryItem -eq "Retention" -Or $Finding.RegistryItem -eq "AllocateDASD" -Or $Finding.RegistryItem -eq "ScRemoveOption" -Or $Finding.RegistryItem -eq "AutoAdminLogon") {
+                    $RegType = "String"
+                } ElseIf ($Finding.RegistryItem -eq "Machine") {
+                    $RegType = "MultiString"
+                    $Finding.RecommendedValue = $Finding.RecommendedValue -split ";"
+                }
+                 ElseIf ($Finding.RecommendedValue -match "^\d+$") {
+                    $RegType = "DWord"                    
+                }
+
+                if(!(Test-Path $Finding.RegistryPath)) {
+
+                    $Result = New-Item $Finding.RegistryPath -Force;
+                    
+                    if($Result) {
+                        $ResultText = "Registry key created" 
+                        $Message = "ID "+$Finding.ID+", "+$Finding.RegistryPath+", " + $ResultText
+                        $MessageSeverity = "Passed"
+                        Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                    } else {
+                        $ResultText = "Failed to create registry key" 
+                        $Message = "ID "+$Finding.ID+", "+$Finding.RegistryPath+", " + $ResultText
+                        $MessageSeverity = "High"
+                        Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                        Continue
+                    }
+                }
+
+                #
+                # The method RegistryList needs a separate handling, because the name of the registry key is dynamic, usually incremented.
+                # Therefore, it is searched whether the value already exists or not. If the value does not exist, it counts how many
+                # other values are already there in order to set the next higher value and not overwrite existing keys.
+                #
+                If ($Finding.Method -eq 'RegistryList') {
+
+                    $ResultList = Get-ItemProperty -Path $Finding.RegistryPath
+                    $ResultListCounter = 0
+                    If ($ResultList | Where-Object { $_ -like "*"+$Finding.RegistryItem+"*" }) {
+                        $ResultList.PSObject.Properties | ForEach-Object {
+                            If ( $_.Value -eq $Finding.RegistryItem ) {
+                                $Finding.RegistryItem = $_.Value.Name
+                                Continue
+                            }
+                        }
+                    }
+                    Else {
+                        $ResultList.PSObject.Properties | ForEach-Object {
+                            $ResultListCounter++
+                        }
+                    }
+                    If ($ResultListCounter -eq 0) {
+                        $Finding.RegistryItem = 1
+                    } 
+                    Else {
+                        $Finding.RegistryItem = $ResultListCounter - 4
+                    }
+                }
+
+                $Result = Set-Itemproperty -PassThru -Path $Finding.RegistryPath -Name $Finding.RegistryItem -Type $RegType -Value $Finding.RecommendedValue
+
+                if($Result) {
+                    $ResultText = "Registry value created/modified" 
+                    $Message = "ID "+$Finding.ID+", "+$Finding.RegistryPath+", "+$Finding.RegistryItem+", " + $ResultText
                     $MessageSeverity = "Passed"
                 } else {
-                    $ResultText = "Failed to add ASR rule"
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", "+$Finding.MethodArgument+", " + $ResultText
+                    $ResultText = "Failed to create registry value" 
+                    $Message = "ID "+$Finding.ID+", "+$Finding.RegistryPath+", "+$Finding.RegistryItem+", " + $ResultText
                     $MessageSeverity = "High"
                 }
 
                 Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
             }
-
+            
             #
             # secedit
             # Set a security policy
@@ -1795,114 +1730,16 @@
             }
 
             #
-            # Registry
-            # Create or modify a registry value.
+            # accesschk
+            # For the audit mode, accesschk is used, but the rights are set with secedit.
             #
-            If ($Finding.Method -eq 'Registry' -or $Finding.Method -eq 'RegistryList') {
-                
-                # Check if the user has admin rights, skip test if not
-                If (-not($IsAdmin) -and -not($Finding.RegistryPath.StartsWith("HKCU:\"))) {
-                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+            If ($Finding.Method -eq 'accesschk') {
+
+                # Check if Secedit binary is available, skip test if not
+                If (-Not (Test-Path $BinarySecedit)) {
+                    Write-BinaryError $BinarySecedit $Finding.ID $Finding.Name $Finding.Method
                     Continue
                 }
-
-                $RegType = "String"
-
-                #
-                # Basically this is true, but there is an exception for the finding "MitigationOptions_FontBocking",
-                # the value "10000000000" is written to the registry as a string...
-                #
-                # ... and more exceptions are added over time:
-                #
-                # MitigationOptions_FontBocking => Mitigation Options: Untrusted Font Blocking
-                # Machine => Network access: Remotely accessible registry paths
-                # Retention => Event Log Service: *: Control Event Log behavior when the log file reaches its maximum size
-                # AllocateDASD => Devices: Allowed to format and eject removable media
-                # ScRemoveOption => Interactive logon: Smart card removal behavior
-                # AutoAdminLogon => MSS: (AutoAdminLogon) Enable Automatic Logon (not recommended)
-                #
-                If ($Finding.RegistryItem -eq "MitigationOptions_FontBocking" -Or $Finding.RegistryItem -eq "Retention" -Or $Finding.RegistryItem -eq "AllocateDASD" -Or $Finding.RegistryItem -eq "ScRemoveOption" -Or $Finding.RegistryItem -eq "AutoAdminLogon") {
-                    $RegType = "String"
-                } ElseIf ($Finding.RegistryItem -eq "Machine") {
-                    $RegType = "MultiString"
-                    $Finding.RecommendedValue = $Finding.RecommendedValue -split ";"
-                }
-                 ElseIf ($Finding.RecommendedValue -match "^\d+$") {
-                    $RegType = "DWord"                    
-                }
-
-                if(!(Test-Path $Finding.RegistryPath)) {
-
-                    $Result = New-Item $Finding.RegistryPath -Force;
-                    
-                    if($Result) {
-                        $ResultText = "Registry key created" 
-                        $Message = "ID "+$Finding.ID+", "+$Finding.RegistryPath+", " + $ResultText
-                        $MessageSeverity = "Passed"
-                        Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-                    } else {
-                        $ResultText = "Failed to create registry key" 
-                        $Message = "ID "+$Finding.ID+", "+$Finding.RegistryPath+", " + $ResultText
-                        $MessageSeverity = "High"
-                        Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-                        Continue
-                    }
-                }
-
-                #
-                # The method RegistryList needs a separate handling, because the name of the registry key is dynamic, usually incremented.
-                # Therefore, it is searched whether the value already exists or not. If the value does not exist, it counts how many
-                # other values are already there in order to set the next higher value and not overwrite existing keys.
-                #
-                If ($Finding.Method -eq 'RegistryList') {
-
-                    $ResultList = Get-ItemProperty -Path $Finding.RegistryPath
-                    $ResultListCounter = 0
-                    If ($ResultList | Where-Object { $_ -like "*"+$Finding.RegistryItem+"*" }) {
-                        $ResultList.PSObject.Properties | ForEach-Object {
-                            If ( $_.Value -eq $Finding.RegistryItem ) {
-                                $Finding.RegistryItem = $_.Value.Name
-                                Continue
-                            }
-                        }
-                    }
-                    Else {
-                        $ResultList.PSObject.Properties | ForEach-Object {
-                            $ResultListCounter++
-                        }
-                    }
-                    If ($ResultListCounter -eq 0) {
-                        $Finding.RegistryItem = 1
-                    } 
-                    Else {
-                        $Finding.RegistryItem = $ResultListCounter - 4
-                    }
-                }
-
-                $Result = Set-Itemproperty -PassThru -Path $Finding.RegistryPath -Name $Finding.RegistryItem -Type $RegType -Value $Finding.RecommendedValue
-
-                if($Result) {
-                    $ResultText = "Registry value created/modified" 
-                    $Message = "ID "+$Finding.ID+", "+$Finding.RegistryPath+", "+$Finding.RegistryItem+", " + $ResultText
-                    $MessageSeverity = "Passed"
-                } else {
-                    $ResultText = "Failed to create registry value" 
-                    $Message = "ID "+$Finding.ID+", "+$Finding.RegistryPath+", "+$Finding.RegistryItem+", " + $ResultText
-                    $MessageSeverity = "High"
-                }
-
-                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-            }
-
-            #
-            # Exploit protection
-            # Set exploit protection values
-            #
-            # I noticed irregularities when the process mitigations were set individually,
-            # in some cases settings that had already been set were then reset. Therefore,
-            # the settings are collected in an array and finally set at the end of the processing.
-            #
-            If ($Finding.Method -eq 'Processmitigation') {
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
@@ -1910,36 +1747,79 @@
                     Continue
                 }
 
-                $SettingArgumentArray = $Finding.MethodArgument.Split(".") 
-                $SettingArgument0 = $SettingArgumentArray[0]
-                $SettingArgument1 = $SettingArgumentArray[1]
+                $TempFileName = [System.IO.Path]::GetTempFileName()
+                $TempDbFileName = [System.IO.Path]::GetTempFileName()
 
-                If ( $Finding.RecommendedValue -eq "ON") {
+                &$BinarySecedit /export /cfg $TempFileName /areas USER_RIGHTS | Out-Null
 
-                    If ( $SettingArgumentArray[1] -eq "Enable" ) {
-                        $ProcessmitigationEnableArray += $SettingArgumentArray[0]
-                    } Else                    {
-                        $ProcessmitigationEnableArray += $SettingArgumentArray[1]
-                    }                    
+                if($Finding.RecommendedValue -eq "") {
+                    (Get-Content -Encoding unicode $TempFileName) -replace "$($Finding.MethodArgument).*", "$($Finding.MethodArgument) = " | Out-File $TempFileName
+                } else {
+                    $ListTranslated = @()
+                    $Finding.RecommendedValue -split ';'| Where-Object {
+                        # Get SID to translate the account name
+                        $AccountSid = Translate-SidFromWellkownAccount -AccountName $_
+                        # Get account name from system with SID (local translation)
+                        $AccountName = Get-AccountFromSid -AccountSid $AccountSid
+                        $ListTranslated += $AccountName
+                    }
+
+                     # If User Right Assignment exists, replace values
+                     If ( ((Get-Content -Encoding unicode $TempFileName) | Select-String $($Finding.MethodArgument)).Count -gt 0 ) {
+                        (Get-Content -Encoding unicode $TempFileName) -replace "$($Finding.MethodArgument).*", "$($Finding.MethodArgument) = $($ListTranslated -join ',')" | Out-File $TempFileName
+                     }
+                     # If it does not exist, add a new entry into the file at the right position
+                     Else {
+                        $TempFileContent = Get-Content -Encoding unicode $TempFileName
+                        $LineNumber = $TempFileContent.Count
+                        $TempFileContent[$LineNumber-3] = "$($Finding.MethodArgument) = $($ListTranslated -join ',')"
+                        $TempFileContent[$LineNumber-2] = "[Version]"
+                        $TempFileContent[$LineNumber-1] = 'signature="$CHICAGO$"'
+                        $TempFileContent += "Revision=1"
+                        $TempFileContent | Set-Content -Encoding unicode $TempFileName
+                     }
                 }
-                ElseIf ( $Finding.RecommendedValue -eq "OFF") {
 
-                    If ($SettingArgumentArray[1] -eq "TelemetryOnly") {
-                        $ProcessmitigationDisableArray += "SEHOPTelemetry"
-                    }
-                    ElseIf ( $SettingArgumentArray[1] -eq "Enable" ) {
-                        $ProcessmitigationDisableArray += $SettingArgumentArray[0]
-                    }
-                    Else {
-                        $ProcessmitigationDisableArray += $SettingArgumentArray[1]
-                    }
+                &$BinarySecedit /import /cfg $TempFileName /overwrite /areas USER_RIGHTS /db $TempDbFileName /quiet | Out-Null
+
+                if($LastExitCode -ne 0) {
+                    $ResultText = "Failed to import user right assignment into temporary database" 
+                    $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
+                    $MessageSeverity = "High"
+                    Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                    Remove-Item $TempFileName
+                    Remove-Item $TempDbFileName
+                    Continue
                 }
-                $ResultText = "setting added to list" 
-                $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
+
+                $ResultText = "Imported user right assignment into temporary database" 
+                $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
                 $MessageSeverity = "Passed"
-                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-            }
 
+                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+
+                &$BinarySecedit /configure /db $TempDbFileName /overwrite /areas USER_RIGHTS /quiet | Out-Null
+
+                if($LastExitCode -ne 0) {
+                    $ResultText = "Failed to configure system user right assignment"
+                    $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
+                    $MessageSeverity = "High"
+                    Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                    Remove-Item $TempFileName
+                    Remove-Item $TempDbFileName
+                    Continue
+                }
+
+                $ResultText = "Configured system user right assignment"
+                $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
+                $MessageSeverity = "Passed"
+
+                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+
+                Remove-Item $TempFileName
+                Remove-Item $TempDbFileName
+            }
+            
             #
             # WindowsOptionalFeature
             # Install / Remove a Windows feature
@@ -2025,6 +1905,192 @@
                     Add-MessageToFile -Text $Message -File $ReportFile
                 }                
             }
+            
+            #
+            # MpPreference
+            # Set a Windows Defender policy
+            #
+            If ($Finding.Method -eq 'MpPreference') {
+
+                # Check if the user has admin rights, skip test if not
+                If (-not($IsAdmin)) {
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+                    Continue
+                }
+
+                $ResultMethodArgument = $Finding.MethodArgument
+                $ResultRecommendedValue = $Finding.RecommendedValue
+
+                Switch($ResultRecommendedValue) {
+                    "True" { $ResultRecommendedValue = 1; Break }
+                    "False" { $ResultRecommendedValue = 0; Break }
+                }
+
+                $ResultCommand = "Set-MpPreference -$ResultMethodArgument $ResultRecommendedValue"
+
+                $Result = Invoke-Expression $ResultCommand
+
+                if($LastExitCode -eq 0) {
+                    $ResultText = "Method value modified"
+                    $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", " + $ResultText
+                    $MessageSeverity = "Passed"
+                } else {
+                    $ResultText = "Failed to change Method value"
+                    $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", " + $ResultText
+                    $MessageSeverity = "High"
+                }
+
+                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+            }
+            
+            #
+            # Microsoft Defender Preferences - Attack surface reduction rules (ASR rules)
+            # The values are saved from a PowerShell function into an object.
+            # The desired arguments can be accessed directly.
+            #
+            If ($Finding.Method -eq 'MpPreferenceAsr') {
+
+                # Check if the user has admin rights, skip test if not
+                If (-not($IsAdmin)) {
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+                    Continue
+                }
+
+                $ResultMethodArgument = $Finding.MethodArgument
+                $ResultRecommendedValue = $Finding.RecommendedValue
+                
+                Switch($ResultRecommendedValue) {
+                    "True" { $ResultRecommendedValue = 1; Break }
+                    "False" { $ResultRecommendedValue = 0; Break }
+                }
+
+                $ResultCommand = "Add-MpPreference -AttackSurfaceReductionRules_Ids $ResultMethodArgument -AttackSurfaceReductionRules_Actions $ResultRecommendedValue"
+                $Result = Invoke-Expression $ResultCommand
+
+                if($LastExitCode -eq 0) {
+                    $ResultText = "ASR rule added to list"
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", "+$Finding.MethodArgument+", " + $ResultText
+                    $MessageSeverity = "Passed"
+                } else {
+                    $ResultText = "Failed to add ASR rule"
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", "+$Finding.MethodArgument+", " + $ResultText
+                    $MessageSeverity = "High"
+                }
+
+                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+            }
+
+            #
+            # Exploit protection
+            # Set exploit protection values
+            #
+            # I noticed irregularities when the process mitigations were set individually,
+            # in some cases settings that had already been set were then reset. Therefore,
+            # the settings are collected in an array and finally set at the end of the processing.
+            #
+            If ($Finding.Method -eq 'Processmitigation') {
+
+                # Check if the user has admin rights, skip test if not
+                If (-not($IsAdmin)) {
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+                    Continue
+                }
+
+                $SettingArgumentArray = $Finding.MethodArgument.Split(".") 
+
+                If ( $Finding.RecommendedValue -eq "ON") {
+
+                    If ( $SettingArgumentArray[1] -eq "Enable" ) {
+                        $ProcessmitigationEnableArray += $SettingArgumentArray[0]
+                    } Else                    {
+                        $ProcessmitigationEnableArray += $SettingArgumentArray[1]
+                    }                    
+                }
+                ElseIf ( $Finding.RecommendedValue -eq "OFF") {
+
+                    If ($SettingArgumentArray[1] -eq "TelemetryOnly") {
+                        $ProcessmitigationDisableArray += "SEHOPTelemetry"
+                    }
+                    ElseIf ( $SettingArgumentArray[1] -eq "Enable" ) {
+                        $ProcessmitigationDisableArray += $SettingArgumentArray[0]
+                    }
+                    Else {
+                        $ProcessmitigationDisableArray += $SettingArgumentArray[1]
+                    }
+                }
+                $ResultText = "setting added to list" 
+                $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
+                $MessageSeverity = "Passed"
+                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+            }
+
+            #
+            # bcdedit
+            # Force use of Data Execution Prevention, if it is not already set
+            #
+            If ($Finding.Method -eq 'bcdedit') {
+
+                # Check if the user has admin rights, skip test if not
+                If (-not($IsAdmin)) {
+                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+                    Continue
+                }
+
+                # Check if Bcdedit binary is available, skip test if not
+                If (-Not (Test-Path $BinaryBcdedit)) {
+                    Write-BinaryError $BinaryBcdedit $Finding.ID $Finding.Name $Finding.Method
+                    Continue
+                }
+
+                try {
+
+                    $ResultOutput = &$BinaryBcdedit
+                    $ResultOutput = $ResultOutput | Where-Object { $_ -like "*"+$Finding.RecommendedValue+"*" }
+
+                    If ($ResultOutput -match ' ([a-z,A-Z]+)') {
+                        $Result = $Matches[1]
+                    } Else {
+                        $Result = $Finding.DefaultValue
+                    }
+
+                } catch {
+                    $Result = $Finding.DefaultValue
+                }
+
+                If ($Result -ne $Finding.RecommendedValue) {
+
+                    try {
+
+                        $ResultOutput = &$BinaryBcdedit "/set" $Finding.MethodArgument $Finding.RecommendedValue
+
+                    } catch {
+
+                        $ResultText = "Setting could not be enabled" 
+                        $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
+                        $MessageSeverity = "High"
+                    }
+
+                    $ResultText = "Setting enabled. Please restart the system to activate it" 
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
+                    $MessageSeverity = "Passed"
+                } Else {
+
+                    $ResultText = "Setting is already set correct" 
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
+                    $MessageSeverity = "Passed"
+                }
+
+                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+
+                If ($Log) {
+                    Add-MessageToFile -Text $Message -File $LogFile
+                }
+                
+                If ($Report) {
+                    $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$ResultText+'"'
+                    Add-MessageToFile -Text $Message -File $ReportFile
+                }
+            }
 
             #
             # FirewallRule
@@ -2097,74 +2163,6 @@
                     Add-MessageToFile -Text $Message -File $LogFile
                 }
                     
-                If ($Report) {
-                    $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$ResultText+'"'
-                    Add-MessageToFile -Text $Message -File $ReportFile
-                }
-            }
-
-            #
-            # bcdedit
-            # Force use of Data Execution Prevention, if it is not already set
-            #
-            If ($Finding.Method -eq 'bcdedit') {
-
-                # Check if the user has admin rights, skip test if not
-                If (-not($IsAdmin)) {
-                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
-                    Continue
-                }
-
-                # Check if Bcdedit binary is available, skip test if not
-                If (-Not (Test-Path $BinaryBcdedit)) {
-                    Write-BinaryError $BinaryBcdedit $Finding.ID $Finding.Name $Finding.Method
-                    Continue
-                }
-
-                try {
-
-                    $ResultOutput = &$BinaryBcdedit
-                    $ResultOutput = $ResultOutput | Where-Object { $_ -like "*"+$Finding.RecommendedValue+"*" }
-
-                    If ($ResultOutput -match ' ([a-z,A-Z]+)') {
-                        $Result = $Matches[1]
-                    } Else {
-                        $Result = $Finding.DefaultValue
-                    }
-
-                } catch {
-                    $Result = $Finding.DefaultValue
-                }
-
-                If ($Result -ne $Finding.RecommendedValue) {
-
-                    try {
-
-                        $ResultOutput = &$BinaryBcdedit "/set" $Finding.MethodArgument $Finding.RecommendedValue
-
-                    } catch {
-
-                        $ResultText = "Setting could not be enabled" 
-                        $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
-                        $MessageSeverity = "High"
-                    }
-
-                    $ResultText = "Setting enabled. Please restart the system to activate it" 
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
-                    $MessageSeverity = "Passed"
-                } Else {
-
-                    $ResultText = "Setting is already set correct" 
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
-                    $MessageSeverity = "Passed"
-                }
-
-                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-
-                If ($Log) {
-                    Add-MessageToFile -Text $Message -File $LogFile
-                }
-                
                 If ($Report) {
                     $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$ResultText+'"'
                     Add-MessageToFile -Text $Message -File $ReportFile
