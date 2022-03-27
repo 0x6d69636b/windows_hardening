@@ -503,7 +503,7 @@
             $FindingMethod
         )
 
-        $script:StatsError++
+        $Script:StatsError++
         $Message = "ID "+$FindingID+", "+$FindingName+", Method "+$FindingMethod+" requires admin priviliges. Test skipped."
         Write-ProtocolEntry -Text $Message -LogLevel "Error"
     }
@@ -520,7 +520,7 @@
             [string]
             $FindingMethod
         )
-        $script:StatsError++
+        $Script:StatsError++
         $Message = "ID "+$FindingID+", "+$FindingName+", Method "+$FindingMethod+" requires $Binary and it was not found. Test skipped."
         Write-ProtocolEntry -Text $Message -LogLevel "Error"
     }
@@ -578,7 +578,7 @@
     $StatsMedium = 0
     $StatsHigh = 0
     $StatsTotal = 0
-    $script:StatsError = 0
+    $Script:StatsError = 0
 
     #
     # Header
@@ -989,7 +989,7 @@
 
                 } catch {
                     # If secedit did not work, throw an error instead of using the DefaultValue
-                    $StatsError++
+                    $Script:StatsError++
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", secedit.exe could not read the configuration. Test skipped."
                     Write-ProtocolEntry -Text $Message -LogLevel "Error"
                     Continue
@@ -2252,8 +2252,8 @@
             $HardeningKittyScoreRounded = 1.00
         }
 
-        If ($StatsError -gt 0) {
-            Write-ProtocolEntry -Text "During the execution of HardeningKitty errors occurred due to missing admin rights or tools. For a complete result, these errors should be resolved. Total errors: $StatsError" -LogLevel "Error"
+        If ($Script:StatsError -gt 0) {
+            Write-ProtocolEntry -Text "During the execution of HardeningKitty errors occurred due to missing admin rights or tools. For a complete result, these errors should be resolved. Total errors: $Script:StatsError" -LogLevel "Error"
         }
             
         Write-ProtocolEntry -Text "Your HardeningKitty score is: $HardeningKittyScoreRounded. HardeningKitty Statistics: Total checks: $StatsTotal - Passed: $StatsPassed, Low: $StatsLow, Medium: $StatsMedium, High: $StatsHigh." -LogLevel "Info"
