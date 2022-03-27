@@ -495,7 +495,7 @@
     function Write-NotAdminError {
         [CmdletBinding()]
         param (
-            [Int]
+            [String]
             $FindingID,
             [String]
             $FindingName,
@@ -513,7 +513,7 @@
         param (
             [String]
             $Binary,
-            [Int]
+            [String]
             $FindingID,
             [String]
             $FindingName,
