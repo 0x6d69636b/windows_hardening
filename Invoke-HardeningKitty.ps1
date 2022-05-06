@@ -536,7 +536,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.7.0-1648200026"
+    $HardeningKittyVersion = "0.7.0-1651851888"
 
     #
     # Log, report and backup file
@@ -1251,7 +1251,7 @@
 
                 try {
 
-                    $ResultOutput = Get-NetFirewallRule -DisplayName $Finding.Name 2> $null
+                    $ResultOutput = Get-NetFirewallRule -PolicyStore ActiveStore -DisplayName $Finding.Name 2> $null
                     $Result = $ResultOutput.Enabled
 
                 } catch {
@@ -2118,7 +2118,7 @@
                 # Check if rule already exists
                 try {
 
-                    $ResultOutput = Get-NetFirewallRule -DisplayName $FwDisplayName 2> $null
+                    $ResultOutput = Get-NetFirewallRule -PolicyStore ActiveStore -DisplayName $FwDisplayName 2> $null
                     $Result = $ResultOutput.Enabled
 
                 } catch {
