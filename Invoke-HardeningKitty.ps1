@@ -536,7 +536,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.7.0-1651851888"
+    $HardeningKittyVersion = "0.7.0-1652726671"
 
     #
     # Log, report and backup file
@@ -1318,10 +1318,15 @@
                 # 
                 # Exception handling for special registry keys
                 # Machine => Network access: Remotely accessible registry paths
+                # Hardened UNC Paths => Remove spaces in result and recommendation
                 #
                 If ($Finding.Method -eq 'Registry' -and $Finding.RegistryItem -eq "Machine"){
                     $Finding.RecommendedValue = $Finding.RecommendedValue.Replace(";"," ")
-                }                
+                }
+                ElseIf ($Finding.Method -eq 'Registry' -and $Finding.RegistryPath -eq "HKLM:\Software\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths") {
+                    $Result = $Result.Replace(" ","")
+                    $Finding.RecommendedValue = $Finding.RecommendedValue.Replace(" ","")
+                }              
  
                 $ResultPassed = $false
                 Switch($Finding.Operator) {
