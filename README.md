@@ -213,6 +213,8 @@ HardeningKitty can be used to audit systems against the following baselines / be
 | Microsoft Security Baseline for Microsoft 365 Apps for enterprise (User) | v2104, v2106 | Final |
 | Microsoft Security Baseline for Microsoft 365 Apps for enterprise (Machine) | v2112 | Final |
 | Microsoft Security Baseline for Microsoft 365 Apps for enterprise (User) | v2112 | Final |
+| Microsoft Security Baseline for Microsoft 365 Apps for enterprise (Machine) | v2206 | Final |
+| Microsoft Security Baseline for Microsoft 365 Apps for enterprise (User) | v2206 | Final |
 | Microsoft Windows Server TLS Settings | 1809 | 1.0 |
 | Microsoft Windows Server TLS Settings (Future Use with TLSv1.3) | 1903 | 1.0 |
 
@@ -242,6 +244,7 @@ HardeningKitty can be used to audit systems against the following baselines / be
 * [Security baseline for Microsoft 365 Apps for enterprise v2104 - FINAL](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-for-microsoft-365-apps-for-enterprise-v2104/ba-p/2307695)
 * [Security baseline for Microsoft 365 Apps for enterprise v2106 - FINAL](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-for-microsoft-365-apps-for-enterprise-v2106/ba-p/2492355)
 * [Security baseline for Microsoft 365 Apps for enterprise, v2112](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-for-microsoft-365-apps-for-enterprise-v2112/ba-p/3038172)
+* [Security baseline for Microsoft 365 Apps for enterprise v2206](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-for-microsoft-365-apps-for-enterprise-v2206/ba-p/3502714)
 * [mackwage/windows_hardening.cmd](https://gist.github.com/mackwage/08604751462126599d7e52f233490efe)
 * [Security baseline for Microsoft Edge version 87](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-for-microsoft-edge-version-87/ba-p/1950297)
 * [Security baseline for Microsoft Edge version 89](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-for-microsoft-edge-version-89/ba-p/2186265)
