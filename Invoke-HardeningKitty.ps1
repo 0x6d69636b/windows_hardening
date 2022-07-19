@@ -536,7 +536,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.8.0-1656567332"
+    $HardeningKittyVersion = "0.8.0-1658244875"
 
     #
     # Log, report and backup file
@@ -1324,7 +1324,7 @@
                     $Finding.RecommendedValue = $Finding.RecommendedValue.Replace(";"," ")
                 }
                 ElseIf ($Finding.Method -eq 'Registry' -and $Finding.RegistryPath -eq "HKLM:\Software\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths") {
-                    If(![string]::IsNullOrEmpty($result)){
+                    If(![string]::IsNullOrEmpty($Result)){
 						$Result = $Result.Replace(" ","")
 					}
                     $Finding.RecommendedValue = $Finding.RecommendedValue.Replace(" ","")
