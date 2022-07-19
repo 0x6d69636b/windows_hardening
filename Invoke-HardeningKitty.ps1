@@ -1318,15 +1318,17 @@
                 # 
                 # Exception handling for special registry keys
                 # Machine => Network access: Remotely accessible registry paths
-                # Hardened UNC Paths => Remove spaces in result and recommendation
+                # Hardened UNC Paths => Remove spaces in result and recommendation only if result is not null or empty
                 #
                 If ($Finding.Method -eq 'Registry' -and $Finding.RegistryItem -eq "Machine"){
                     $Finding.RecommendedValue = $Finding.RecommendedValue.Replace(";"," ")
                 }
                 ElseIf ($Finding.Method -eq 'Registry' -and $Finding.RegistryPath -eq "HKLM:\Software\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths") {
-                    $Result = $Result.Replace(" ","")
+                    If(![string]::IsNullOrEmpty($result)){
+						$Result = $Result.Replace(" ","")
+					}
                     $Finding.RecommendedValue = $Finding.RecommendedValue.Replace(" ","")
-                }              
+                }               
  
                 $ResultPassed = $false
                 Switch($Finding.Operator) {
