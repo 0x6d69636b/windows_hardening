@@ -1311,7 +1311,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 1609,"Schannel: TLS Settings: KeyExchangeAlgorithms","Diffie-Hellman (ServerMinKeyBitLength)",,,
 1611,"Schannel: TLS Settings: KeyExchangeAlgorithms",ECDH,,,
 1612,"Schannel: TLS Settings: KeyExchangeAlgorithms",PKCS,,,
-1613,"Schannel: TLS Settings: KeyExchangeAlgorithms","PKCS (ServerMinKeyBitLength)",,,
+1613,"Schannel: TLS Settings: KeyExchangeAlgorithms","PKCS (ClientMinKeyBitLength)",,,
 1564,"Schannel: TLS Settings: Protocols","Client: Multi-Protocol Unified Hello",,,
 1565,"Schannel: TLS Settings: Protocols","Client: Multi-Protocol Unified Hello (Disabledbydefault)",,,
 1568,"Schannel: TLS Settings: Protocols","Client: PCT",,,
