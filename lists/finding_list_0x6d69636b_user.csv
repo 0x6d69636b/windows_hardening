@@ -11,8 +11,8 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 4303,PowerShell,"PowerShell Language Mode",LanguageMode,,,,,,,FullLanguage,ConstrainedLanguage,=,Medium
 4400,"Office 2016 / Office 365","Security Settings: Macro Runtime Scan Scope",Registry,,HKCU:\software\policies\microsoft\office\16.0\common\security,macroruntimescanscope,,,,0,2,=,Medium
 4401,"Office 2016 / Office 365","Microsoft Excel: Always prevent untrusted Microsoft Query files from opening",Registry,,"HKCU:\software\policies\microsoft\office\16.0\excel\security\external content",enableblockunsecurequeryfiles,,,,0,1,=,Medium
-4405,"Office 2016 / Office 365","Microsoft Excel: Don’t allow Dynamic Data Exchange (DDE) server launch in Excel",Registry,,HKCU:\Software\Microsoft\Office\16.0\Excel\Options,DDEAllowed,,,,1,0,=,Medium
-4406,"Office 2016 / Office 365","Microsoft Excel: Don’t allow Dynamic Data Exchange (DDE) server lookup in Excel",Registry,,HKCU:\Software\Microsoft\Office\16.0\Excel\Options,DDECleaned,,,,0,1,=,Medium
+4405,"Office 2016 / Office 365","Microsoft Excel: Don’t allow Dynamic Data Exchange (DDE) server launch in Excel",Registry,,"HKCU:\software\policies\microsoft\office\16.0\excel\security\external content",disableddeserverlaunch,,,,0,0,=,Medium
+4406,"Office 2016 / Office 365","Microsoft Excel: Don’t allow Dynamic Data Exchange (DDE) server lookup in Excel",Registry,,"HKCU:\software\policies\microsoft\office\16.0\excel\security\external content",disableddeserverlookup,,,,0,1,=,Medium
 4407,"Office 2016 / Office 365","Microsoft Excel: Block macros from running in Office files from the Internet",Registry,,HKCU:\Software\Policies\Microsoft\Office\16.0\Excel\Security,blockcontentexecutionfrominternet,,,,0,1,=,Medium
 4408,"Office 2016 / Office 365","Microsoft Excel: VBA Macro Notification Settings",Registry,,HKCU:\Software\Microsoft\Office\16.0\Excel\Security,vbawarnings,,,,2,4,=,Medium
 4409,"Office 2016 / Office 365","Microsoft Excel: VBA Macro Notification Settings (Policy)",Registry,,HKCU:\Software\Policies\Microsoft\Office\16.0\Excel\Security,vbawarnings,,,,2,4,=,Medium
