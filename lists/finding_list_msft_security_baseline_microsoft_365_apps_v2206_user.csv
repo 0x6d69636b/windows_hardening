@@ -131,7 +131,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 5190,"Office 2016 / Office 365","Microsoft Word: Turn off file validation",Registry,,HKCU:\software\policies\microsoft\office\16.0\word\security\filevalidation,enableonload,,,,,1,=,Medium
 5191,"Office 2016 / Office 365","Microsoft Word: Block macros from running in Office files from the Internet",Registry,,HKCU:\Software\Policies\Microsoft\Office\16.0\Word\Security,blockcontentexecutionfrominternet,,,,0,1,=,Medium
 5192,"Office 2016 / Office 365","Microsoft Word: Disable Trust Bar Notification for unsigned application add-ins and block them",Registry,,HKCU:\software\policies\microsoft\office\16.0\word\security,notbpromptunsignedaddin,,,,,1,=,Medium
-5220,"Office 2016 / Office 365","Microsoft Word: Dynamic Data Exchange",Registry,,HKCU:\software\policies\microsoft\office\16.0\word\security,allowdde,,,,,0,=,Medium
+5220,"Office 2016 / Office 365","Microsoft Word: Dynamic Data Exchange",Registry,,HKCU:\software\policies\microsoft\office\16.0\word\security,allowdde,,,,0,0,=,Medium
 5221,"Office 2016 / Office 365","Microsoft Word: Require that application add-ins are signed by Trusted Publisher",Registry,,HKCU:\software\policies\microsoft\office\16.0\word\security,requireaddinsig,,,,,1,=,Medium
 5193,"Office 2016 / Office 365","Microsoft Word: Scan encrypted macros in Word Open XML documents",Registry,,HKCU:\software\policies\microsoft\office\16.0\word\security,wordbypassencryptedmacroscan,,,,,0,=,Medium
 5194,"Office 2016 / Office 365","Microsoft Word: VBA Macro Notification Settings (Policy)",Registry,,HKCU:\Software\Policies\Microsoft\Office\16.0\Word\Security,vbawarnings,,,,2,3,>=,Medium
