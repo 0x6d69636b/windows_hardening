@@ -27,7 +27,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 4410,"Office 2016 / Office 365","Microsoft OneNote: Disable embedded files",Registry,,HKCU:\Software\Microsoft\Office\16.0\OneNote\Options,DisableEmbeddedFiles,,,,0,1,=,Medium
 4413,"Office 2016 / Office 365","Microsoft Word: Don't update links",Registry,,HKCU:\Software\Microsoft\Office\16.0\Word\Options,DontUpdateLinks,,,,0,1,=,Medium
 4414,"Office 2016 / Office 365","Microsoft Word (Mail): Don't update links",Registry,,HKCU:\Software\Microsoft\Office\16.0\Word\Options\WordMail,DontUpdateLinks,,,,0,1,=,Medium
-4418,"Office 365","Disable the Office 365 Telemetry module",Registry,,HKCU:\Software\Policies\Microsoft\office\common\clienttelemetry,DisableTelemetry,,,,,1,=,Medium
+4418,"Office 365","Disable the Office 365 Telemetry module",Registry,,HKCU:\Software\Policies\Microsoft\office\common\clienttelemetry,DisableTelemetry,,,,,1,=,Low
 4419,"Office 365","Allow the use of connected experiences in Office",Registry,,HKCU:\Software\Policies\Microsoft\office\16.0\common\privacy,disconnectedstate,,,,,2,=,Low
 4420,"Office 365","Allow the use of connected experiences that analyze content",Registry,,HKCU:\Software\Policies\Microsoft\office\16.0\common\privacy,usercontentdisabled,,,,,2,=,Low
 4421,"Office 365","Allow the use of connected experiences that download online content",Registry,,HKCU:\Software\Policies\Microsoft\office\16.0\common\privacy,downloadcontentdisabled,,,,,2,=,Low
