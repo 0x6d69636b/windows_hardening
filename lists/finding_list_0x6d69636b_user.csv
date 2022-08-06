@@ -11,7 +11,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 4303,PowerShell,"PowerShell Language Mode",LanguageMode,,,,,,,FullLanguage,ConstrainedLanguage,=,Medium
 4400,"Office 2016 / Office 365","Security Settings: Macro Runtime Scan Scope",Registry,,HKCU:\software\policies\microsoft\office\16.0\common\security,macroruntimescanscope,,,,0,2,=,Medium
 4401,"Office 2016 / Office 365","Microsoft Excel: Always prevent untrusted Microsoft Query files from opening",Registry,,"HKCU:\software\policies\microsoft\office\16.0\excel\security\external content",enableblockunsecurequeryfiles,,,,0,1,=,Medium
-4405,"Office 2016 / Office 365","Microsoft Excel: Don’t allow Dynamic Data Exchange (DDE) server launch in Excel",Registry,,"HKCU:\software\policies\microsoft\office\16.0\excel\security\external content",disableddeserverlaunch,,,,0,0,=,Medium
+4405,"Office 2016 / Office 365","Microsoft Excel: Don’t allow Dynamic Data Exchange (DDE) server launch in Excel",Registry,,"HKCU:\software\policies\microsoft\office\16.0\excel\security\external content",disableddeserverlaunch,,,,0,1,=,Medium
 4406,"Office 2016 / Office 365","Microsoft Excel: Don’t allow Dynamic Data Exchange (DDE) server lookup in Excel",Registry,,"HKCU:\software\policies\microsoft\office\16.0\excel\security\external content",disableddeserverlookup,,,,0,1,=,Medium
 4407,"Office 2016 / Office 365","Microsoft Excel: Block macros from running in Office files from the Internet",Registry,,HKCU:\Software\Policies\Microsoft\Office\16.0\Excel\Security,blockcontentexecutionfrominternet,,,,0,1,=,Medium
 4408,"Office 2016 / Office 365","Microsoft Excel: VBA Macro Notification Settings",Registry,,HKCU:\Software\Microsoft\Office\16.0\Excel\Security,vbawarnings,,,,2,4,=,Medium
@@ -22,11 +22,8 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 4416,"Office 2016 / Office 365","Microsoft Word: VBA Macro Notification Settings",Registry,,HKCU:\Software\Microsoft\Office\16.0\Word\Security,vbawarnings,,,,2,4,=,Medium
 4417,"Office 2016 / Office 365","Microsoft Word: VBA Macro Notification Settings (Policy)",Registry,,HKCU:\Software\Policies\Microsoft\Office\16.0\Word\Security,vbawarnings,,,,2,4,=,Medium
 4402,"Office 2016 / Office 365","Microsoft Excel: Don't update links",Registry,,HKCU:\Software\Microsoft\Office\16.0\Excel\Options,DontUpdateLinks,,,,0,1,=,Medium
-4403,"Office 2016 / Office 365","Microsoft Excel: Allow DDE",Registry,,"HKCU:\software\policies\microsoft\office\16.0\excel\security\external content",disableddeserverlaunch,,,,0,1,=,Medium
-4404,"Office 2016 / Office 365","Microsoft Excel: Don’t allow Dynamic Data Exchange (DDE) server lookup in Excel",Registry,,"HKCU:\software\policies\microsoft\office\16.0\excel\security\external content",disableddeserverlookup,,,,0,1,=,Medium
 4410,"Office 2016 / Office 365","Microsoft OneNote: Disable embedded files",Registry,,HKCU:\Software\Microsoft\Office\16.0\OneNote\Options,DisableEmbeddedFiles,,,,0,1,=,Medium
 4413,"Office 2016 / Office 365","Microsoft Word: Don't update links",Registry,,HKCU:\Software\Microsoft\Office\16.0\Word\Options,DontUpdateLinks,,,,0,1,=,Medium
-4414,"Office 2016 / Office 365","Microsoft Word (Mail): Don't update links",Registry,,HKCU:\Software\Microsoft\Office\16.0\Word\Options\WordMail,DontUpdateLinks,,,,0,1,=,Medium
 4418,"Office 365","Disable the Office 365 Telemetry module",Registry,,HKCU:\Software\Policies\Microsoft\office\common\clienttelemetry,DisableTelemetry,,,,,1,=,Medium
 4419,"Office 365","Allow the use of connected experiences in Office",Registry,,HKCU:\Software\Policies\Microsoft\office\16.0\common\privacy,disconnectedstate,,,,,2,=,Low
 4420,"Office 365","Allow the use of connected experiences that analyze content",Registry,,HKCU:\Software\Policies\Microsoft\office\16.0\common\privacy,usercontentdisabled,,,,,2,=,Low
