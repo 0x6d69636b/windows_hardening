@@ -1,5 +1,4 @@
 ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Namespace,Property,DefaultValue,RecommendedValue,Operator,Severity
-4000,"Administrative Templates: Start Menu and Taskbar","Notifications: Turn off notifications network usage",Registry,,HKCU:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion,NoCloudApplicationNotification,,,,0,1,=,Medium
 4001,"Administrative Templates: Start Menu and Taskbar","Notifications: Turn off toast notifications on the lock screen",Registry,,HKCU:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\PushNotifications,NoToastApplicationNotificationOnLockScreen,,,,0,1,=,Medium
 4100,"Administrative Templates: System","Internet Communication Management: Internet Communication Settings: Turn off Help Experience Improvement Program",Registry,,HKCU:\Software\Policies\Microsoft\Assistance\Client\1.0,NoImplicitFeedback,,,,0,1,=,Medium
 4200,"Administrative Templates: Windows Components","Cloud Content: Do not use diagnostic data for tailored experiences",Registry,,HKCU:\Software\Policies\Microsoft\Windows\CloudContent,DisableTailoredExperiencesWithDiagnosticData,,,,0,1,=,Medium

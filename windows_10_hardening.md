@@ -188,6 +188,12 @@ These settings are already set by default. If these settings are different, the 
 reg add "HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Printers\PointAndPrint" /v RestrictDriverInstallationToAdministrators /t REG_DWORD /d 1 /f
 ```
 
+### Administrative Templates\Start Menu and Taskbar
+
+#### Notifications
+
+* ID 1771: Set _Turn off notifications network usage_ to **Enabled**
+
 ### Administrative Templates\System
 
 #### Credentials Delegation
@@ -560,7 +566,6 @@ Example of an XML configuration file:
 
 #### Notifications
 
-* ID 4000: Set _Turn off notifications network usage_ to **Enabled**
 * ID 4001: Set _Turn off toast notifications on the lock screen_ to **Enabled**
 
 ### Administrative Templates\System
