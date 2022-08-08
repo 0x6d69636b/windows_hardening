@@ -80,7 +80,7 @@
         Invoke-HardeningKitty -FileFindingList .\lists\finding_list_0x6d69636b_user.csv -SkipMachineInformation
 
         Description: HardeningKitty ready only the setting with the default list, and saves the results in a specific file:
-        Invoke-HardeningKitty -Mode Config -Report -Report C:\tmp\my_hardeningkitty_report.log
+        Invoke-HardeningKitty -Mode Config -Report -Report C:\tmp\my_hardeningkitty_report.csv
         
     #>
 
@@ -129,7 +129,7 @@
         [Switch]
         $Backup = $false,
 
-        # Define name and path of the report file
+        # Define name and path of the backup file
         [String]
         $BackupFile
     )
@@ -536,7 +536,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.8.0-1658244875"
+    $HardeningKittyVersion = "0.8.0-1659980274"
 
     #
     # Log, report and backup file
@@ -559,7 +559,7 @@
         $ReportFile = "hardeningkitty_report_"+$Hostname+"_"+$ListName+"-$FileDate.csv"
     }
     If ($Report.IsPresent) {
-        $Message = '"ID","Name","Severity","Result","Recommended"'
+        $Message = '"ID","Name","Severity","Result","Recommended","TestResult","SeverityFinding"'
         Add-MessageToFile -Text $Message -File $ReportFile
     }
     If ($Backup.IsPresent -and $BackupFile.Length -eq 0) {
@@ -1366,15 +1366,16 @@
                 If ($ResultPassed) {
 
                     # Passed
-                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Result=$Result, Severity=Passed"
+                    $TestResult = "Passed"
+                    $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Result=$Result, Recommended="+$Finding.RecommendedValue+", Severity=Passed"
                     Write-ResultEntry -Text $Message -SeverityLevel "Passed"
 
                     If ($Log) {
                         Add-MessageToFile -Text $Message -File $LogFile
                     }
 
-                    If ($Report) {
-                        $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","Passed","'+$Result+'"'
+                    If ($Report) {                        
+                        $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","Passed","'+$Result+'","'+$Finding.RecommendedValue+'","'+$TestResult+'","'+$Finding.Severity+'"'
                         Add-MessageToFile -Text $Message -File $ReportFile
                     }
 
@@ -1384,6 +1385,7 @@
                 } Else {
 
                     # Failed
+                    $TestResult = "Failed"
                     If ($Finding.Operator -eq "!=") {
                         $Message = "ID "+$Finding.ID+", "+$Finding.Name+", Result=$Result, Recommended=Not "+$Finding.RecommendedValue+", Severity="+$Finding.Severity
                     }
@@ -1397,8 +1399,8 @@
                         Add-MessageToFile -Text $Message -File $LogFile
                     }
 
-                    If ($Report) {
-                        $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$Finding.Severity+'","'+$Result+'","'+$Finding.RecommendedValue+'"'
+                    If ($Report) {                        
+                        $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$Finding.Severity+'","'+$Result+'","'+$Finding.RecommendedValue+'","'+$TestResult+'","'+$Finding.Severity+'"'
                         Add-MessageToFile -Text $Message -File $ReportFile
                     }
 
@@ -1422,8 +1424,8 @@
                 If ($Log) {
                     Add-MessageToFile -Text $Message -File $LogFile
                 }
-                If ($Report) {
-                    $Message = '"'+$Finding.ID+'","'+$Finding.Name+'",,"'+$Result+'",'+$Finding.RecommendedValue
+                If ($Report) {                    
+                    $Message = '"'+$Finding.ID+'","'+$Finding.Name+'",,"'+$Result+'",'+$Finding.RecommendedValue+',,'
                     Add-MessageToFile -Text $Message -File $ReportFile
                 }
                 If ($Backup) {
@@ -1432,7 +1434,6 @@
                 }
             }
         }
-
     }
 
     #
@@ -1517,16 +1518,33 @@
 
                     $Result = New-Item $Finding.RegistryPath -Force;
                     
-                    if($Result) {
+                    If($Result) {
                         $ResultText = "Registry key created" 
                         $Message = "ID "+$Finding.ID+", "+$Finding.RegistryPath+", " + $ResultText
                         $MessageSeverity = "Passed"
+                        $TestResult = "Passed"
                         Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-                    } else {
+                        If ($Log) {
+                            Add-MessageToFile -Text $Message -File $LogFile
+                        }                            
+                        If ($Report) {
+                            $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$MessageSeverity+'","'+$ResultText+'",,"'+$TestResult+'",'
+                            Add-MessageToFile -Text $Message -File $ReportFile
+                        }
+
+                    } Else {
                         $ResultText = "Failed to create registry key" 
                         $Message = "ID "+$Finding.ID+", "+$Finding.RegistryPath+", " + $ResultText
                         $MessageSeverity = "High"
+                        $TestResult = "Failed"
                         Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                        If ($Log) {
+                            Add-MessageToFile -Text $Message -File $LogFile
+                        }                            
+                        If ($Report) {
+                            $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$MessageSeverity+'","'+$ResultText+'",,"'+$TestResult+'",'
+                            Add-MessageToFile -Text $Message -File $ReportFile
+                        }                        
                         Continue
                     }
                 }
@@ -1567,13 +1585,22 @@
                     $ResultText = "Registry value created/modified" 
                     $Message = "ID "+$Finding.ID+", "+$Finding.RegistryPath+", "+$Finding.RegistryItem+", " + $ResultText
                     $MessageSeverity = "Passed"
+                    $TestResult = "Passed"
                 } else {
                     $ResultText = "Failed to create registry value" 
                     $Message = "ID "+$Finding.ID+", "+$Finding.RegistryPath+", "+$Finding.RegistryItem+", " + $ResultText
                     $MessageSeverity = "High"
+                    $TestResult = "Failed"
                 }
 
                 Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                If ($Log) {
+                    Add-MessageToFile -Text $Message -File $LogFile
+                }                            
+                If ($Report) {
+                    $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$MessageSeverity+'","'+$ResultText+'",,"'+$TestResult+'",'
+                    Add-MessageToFile -Text $Message -File $ReportFile
+                }                
             }
             
             #
@@ -1618,7 +1645,15 @@
                     $ResultText = "Failed to import security policy into temporary database"
                     $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
                     $MessageSeverity = "High"
+                    $TestResult = "Failed"
                     Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                    If ($Log) {
+                        Add-MessageToFile -Text $Message -File $LogFile
+                    }                            
+                    If ($Report) {
+                        $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$MessageSeverity+'","'+$ResultText+'",,"'+$TestResult+'",'
+                        Add-MessageToFile -Text $Message -File $ReportFile
+                    }                    
                     Remove-Item $TempFileName
                     Remove-Item $TempDbFileName
                     Continue
@@ -1627,8 +1662,16 @@
                 $ResultText = "Imported security policy into temporary database"
                 $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
                 $MessageSeverity = "Passed"
+                $TestResult = "Passed"
 
                 Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                If ($Log) {
+                    Add-MessageToFile -Text $Message -File $LogFile
+                }                            
+                If ($Report) {
+                    $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$MessageSeverity+'","'+$ResultText+'",,"'+$TestResult+'",'
+                    Add-MessageToFile -Text $Message -File $ReportFile
+                }                
 
                 &$BinarySecedit /configure /db $TempDbFileName /overwrite /areas SECURITYPOLICY /quiet | Out-Null
 
@@ -1636,7 +1679,15 @@
                     $ResultText = "Failed to configure security policy"
                     $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
                     $MessageSeverity = "High"
+                    $TestResult = "Failed"
                     Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                    If ($Log) {
+                        Add-MessageToFile -Text $Message -File $LogFile
+                    }                            
+                    If ($Report) {
+                        $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$MessageSeverity+'","'+$ResultText+'",,"'+$TestResult+'",'
+                        Add-MessageToFile -Text $Message -File $ReportFile
+                    }                    
                     Remove-Item $TempFileName
                     Remove-Item $TempDbFileName
                     Continue
@@ -1645,8 +1696,16 @@
                 $ResultText = "Configured security policy"
                 $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
                 $MessageSeverity = "Passed"
+                $TestResult = "Passed"
 
                 Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                If ($Log) {
+                    Add-MessageToFile -Text $Message -File $LogFile
+                }                            
+                If ($Report) {
+                    $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$MessageSeverity+'","'+$ResultText+'",,"'+$TestResult+'",'
+                    Add-MessageToFile -Text $Message -File $ReportFile
+                }                
 
                 Remove-Item $TempFileName
                 Remove-Item $TempDbFileName
@@ -1681,13 +1740,22 @@
                     $ResultText = "Audit policy set" 
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", "+$Finding.RecommendedValue+", " + $ResultText
                     $MessageSeverity = "Passed"
+                    $TestResult = "Passed"
                 } else {
                     $ResultText = "Failed to set audit policy" 
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", "+$Finding.RecommendedValue+", " + $ResultText
                     $MessageSeverity = "High"
+                    $TestResult = "Failed"
                 }
 
                 Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                If ($Log) {
+                    Add-MessageToFile -Text $Message -File $LogFile
+                }                            
+                If ($Report) {
+                    $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$MessageSeverity+'","'+$ResultText+'",,"'+$TestResult+'",'
+                    Add-MessageToFile -Text $Message -File $ReportFile
+                }                
             }
 
             #
@@ -1727,13 +1795,22 @@
                     $ResultText = "Account policy set" 
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", "+$Finding.RecommendedValue+", " + $ResultText
                     $MessageSeverity = "Passed"
+                    $TestResult = "Passed"
                 } else {
                     $ResultText = "Failed to set account policy" 
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", "+$Finding.RecommendedValue+", " + $ResultText
                     $MessageSeverity = "High"
+                    $TestResult = "Failed"
                 }
 
                 Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                If ($Log) {
+                    Add-MessageToFile -Text $Message -File $LogFile
+                }                            
+                If ($Report) {
+                    $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$MessageSeverity+'","'+$ResultText+'",,"'+$TestResult+'",'
+                    Add-MessageToFile -Text $Message -File $ReportFile
+                }                
             }
 
             #
@@ -1802,8 +1879,16 @@
                 $ResultText = "Imported user right assignment into temporary database" 
                 $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
                 $MessageSeverity = "Passed"
+                $TestResult = "Passed"
 
                 Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                If ($Log) {
+                    Add-MessageToFile -Text $Message -File $LogFile
+                }                            
+                If ($Report) {
+                    $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$MessageSeverity+'","'+$ResultText+'",,"'+$TestResult+'",'
+                    Add-MessageToFile -Text $Message -File $ReportFile
+                }                
 
                 &$BinarySecedit /configure /db $TempDbFileName /overwrite /areas USER_RIGHTS /quiet | Out-Null
 
@@ -1811,7 +1896,15 @@
                     $ResultText = "Failed to configure system user right assignment"
                     $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
                     $MessageSeverity = "High"
+                    $TestResult = "Failed"
                     Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                    If ($Log) {
+                        Add-MessageToFile -Text $Message -File $LogFile
+                    }                            
+                    If ($Report) {
+                        $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$MessageSeverity+'","'+$ResultText+'",,"'+$TestResult+'",'
+                        Add-MessageToFile -Text $Message -File $ReportFile
+                    }                     
                     Remove-Item $TempFileName
                     Remove-Item $TempDbFileName
                     Continue
@@ -1820,8 +1913,16 @@
                 $ResultText = "Configured system user right assignment"
                 $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", "+$Finding.RecommendedValue+", " + $ResultText
                 $MessageSeverity = "Passed"
+                $TestResult = "Passed"
 
                 Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                If ($Log) {
+                    Add-MessageToFile -Text $Message -File $LogFile
+                }                            
+                If ($Report) {
+                    $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$MessageSeverity+'","'+$ResultText+'",,"'+$TestResult+'",'
+                    Add-MessageToFile -Text $Message -File $ReportFile
+                }                
 
                 Remove-Item $TempFileName
                 Remove-Item $TempDbFileName
@@ -1850,7 +1951,15 @@
                     $ResultText = "Could not check status"
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
                     $MessageSeverity = "High"
+                    $TestResult = "Failed"
                     Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                    If ($Log) {
+                        Add-MessageToFile -Text $Message -File $LogFile
+                    }                            
+                    If ($Report) {
+                        $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$MessageSeverity+'","'+$ResultText+'",,"'+$TestResult+'",'
+                        Add-MessageToFile -Text $Message -File $ReportFile
+                    }                    
                     Continue
                 }
 
@@ -1863,7 +1972,15 @@
                         $ResultText = "Could not be removed"
                         $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
                         $MessageSeverity = "High"
+                        $TestResult = "Failed"
                         Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                        If ($Log) {
+                            Add-MessageToFile -Text $Message -File $LogFile
+                        }                            
+                        If ($Report) {
+                            $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$MessageSeverity+'","'+$ResultText+'",,"'+$TestResult+'",'
+                            Add-MessageToFile -Text $Message -File $ReportFile
+                        }                        
                         Continue
                     }
 
@@ -1886,29 +2003,37 @@
                         $ResultText = "Could not be installed"
                         $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
                         $MessageSeverity = "High"
+                        $TestResult = "Failed"
                         Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                        If ($Log) {
+                            Add-MessageToFile -Text $Message -File $LogFile
+                        }                            
+                        If ($Report) {
+                            $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$MessageSeverity+'","'+$ResultText+'",,"'+$TestResult+'",'
+                            Add-MessageToFile -Text $Message -File $ReportFile
+                        }                        
                         Continue
                     }
 
                     $ResultText = "Feature installed" 
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
                     $MessageSeverity = "Passed"
+                    $TestResult = "Passed"
                 }
                 # No changes required
                 ElseIf ($Result -eq "Enabled" -and $Finding.RecommendedValue -eq "Enabled") {
                     $ResultText = "Feature is already installed" 
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
                     $MessageSeverity = "Passed"
+                    $TestResult = "Passed"
                 }                
 
                 Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-
                 If ($Log) {
                     Add-MessageToFile -Text $Message -File $LogFile
-                }
-                
+                }                
                 If ($Report) {
-                    $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$ResultText+'"'
+                    $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$MessageSeverity+'","'+$ResultText+'",,"'+$TestResult+'",'
                     Add-MessageToFile -Text $Message -File $ReportFile
                 }                
             }
@@ -1941,13 +2066,22 @@
                     $ResultText = "Method value modified"
                     $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", " + $ResultText
                     $MessageSeverity = "Passed"
+                    $TestResult = "Passed"
                 } else {
                     $ResultText = "Failed to change Method value"
                     $Message = "ID "+$Finding.ID+", "+$Finding.MethodArgument+", " + $ResultText
                     $MessageSeverity = "High"
+                    $TestResult = "Passed"
                 }
 
                 Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                If ($Log) {
+                    Add-MessageToFile -Text $Message -File $LogFile
+                }                            
+                If ($Report) {
+                    $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$MessageSeverity+'","'+$ResultText+'",,"'+$TestResult+'",'
+                    Add-MessageToFile -Text $Message -File $ReportFile
+                }                
             }
             
             #
@@ -1978,13 +2112,22 @@
                     $ResultText = "ASR rule added to list"
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", "+$Finding.MethodArgument+", " + $ResultText
                     $MessageSeverity = "Passed"
+                    $TestResult = "Passed"
                 } else {
                     $ResultText = "Failed to add ASR rule"
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", "+$Finding.MethodArgument+", " + $ResultText
                     $MessageSeverity = "High"
+                    $TestResult = "Failed"
                 }
 
                 Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                If ($Log) {
+                    Add-MessageToFile -Text $Message -File $LogFile
+                }                            
+                If ($Report) {
+                    $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$MessageSeverity+'","'+$ResultText+'",,"'+$TestResult+'",'
+                    Add-MessageToFile -Text $Message -File $ReportFile
+                }                
             }
 
             #
@@ -2028,7 +2171,15 @@
                 $ResultText = "setting added to list" 
                 $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
                 $MessageSeverity = "Passed"
+                $TestResult = "Passed"
                 Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                If ($Log) {
+                    Add-MessageToFile -Text $Message -File $LogFile
+                }                            
+                If ($Report) {
+                    $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$MessageSeverity+'","'+$ResultText+'",,"'+$TestResult+'",'
+                    Add-MessageToFile -Text $Message -File $ReportFile
+                }                
             }
 
             #
@@ -2075,26 +2226,27 @@
                         $ResultText = "Setting could not be enabled" 
                         $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
                         $MessageSeverity = "High"
+                        $TestResult = "Failed"
                     }
 
                     $ResultText = "Setting enabled. Please restart the system to activate it" 
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
                     $MessageSeverity = "Passed"
+                    $TestResult = "Passed"
                 } Else {
 
                     $ResultText = "Setting is already set correct" 
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
                     $MessageSeverity = "Passed"
+                    $TestResult = "Passed"
                 }
 
                 Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-
                 If ($Log) {
                     Add-MessageToFile -Text $Message -File $LogFile
                 }
-                
                 If ($Report) {
-                    $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$ResultText+'"'
+                    $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$MessageSeverity+'","'+$ResultText+'",,"'+$TestResult+'",'
                     Add-MessageToFile -Text $Message -File $ReportFile
                 }
             }
@@ -2149,12 +2301,14 @@
                         $ResultText = "Rule created" 
                         $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
                         $MessageSeverity = "Passed"
+                        $TestResult = "Passed"
                     } 
                     Else {
                         # Bogus
                         $ResultText = "Rule not created" 
                         $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
                         $MessageSeverity = "High"
+                        $TestResult = "Failed"
                     }
                 }
                 Else {
@@ -2162,6 +2316,7 @@
                     $ResultText = "Rule already exists" 
                     $Message = "ID "+$Finding.ID+", "+$Finding.Name+", " + $ResultText
                     $MessageSeverity = "Passed"
+                    $TestResult = "Passed"
                 }
 
                 Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
@@ -2171,7 +2326,7 @@
                 }
                     
                 If ($Report) {
-                    $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$ResultText+'"'
+                    $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$MessageSeverity+'","'+$ResultText+'",,"'+$TestResult+'",'
                     Add-MessageToFile -Text $Message -File $ReportFile
                 }
             }
@@ -2183,7 +2338,8 @@
         If ( $ProcessmitigationEnableArray.Count -gt 0 -and $ProcessmitigationDisableArray.Count -gt 0) {
 
             $ResultText = "Process mitigation settings set"
-            $MessageSeverity = "Passed"  
+            $MessageSeverity = "Passed"
+            $TestResult = "Passed"
 
             try {
               $Result = Set-Processmitigation -System -Enable $ProcessmitigationEnableArray -Disable $ProcessmitigationDisableArray 
@@ -2191,6 +2347,7 @@
             catch {
                 $ResultText = "Failed to set process mitigation settings"
                 $MessageSeverity = "High"
+                $TestResult = "Failed"
             }
 
             $Message = "Starting Category Microsoft Defender Exploit Guard"
@@ -2199,10 +2356,18 @@
             
             $Message = $ResultText
             Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+            If ($Log) {
+                Add-MessageToFile -Text $Message -File $LogFile
+            }                            
+            If ($Report) {
+                $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$MessageSeverity+'","'+$ResultText+'",,"'+$TestResult+'",'
+                Add-MessageToFile -Text $Message -File $ReportFile
+            }            
         }
         ElseIf ($ProcessmitigationEnableArray.Count -gt 0 -and $ProcessmitigationDisableArray.Count -eq 0) {
             $ResultText = "Process mitigation settings set"
-            $MessageSeverity = "Passed"  
+            $MessageSeverity = "Passed"
+            $TestResult = "Passed"
 
             try {
               $Result = Set-Processmitigation -System -Enable $ProcessmitigationEnableArray 
@@ -2210,6 +2375,7 @@
             catch {
                 $ResultText = "Failed to set process mitigation settings"
                 $MessageSeverity = "High"
+                $TestResult = "Failed"
             }
 
             $Message = "Starting Category Microsoft Defender Exploit Guard"
@@ -2218,10 +2384,18 @@
            
             $Message = $ResultText
             Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+            If ($Log) {
+                Add-MessageToFile -Text $Message -File $LogFile
+            }                            
+            If ($Report) {
+                $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$MessageSeverity+'","'+$ResultText+'",,"'+$TestResult+'",'
+                Add-MessageToFile -Text $Message -File $ReportFile
+            }            
         }
         ElseIf ($ProcessmitigationEnableArray.Count -eq 0 -and $ProcessmitigationDisableArray.Count -gt 0) {
             $ResultText = "Process mitigation settings set"
-            $MessageSeverity = "Passed"  
+            $MessageSeverity = "Passed"
+            $TestResult = "Passed"
 
             try {
               $Result = Set-Processmitigation -System -Disable $ProcessmitigationDisableArray 
@@ -2229,6 +2403,7 @@
             catch {
                 $ResultText = "Failed to set process mitigation settings"
                 $MessageSeverity = "High"
+                $TestResult = "Failed"
             }
 
             $Message = "Starting Category Microsoft Defender Exploit Guard"
@@ -2237,6 +2412,13 @@
           
             $Message = $ResultText
             Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+            If ($Log) {
+                Add-MessageToFile -Text $Message -File $LogFile
+            }                            
+            If ($Report) {
+                $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$MessageSeverity+'","'+$ResultText+'",,"'+$TestResult+'",'
+                Add-MessageToFile -Text $Message -File $ReportFile
+            }            
         }
     }
     
