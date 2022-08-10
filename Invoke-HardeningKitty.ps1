@@ -99,19 +99,19 @@
 
         # Activate emoji support for Windows Terminal
         [Switch]
-        $EmojiSupport = $false,
+        $EmojiSupport,
 
         # Create a log file
         [Switch]
-        $Log = $false,
+        $Log,
 
         # Skip machine information, useful when debugging
         [Switch]
-        $SkipMachineInformation = $false,
+        $SkipMachineInformation,
 
         # Skip language warning, if you understand the risk
         [Switch]
-        $SkipLanguageWarning = $false,
+        $SkipLanguageWarning,
 
         # Define name and path of the log file
         [String]
@@ -119,7 +119,7 @@
 
         # Create a report file in CSV format
         [Switch]
-        $Report = $false,
+        $Report,
 
         # Define name and path of the report file
         [String]
@@ -127,7 +127,7 @@
 
         # Create a backup config file in CSV format
         [Switch]
-        $Backup = $false,
+        $Backup,
 
         # Define name and path of the backup file
         [String]
@@ -219,7 +219,7 @@
             $SeverityLevel
         )
 
-        If ($EmojiSupport.IsPresent) {
+        If ($EmojiSupport) {
 
             Switch ($SeverityLevel) {
 
@@ -554,20 +554,20 @@
         $ListName = [System.IO.Path]::GetFileNameWithoutExtension($FileFindingList)
     }
 
-    If ($Log.IsPresent -and $LogFile.Length -eq 0) {
+    If ($Log -and $LogFile.Length -eq 0) {
         $LogFile = "hardeningkitty_log_" + $Hostname + "_" + $ListName + "-$FileDate.log"
     }
-    If ($Report.IsPresent -and $ReportFile.Length -eq 0) {
+    If ($Report -and $ReportFile.Length -eq 0) {
         $ReportFile = "hardeningkitty_report_" + $Hostname + "_" + $ListName + "-$FileDate.csv"
     }
-    If ($Report.IsPresent) {
+    If ($Report) {
         $Message = '"ID","Name","Severity","Result","Recommended","TestResult","SeverityFinding"'
         Add-MessageToFile -Text $Message -File $ReportFile
     }
-    If ($Backup.IsPresent -and $BackupFile.Length -eq 0) {
+    If ($Backup -and $BackupFile.Length -eq 0) {
         $BackupFile = "hardeningkitty_backup_" + $Hostname + "_" + $ListName + "-$FileDate.csv"
     }
-    If ($Backup.IsPresent) {
+    If ($Backup) {
         $Message = '"ID","Category","Name","Method","MethodArgument","RegistryPath","RegistryItem","ClassName","Namespace","Property","DefaultValue","RecommendedValue","Operator","Severity"'
         Add-MessageToFile -Text $Message -File $BackupFile
     }
