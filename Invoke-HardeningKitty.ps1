@@ -2051,11 +2051,14 @@
                     "False" { $ResultRecommendedValue = 0; Break }
                 }
 
-                $ResultCommand = "Set-MpPreference -$ResultMethodArgument $ResultRecommendedValue"
+                # Build a hashtable MpPreferenceArgs for splatting arguments to Set-MpPreference. See https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_splatting
+                $MpPreferenceArgs = @{
+                    $ResultMethodArgument = $ResultRecommendedValue
+                }
 
-                $Result = Invoke-Expression $ResultCommand
+                Set-MpPreference @MpPreferenceArgs
 
-                if ($LastExitCode -eq 0) {
+                if ($?) {
                     $ResultText = "Method value modified"
                     $Message = "ID " + $Finding.ID + ", " + $Finding.MethodArgument + ", " + $ResultText
                     $MessageSeverity = "Passed"
@@ -2098,10 +2101,15 @@
                     "False" { $ResultRecommendedValue = 0; Break }
                 }
 
-                $ResultCommand = "Add-MpPreference -AttackSurfaceReductionRules_Ids $ResultMethodArgument -AttackSurfaceReductionRules_Actions $ResultRecommendedValue"
-                $Result = Invoke-Expression $ResultCommand
+                # Build a hashtable MpPreferenceArgs for splatting arguments to Set-MpPreference. See https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_splatting
+                $MpPreferenceArgs = @{
+                    AttackSurfaceReductionRules_Ids     = $ResultMethodArgument
+                    AttackSurfaceReductionRules_Actions = $ResultRecommendedValue
+                }
 
-                if ($LastExitCode -eq 0) {
+                Add-MpPreference @MpPreferenceArgs
+
+                if ($?) {
                     $ResultText = "ASR rule added to list"
                     $Message = "ID " + $Finding.ID + ", " + $Finding.Name + ", " + $Finding.MethodArgument + ", " + $ResultText
                     $MessageSeverity = "Passed"
