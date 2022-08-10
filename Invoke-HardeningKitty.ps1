@@ -355,7 +355,7 @@
         <#
             .SYNOPSIS
 
-                Set a value in a tree of hashtables
+                Set a value in a tree of hashtables, using recursion.
         #>
 
         [CmdletBinding()]
@@ -382,7 +382,7 @@
                 throw "Not hashtable"
             }
 
-            return Set-HashtableValueDeep $Table[$Key[0]] $Key[1] $Value;
+            return Set-HashtableValueDeep -Table $Table[$Key[0]] -Path $Key[1] -Value $Value;
         } elseif ($Key.Length -eq 1) {
             $Table[$Key[0]] = $Value;
         }
@@ -768,13 +768,13 @@
 
                 # Check if Secedit binary is available, skip test if not
                 If (-Not (Test-Path $BinarySecedit)) {
-                    Write-BinaryError $BinarySecedit $Finding.ID $Finding.Name $Finding.Method
+                    Write-BinaryError -Binary $BinarySecedit -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
                     Continue
                 }
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+                    Write-NotAdminError -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
                     Continue
                 }
 
@@ -838,13 +838,13 @@
 
                 # Check if Auditpol binary is available, skip test if not
                 If (-Not (Test-Path $BinaryAuditpol)) {
-                    Write-BinaryError $BinaryAuditpol $Finding.ID $Finding.Name $Finding.Method
+                    Write-BinaryError -Binary $BinaryAuditpol -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
                     Continue
                 }
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+                    Write-NotAdminError -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
                     Continue
                 }
 
@@ -890,7 +890,7 @@
 
                 # Check if net binary is available, skip test if not
                 If (-Not (Test-Path $BinaryNet)) {
-                    Write-BinaryError $BinaryNet $Finding.ID $Finding.Name $Finding.Method
+                    Write-BinaryError -Binary $BinaryNet -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
                     Continue
                 }
 
@@ -960,13 +960,13 @@
 
                 # Check if Secedit binary is available, skip test if not
                 If (-Not (Test-Path $BinarySecedit)) {
-                    Write-BinaryError $BinarySecedit $Finding.ID $Finding.Name $Finding.Method
+                    Write-BinaryError -Binary $BinarySecedit -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
                     Continue
                 }
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+                    Write-NotAdminError -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
                     Continue
                 }
 
@@ -1004,7 +1004,7 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+                    Write-NotAdminError -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
                     Continue
                 }
 
@@ -1050,7 +1050,7 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+                    Write-NotAdminError -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
                     Continue
                 }
 
@@ -1142,7 +1142,7 @@
                 # Check if the user has admin rights, skip test if not
                 # Normal users are not allowed to get exclusions
                 If (-not($IsAdmin)) {
-                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+                    Write-NotAdminError -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
                     Continue
                 }
 
@@ -1215,13 +1215,13 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+                    Write-NotAdminError -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
                     Continue
                 }
 
                 # Check if Bcdedit binary is available, skip test if not
                 If (-Not (Test-Path $BinaryBcdedit)) {
-                    Write-BinaryError $BinaryBcdedit $Finding.ID $Finding.Name $Finding.Method
+                    Write-BinaryError -Binary $BinaryBcdedit -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
                     Continue
                 }
 
@@ -1481,7 +1481,7 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin) -and -not($Finding.RegistryPath.StartsWith("HKCU:\"))) {
-                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+                    Write-NotAdminError -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
                     Continue
                 }
 
@@ -1604,13 +1604,13 @@
 
                 # Check if Secedit binary is available, skip test if not
                 If (-Not (Test-Path $BinarySecedit)) {
-                    Write-BinaryError $BinarySecedit $Finding.ID $Finding.Name $Finding.Method
+                    Write-BinaryError -Binary $BinarySecedit -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
                     Continue
                 }
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+                    Write-NotAdminError -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
                     Continue
                 }
 
@@ -1628,9 +1628,9 @@
 
                 $Data = Get-IniContent $TempFileName
 
-                Set-HashtableValueDeep $Data $Finding.MethodArgument $Finding.RecommendedValue
+                Set-HashtableValueDeep -Table $Data -Path $Finding.MethodArgument -Value $Finding.RecommendedValue
 
-                Out-IniFile $Data $TempFileName unicode $true
+                Out-IniFile -InputObject $Data -FilePath $TempFileName -Encoding Unicode
 
                 &$BinarySecedit /import /cfg $TempFileName /overwrite /areas $Area /db $TempDbFileName /quiet | Out-Null
 
@@ -1712,13 +1712,13 @@
 
                 # Check if Auditpol binary is available, skip test if not
                 If (-Not (Test-Path $BinaryAuditpol)) {
-                    Write-BinaryError $BinaryAuditpol $Finding.ID $Finding.Name $Finding.Method
+                    Write-BinaryError -Binary $BinaryAuditpol -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
                     Continue
                 }
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+                    Write-NotAdminError -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
                     Continue
                 }
 
@@ -1759,13 +1759,13 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+                    Write-NotAdminError -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
                     Continue
                 }
 
                 # Check if net binary is available, skip test if not
                 If (-Not (Test-Path $BinaryNet)) {
-                    Write-BinaryError $BinaryNet $Finding.ID $Finding.Name $Finding.Method
+                    Write-BinaryError -Binary $BinaryNet -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
                     Continue
                 }
 
@@ -1814,13 +1814,13 @@
 
                 # Check if Secedit binary is available, skip test if not
                 If (-Not (Test-Path $BinarySecedit)) {
-                    Write-BinaryError $BinarySecedit $Finding.ID $Finding.Name $Finding.Method
+                    Write-BinaryError -Binary $BinarySecedit -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
                     Continue
                 }
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+                    Write-NotAdminError -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
                     Continue
                 }
 
@@ -1929,7 +1929,7 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+                    Write-NotAdminError -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
                     Continue
                 }
 
@@ -2039,7 +2039,7 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+                    Write-NotAdminError -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
                     Continue
                 }
 
@@ -2089,7 +2089,7 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+                    Write-NotAdminError -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
                     Continue
                 }
 
@@ -2143,7 +2143,7 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+                    Write-NotAdminError -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
                     Continue
                 }
 
@@ -2188,13 +2188,13 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+                    Write-NotAdminError -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
                     Continue
                 }
 
                 # Check if Bcdedit binary is available, skip test if not
                 If (-Not (Test-Path $BinaryBcdedit)) {
-                    Write-BinaryError $BinaryBcdedit $Finding.ID $Finding.Name $Finding.Method
+                    Write-BinaryError -Binary $BinaryBcdedit -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
                     Continue
                 }
 
@@ -2257,7 +2257,7 @@
 
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
-                    Write-NotAdminError $Finding.ID $Finding.Name $Finding.Method
+                    Write-NotAdminError -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
                     Continue
                 }
 
