@@ -1438,7 +1438,7 @@
     # Even though HardeningKitty works very carefully, please only
     # use HailyMary if you know what you are doing.
     #
-    Elseif ($Mode = "HailMary") {
+    Elseif ($Mode -eq "HailMary") {
 
         # A CSV finding list is imported
         If ($FileFindingList.Length -eq 0) {
