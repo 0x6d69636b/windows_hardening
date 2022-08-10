@@ -258,18 +258,18 @@
         $ini = @{}
         switch -regex -file $FilePath
         {
-            “^\[(.+)\]” { # Section
+            "^\[(.+)\]" { # Section
                 $section = $matches[1]
                 $ini[$section] = @{}
                 $CommentCount = 0
             }
-            “^(;.*)$” { # Comment
+            "^(;.*)$" { # Comment
                 $value = $matches[1]
                 $CommentCount = $CommentCount + 1
-                $name = “Comment” + $CommentCount
+                $name = "Comment" + $CommentCount
                 $ini[$section][$name] = $value
             }
-            “(.+?)\s*=(.*)” { # Key
+            "(.+?)\s*=(.*)" { # Key
                 $name,$value = $matches[1..2]
                 $ini[$section][$name] = $value
             }
@@ -1158,7 +1158,7 @@
                         $Result += $Exclusion+";"
                     }
                     # Remove last character
-                    $Result = $Result -replace “.$”
+                    $Result = $Result -replace ".$"
 
                 } catch {
                     $Result = $Finding.DefaultValue
