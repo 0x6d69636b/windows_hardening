@@ -9,7 +9,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 1007,"Microsoft Edge","Enable saving passwords to the password manager",Registry,,HKLM:\Software\Policies\Microsoft\Edge,PasswordManagerEnabled,,,,1,0,=,Low
 1008,"Microsoft Edge","Configure Microsoft Defender SmartScreen",Registry,,HKLM:\Software\Policies\Microsoft\Edge,SmartScreenEnabled,,,,0,1,=,Low
 1009,"Microsoft Edge","Configure Microsoft Defender SmartScreen to block potentially unwanted apps",Registry,,HKLM:\Software\Policies\Microsoft\Edge,SmartScreenPuaEnabled,,,,0,1,=,Low
-1010,"Microsoft Edge","Prevent bypassing Microsoft Defender SmartScreen prompts for sites",Registry,,HKLM:\Software\Policies\Microsoft\MicrosoftEdge\PhishingFilter,PreventOverride,,,,,1,=,Low
+1010,"Microsoft Edge","Prevent bypassing Microsoft Defender SmartScreen prompts for sites",Registry,,HKLM\Software\Policies\Microsoft\Edge,PreventSmartScreenPromptOverride,,,,,1,=,Low
 1011,"Microsoft Edge","Prevent bypassing of Microsoft Defender SmartScreen warnings about downloads",Registry,,HKLM:\Software\Policies\Microsoft\Edge,PreventSmartScreenPromptOverrideForFiles,,,,0,1,=,Low
 1012,"Microsoft Edge","Allow certificates signed using SHA-1 when issued by local trust anchors (deprecated)",Registry,,HKLM:\Software\Policies\Microsoft\Edge,EnableSha1ForLocalAnchors,,,,0,0,=,Low
 1012,"Microsoft Edge","Allow Basic authentication for HTTP",Registry,,HKLM:\Software\Policies\Microsoft\Edge,BasicAuthOverHttpEnabled,,,,,0,=,Low

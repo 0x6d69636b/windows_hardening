@@ -905,6 +905,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 700,"Microsoft Edge","Prevent access to the about:flags page in Microsoft Edge",,,
 701,"Microsoft Edge","Prevent bypassing Microsoft Defender SmartScreen prompts for files",,,
 721,"Microsoft Edge","Prevent bypassing Microsoft Defender SmartScreen prompts for sites",DE,"Microsoft Edge","Umgehen der Windows Defender SmartScreen-Aufforderungen für Websites verhindern"
+1690,"Microsoft Edge","Prevent bypassing Microsoft Defender SmartScreen prompts for sites",,,
 814,"Microsoft Edge","Prevent bypassing of Microsoft Defender SmartScreen warnings about downloads",,,
 702,"Microsoft Edge","Prevent certificate error overrides",,,
 703,"Microsoft Edge","Prevent using Localhost IP address for WebRTC",,,

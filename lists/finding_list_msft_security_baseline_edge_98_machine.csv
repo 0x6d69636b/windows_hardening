@@ -18,6 +18,6 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 1016,"Microsoft Edge","Specifies whether to allow insecure websites to make requests to more-private network endpoints",Registry,,HKLM:\Software\Policies\Microsoft\Edge,InsecurePrivateNetworkRequestsAllowed,,,,,0,=,Low
 1008,"Microsoft Edge","Configure Microsoft Defender SmartScreen",Registry,,HKLM:\Software\Policies\Microsoft\Edge,SmartScreenEnabled,,,,0,1,=,Low
 1009,"Microsoft Edge","Configure Microsoft Defender SmartScreen to block potentially unwanted apps",Registry,,HKLM:\Software\Policies\Microsoft\Edge,SmartScreenPuaEnabled,,,,0,1,=,Low
-1010,"Microsoft Edge","Prevent bypassing Microsoft Defender SmartScreen prompts for sites",Registry,,HKLM:\Software\Policies\Microsoft\MicrosoftEdge\PhishingFilter,PreventOverride,,,,,1,=,Low
+1010,"Microsoft Edge","Prevent bypassing Microsoft Defender SmartScreen prompts for sites",Registry,,HKLM\Software\Policies\Microsoft\Edge,PreventSmartScreenPromptOverride,,,,,1,=,Low
 1011,"Microsoft Edge","Prevent bypassing of Microsoft Defender SmartScreen warnings about downloads",Registry,,HKLM:\Software\Policies\Microsoft\Edge,PreventSmartScreenPromptOverrideForFiles,,,,0,1,=,Low
 1022,"Microsoft Edge","Configure Edge TyposquattingChecker",Registry,,HKLM:\Software\Policies\Microsoft\Edge,TyposquattingCheckerEnabled,,,,,1,=,Low
