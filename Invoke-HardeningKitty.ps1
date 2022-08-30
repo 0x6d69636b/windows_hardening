@@ -72,15 +72,19 @@
         using multiple lists on the same system.
 
     .EXAMPLE
-
-        Description: HardeningKitty performs an audit, saves the results and creates a log file:
         Invoke-HardeningKitty -Mode Audit -Log -Report
 
-        Description: HardeningKitty performs an audit with a specific list and does not show machine information:
-        Invoke-HardeningKitty -FileFindingList .\lists\finding_list_0x6d69636b_user.csv -SkipMachineInformation
+        HardeningKitty performs an audit, saves the results and creates a log file
 
-        Description: HardeningKitty ready only the setting with the default list, and saves the results in a specific file:
+    .EXAMPLE
+        Invoke-HardeningKitty -FileFindingList finding_list_0x6d69636b_user.csv -SkipMachineInformation
+
+        HardeningKitty performs an audit with a specific list and does not show machine information
+
+    .EXAMPLE
         Invoke-HardeningKitty -Mode Config -Report -Report C:\tmp\my_hardeningkitty_report.csv
+
+        HardeningKitty ready only the setting with the default list, and saves the results in a specific file
 
     #>
 
