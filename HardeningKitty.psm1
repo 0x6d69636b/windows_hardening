@@ -92,7 +92,6 @@
     Param (
 
         # Definition of the finding list, default is machine setting list
-        [ValidateScript({ Test-Path $_ })]
         [String]
         $FileFindingList,
 
@@ -542,7 +541,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.8.0-1660481591"
+    $HardeningKittyVersion = "0.9.0-"
 
     #
     # Log, report and backup file
@@ -710,7 +709,7 @@
         # A CSV finding list is imported. HardeningKitty has one machine and one user list.
         If ($FileFindingList.Length -eq 0) {
 
-            $CurrentLocation = Get-Location
+            $CurrentLocation = $PSScriptRoot
             $DefaultList = "$CurrentLocation\lists\finding_list_0x6d69636b_machine.csv"
 
             If (Test-Path -Path $DefaultList) {
@@ -1447,7 +1446,7 @@
         # A CSV finding list is imported
         If ($FileFindingList.Length -eq 0) {
 
-            $CurrentLocation = Get-Location
+            $CurrentLocation = $PSScriptRoot
             $DefaultList = "$CurrentLocation\lists\finding_list_0x6d69636b_machine.csv"
 
             If (Test-Path -Path $DefaultList) {
@@ -2443,3 +2442,5 @@
     }
     Write-Output "`n"
 }
+
+Export-ModuleMember -Function Invoke-HardeningKitty
