@@ -1,4 +1,4 @@
-﻿Function Invoke-HardeningKitty {
+Function Invoke-HardeningKitty {
 
     <#
     .SYNOPSIS
@@ -597,6 +597,9 @@
     If ($Backup) {
         $Message = '"ID","Category","Name","Method","MethodArgument","RegistryPath","RegistryItem","ClassName","Namespace","Property","DefaultValue","RecommendedValue","Operator","Severity"'
         Add-MessageToFile -Text $Message -File $BackupFile
+    }
+    If ($Quite) {
+        $SkipMachineInformation = $true;
     }
     If ($Quite -and $QuiteOption.Length -eq 0) {
         $QuiteOption = '2'
