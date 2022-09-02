@@ -1,4 +1,4 @@
-Function Invoke-HardeningKitty {
+﻿Function Invoke-HardeningKitty {
 
     <#
     .SYNOPSIS
@@ -175,12 +175,12 @@ Function Invoke-HardeningKitty {
 
         $Time = Get-Date -Format G
 
-        if (-not $Quite -or $QuiteOption -eq '1') {
+        if (-not($Quite) -or $QuiteOption -eq '1') {
             Switch ($LogLevel) {
                 "Warning" { $Message = "[?] $Time - $Text"; Write-Host -ForegroundColor Yellow $Message; Break }
                 "Error"   { $Message = "[!] $Time - $Text"; Write-Host -ForegroundColor Red $Message; Break }
             }
-        } if (-not $Quite)  {
+        } if (-not($Quite))  {
             Switch ($LogLevel) {
                 "Info"    { $Message = "[*] $Time - $Text"; Write-Host $Message; Break }
                 "Debug"   { $Message = "[-] $Time - $Text"; Write-Host -ForegroundColor Cyan $Message; Break }
