@@ -8,13 +8,7 @@ This is a hardening checklist that can be used in private and business environme
 
 The settings should be seen as security and privacy recommendation and should be carefully checked whether they will affect the operation of your infrastructure or impact the usability of key functions. It is important to weigh security against usability.
 
-The project started with the creation of a simple hardening checklist for Windows 10. The focus has shifted to the audit of various well-known frameworks / benchmarks with the development of _HardeningKitty_. Meanwhile, various CIS benchmarks and Microsoft Security Baselines are supported. With the development of the _HailMary_ mode, it will also be possible to apply settings of any Hardening Checklist on a Windows system.
-
-## Policy Analyzer (deprecated)
-
-_Policy Analzyer_ reads out and compares local registry and local policy values to a defined baseline. The PolicyRule file from [aha-181](https://github.com/aha-181) contains all rules which are needed to check Group Policy and Registry settings that are defined in the Windows 10 Hardening checklist.
-
-Policy Analyzer supports the hardening checklist up to version 0.2.0, additional entries are not yet supported. Policy Analyzer is not able to query all values of the hardening checklist. With the development of _HardeningKitty_, the support of Policy Analyzer has become obsolete. There will no longer be a new version of the PolicyRule file.
+The project started with the creation of a simple hardening checklist for Windows 10. The focus has shifted to the audit of various well-known frameworks / benchmarks with the development of _HardeningKitty_. Meanwhile, various CIS benchmarks and Microsoft Security Baselines are supported. With the development of the _HailMary_ mode, it will also be possible to apply settings of any hardening checklist on a Windows system.
 
 ## HardeningKitty
 
@@ -22,11 +16,11 @@ _HardeningKitty_ supports hardening of a Windows system. The configuration of th
 
 The script was developed for English systems. It is possible that in other languages the analysis is incorrect. Please create an issue if this occurs.
 
-### Signed version
+### Signed Version
 
 The development of _HardeningKitty_ happens in this repository. In the [repository of scip AG](https://github.com/scipag/HardeningKitty) is a stable version of _HardeningKitty_ that has been *signed* with the code signing certificate of _scip AG_. This means that _HardeningKitty_ can also be run on systems that only allow signed scripts.
 
-### How to run
+### How To Run
 
 Run the script with administrative privileges to access machine settings. For the user settings it is better to execute them with a normal user account. Ideally, the user account is used for daily work.
 
