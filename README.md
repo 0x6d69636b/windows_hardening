@@ -27,50 +27,64 @@ Run the script with administrative privileges to access machine settings. For th
 Download _HardeningKitty_ and copy it to the target system (script and lists). Then HardeningKitty can be imported and executed:
 
 ```powershell
-PS C:\tmp> Import-Module .\Invoke-HardeningKitty.ps1
+PS C:\tmp> Import-Module .\HardeningKitty.psm1
 PS C:\tmp> Invoke-HardeningKitty -EmojiSupport
 
 
          =^._.^=
-        _(      )/  HardeningKitty 0.6.1-1628003775
+        _(      )/  HardeningKitty 0.9.0-1662273740
 
 
-[*] 8/7/2021 7:27:04 AM - Starting HardeningKitty
+[*] 9/4/2022 8:54:12 AM - Starting HardeningKitty
 
 
-[*] 8/7/2021 7:27:04 AM - Getting machine information
+[*] 9/4/2022 8:54:12 AM - Getting user information
 [*] Hostname: DESKTOP-DG83TOD
 [*] Domain: WORKGROUP
 
 ...
 
-[*] 8/7/2021 7:27:09 AM - Starting Category Account Policies
+[*] [*] 9/4/2022 8:54:12 AM - Starting Category Account Policies
 [😺] ID 1103, Store passwords using reversible encryption, Result=0, Severity=Passed
 [😺] ID 1100, Account lockout threshold, Result=10, Severity=Passed
 [😺] ID 1101, Account lockout duration, Result=30, Severity=Passed
 
 ...
 
-[*] 8/7/2021 7:27:09 AM - Starting Category User Rights Assignment
+[*] 9/4/2022 8:54:12 AM - Starting Category User Rights Assignment
 [😿] ID 1200, Access this computer from the network, Result=BUILTIN\Administrators;BUILTIN\Users, Recommended=BUILTIN\Administrators, Severity=Medium
 
 ...
 
-[*] 8/7/2021 7:27:12 AM - Starting Category Administrative Templates: Printer
+[*] 9/4/2022 8:54:14 AM - Starting Category Administrative Templates: Printer
 [🙀] ID 1764, Point and Print Restrictions: When installing drivers for a new connection (CVE-2021-34527), Result=1, Recommended=0, Severity=High
 [🙀] ID 1765, Point and Print Restrictions: When updating drivers for an existing connection (CVE-2021-34527), Result=2, Recommended=0, Severity=High
 
 ...
 
-[*] 8/7/2021 7:27:19 AM - Starting Category MS Security Guide
+[*] 9/4/2022 8:54:19 AM - Starting Category MS Security Guide
 [😿] ID 2200, LSA Protection, Result=, Recommended=1, Severity=Medium
 [😼] ID 2201, Lsass.exe audit mode, Result=, Recommended=8, Severity=Low
 
 ...
 
-[*] 8/7/2021 7:27:48 AM - HardeningKitty is done
-[*] 8/7/2021 7:27:48 AM - Your HardeningKitty score is: 4.82. HardeningKitty Statistics: Total checks: 325 - Passed: 213, Low: 33, Medium: 76, High: 3.
+[*] 9/4/2022 8:54:25 AM - HardeningKitty is done
+[*] 9/4/2022 8:54:25 AM - Your HardeningKitty score is: 4.82. HardeningKitty Statistics: Total checks: 325 - Passed: 213, Low: 33, Medium: 76, High: 3.
 ```
+
+### How To Install
+
+First create the directory *HardeningKitty* and for every version a sub directory like *0.9.0* in a path listed in the *PSModulePath* environment variable.
+
+Copy the module *HardeningKitty.psm1*, *HardeningKitty.psd1*, and the *lists* directory to this new directory.
+
+```powershell
+PS C:\tmp> $Version = "0.9.0"
+PS C:\tmp> New-Item -Path $Env:ProgramFiles\WindowsPowerShell\Modules\HardeningKitty\$Version -ItemType Directory
+PS C:\tmp> Copy-Item -Path .\HardeningKitty.psd1,.\HardeningKitty.psm1,.\lists\ -Destination $Env:ProgramFiles\WindowsPowerShell\Modules\HardeningKitty\$Version\ -Recurse 
+```
+
+For more information see Microsoft's article [Installing a PowerShell Module](https://docs.microsoft.com/en-us/powershell/scripting/developer/module/installing-a-powershell-module).
 
 ### Examples
 
