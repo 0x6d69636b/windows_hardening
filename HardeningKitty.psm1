@@ -555,7 +555,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.0-1662299277"
+    $HardeningKittyVersion = "0.9.0-1662300670"
 
     #
     # Log, report and backup file
@@ -579,10 +579,6 @@
     }
     If ($Backup -and $BackupFile.Length -eq 0) {
         $BackupFile = "hardeningkitty_backup_" + $Hostname + "_" + $ListName + "-$FileDate.csv"
-    }
-    If ($Backup) {
-        $Message = '"ID","Category","Name","Method","MethodArgument","RegistryPath","RegistryItem","ClassName","Namespace","Property","DefaultValue","RecommendedValue","Operator","Severity"'
-        Add-MessageToFile -Text $Message -File $BackupFile
     }
 
     #
@@ -1462,8 +1458,23 @@
                     $ReportAllResults += $ReportResult
                 }
                 If ($Backup) {
-                    $Message = '"' + $Finding.ID + '","' + $Finding.Category + '","' + $Finding.Name + '","' + $Finding.Method + '","' + $Finding.MethodArgument + '","' + $Finding.RegistryPath + '","' + $Finding.RegistryItem + '","' + $Finding.ClassName + '","' + $Finding.Namespace + '","' + $Finding.Property + '","' + $Finding.DefaultValue + '","' + $Result + '","' + $Finding.Operator + '","' + $Finding.Severity + '",'
-                    Add-MessageToFile -Text $Message -File $BackupFile
+                    $BackupResult = [ordered] @{
+                        ID = $Finding.ID
+                        Category = $Finding.Category
+                        Name = $Finding.Name
+                        Method = $Finding.Method
+                        MethodArgument = $Finding.MethodArgument
+                        RegistryPath = $Finding.RegistryPath
+                        RegistryItem = $Finding.RegistryItem
+                        ClassName =$Finding.ClassName
+                        Namespace = $Finding.Namespace
+                        Property = $Finding.Property
+                        DefaultValue = $Finding.DefaultValue
+                        RecommendedValue = $Result
+                        Operator = $Finding.Operator
+                        Severity = $Finding.Severity
+                    }
+                    $BackupAllResults += $BackupResult
                 }
             }
         }
@@ -2682,6 +2693,11 @@
     # Write report file
     If ($Report) {
         $ReportAllResults | Export-Csv -Path $ReportFile -Delimiter "," -NoTypeInformation
+    }
+
+    # Write backup file
+    If ($Backup) {
+        $BackupAllResults | Export-Csv -Path $BackupFile -Delimiter "," -NoTypeInformation
     }
 
     If ($Mode -eq "Audit") {
