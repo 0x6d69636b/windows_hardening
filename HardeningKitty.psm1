@@ -71,6 +71,16 @@
         Information about the system is not queried and displayed. This may be useful while debugging or
         using multiple lists on the same system.
 
+    .PARAMETER SkipLanguageWarning
+
+        Do not show the language warning on an no-english Windows system.
+
+    .PARAMETER SkipRestorePoint
+
+        Do not create a System Restore Point in HailMary mode. HardeningKitty strongly recommends to backup your system before running Hail Mary. However,
+        creating can be skipped, for example, if HailMary is executed several times in a row. By default, Windows allows a restore point every 24 hours.
+        Another reason is when HardeningKitty is run as a user and thus lacks privileges.
+
     .EXAMPLE
         Invoke-HardeningKitty -Mode Audit -Log -Report
 
@@ -115,6 +125,10 @@
         # Skip language warning, if you understand the risk
         [Switch]
         $SkipLanguageWarning,
+
+        # Skip creating a System Restore Point during Hail Mary mode
+        [Switch]
+        $SkipRestorePoint,
 
         # Define name and path of the log file
         [String]
@@ -541,7 +555,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.0-1662273740"
+    $HardeningKittyVersion = "0.9.0-1662280196"
 
     #
     # Log, report and backup file
@@ -1462,6 +1476,41 @@
         $LastCategory = ""
         $ProcessmitigationEnableArray = @()
         $ProcessmitigationDisableArray = @()
+
+        #
+        # Create a System Restore Point
+        #
+
+        If (-not($SkipRestorePoint)) {
+
+            $Message = "Creating a system restore point"
+            Write-Output "`n"
+            Write-ProtocolEntry -Text $Message -LogLevel "Info"
+
+            # Check if the user has admin rights, skip test if not
+            If (-not($IsAdmin)) {
+                Write-NotAdminError -FindingID "42" -FindingName "System Restore Point" -FindingMethod "Checkpoint-Computer"
+                Continue
+            }
+
+            Try {
+                Checkpoint-Computer -Description 'HardeningKitty' -RestorePointType 'MODIFY_SETTINGS' -ErrorAction Stop -WarningAction Stop
+            } catch {
+
+                $Message = "Creating a system restore point failed. Use -SkipRestorePoint to run HailMary anyway. Be careful!"
+                Write-ResultEntry -Text $Message -SeverityLevel "High"
+                If ($Log) {
+                    Add-MessageToFile -Text $Message -File $LogFile
+                }
+                Break
+            }
+
+            $Message = "Creating a system restore point was successful"
+            Write-ResultEntry -Text $Message -SeverityLevel "Passed"
+            If ($Log) {
+                Add-MessageToFile -Text $Message -File $LogFile
+            }
+        }
 
         ForEach ($Finding in $FindingList) {
 
