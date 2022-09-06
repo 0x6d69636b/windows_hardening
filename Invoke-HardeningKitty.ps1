@@ -244,7 +244,7 @@
             $SeverityLevel
         )
 
-        if ($Quiet -eq 0) {
+        if ($Quiet -eq $false) {
             If ($EmojiSupport) {
 
                 Switch ($SeverityLevel) {
