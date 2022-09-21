@@ -581,6 +581,7 @@
         $BackupFile = "hardeningkitty_backup_" + $Hostname + "_" + $ListName + "-$FileDate.csv"
     }
     $ReportAllResults = @()
+    $BackupAllResults = @()
 
     #
     # Statistics
@@ -2780,12 +2781,18 @@
 
     # Write report file
     If ($Report) {
-        $ReportAllResults | Export-Csv -Path $ReportFile -Delimiter "," -NoTypeInformation
+        ForEach ($ReportResult in $ReportAllResults) {
+            $ResultObject = [pscustomobject] $ReportResult
+            $ResultObject | Export-Csv -Path $ReportFile -Delimiter "," -NoTypeInformation -Append
+        }
     }
 
     # Write backup file
     If ($Backup) {
-        $BackupAllResults | Export-Csv -Path $BackupFile -Delimiter "," -NoTypeInformation
+        ForEach ($BackupResult in $BackupAllResults) {
+            $BackupObject = [pscustomobject] $BackupResult
+            $BackupObject | Export-Csv -Path $BackupFile -Delimiter "," -NoTypeInformation -Append
+        }
     }
 
     If ($Mode -eq "Audit") {
