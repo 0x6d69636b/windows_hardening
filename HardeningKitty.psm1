@@ -580,6 +580,7 @@
     If ($Backup -and $BackupFile.Length -eq 0) {
         $BackupFile = "hardeningkitty_backup_" + $Hostname + "_" + $ListName + "-$FileDate.csv"
     }
+    $ReportAllResults = @()
 
     #
     # Statistics
