@@ -1,8 +1,8 @@
 ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Namespace,Property,DefaultValue,RecommendedValue,Operator,Severity
-10000,"Account Policies","Account lockout duration",accountpolicy,,,,,,,30,15,>=,Low
+10000,"Account Policies","Account lockout duration",accountpolicy,,,,,,,30,10,>=,Low
 10001,"Account Policies","Account lockout threshold",accountpolicy,,,,,,,Never,10,<=,Low
 10003,"Account Policies","Allow Administrator account lockout",secedit,"System Access\AllowAdministratorLockout",,,,,,1,1,=,Medium
-10002,"Account Policies","Reset account lockout counter",accountpolicy,,,,,,,30,15,>=,Low
+10002,"Account Policies","Reset account lockout counter",accountpolicy,,,,,,,30,10,>=,Low
 10100,"Account Policies","Length of password history maintained",accountpolicy,,,,,,,None,24,>=,Low
 10101,"Account Policies","Minimum password length",accountpolicy,,,,,,,0,14,>=,Medium
 10102,"Account Policies","Password must meet complexity requirements",secedit,"System Access\PasswordComplexity",,,,,,0,1,=,Medium
