@@ -555,7 +555,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.0-1662300670"
+    $HardeningKittyVersion = "0.9.0-1663761849"
 
     #
     # Log, report and backup file
@@ -1276,6 +1276,22 @@
 
                     $ResultOutput = Get-Service -Name $Finding.MethodArgument 2> $null
                     $Result = $ResultOutput.StartType
+
+                } catch {
+                    $Result = $Finding.DefaultValue
+                }
+            }
+
+            #
+            # Scheduled Task
+            # Check the status of a scheduled task
+            #
+            ElseIf ($Finding.Method -eq 'ScheduledTask') {
+
+                try {
+
+                    $ResultOutput = Get-ScheduledTask -TaskName $Finding.MethodArgument 2> $null
+                    $Result = $ResultOutput.State
 
                 } catch {
                     $Result = $Finding.DefaultValue
@@ -2529,7 +2545,6 @@
                 If (-Not $Result) {
 
                     If ($FwProgram -eq "") {
-
                         $ResultRule = New-NetFirewallRule -DisplayName $FwDisplayName -Profile $FwProfile -Direction $FwDirection -Action $FwAction -Protocol $FwProtocol -LocalPort $FwLocalPort
                     } Else {
                         $ResultRule = New-NetFirewallRule -DisplayName $FwDisplayName -Profile $FwProfile -Direction $FwDirection -Action $FwAction -Program "$FwProgram"
@@ -2555,6 +2570,78 @@
                     $Message = "ID " + $Finding.ID + ", " + $Finding.Name + ", " + $ResultText
                     $MessageSeverity = "Passed"
                     $TestResult = "Passed"
+                }
+
+                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+
+                If ($Log) {
+                    Add-MessageToFile -Text $Message -File $LogFile
+                }
+
+                If ($Report) {
+                    $ReportResult = [ordered] @{
+                        ID = $Finding.ID
+                        Name = $Finding.Name
+                        Severity = $MessageSeverity
+                        Result = $ResultText
+                        Recommended = ""
+                        TestResult = $TestResult
+                        SeverityFinding = ""
+                    }
+                    $ReportAllResults += $ReportResult
+                }
+            }
+
+            #
+            # Scheduled Task
+            # Edit a scheduled task. First it will be checked if a modification is required
+            #
+            If ($Finding.Method -eq 'ScheduledTask') {
+
+                # Check if the user has admin rights, skip test if not
+                If (-not($IsAdmin)) {
+                    Write-NotAdminError -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
+                    Continue
+                }
+
+                # Check the state of the scheduled task
+                try {
+                    $ResultOutput = Get-ScheduledTask -TaskName $Finding.MethodArgument 2> $null
+                    $Result = $ResultOutput.State
+
+                } catch {
+                    $Result = $Finding.DefaultValue
+                }
+
+                # Check if a modification is requried
+                If ($Result -eq $Finding.RecommendedValue) {
+
+                    # Excellent
+                    $ResultText = "Scheduled Task has alredy the recommended state"
+                    $Message = "ID " + $Finding.ID + ", " + $Finding.Name + ", " + $ResultText
+                    $MessageSeverity = "Passed"
+                    $TestResult = "Passed"
+
+                } Else {
+
+                    If ($Finding.RecommendedValue -eq "Disabled") {
+
+                        $Result = Get-ScheduledTask -TaskName $Finding.MethodArgument | Disable-ScheduledTask
+
+                        $ResultText = "Scheduled Task was disabled"
+                        $Message = "ID " + $Finding.ID + ", " + $Finding.Name + ", " + $ResultText
+                        $MessageSeverity = "Passed"
+                        $TestResult = "Passed"
+
+                    } ElseIf ($Finding.RecommendedValue -eq "Ready") {
+
+                        $Result = Get-ScheduledTask -TaskName $Finding.MethodArgument | Enable-ScheduledTask
+
+                        $ResultText = "Scheduled Task was enabled"
+                        $Message = "ID " + $Finding.ID + ", " + $Finding.Name + ", " + $ResultText
+                        $MessageSeverity = "Passed"
+                        $TestResult = "Passed"
+                    }
                 }
 
                 Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
