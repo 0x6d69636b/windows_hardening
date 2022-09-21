@@ -209,6 +209,8 @@ HardeningKitty can be used to audit systems against the following baselines / be
 | Microsoft Security baseline for Windows 10 | 20H2, 21H1 | Final |
 | Microsoft Security baseline for Windows 10 | 21H2 | Final |
 | Microsoft Security baseline for Windows 11 | 21H2 | Final |
+| Microsoft Security baseline for Windows 11 (Machine) | 22H2 | Final |
+| Microsoft Security baseline for Windows 11 (User) | 22H2 | Final |
 | Microsoft Security baseline for Windows Server (DC) | 2004 | Final |
 | Microsoft Security baseline for Windows Server (Member) | 2004 | Final |
 | Microsoft Security baseline for Windows Server (DC) | 20H2 | Final |
@@ -235,6 +237,7 @@ HardeningKitty can be used to audit systems against the following baselines / be
 * [Security baseline for Windows 10, version 21H2](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-for-windows-10-version-21h2/ba-p/3042703)
 * [Windows Server 2022 Security Baseline](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/windows-server-2022-security-baseline/ba-p/2724685)
 * [Windows 11 Security baseline](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/windows-11-security-baseline/ba-p/2810772)
+* [Windows 11, version 22H2 Security baseline](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/windows-11-version-22h2-security-baseline/ba-p/3632520)
 * [Kernel DMA Protection for Thunderbolt 3](https://docs.microsoft.com/en-us/windows/security/information-protection/kernel-dma-protection-for-thunderbolt)
 * [BitLocker Countermeasures](https://docs.microsoft.com/en-us/windows/security/information-protection/bitlocker/bitlocker-countermeasures)
 * [Blocking the SBP-2 driver and Thunderbolt controllers to reduce 1394 DMA and Thunderbolt DMA threats to BitLocker](https://support.microsoft.com/en-us/help/2516445/blocking-the-sbp-2-driver-and-thunderbolt-controllers-to-reduce-1394-d)
