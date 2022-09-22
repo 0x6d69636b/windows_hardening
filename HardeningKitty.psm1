@@ -1401,6 +1401,7 @@
                     If ($Report) {
                         $ReportResult = [ordered] @{
                             ID = $Finding.ID
+                            Category = $Finding.Category
                             Name = $Finding.Name
                             Severity = "Passed"
                             Result = $Result
@@ -1433,6 +1434,7 @@
                     If ($Report) {
                         $ReportResult = [ordered] @{
                             ID = $Finding.ID
+                            Category = $Finding.Category
                             Name = $Finding.Name
                             Severity = $Finding.Severity
                             Result = $Result
@@ -1466,6 +1468,7 @@
                 If ($Report) {
                     $ReportResult = [ordered] @{
                         ID = $Finding.ID
+                        Category = $Finding.Category
                         Name = $Finding.Name
                         Severity = ""
                         Result = $Result
@@ -1626,6 +1629,7 @@
                         If ($Report) {
                             $ReportResult = [ordered] @{
                                 ID = $Finding.ID
+                                Category = $Finding.Category
                                 Name = $Finding.Name
                                 Severity = $MessageSeverity
                                 Result = $ResultText
@@ -1648,6 +1652,7 @@
                         If ($Report) {
                             $ReportResult = [ordered] @{
                                 ID = $Finding.ID
+                                Category = $Finding.Category
                                 Name = $Finding.Name
                                 Severity = $MessageSeverity
                                 Result = $ResultText
@@ -1710,6 +1715,7 @@
                 If ($Report) {
                     $ReportResult = [ordered] @{
                         ID = $Finding.ID
+                        Category = $Finding.Category
                         Name = $Finding.Name
                         Severity = $MessageSeverity
                         Result = $ResultText
@@ -1771,6 +1777,7 @@
                     If ($Report) {
                         $ReportResult = [ordered] @{
                             ID = $Finding.ID
+                            Category = $Finding.Category
                             Name = $Finding.Name
                             Severity = $MessageSeverity
                             Result = $ResultText
@@ -1797,6 +1804,7 @@
                 If ($Report) {
                     $ReportResult = [ordered] @{
                         ID = $Finding.ID
+                        Category = $Finding.Category
                         Name = $Finding.Name
                         Severity = $MessageSeverity
                         Result = $ResultText
@@ -1821,6 +1829,7 @@
                     If ($Report) {
                         $ReportResult = [ordered] @{
                             ID = $Finding.ID
+                            Category = $Finding.Category
                             Name = $Finding.Name
                             Severity = $MessageSeverity
                             Result = $ResultText
@@ -1847,6 +1856,7 @@
                 If ($Report) {
                     $ReportResult = [ordered] @{
                         ID = $Finding.ID
+                        Category = $Finding.Category
                         Name = $Finding.Name
                         Severity = $MessageSeverity
                         Result = $ResultText
@@ -1905,6 +1915,7 @@
                 If ($Report) {
                     $ReportResult = [ordered] @{
                         ID = $Finding.ID
+                        Category = $Finding.Category
                         Name = $Finding.Name
                         Severity = $MessageSeverity
                         Result = $ResultText
@@ -1968,6 +1979,7 @@
                 If ($Report) {
                     $ReportResult = [ordered] @{
                         ID = $Finding.ID
+                        Category = $Finding.Category
                         Name = $Finding.Name
                         Severity = $MessageSeverity
                         Result = $ResultText
@@ -2054,6 +2066,7 @@
                 If ($Report) {
                     $ReportResult = [ordered] @{
                         ID = $Finding.ID
+                        Category = $Finding.Category
                         Name = $Finding.Name
                         Severity = $MessageSeverity
                         Result = $ResultText
@@ -2078,6 +2091,7 @@
                     If ($Report) {
                        $ReportResult = [ordered] @{
                             ID = $Finding.ID
+                            Category = $Finding.Category
                             Name = $Finding.Name
                             Severity = $MessageSeverity
                             Result = $ResultText
@@ -2104,6 +2118,7 @@
                 If ($Report) {
                     $ReportResult = [ordered] @{
                         ID = $Finding.ID
+                        Category = $Finding.Category
                         Name = $Finding.Name
                         Severity = $MessageSeverity
                         Result = $ResultText
@@ -2149,6 +2164,7 @@
                     If ($Report) {
                         $ReportResult = [ordered] @{
                             ID = $Finding.ID
+                            Category = $Finding.Category
                             Name = $Finding.Name
                             Severity = $MessageSeverity
                             Result = $ResultText
@@ -2178,6 +2194,7 @@
                         If ($Report) {
                             $ReportResult = [ordered] @{
                                 ID = $Finding.ID
+                                Category = $Finding.Category
                                 Name = $Finding.Name
                                 Severity = $MessageSeverity
                                 Result = $ResultText
@@ -2217,6 +2234,7 @@
                         If ($Report) {
                             $ReportResult = [ordered] @{
                                 ID = $Finding.ID
+                                Category = $Finding.Category
                                 Name = $Finding.Name
                                 Severity = $MessageSeverity
                                 Result = $ResultText
@@ -2249,6 +2267,7 @@
                 If ($Report) {
                     $ReportResult = [ordered] @{
                         ID = $Finding.ID
+                        Category = $Finding.Category
                         Name = $Finding.Name
                         Severity = $MessageSeverity
                         Result = $ResultText
@@ -2306,6 +2325,7 @@
                 If ($Report) {
                     $ReportResult = [ordered] @{
                         ID = $Finding.ID
+                        Category = $Finding.Category
                         Name = $Finding.Name
                         Severity = $MessageSeverity
                         Result = $ResultText
@@ -2365,6 +2385,7 @@
                 If ($Report) {
                     $ReportResult = [ordered] @{
                         ID = $Finding.ID
+                        Category = $Finding.Category
                         Name = $Finding.Name
                         Severity = $MessageSeverity
                         Result = $ResultText
@@ -2422,6 +2443,7 @@
                 If ($Report) {
                     $ReportResult = [ordered] @{
                         ID = $Finding.ID
+                        Category = $Finding.Category
                         Name = $Finding.Name
                         Severity = $MessageSeverity
                         Result = $ResultText
@@ -2499,6 +2521,7 @@
                 If ($Report) {
                     $ReportResult = [ordered] @{
                         ID = $Finding.ID
+                        Category = $Finding.Category
                         Name = $Finding.Name
                         Severity = $MessageSeverity
                         Result = $ResultText
@@ -2583,6 +2606,7 @@
                 If ($Report) {
                     $ReportResult = [ordered] @{
                         ID = $Finding.ID
+                        Category = $Finding.Category
                         Name = $Finding.Name
                         Severity = $MessageSeverity
                         Result = $ResultText
@@ -2655,6 +2679,7 @@
                 If ($Report) {
                     $ReportResult = [ordered] @{
                         ID = $Finding.ID
+                        Category = $Finding.Category
                         Name = $Finding.Name
                         Severity = $MessageSeverity
                         Result = $ResultText
@@ -2696,6 +2721,7 @@
             If ($Report) {
                 $ReportResult = [ordered] @{
                     ID = $Finding.ID
+                    Category = $Finding.Category
                     Name = $Finding.Name
                     Severity = $MessageSeverity
                     Result = $ResultText
@@ -2730,6 +2756,7 @@
             If ($Report) {
                 $ReportResult = [ordered] @{
                     ID = $Finding.ID
+                    Category = $Finding.Category
                     Name = $Finding.Name
                     Severity = $MessageSeverity
                     Result = $ResultText
@@ -2764,6 +2791,7 @@
             If ($Report) {
                 $ReportResult = [ordered] @{
                     ID = $Finding.ID
+                    Category = $Finding.Category
                     Name = $Finding.Name
                     Severity = $MessageSeverity
                     Result = $ResultText
