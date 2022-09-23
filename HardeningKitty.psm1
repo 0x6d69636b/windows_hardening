@@ -555,7 +555,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.0-1663761849"
+    $HardeningKittyVersion = "0.9.0-1663947853"
 
     #
     # Log, report and backup file
@@ -1067,7 +1067,7 @@
 
                 try {
 
-                    $ResultOutput = Get-BitLockerVolume -MountPoint C:
+                    $ResultOutput = Get-BitLockerVolume -MountPoint $Env:SystemDrive
                     If ($ResultOutput.VolumeType -eq 'OperatingSystem') {
                         $ResultArgument = $Finding.MethodArgument
                         $Result = $ResultOutput.$ResultArgument
