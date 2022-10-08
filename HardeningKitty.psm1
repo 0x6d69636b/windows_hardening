@@ -92,7 +92,7 @@
         HardeningKitty performs an audit with a specific list and does not show machine information
 
     .EXAMPLE
-        Invoke-HardeningKitty -Mode Config -Report -Report C:\tmp\my_hardeningkitty_report.csv
+        Invoke-HardeningKitty -Mode Config -Report -ReportFile C:\tmp\my_hardeningkitty_report.csv
 
         HardeningKitty ready only the setting with the default list, and saves the results in a specific file
 
@@ -555,7 +555,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.0-1663947853"
+    $HardeningKittyVersion = "0.9.0-1665244457"
 
     #
     # Log, report and backup file
