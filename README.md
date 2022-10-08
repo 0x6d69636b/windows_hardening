@@ -2,9 +2,9 @@
 
 ## Introduction
 
-The project started as a simple hardening list for Windows 10. After some time, HardeningKitty was created to simplify the hardening of Windows. Now, HardeningKitty supports guidelines from Microsoft, CIS Benchmarks, DoD STIG and BSI SiSyPHuS Win10. And of course my own hardening list. 
+The project started as a simple hardening list for Windows 10. After some time, HardeningKitty was created to simplify the hardening of Windows. Now, HardeningKitty supports guidelines from Microsoft, CIS Benchmarks, DoD STIG and BSI SiSyPHuS Win10. And of course my own hardening list.
 
-This is a hardening checklist that can be used in private and business environments for hardening Windows 10. The checklist can be used for all Windows versions, but in Windows 10 Home the Group Policy Editor is not integrated and the adjustment must be done directly in the registry. For this, there is the _HailMary_ mode from _HardeningKitty_. 
+This is a hardening checklist that can be used in private and business environments for hardening Windows 10. The checklist can be used for all Windows versions, but in Windows 10 Home the Group Policy Editor is not integrated and the adjustment must be done directly in the registry. For this, there is the _HailMary_ mode from _HardeningKitty_.
 
 The settings should be seen as security and privacy recommendation and should be carefully checked whether they will affect the operation of your infrastructure or impact the usability of key functions. It is important to weigh security against usability.
 
@@ -81,7 +81,7 @@ Copy the module *HardeningKitty.psm1*, *HardeningKitty.psd1*, and the *lists* di
 ```powershell
 PS C:\tmp> $Version = "0.9.0"
 PS C:\tmp> New-Item -Path $Env:ProgramFiles\WindowsPowerShell\Modules\HardeningKitty\$Version -ItemType Directory
-PS C:\tmp> Copy-Item -Path .\HardeningKitty.psd1,.\HardeningKitty.psm1,.\lists\ -Destination $Env:ProgramFiles\WindowsPowerShell\Modules\HardeningKitty\$Version\ -Recurse 
+PS C:\tmp> Copy-Item -Path .\HardeningKitty.psd1,.\HardeningKitty.psm1,.\lists\ -Destination $Env:ProgramFiles\WindowsPowerShell\Modules\HardeningKitty\$Version\ -Recurse
 ```
 
 For more information see Microsoft's article [Installing a PowerShell Module](https://docs.microsoft.com/en-us/powershell/scripting/developer/module/installing-a-powershell-module).
@@ -90,7 +90,9 @@ For more information see Microsoft's article [Installing a PowerShell Module](ht
 
 #### Audit
 
-HardeningKitty performs an audit, saves the results in a CSV file and creates a log file. The files are automatically named and receive a timestamp. Using the parameters _ReportFile_ or _LogFile_, it is also possible to assign your own name and path. 
+HardeningKitty performs an audit, saves the results in a CSV file and creates a log file. The files are automatically named and receive a timestamp. Using the parameters _ReportFile_ or _LogFile_, it is also possible to assign your own name and path.
+
+The _Filter_ parameter can be used to filter the hardening list. For this purpose the PowerShell ScriptBlock syntax must be used, for example `{ $_.ID -eq 4505 }`. The following elements are useful for filtering: ID, Category, Name, Method, and Severity.
 
 ```powershell
 Invoke-HardeningKitty -Mode Audit -Log -Report
@@ -102,10 +104,16 @@ HardeningKitty can be executed with a specific list defined by the parameter _Fi
 Invoke-HardeningKitty -FileFindingList .\lists\finding_list_0x6d69636b_user.csv -SkipMachineInformation
 ```
 
-HardeningKitty ready only the setting with the default list, and saves the results in a specific file
+HardeningKitty uses the default list, and saves the results in a specific file.
 
 ```powershell
 Invoke-HardeningKitty -Mode Config -Report -ReportFile C:\tmp\my_hardeningkitty_report.csv
+```
+
+HardeningKitty uses the default list, and checks only tests with the severity Medium.
+
+```powershell
+Invoke-HardeningKitty -Filter { $_.Severity -eq "Medium" }
 ```
 
 #### Backup

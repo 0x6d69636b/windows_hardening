@@ -81,6 +81,11 @@
         creating can be skipped, for example, if HailMary is executed several times in a row. By default, Windows allows a restore point every 24 hours.
         Another reason is when HardeningKitty is run as a user and thus lacks privileges.
 
+    .PARAMETER Filter
+
+        The Filter parameter can be used to filter the hardening list. For this purpose the PowerShell ScriptBlock syntax must be used, for example { $_.ID -eq 4505 }.
+        The following elements are useful for filtering: ID, Category, Name, Method, and Severity.
+
     .EXAMPLE
         Invoke-HardeningKitty -Mode Audit -Log -Report
 
@@ -94,8 +99,12 @@
     .EXAMPLE
         Invoke-HardeningKitty -Mode Config -Report -ReportFile C:\tmp\my_hardeningkitty_report.csv
 
-        HardeningKitty ready only the setting with the default list, and saves the results in a specific file
+        HardeningKitty uses the default list, and saves the results in a specific file
 
+    .EXAMPLE
+        Invoke-HardeningKitty -Filter { $_.Severity -eq "Medium" }
+
+        HardeningKitty uses the default list, and checks only tests with the severity Medium
     #>
 
     [CmdletBinding()]
@@ -148,7 +157,11 @@
 
         # Define name and path of the backup file
         [String]
-        $BackupFile
+        $BackupFile,
+
+        # Use PowerShell ScriptBlock syntax to filter the finding list
+        [scriptblock]
+        $Filter
     )
 
     Function Write-ProtocolEntry {
@@ -730,6 +743,14 @@
         }
 
         $FindingList = Import-Csv -Path $FileFindingList -Delimiter ","
+        If ($Filter) {
+            $FindingList = $FindingList | Where-Object -FilterScript $Filter
+            If ($FindingList.Length -eq 0) {
+                $Message = "Your filter did not return any results, please adjust the filter so that HardeningKitty has something to work with."
+                Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                Break
+            }
+        }
         $LastCategory = ""
 
         ForEach ($Finding in $FindingList) {
