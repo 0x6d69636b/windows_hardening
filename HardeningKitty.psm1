@@ -670,7 +670,7 @@
             Write-ProtocolEntry -Text $Message -LogLevel "Notime"
             $Message = "Uptime: " + $MachineInformation.OsUptime
             Write-ProtocolEntry -Text $Message -LogLevel "Notime"
-            $Message = "Windows: " + $MachineInformation.WindowsProductName
+            $Message = "Windows: " + $MachineInformation.OsName
             Write-ProtocolEntry -Text $Message -LogLevel "Notime"
             $Message = "Windows edition: " + $MachineInformation.WindowsEditionId
             Write-ProtocolEntry -Text $Message -LogLevel "Notime"
