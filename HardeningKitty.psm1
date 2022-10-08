@@ -71,6 +71,11 @@
         Information about the system is not queried and displayed. This may be useful while debugging or
         using multiple lists on the same system.
 
+    .PARAMETER SkipUserInformation
+
+        Information about the user is not queried and displayed. This may be useful while debugging or
+        using multiple lists on the same system.
+
     .PARAMETER SkipLanguageWarning
 
         Do not show the language warning on an no-english Windows system.
@@ -130,6 +135,10 @@
         # Skip machine information, useful when debugging
         [Switch]
         $SkipMachineInformation,
+
+        # Skip user information, useful when debugging
+        [Switch]
+        $SkipUserInformation,
 
         # Skip language warning, if you understand the risk
         [Switch]
@@ -711,14 +720,18 @@
     #
     # User information
     #
-    Write-Output "`n"
-    Write-ProtocolEntry -Text "Getting user information" -LogLevel "Info"
+    If (-not($SkipUserInformation)) {
+        Write-Output "`n"
+        Write-ProtocolEntry -Text "Getting user information" -LogLevel "Info"
 
-    $Message = "Username: " + [Security.Principal.WindowsIdentity]::GetCurrent().Name
-    Write-ProtocolEntry -Text $Message -LogLevel "Notime"
-    $IsAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
-    $Message = "Is Admin: " + $IsAdmin
-    Write-ProtocolEntry -Text $Message -LogLevel "Notime"
+        $Message = "Username: " + [Security.Principal.WindowsIdentity]::GetCurrent().Name
+        Write-ProtocolEntry -Text $Message -LogLevel "Notime"
+        $IsAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
+        $Message = "Is Admin: " + $IsAdmin
+        Write-ProtocolEntry -Text $Message -LogLevel "Notime"
+    } Else {
+        $IsAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
+    }
 
     #
     # Start Config/Audit mode
