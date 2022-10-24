@@ -216,6 +216,8 @@ HardeningKitty can be used to audit systems against the following baselines / be
 | Microsoft Security baseline for Windows 10 | 2004 | Final |
 | Microsoft Security baseline for Windows 10 | 20H2, 21H1 | Final |
 | Microsoft Security baseline for Windows 10 | 21H2 | Final |
+| Microsoft Security baseline for Windows 10 (Machine) | 22H2 | Final |
+| Microsoft Security baseline for Windows 10 (User) | 22H2 | Final |
 | Microsoft Security baseline for Windows 11 | 21H2 | Final |
 | Microsoft Security baseline for Windows 11 (Machine) | 22H2 | Final |
 | Microsoft Security baseline for Windows 11 (User) | 22H2 | Final |
