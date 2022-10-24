@@ -588,6 +588,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 270,"MS Security Guide","LSA Protection",DE,"MS Security Guide","LSA Protection"
 1652,"MS Security Guide","Limits print driver installation to Administrators",,,
 271,"MS Security Guide","Lsass.exe audit mode",,,
+1715,"MS Security Guide","Manage processing of Queue-specific files",,,
 272,"MS Security Guide","NetBT NodeType configuration",DE,"MS Security Guide","NetBT NodeType configuration"
 1324,"MS Security Guide","Remove ""Run As Different User"" from context menus (batfile)",,,
 1325,"MS Security Guide","Remove ""Run As Different User"" from context menus (cmdfile)",,,
