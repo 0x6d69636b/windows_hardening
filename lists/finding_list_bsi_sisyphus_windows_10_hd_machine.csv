@@ -121,7 +121,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 184,PowerShell,"Turn on Script Execution (Execution Policy)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\PowerShell,ExecutionPolicy,,,,,AllSigned,=,Medium
 184,PowerShell,"Turn on Script Execution",Registry,,HKLM:\Software\Policies\Microsoft\Windows\PowerShell,EnableScripts,,,,,1,=,Medium
 190,"Administrative Templates: Windows Components","Windows Remote Shell: Allow Remote Shell Access",Registry,,HKLM:\Software\Policies\Microsoft\Windows\WinRM\Service\WinRS,AllowRemoteShellAccess,,,,1,0,=,Medium
-195,"Administrative Templates: Windows Components","WinRM Service: Allow remote server management through WinRM",Registry,,HKLM:Software\Policies\Microsoft\Windows\WinRM\Service,AllowAutoConfig,,,,1,0,=,Medium
+195,"Administrative Templates: Windows Components","WinRM Service: Allow remote server management through WinRM",Registry,,HKLM:\Software\Policies\Microsoft\Windows\WinRM\Service,AllowAutoConfig,,,,1,0,=,Medium
 11,"MSS (Legacy)","MSS: (DisableSavePassword) Prevent the dial-up password from being saved",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\RasMan\Parameters,DisableSavePassword,,,,,1,=,Medium
 13,"MSS (Legacy)","MSS: (KeepAliveTime) How often keep-alive packets are sent in milliseconds",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters,KeepAliveTime,,,,,300000,<=,Medium
 15,"MSS (Legacy)","MSS: (PerformRouterDiscovery) Allow IRDP to detect and configure Default Gateway addresses (could lead to DoS)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters,PerformRouterDiscovery,,,,,0,=,Medium

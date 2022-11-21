@@ -265,7 +265,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 1753,"Administrative Templates: Windows Components","WinRM Client: Allow Basic authentication",Registry,,HKLM:\Software\Policies\Microsoft\Windows\WinRM\Client,AllowBasic,,,,1,0,=,Medium
 1754,"Administrative Templates: Windows Components","WinRM Client: Allow unencrypted traffic",Registry,,HKLM:\Software\Policies\Microsoft\Windows\WinRM\Client,AllowUnencryptedTraffic,,,,1,0,=,Medium
 1755,"Administrative Templates: Windows Components","WinRM Client: Disallow Digest authentication",Registry,,HKLM:\Software\Policies\Microsoft\Windows\WinRM\Client,AllowDigest,,,,1,0,=,Medium
-1756,"Administrative Templates: Windows Components","WinRM Service: Allow remote server management through WinRM",Registry,,HKLM:Software\Policies\Microsoft\Windows\WinRM\Service,AllowAutoConfig,,,,1,0,=,Medium
+1756,"Administrative Templates: Windows Components","WinRM Service: Allow remote server management through WinRM",Registry,,HKLM:\Software\Policies\Microsoft\Windows\WinRM\Service,AllowAutoConfig,,,,1,0,=,Medium
 1757,"Administrative Templates: Windows Components","WinRM Service: Allow Basic authentication",Registry,,HKLM:\Software\Policies\Microsoft\Windows\WinRM\Service,AllowBasic,,,,1,0,=,Medium
 1758,"Administrative Templates: Windows Components","WinRM Service: Allow unencrypted traffic",Registry,,HKLM:\Software\Policies\Microsoft\Windows\WinRM\Service,AllowUnencryptedTraffic,,,,1,0,=,Medium
 1759,"Administrative Templates: Windows Components","WinRM Service: Disallow WinRM from storing RunAs credentials",Registry,,HKLM:\Software\Policies\Microsoft\Windows\WinRM\Service,DisableRunAs,,,,0,1,=,Medium
