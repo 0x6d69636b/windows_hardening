@@ -1,8 +1,8 @@
 ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Namespace,Property,DefaultValue,RecommendedValue,Operator,Severity
 1000,"Schannel: TLS Settings: Protocols","Server: Multi-Protocol Unified Hello",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\Multi-Protocol Unified Hello\Server",Enabled,,,,,0,=,High
 1001,"Schannel: TLS Settings: Protocols","Server: Multi-Protocol Unified Hello (Disabledbydefault)",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\Multi-Protocol Unified Hello\Server",Disabledbydefault,,,,,1,=,High
-1002,"Schannel: TLS Settings: Protocols","Client: Multi-Protocol Unified Hello",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\Multi-Protocol Unified Hello\Server",Enabled,,,,,0,=,High
-1003,"Schannel: TLS Settings: Protocols","Client: Multi-Protocol Unified Hello (Disabledbydefault)",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\Multi-Protocol Unified Hello\Server",Disabledbydefault,,,,,1,=,High
+1002,"Schannel: TLS Settings: Protocols","Client: Multi-Protocol Unified Hello",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\Multi-Protocol Unified Hello\Client",Enabled,,,,,0,=,High
+1003,"Schannel: TLS Settings: Protocols","Client: Multi-Protocol Unified Hello (Disabledbydefault)",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\Multi-Protocol Unified Hello\Client",Disabledbydefault,,,,,1,=,High
 1004,"Schannel: TLS Settings: Protocols","Server: PCT",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\PCT 1.0\Server",Enabled,,,,,0,=,High
 1005,"Schannel: TLS Settings: Protocols","Server: PCT (Disabledbydefault)",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\PCT 1.0\Server",Disabledbydefault,,,,,1,=,High
 1006,"Schannel: TLS Settings: Protocols","Client: PCT",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\PCT 1.0\Client",Enabled,,,,,0,=,High
