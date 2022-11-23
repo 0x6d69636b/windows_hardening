@@ -41,7 +41,7 @@ V-93497,"Security Options","Accounts: Guest account status",localaccount,501,,,,
 V-93279,"Security Options","Accounts: Limit local account use of blank passwords to console logon only",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa,LimitBlankPasswordUse,,,,1,1,=,High
 V-93281,"Security Options","Accounts: Rename administrator account",localaccount,500,,,,,,Administrator,X_Admin,=,Medium
 V-93283,"Security Options","Accounts: Rename guest account",localaccount,501,,,,,,Guest,Visitor,=,Medium
-V-93151,"Security Options","Audit: Force audit policy subcategory settings to override audit policy category settings",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa,SCENoApplyLegacyAuditPolicy,,,,"",1,=,Medium
+V-93151,"Security Options","Audit: Force audit policy subcategory settings to override audit policy category settings",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa,SCENoApplyLegacyAuditPolicy,,,,1,1,=,Medium
 V-93547,"Security Options","Domain member: Digitally encrypt or sign secure channel data (always)",Registry,,HKLM:\System\CurrentControlSet\Services\Netlogon\Parameters,RequireSignOrSeal,,,,1,1,=,Medium
 V-93549,"Security Options","Domain member: Digitally encrypt secure channel data (when possible)",Registry,,HKLM:\System\CurrentControlSet\Services\Netlogon\Parameters,SealSecureChannel,,,,1,1,=,Medium
 V-93551,"Security Options","Domain member: Digitally sign secure channel data (when possible)",Registry,,HKLM:\System\CurrentControlSet\Services\Netlogon\Parameters,SignSecureChannel,,,,1,1,=,Medium
@@ -63,10 +63,10 @@ V-93537,"Security Options","Network access: Do not allow anonymous enumeration o
 V-93293,"Security Options","Network access: Let Everyone permissions apply to anonymous users",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa,EveryoneIncludesAnonymous,,,,0,0,=,Medium
 V-93539,"Security Options","Network access: Restrict anonymous access to Named Pipes and Shares",Registry,,HKLM:\System\CurrentControlSet\Services\LanManServer\Parameters,RestrictNullSessAccess,,,,1,1,=,High
 V-93045,"Security Options","Network access: Restrict clients allowed to make remote calls to SAM",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa,RestrictRemoteSAM,,,,,O:BAG:BAD:(A;;RC;;;BA),=,Medium
-V-93295,"Security Options","Network security: Allow Local System to use computer identity for NTLM",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa,UseMachineId,,,,,1,=,Medium
+V-93295,"Security Options","Network security: Allow Local System to use computer identity for NTLM",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa,UseMachineId,,,,0,1,=,Medium
 V-93297,"Security Options","Network security: Allow LocalSystem NULL session fallback",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa\MSV1_0,allownullsessionfallback,,,,0,0,=,Medium
 V-93299,"Security Options","Network security: Allow PKU2U authentication requests to this computer to use online identities",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa\pku2u,AllowOnlineID,,,,,0,=,Medium
-V-93495,"Security Options","Network security: Configure encryption types allowed for Kerberos",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Kerberos\Parameters,SupportedEncryptionTypes,,,,,2147483640,=,Medium
+V-93495,"Security Options","Network security: Configure encryption types allowed for Kerberos",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Kerberos\Parameters,SupportedEncryptionTypes,,,,2147483644,2147483640,=,Medium
 V-93467,"Security Options","Network security: Do not store LAN Manager hash value on next password change",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa,NoLMHash,,,,1,1,=,High
 V-93301,"Security Options","Network security: LAN Manager authentication level",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa,LmCompatibilityLevel,,,,3,5,=,High
 V-93303,"Security Options","Network security: LDAP client signing requirements",Registry,,HKLM:\System\CurrentControlSet\Services\LDAP,LDAPClientIntegrity,,,,1,1,>=,Medium
@@ -84,7 +84,7 @@ V-93527,"Security Options","User Account Control: Only elevate UIAccess applicat
 V-93435,"Security Options","User Account Control: Run all administrators in Admin Approval Mode",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,EnableLUA,,,,1,1,=,Medium
 V-93529,"Security Options","User Account Control: Virtualize file and registry write failures to per-user locations",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,EnableVirtualization,,,,1,1,=,Medium
 "V-93153 / V-93155","Advanced Audit Policy Configuration","Credential Validation",auditpol,{0CCE923F-69AE-11D9-BED3-505054503030},,,,,,"No Auditing","Success and Failure",=,Medium
-V-92985,"Advanced Audit Policy Configuration","Computer Account Management",auditpol,{0CCE9236-69AE-11D9-BED3-505054503030},,,,,,,Success,contains,Medium
+V-92985,"Advanced Audit Policy Configuration","Computer Account Management",auditpol,{0CCE9236-69AE-11D9-BED3-505054503030},,,,,,Success,Success,contains,Medium
 V-92979,"Advanced Audit Policy Configuration","Security Group Management",auditpol,{0CCE9237-69AE-11D9-BED3-505054503030},,,,,,Success,Success,contains,Medium
 "V-92981 / V-92983","Advanced Audit Policy Configuration","User Account Management",auditpol,{0CCE9235-69AE-11D9-BED3-505054503030},,,,,,Success,"Success and Failure",=,Medium
 V-93157,"Advanced Audit Policy Configuration","Plug and Play Events",auditpol,{0cce9248-69ae-11d9-bed3-505054503030},,,,,,"No Auditing",Success,contains,Medium
@@ -106,19 +106,19 @@ V-93113,"Advanced Audit Policy Configuration","Security State Change",auditpol,{
 V-93115,"Advanced Audit Policy Configuration","Security System Extension",auditpol,{0CCE9211-69AE-11D9-BED3-505054503030},,,,,,"No Auditing",Success,contains,Medium
 "V-93117 / V-93119","Advanced Audit Policy Configuration","System Integrity",auditpol,{0CCE9212-69AE-11D9-BED3-505054503030},,,,,,"Success and Failure","Success and Failure",=,Medium
 V-93399,"Administrative Templates: Control Panel","Personalization: Prevent enabling lock screen slide show",Registry,,HKLM:\Software\Policies\Microsoft\Windows\Personalization,NoLockScreenSlideshow,,,,0,1,=,Low
-V-93519,"MS Security Guide","Apply UAC restrictions to local accounts on network logons (Member)",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,LocalAccountTokenFilterPolicy,,,,,0,=,Medium
-V-93395,"MS Security Guide","Configure SMB v1 client driver",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\MrxSmb10,Start,,,,,4,=,Medium
-V-93393,"MS Security Guide","Configure SMB v1 server",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters,SMB1,,,,,0,=,Medium
+V-93519,"MS Security Guide","Apply UAC restrictions to local accounts on network logons (Member)",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,LocalAccountTokenFilterPolicy,,,,0,0,=,Medium
+V-93395,"MS Security Guide","Configure SMB v1 client driver",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\MrxSmb10,Start,,,,1,4,=,Medium
+V-93393,"MS Security Guide","Configure SMB v1 server",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters,SMB1,,,,1,0,=,Medium
 V-93401,"MS Security Guide","WDigest Authentication",Registry,,HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest,UseLogonCredential,,,,0,0,=,Medium
-V-93233,"MSS (Legacy)","MSS: (DisableIPSourceRouting IPv6) IP source routing protection level (protects against packet spoofing)",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip6\Parameters,DisableIPSourceRouting,,,,,2,=,Low
-V-93235,"MSS (Legacy)","MSS: (DisableIPSourceRouting) IP source routing protection level (protects against packet spoofing)",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip\Parameters,DisableIPSourceRouting,,,,,2,=,Low
-V-93237,"MSS (Legacy)","MSS: (EnableICMPRedirect) Allow ICMP redirects to override OSPF generated routes",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip\Parameters,EnableICMPRedirect,,,,,0,=,Low
+V-93233,"MSS (Legacy)","MSS: (DisableIPSourceRouting IPv6) IP source routing protection level (protects against packet spoofing)",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip6\Parameters,DisableIPSourceRouting,,,,0,2,=,Low
+V-93235,"MSS (Legacy)","MSS: (DisableIPSourceRouting) IP source routing protection level (protects against packet spoofing)",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip\Parameters,DisableIPSourceRouting,,,,1,2,=,Low
+V-93237,"MSS (Legacy)","MSS: (EnableICMPRedirect) Allow ICMP redirects to override OSPF generated routes",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip\Parameters,EnableICMPRedirect,,,,1,0,=,Low
 V-93541,"MSS (Legacy)","MSS: (NoNameReleaseOnDemand) Allow the computer to ignore NetBIOS name release requests except from WINS servers",Registry,,HKLM:\System\CurrentControlSet\Services\Netbt\Parameters,NoNameReleaseOnDemand,,,,0,1,=,Low
 V-93239,"Administrative Templates: Network","Lanman Workstation: Enable insecure guest logons",Registry,,HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation,AllowInsecureGuestAuth,,,,1,0,=,Medium
 V-93241,"Administrative Templates: Network","Network Provider: Hardened UNC Paths (NETLOGON)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths,\\*\NETLOGON,,,,,"RequireMutualAuthentication=1, RequireIntegrity=1",=,Medium
 V-93241,"Administrative Templates: Network","Network Provider: Hardened UNC Paths (SYSVOL)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths,\\*\SYSVOL,,,,,"RequireMutualAuthentication=1, RequireIntegrity=1",=,Medium
 V-93173,"Administrative Templates: System","Audit Process Creation: Include command line in process creation events",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Audit,ProcessCreationIncludeCmdLine_Enabled,,,,0,0,=,Medium
-V-93243,"Administrative Templates: System","Credentials Delegation: Remote host allows delegation of non-exportable credentials",Registry,,HKLM:\Software\Policies\Microsoft\Windows\CredentialsDelegation,AllowProtectedCreds,,,,,1,=,Medium
+V-93243,"Administrative Templates: System","Credentials Delegation: Remote host allows delegation of non-exportable credentials",Registry,,HKLM:\Software\Policies\Microsoft\Windows\CredentialsDelegation,AllowProtectedCreds,,,,0,1,=,Medium
 V-93245,"Administrative Templates: System","Device Guard: Turn On Virtualization Based Security (Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard,EnableVirtualizationBasedSecurity,,,,,1,=,Low
 V-93245,"Administrative Templates: System","Device Guard: Select Platform Security Level (Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard,RequirePlatformSecurityFeatures,,,,,1,=,Low
 V-93245,"Administrative Templates: System","Device Guard: Virtualization Based Protection of Code Integrity (Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard,HypervisorEnforcedCodeIntegrity,,,,,1,=,Low
@@ -148,7 +148,7 @@ V-93533,"Administrative Templates: Windows Components","Remote Desktop Session H
 V-93427,"Administrative Templates: Windows Components","Remote Desktop Session Host: Security: Always prompt for password upon connection",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services",fPromptForPassword,,,,0,1,=,Medium
 V-92971,"Administrative Templates: Windows Components","Remote Desktop Session Host: Security: Require secure RPC communication",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services",fEncryptRPCTraffic,,,,0,1,=,Medium
 V-92973,"Administrative Templates: Windows Components","Remote Desktop Session Host: Security: Set client connection encryption level",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services",MinEncryptionLevel,,,,0,3,=,Medium
-V-93265,"Administrative Templates: Windows Components","RSS Feeds: Prevent downloading of enclosures",Registry,,"HKLM:\Software\Policies\Microsoft\Internet Explorer\Feeds",DisableEnclosureDownload,,,,,1,=,Medium
+V-93265,"Administrative Templates: Windows Components","RSS Feeds: Prevent downloading of enclosures",Registry,,"HKLM:\Software\Policies\Microsoft\Internet Explorer\Feeds",DisableEnclosureDownload,,,,0,1,=,Medium
 V-93415,"Administrative Templates: Windows Components","Search: Allow indexing of encrypted files",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search",AllowIndexingEncryptedStoresOrItems,,,,1,0,=,Medium
 V-93349,"Microsoft Defender Exploit Guard","Use a common set of exploit protection settings",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender ExploitGuard\Exploit Protection",ExploitProtectionSettings,,,,,,!=,Medium
 V-93349,"Microsoft Defender Exploit Guard","Exploit protection: Override Data Execution Prevention (DEP) (ONEDRIVE.EXE)",ProcessmitigationApplication,ONEDRIVE.EXE/DEP/OverrideDEP,,,,,,,False,=,Medium

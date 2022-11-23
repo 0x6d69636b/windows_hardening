@@ -12,7 +12,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 1205,"User Rights Assignment","Deny log on as a service",accesschk,SeDenyServiceLogonRight,,,,,,,BUILTIN\Guests,=,Medium
 1206,"User Rights Assignment","Deny log on through Remote Desktop Services",accesschk,SeDenyRemoteInteractiveLogonRight,,,,,,,"BUILTIN\Guests;NT AUTHORITY\Local account",=,Medium
 1300,"Security Options","Accounts: Block Microsoft accounts",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,NoConnectedUser,,,,0,3,=,Low
-1301,"Security Options","Audit: Force audit policy subcategory settings to override audit policy category settings",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa,SCENoApplyLegacyAuditPolicy,,,,"",1,=,Low
+1301,"Security Options","Audit: Force audit policy subcategory settings to override audit policy category settings",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa,SCENoApplyLegacyAuditPolicy,,,,1,1,=,Low
 1302,"Security Options","Interactive logon: Do not require CTRL+ALT+DEL",Registry,,HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System,DisableCAD,,,,1,0,=,Low
 1303,"Security Options","Interactive logon: Don't display last signed-in",Registry,,HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System,DontDisplayLastUserName,,,,0,1,=,Low
 1304,"Security Options","Interactive logon: Don't display username at sign-in",Registry,,HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System,DontDisplayUserName,,,,0,1,=,Low
@@ -282,9 +282,9 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 2202,"MS Security Guide","NetBT NodeType configuration",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\NetBT\Parameters,NodeType,,,,0,2,=,Medium
 2203,"MS Security Guide","WDigest Authentication",Registry,,HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest,UseLogonCredential,,,,0,0,=,High
 2204,"MSS (Legacy)","MSS: (SafeDllSearchMode) Enable Safe DLL search mode (recommended)",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager",SafeDLLSearchMode,,,,0,1,=,Medium
-2205,"MSS (Legacy)","MSS: (DisableIPSourceRouting IPv6) IP source routing protection level (protects against packet spoofing)",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip6\Parameters,DisableIPSourceRouting,,,,,2,=,Medium
-2206,"MSS (Legacy)","MSS: (DisableIPSourceRouting) IP source routing protection level (protects against packet spoofing)",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip\Parameters,DisableIPSourceRouting,,,,,2,=,Medium
-2207,"MSS (Legacy)","MSS: (EnableICMPRedirect) Allow ICMP redirects to override OSPF generated routes",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip\Parameters,EnableICMPRedirect,,,,,0,=,Medium
+2205,"MSS (Legacy)","MSS: (DisableIPSourceRouting IPv6) IP source routing protection level (protects against packet spoofing)",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip6\Parameters,DisableIPSourceRouting,,,,0,2,=,Medium
+2206,"MSS (Legacy)","MSS: (DisableIPSourceRouting) IP source routing protection level (protects against packet spoofing)",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip\Parameters,DisableIPSourceRouting,,,,1,2,=,Medium
+2207,"MSS (Legacy)","MSS: (EnableICMPRedirect) Allow ICMP redirects to override OSPF generated routes",Registry,,HKLM:\System\CurrentControlSet\Services\Tcpip\Parameters,EnableICMPRedirect,,,,1,0,=,Medium
 2208,"MSS (Legacy)","MSS: (NoNameReleaseOnDemand) Allow the computer to ignore NetBIOS name release requests except from WINS servers",Registry,,HKLM:\System\CurrentControlSet\Services\Netbt\Parameters,NoNameReleaseOnDemand,,,,0,1,=,Medium
 1802,"Microsoft Defender Antivirus","Cloud-delivered protection",MpPreference,MAPSReporting,,,,,,2,2,=,Medium
 1803,"Microsoft Defender Antivirus","Automatic sample submission",MpPreference,SubmitSamplesConsent,,,,,,1,2,=,Medium
