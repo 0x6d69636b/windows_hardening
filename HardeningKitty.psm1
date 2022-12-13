@@ -577,7 +577,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.0-1670853852"
+    $HardeningKittyVersion = "0.9.0-1670934249"
 
     #
     # Log, report and backup file
@@ -1398,7 +1398,7 @@
                         $AsrRule = $AsrRow.Split("=")
                         If ($AsrRule[0] -eq $Finding.MethodArgument) {
                             $Result = $AsrRule[1]
-                            Continue
+                            Break
                         } Else {
                             $Result = $Finding.DefaultValue
                         }
