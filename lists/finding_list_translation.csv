@@ -614,11 +614,14 @@ Id,CategoryEN,NameEN,Language,Category,Name
 212,"Microsoft Defender Antivirus","Configure detection for potentially unwanted applications",DE,"Microsoft Defender Antivirus","Konfigurieren der Erkennung für potenziell unerwünschte Anwendungen"
 215,"Microsoft Defender Antivirus","Controlled folder access",,,
 1642,"Microsoft Defender Antivirus","Enable sandboxing for Microsoft Defender Antivirus",,,
+1542,"Microsoft Defender Antivirus","Exclusions: Extension Exclusions",,,
+1734,"Microsoft Defender Antivirus","Exclusions: Extension Exclusions (Intune)",,,
 1539,"Microsoft Defender Antivirus","Exclusions: Extension Exclusions (Policy)",,,
-1542,"Microsoft Defender Antivirus","Exclusions: List Extension Exclusions",,,
-1543,"Microsoft Defender Antivirus","Exclusions: List Path Exclusions",,,
-1544,"Microsoft Defender Antivirus","Exclusions: List Process Exclusions",,,
+1543,"Microsoft Defender Antivirus","Exclusions: Path Exclusions",,,
+1735,"Microsoft Defender Antivirus","Exclusions: Path Exclusions (Intune)",,,
 1540,"Microsoft Defender Antivirus","Exclusions: Path Exclusions (Policy)",,,
+1544,"Microsoft Defender Antivirus","Exclusions: Process Exclusions",,,
+1736,"Microsoft Defender Antivirus","Exclusions: Process Exclusions (Intune)",,,
 1541,"Microsoft Defender Antivirus","Exclusions: Process Exclusions (Policy)",,,
 1525,"Microsoft Defender Antivirus","Exclusions: Turn off Auto Exclusions",,,
 675,"Microsoft Defender Antivirus","MAPS: Configure local setting override for reporting to Microsoft MAPS",DE,"Microsoft Defender Antivirus","Konfigurieren der Außerkraftsetzung von lokalen Einstellungen für Berichte an Microsoft MAPS"
@@ -654,38 +657,55 @@ Id,CategoryEN,NameEN,Language,Category,Name
 1306,"Microsoft Defender Application Guard","Support for Microsoft Defender Application Guard",,,
 690,"Microsoft Defender Application Guard","Turn on Microsoft Defender Application Guard in Managed Mode",,,
 245,"Microsoft Defender Exploit Guard","ASR: Block Adobe Reader from creating child processes",DE,"Microsoft Defender Exploit Guard","ASR: Adobe Reader am Erstellen von untergeordneten Prozessen hindern"
+1730,"Microsoft Defender Exploit Guard","ASR: Block Adobe Reader from creating child processes (Intune)",,,
 244,"Microsoft Defender Exploit Guard","ASR: Block Adobe Reader from creating child processes (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Adobe Reader am Erstellen von untergeordneten Prozessen hindern (Richtlinie)"
 227,"Microsoft Defender Exploit Guard","ASR: Block JavaScript or VBScript from launching downloaded executable content",DE,"Microsoft Defender Exploit Guard","ASR: JavaScript und VBScript am Starten heruntergeladener ausführbarer Inhalte hindern"
+1721,"Microsoft Defender Exploit Guard","ASR: Block JavaScript or VBScript from launching downloaded executable content (Intune)",,,
 226,"Microsoft Defender Exploit Guard","ASR: Block JavaScript or VBScript from launching downloaded executable content (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: JavaScript und VBScript am Starten heruntergeladener ausführbarer Inhalte hindern (Richtlinie)"
 223,"Microsoft Defender Exploit Guard","ASR: Block Office applications from creating executable content",DE,"Microsoft Defender Exploit Guard","ASR: Office-Anwendungen am Erstellen ausführbarer Inhalte hindern"
+1719,"Microsoft Defender Exploit Guard","ASR: Block Office applications from creating executable content (Intune)",,,
 222,"Microsoft Defender Exploit Guard","ASR: Block Office applications from creating executable content (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Office-Anwendungen am Erstellen ausführbarer Inhalte hindern (Richtlinie)"
 225,"Microsoft Defender Exploit Guard","ASR: Block Office applications from injecting code into other processes",DE,"Microsoft Defender Exploit Guard","ASR: Office-Anwendungen am Einfügen von Code in untergeordnete Prozesse hindern"
+1720,"Microsoft Defender Exploit Guard","ASR: Block Office applications from injecting code into other processes (Intune)",,,
 224,"Microsoft Defender Exploit Guard","ASR: Block Office applications from injecting code into other processes (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Office-Anwendungen am Einfügen von Code in untergeordnete Prozesse hindern (Richtlinie)"
 243,"Microsoft Defender Exploit Guard","ASR: Block Office communication application from creating child processes",DE,"Microsoft Defender Exploit Guard","ASR: Office-Kommunikationsanwendung am Erstellen von untergeordneten Prozessen hindern"
+1729,"Microsoft Defender Exploit Guard","ASR: Block Office communication application from creating child processes (Intune)",,,
 242,"Microsoft Defender Exploit Guard","ASR: Block Office communication application from creating child processes (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Office-Kommunikationsanwendung am Erstellen von untergeordneten Prozessen hindern (Richtlinie)"
 231,"Microsoft Defender Exploit Guard","ASR: Block Win32 API calls from Office macros",DE,"Microsoft Defender Exploit Guard","ASR: Win32-API-Aufrufe von Office-Makros blockieren"
+1723,"Microsoft Defender Exploit Guard","ASR: Block Win32 API calls from Office macros (Intune)",,,
 230,"Microsoft Defender Exploit Guard","ASR: Block Win32 API calls from Office macros (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Win32-API-Aufrufe von Office-Makros blockieren (Richtlinie)"
 1641,"Microsoft Defender Exploit Guard","ASR: Block abuse of exploited vulnerable signed drivers",,,
+1733,"Microsoft Defender Exploit Guard","ASR: Block abuse of exploited vulnerable signed drivers (Intune)",,,
 1640,"Microsoft Defender Exploit Guard","ASR: Block abuse of exploited vulnerable signed drivers (Policy)",,,
 221,"Microsoft Defender Exploit Guard","ASR: Block all Office applications from creating child processes",DE,"Microsoft Defender Exploit Guard","ASR: Alle Office-Anwendungen am Erstellen von untergeordneten Prozessen hindern"
+1718,"Microsoft Defender Exploit Guard","ASR: Block all Office applications from creating child processes (Intune)",,,
 220,"Microsoft Defender Exploit Guard","ASR: Block all Office applications from creating child processes (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Alle Office-Anwendungen am Erstellen von untergeordneten Prozessen hindern (Richtlinie)"
 237,"Microsoft Defender Exploit Guard","ASR: Block credential stealing from the Windows local security authority subsystem (lsass.exe)",DE,"Microsoft Defender Exploit Guard","ASR: Diebstahl von Anmeldeinformationen aus dem Subsystem für die lokale Sicherheitsautorität (lsass.exe) blockieren"
+1726,"Microsoft Defender Exploit Guard","ASR: Block credential stealing from the Windows local security authority subsystem (lsass.exe) (Intune)",,,
 236,"Microsoft Defender Exploit Guard","ASR: Block credential stealing from the Windows local security authority subsystem (lsass.exe) (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Diebstahl von Anmeldeinformationen aus dem Subsystem für die lokale Sicherheitsautorität (lsass.exe) blockieren (Richtlinie)"
 219,"Microsoft Defender Exploit Guard","ASR: Block executable content from email client and webmail",DE,"Microsoft Defender Exploit Guard","ASR: Ausführbare Inhalte aus E-Mail-Client und Web-E-Mail blockieren"
+1717,"Microsoft Defender Exploit Guard","ASR: Block executable content from email client and webmail (Intune)",,,
 218,"Microsoft Defender Exploit Guard","ASR: Block executable content from email client and webmail (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Ausführbare Inhalte aus E-Mail-Client und Web-E-Mail blockieren (Richtlinie)"
 233,"Microsoft Defender Exploit Guard","ASR: Block executable files from running unless they meet a prevalence, age, or trusted list criterion",,,
+1724,"Microsoft Defender Exploit Guard","ASR: Block executable files from running unless they meet a prevalence, age, or trusted list criterion (Intune)",,,
 232,"Microsoft Defender Exploit Guard","ASR: Block executable files from running unless they meet a prevalence, age, or trusted list criterion (Policy)",,,
 229,"Microsoft Defender Exploit Guard","ASR: Block execution of potentially obfuscated scripts",DE,"Microsoft Defender Exploit Guard","ASR: Ausführung potenziell verborgener Skripts blockieren"
+1722,"Microsoft Defender Exploit Guard","ASR: Block execution of potentially obfuscated scripts (Intune)",,,
 228,"Microsoft Defender Exploit Guard","ASR: Block execution of potentially obfuscated scripts (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Ausführung potenziell verborgener Skripts blockieren (Richtlinie)"
 247,"Microsoft Defender Exploit Guard","ASR: Block persistence through WMI event subscription",,,
+1731,"Microsoft Defender Exploit Guard","ASR: Block persistence through WMI event subscription (Intune)",,,
 246,"Microsoft Defender Exploit Guard","ASR: Block persistence through WMI event subscription (Policy)",,,
 239,"Microsoft Defender Exploit Guard","ASR: Block process creations originating from PSExec and WMI commands",,,
+1727,"Microsoft Defender Exploit Guard","ASR: Block process creations originating from PSExec and WMI commands (Intune)",,,
 238,"Microsoft Defender Exploit Guard","ASR: Block process creations originating from PSExec and WMI commands (Policy)",,,
 241,"Microsoft Defender Exploit Guard","ASR: Block untrusted and unsigned processes that run from USB",DE,"Microsoft Defender Exploit Guard","ASR: Nicht vertrauenswürdige und nicht signierte Prozess, die von USB ausgeführt werden, blockieren"
+1728,"Microsoft Defender Exploit Guard","ASR: Block untrusted and unsigned processes that run from USB (Intune)",,,
 240,"Microsoft Defender Exploit Guard","ASR: Block untrusted and unsigned processes that run from USB (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Nicht vertrauenswürdige und nicht signierte Prozess, die von USB ausgeführt werden, blockieren (Richtlinie)"
+1546,"Microsoft Defender Exploit Guard","ASR: Exclude files and paths from Attack Surface Reduction Rules",,,
+1732,"Microsoft Defender Exploit Guard","ASR: Exclude files and paths from Attack Surface Reduction Rules (Intune)",,,
 1545,"Microsoft Defender Exploit Guard","ASR: Exclude files and paths from Attack Surface Reduction Rules (Policy)",,,
-1546,"Microsoft Defender Exploit Guard","ASR: List of excluded files and paths from Attack Surface Reduction Rules",,,
 235,"Microsoft Defender Exploit Guard","ASR: Use advanced protection against ransomware",,,
+1725,"Microsoft Defender Exploit Guard","ASR: Use advanced protection against ransomware (Intune)",,,
 234,"Microsoft Defender Exploit Guard","ASR: Use advanced protection against ransomware (Policy)",,,
 217,"Microsoft Defender Exploit Guard","Attack Surface Reduction rules",DE,"Microsoft Defender Exploit Guard","Regeln zur Verringerung der Angriffsfläche konfigurieren"
 1362,"Microsoft Defender Exploit Guard","Exploit protection: Child Process: Override Child Process (GROOVE.EXE)",,,
