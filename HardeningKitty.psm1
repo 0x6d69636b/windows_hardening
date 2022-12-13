@@ -577,7 +577,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.0-1665244457"
+    $HardeningKittyVersion = "0.9.0-1670853852"
 
     #
     # Log, report and backup file
@@ -1386,6 +1386,23 @@
                         $Result = $Result.Replace(" ", "")
                     }
                     $Finding.RecommendedValue = $Finding.RecommendedValue.Replace(" ", "")
+                }
+
+                #
+                # Handling for registry keys with an "advanced" format
+                #
+                If ($Finding.Method -eq 'Registry' -and $Finding.RegistryItem -eq "ASRRules") {
+
+                    $ResultAsr = $Result.Split("|")
+                    ForEach ($AsrRow in $ResultAsr) {
+                        $AsrRule = $AsrRow.Split("=")
+                        If ($AsrRule[0] -eq $Finding.MethodArgument) {
+                            $Result = $AsrRule[1]
+                            Continue
+                        } Else {
+                            $Result = $Finding.DefaultValue
+                        }
+                    }
                 }
 
                 $ResultPassed = $false
