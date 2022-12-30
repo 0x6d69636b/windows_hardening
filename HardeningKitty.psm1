@@ -577,7 +577,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.0-1670934249"
+    $HardeningKittyVersion = "0.9.1-1672382539"
 
     #
     # Log, report and backup file
@@ -1393,15 +1393,19 @@
                 #
                 If ($Finding.Method -eq 'Registry' -and $Finding.RegistryItem -eq "ASRRules") {
 
-                    $ResultAsr = $Result.Split("|")
-                    ForEach ($AsrRow in $ResultAsr) {
-                        $AsrRule = $AsrRow.Split("=")
-                        If ($AsrRule[0] -eq $Finding.MethodArgument) {
-                            $Result = $AsrRule[1]
-                            Break
-                        } Else {
+                    try {
+                        $ResultAsr = $Result.Split("|")
+                        ForEach ($AsrRow in $ResultAsr) {
+                            $AsrRule = $AsrRow.Split("=")
+                            If ($AsrRule[0] -eq $Finding.MethodArgument) {
+                                $Result = $AsrRule[1]
+                                Break
+                            } Else {
                             $Result = $Finding.DefaultValue
+                            }
                         }
+                    } catch {
+                        $Result = $Finding.DefaultValue
                     }
                 }
 
@@ -1640,6 +1644,36 @@
                     Continue
                 }
 
+                #
+                # Do not set/configure certain registry
+                # ASR rules configured with Intune (ASRRules, ASROnlyExclusions)
+                # Defender expections configured with Intune (ExcludedExtensions, ExcludedPaths, ExcludedProcesses)
+                #
+                If ($Finding.RegistryItem -eq "ASRRules" -Or $Finding.RegistryItem -eq "ASROnlyExclusions" -Or $Finding.RegistryItem -eq "ExcludedExtensions" -Or $Finding.RegistryItem -eq "ExcludedPaths" -Or $Finding.RegistryItem -eq "ExcludedProcesses") {
+                    $ResultText = "This setting is not configured by HardeningKitty"
+                    $Message = "ID " + $Finding.ID + ", " + $Finding.RegistryPath + ", " + $Finding.RegistryItem + ", " + $ResultText
+                    $MessageSeverity = "Passed"
+                    $TestResult = "Passed"
+                    Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                    If ($Log) {
+                        Add-MessageToFile -Text $Message -File $LogFile
+                    }
+                    If ($Report) {
+                        $ReportResult = [ordered] @{
+                            ID = $Finding.ID
+                            Category = $Finding.Category
+                            Name = $Finding.Name
+                            Severity = $MessageSeverity
+                            Result = $ResultText
+                            Recommended = ""
+                            TestResult = $TestResult
+                            SeverityFinding = ""
+                        }
+                        $ReportAllResults += $ReportResult
+                    }
+                    Continue
+                }
+
                 $RegType = "String"
 
                 #
@@ -1664,13 +1698,13 @@
                     $RegType = "DWord"
                 }
 
-                if (!(Test-Path $Finding.RegistryPath)) {
+                If (!(Test-Path $Finding.RegistryPath)) {
 
                     $Result = New-Item $Finding.RegistryPath -Force;
 
                     If ($Result) {
                         $ResultText = "Registry key created"
-                        $Message = "ID " + $Finding.ID + ", " + $Finding.RegistryPath + ", " + $ResultText
+                        $Message = "ID " + $Finding.ID + ", " + $Finding.RegistryPath + ", " + $Finding.RegistryItem + ", " + $ResultText
                         $MessageSeverity = "Passed"
                         $TestResult = "Passed"
                         Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
@@ -1690,10 +1724,9 @@
                             }
                             $ReportAllResults += $ReportResult
                         }
-
                     } Else {
                         $ResultText = "Failed to create registry key"
-                        $Message = "ID " + $Finding.ID + ", " + $Finding.RegistryPath + ", " + $ResultText
+                        $Message = "ID " + $Finding.ID + ", " + $Finding.RegistryPath + ", " + $Finding.RegistryItem + ", " + $ResultText
                         $MessageSeverity = "High"
                         $TestResult = "Failed"
                         Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
