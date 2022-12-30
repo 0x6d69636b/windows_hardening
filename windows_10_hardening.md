@@ -492,6 +492,7 @@ In enterprise-managed mode, trusted zones can be defined via the network isolati
 * ID 2100, ID 2101: Set _Turn on PowerShell Script Block Logging_ to **Enabled**
 * ID 2102: Set _Turn on PowerShell Transcription_ to **Enabled**
 * ID 2103, ID 2104: Remove PowerShell Version 2
+* ID 2105, ID 2106: Set _Turn PowerShell Module Logging_ to **Enabled**
 
 ### MS Security Guide
 

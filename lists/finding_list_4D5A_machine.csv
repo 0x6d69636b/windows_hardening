@@ -1,0 +1,3 @@
+ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Namespace,Property,DefaultValue,RecommendedValue,Operator,Severity
+2100,PowerShell,"Turn on PowerShell Module Logging",Registry,,HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ModuleLogging,EnableModuleLogging,,,,0,1,=,Low
+2101,PowerShell,"Turn on PowerShell Module Logging",Registry,,HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ModuleLogging,ModuleNames,,,,,*,contains,Low
