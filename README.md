@@ -90,9 +90,6 @@ Function InstallHardeningKitty() {
     Set-Location .\HardeningKitty$version
     Copy-Item -Path .\HardeningKitty.psd1,.\HardeningKitty.psm1,.\lists\ -Destination $Env:ProgramFiles\WindowsPowerShell\Modules\HardeningKitty\$Version\ -Recurse
     Import-Module "$Env:ProgramFiles\WindowsPowerShell\Modules\HardeningKitty\$Version\HardeningKitty.psm1"
-    Invoke-HardeningKitty -EmojiSupport -Mode Audit -Log -Report -Backup
-    Invoke-HardeningKitty -EmojiSupport -Mode HailMary -Log -Report -Backup
-    Invoke-HardeningKitty -EmojiSupport -Mode HailMary -FileFindingList ./lists/finding_list_4D5A.csv -Log -Report -Backup
 }
 InstallHardeningKitty
 ```
