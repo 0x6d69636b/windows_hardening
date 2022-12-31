@@ -293,7 +293,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 2000,"Administrative Templates: Windows Components","File Explorer: Configure Windows Defender SmartScreen",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\System,EnableSmartScreen,,,,1,1,=,Medium
 2001,"Administrative Templates: Windows Components","File Explorer: Configure Windows Defender SmartScreen to warn and prevent bypass",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\System,ShellSmartScreenLevel,,,,Warn,Block,=,Medium
 2100,PowerShell,"Turn on PowerShell Module Logging",Registry,,HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ModuleLogging,EnableModuleLogging,,,,0,1,=,Low
-2101,PowerShell,"Turn on PowerShell Module Logging",Registry,,HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ModuleLogging\ModuleNames,1,,,,,*,=,Low
+2101,PowerShell,"Turn on PowerShell Module Logging",Registry,,HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ModuleLogging\ModuleNames,*,,,,,*,=,Low
 2102,PowerShell,"Turn on PowerShell Script Block Logging",Registry,,HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging,EnableScriptBlockLogging,,,,0,1,=,Medium
 2103,PowerShell,"Turn on PowerShell Script Block Logging (Invocation)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging,EnableScriptBlockInvocationLogging,,,,0,1,=,Low
 2104,PowerShell,"Turn on PowerShell Transcription",Registry,,HKLM:\Software\Policies\Microsoft\Windows\PowerShell\Transcription,EnableTranscripting,,,,0,1,=,Low
