@@ -1,0 +1,9 @@
+ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Namespace,Property,DefaultValue,RecommendedValue,Operator,Severity
+2100,PowerShell,"Turn on PowerShell Module Logging",Registry,,HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ModuleLogging,EnableModuleLogging,,,,0,1,=,Low
+2101,PowerShell,"Turn on PowerShell Module Logging",Registry,,HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ModuleLogging\ModuleNames,1,,,,,*,=,Low
+2102,PowerShell,"Turn on PowerShell Module Logging",Registry,,HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ModuleLogging,ModuleNames,,,,,*,contains,Low
+2103,PowerShell,"Turn on PowerShell Script Block Logging",Registry,,HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging,EnableScriptBlockLogging,,,,0,1,=,Medium
+2104,PowerShell,"Turn on PowerShell Script Block Logging (Invocation)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging,EnableScriptBlockInvocationLogging,,,,0,1,=,Low
+2105,PowerShell,"Turn on PowerShell Transcription",Registry,,HKLM:\Software\Policies\Microsoft\Windows\PowerShell\Transcription,EnableTranscripting,,,,0,1,=,Low
+2106,PowerShell,"Turn on PowerShell Transcription (Invocation Header)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Transcription,EnableInvocationHeader,,,,0,1,=,Low
+2107,PowerShell,"Disable PowerShell version 2",WindowsOptionalFeature,MicrosoftWindowsPowerShellV2,,,,,,Enabled,Disabled,=,Medium
