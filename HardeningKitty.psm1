@@ -577,7 +577,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.1-1672382539"
+    $HardeningKittyVersion = "0.9.1-1672986343"
 
     #
     # Log, report and backup file
@@ -1567,8 +1567,12 @@
         # A CSV finding list is imported
         If ($FileFindingList.Length -eq 0) {
 
-            $CurrentLocation = $PSScriptRoot
-            $DefaultList = "$CurrentLocation\lists\finding_list_0x6d69636b_machine.csv"
+            # No fallback to a default list anymore, just show an error message
+            # $CurrentLocation = $PSScriptRoot
+            # $DefaultList = "$CurrentLocation\lists\finding_list_0x6d69636b_machine.csv"
+            $Message = "No finding list has been specified - I'm sorry Dave, I'm afraid I can't do that. Please select a suitable list and specify it with the FileFindingList parameter. Select the finding list wisely and check beforehand whether the settings can affect the stability or the function of your system."
+            Write-ProtocolEntry -Text $Message -LogLevel "Error"
+            Continue
 
             If (Test-Path -Path $DefaultList) {
                 $FileFindingList = $DefaultList
