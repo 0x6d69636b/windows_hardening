@@ -577,7 +577,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.1-1672986343"
+    $HardeningKittyVersion = "0.9.1-1672993022"
 
     #
     # Log, report and backup file
@@ -1124,6 +1124,24 @@
 
                     $ResultOutput = $ExecutionContext.SessionState.LanguageMode
                     $Result = $ResultOutput
+
+                } catch {
+                    $Result = $Finding.DefaultValue
+                }
+            }
+
+            #
+            # Microsoft Defender Status
+            # The values are saved from a PowerShell function into an object.
+            # The desired arguments can be accessed directly.
+            #
+            ElseIf ($Finding.Method -eq 'MpComputerStatus') {
+
+                try {
+
+                    $ResultOutput = Get-MpComputerStatus
+                    $ResultArgument = $Finding.MethodArgument
+                    $Result = $ResultOutput.$ResultArgument
 
                 } catch {
                     $Result = $Finding.DefaultValue
