@@ -79,7 +79,7 @@ First create the directory *HardeningKitty* and for every version a sub director
 Copy the module *HardeningKitty.psm1*, *HardeningKitty.psd1*, and the *lists* directory to this new directory.
 
 ```powershell
-PS C:\tmp> $Version = "0.9.0"
+PS C:\tmp> $Version = "v.0.9.0"
 PS C:\tmp> New-Item -Path $Env:ProgramFiles\WindowsPowerShell\Modules\HardeningKitty\$Version -ItemType Directory
 PS C:\tmp> Copy-Item -Path .\HardeningKitty.psd1,.\HardeningKitty.psm1,.\lists\ -Destination $Env:ProgramFiles\WindowsPowerShell\Modules\HardeningKitty\$Version\ -Recurse
 ```
@@ -92,16 +92,16 @@ You can use the script below to download and install the latest release of *Hard
 
 ```powershell
 Function InstallHardeningKitty() {
-    $version = ((Invoke-WebRequest "https://api.github.com/repos/0x6d69636b/windows_hardening/releases/latest" -UseBasicParsing) | ConvertFrom-Json).name
+    $Version = ((Invoke-WebRequest "https://api.github.com/repos/0x6d69636b/windows_hardening/releases/latest" -UseBasicParsing) | ConvertFrom-Json).Name
     $HardeningKittyLatestVersionDownloadLink = ((Invoke-WebRequest "https://api.github.com/repos/0x6d69636b/windows_hardening/releases/latest" -UseBasicParsing) | ConvertFrom-Json).zipball_url
     $ProgressPreference = 'SilentlyContinue'
-    Invoke-WebRequest $HardeningKittyLatestVersionDownloadLink -Out HardeningKitty$version.zip
-    Expand-Archive -Path ".\HardeningKitty$version.zip" -Destination ".\HardeningKitty$version" -Force
-    $folder = Get-ChildItem .\HardeningKitty$version | Select-Object Name -ExpandProperty Name
-    Move-Item ".\HardeningKitty$version\$folder\*" ".\HardeningKitty$version\"
-    Remove-Item ".\HardeningKitty$version\$folder\"
+    Invoke-WebRequest $HardeningKittyLatestVersionDownloadLink -Out HardeningKitty$Version.zip
+    Expand-Archive -Path ".\HardeningKitty$Version.zip" -Destination ".\HardeningKitty$Version" -Force
+    $Folder = Get-ChildItem .\HardeningKitty$Version | Select-Object Name -ExpandProperty Name
+    Move-Item ".\HardeningKitty$Version\$Folder\*" ".\HardeningKitty$Version\"
+    Remove-Item ".\HardeningKitty$Version\$Folder\"
     New-Item -Path $Env:ProgramFiles\WindowsPowerShell\Modules\HardeningKitty\$Version -ItemType Directory
-    Set-Location .\HardeningKitty$version
+    Set-Location .\HardeningKitty$Version
     Copy-Item -Path .\HardeningKitty.psd1,.\HardeningKitty.psm1,.\lists\ -Destination $Env:ProgramFiles\WindowsPowerShell\Modules\HardeningKitty\$Version\ -Recurse
     Import-Module "$Env:ProgramFiles\WindowsPowerShell\Modules\HardeningKitty\$Version\HardeningKitty.psm1"
 }
@@ -155,6 +155,8 @@ The _HailMary_ method is very powerful. It can be used to deploy a finding list 
 ```powershell
 Invoke-HardeningKitty -Mode HailMary -Log -Report -FileFindingList .\lists\finding_list_0x6d69636b_machine.csv
 ```
+
+Before HailMary is run, a finding list must be picked. It is important to check whether the settings have an influence on the stability and functionality of the system. Before running HailMary, a backup should be made.
 
 ### HardeningKitty Score
 
