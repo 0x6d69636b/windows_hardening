@@ -86,6 +86,28 @@ PS C:\tmp> Copy-Item -Path .\HardeningKitty.psd1,.\HardeningKitty.psm1,.\lists\ 
 
 For more information see Microsoft's article [Installing a PowerShell Module](https://docs.microsoft.com/en-us/powershell/scripting/developer/module/installing-a-powershell-module).
 
+### How to Automatically Download and Install the Latest Release
+
+You can use the script below to download and install the latest release of *HardeningKitty*.
+
+```powershell
+Function InstallHardeningKitty() {
+    $version = ((Invoke-WebRequest "https://api.github.com/repos/0x6d69636b/windows_hardening/releases/latest" -UseBasicParsing) | ConvertFrom-Json).name
+    $HardeningKittyLatestVersionDownloadLink = ((Invoke-WebRequest "https://api.github.com/repos/0x6d69636b/windows_hardening/releases/latest" -UseBasicParsing) | ConvertFrom-Json).zipball_url
+    $ProgressPreference = 'SilentlyContinue'
+    Invoke-WebRequest $HardeningKittyLatestVersionDownloadLink -Out HardeningKitty$version.zip
+    Expand-Archive -Path ".\HardeningKitty$version.zip" -Destination ".\HardeningKitty$version" -Force
+    $folder = Get-ChildItem .\HardeningKitty$version | Select-Object Name -ExpandProperty Name
+    Move-Item ".\HardeningKitty$version\$folder\*" ".\HardeningKitty$version\"
+    Remove-Item ".\HardeningKitty$version\$folder\"
+    New-Item -Path $Env:ProgramFiles\WindowsPowerShell\Modules\HardeningKitty\$Version -ItemType Directory
+    Set-Location .\HardeningKitty$version
+    Copy-Item -Path .\HardeningKitty.psd1,.\HardeningKitty.psm1,.\lists\ -Destination $Env:ProgramFiles\WindowsPowerShell\Modules\HardeningKitty\$Version\ -Recurse
+    Import-Module "$Env:ProgramFiles\WindowsPowerShell\Modules\HardeningKitty\$Version\HardeningKitty.psm1"
+}
+InstallHardeningKitty
+```
+
 ### Examples
 
 #### Audit
