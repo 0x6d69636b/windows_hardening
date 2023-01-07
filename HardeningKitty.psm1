@@ -577,7 +577,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.1-1672993022"
+    $HardeningKittyVersion = "0.9.1-1673095320"
 
     #
     # Log, report and backup file
@@ -1527,9 +1527,9 @@
                     }
                 }
 
-                #
-                # Only return received value
-                #
+            #
+            # Only return received value
+            #
             } Elseif ($Mode -eq "Config") {
 
                 $Message = "ID " + $Finding.ID + "; " + $Finding.Name + "; Result=$Result"
@@ -1552,6 +1552,12 @@
                     $ReportAllResults += $ReportResult
                 }
                 If ($Backup) {
+
+                    # Do not save Firewall rules in the backup file, if they are not set
+                    If ( $Finding.Method -eq "FirewallRule" -and !$Result ) {
+                        Continue
+                    }
+
                     $BackupResult = [ordered] @{
                         ID = $Finding.ID
                         Category = $Finding.Category
