@@ -16,8 +16,9 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 ### Windows Settings\Security Settings\Account Policies
 
 * ID 1103: Set _Password Policy\Store passwords using reversible encryption_ to **Disabled**
-* ID 1100: Set _Account Lockout Policy\Account lockout threshold_ to **10 or fewer invalid logon attempt(s), but not 0**
 * ID 1101: Set _Account Lockout Policy\Account lockout duration_ to **15 or more minute(s)**
+* ID 1100: Set _Account Lockout Policy\Account lockout threshold_ to **10 or fewer invalid logon attempt(s), but not 0**
+* ID 1104: Set _Account Lockout Policy\Allow Administrator account lockout_ to **Enabled**
 * ID 1102: Set _Account Lockout Policy\Reset account lockout counter after_ to **15 or more minute(s)**
 
 ### Windows Settings\Security Settings\Local Policies
@@ -175,18 +176,11 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 
 These settings are already set by default. If these settings are different, the system is vulnerable to [CVE-2021-34527](https://vuldb.com/?id.177880) and [CVE-2021-36958](https://vuldb.com/?id.180784).
 
+* ID 1772: Set _Configure Redirection Guard_ to **Enabled: Redirection Guard Enabled**
 * ID 1768: Set _Only use Package Point and Print_ to **Enabled**
 * ID 1769: Set _Package Point and Print - Approved servers_ to **Enabled** and add a list of servers or a fake entry
 * ID 1764: Set _Point and Print Restrictions\When installing drivers for a new connection_ to **Show warning and elevation prompt**
 * ID 1765: Set _Point and Print Restrictions\When updating drivers for an existing connection_ to **Show warning and elevation prompt**
-
-**Optional:** Override _Point and Print Restrictions_ so that only administrators can install print drivers on printer servers.
-
-* ID 1766: Set the registry key _RestrictDriverInstallationToAdministrators_ to **1**
-
-```
-reg add "HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Printers\PointAndPrint" /v RestrictDriverInstallationToAdministrators /t REG_DWORD /d 1 /f
-```
 
 ### Administrative Templates\Start Menu and Taskbar
 
@@ -200,6 +194,7 @@ reg add "HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Printers\Poin
 
 * ID 1605: Set _Credentials Delegation\Allow delegating default credentials_ to **Disabled** (tspkg)
 * ID 1606: Set _Credentials Delegation\Encryption Oracle Remediation_ to **Enabled: Force Updated Clients**
+* ID 1699: Set _Credentials Delegation\Remote host allows delegation of non-exportable credentials_ to **Enabled**
 
 #### Device Installation
 
@@ -323,6 +318,7 @@ reg add "HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Printers\Poin
 #### Biometrics
 
 * ID 1707: Set _Allow the use of biometrics_ to **Disabled**
+* ID 1772: Set _Facial Features: Configure enhanced anti-spoofing_ to **Enabled**
 
 #### BitLocker Drive Encryption
 
@@ -362,9 +358,11 @@ reg add "HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Printers\Poin
 
 #### Event Log Service
 
-* ID 1728: Set _Application\Specify the maximum log file size (KB)_ to **Enabled: 32768**
-* ID 1729: Set _Security\Specify the maximum log file size (KB)_ to **Enabled: 196608**
-* ID 1730: Set _System\Specify the maximum log file size (KB)_ to **Enabled: 32768**
+* ID 1728: Set _Application\Specify the maximum log file size (KB)_ to **Enabled: 32768** or higher
+* ID 1729: Set _Security\Specify the maximum log file size (KB)_ to **Enabled: 196608** or higher
+* ID 1730: Set _System\Specify the maximum log file size (KB)_ to **Enabled: 32768** or higher
+* ID 1772: Set _Microsoft-Windows-PowerShell/Operational\Specify the maximum log file size (KB)_ to **Enabled: 268435456** or higher
+	* Add **MaxSize=dword:10000000** to _HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Channels\Microsoft-Windows-PowerShell/Operational_
 
 #### File Explorer
 
@@ -377,6 +375,7 @@ reg add "HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Printers\Poin
 #### Microsoft Defender Antivirus 
 
 * ID 1800: Set _Turn off Microsoft Defender Antivirus_ to **Disabled**
+* ID 1826: Set _Enable Tamper Protection (Status)_ to **Enabled**
 * ID 1801: Set _Configure detection for potentially unwanted applications_ to **Enabled: Audit Mode**
 * ID 1806: Set _Exclusions\Extension Exclusions_ to **Disabled**
 * ID 1807: Do not use exclusions for extensions: **empty list**
@@ -384,6 +383,16 @@ reg add "HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Printers\Poin
 * ID 1809: Do not use exclusions for paths: **empty list**
 * ID 1810: Set _Exclusions\Process Exclusions_ to **Disabled**
 * ID 1811: Do not use exclusions for processes: **empty list**
+* ID 1816: Set _MAPS: Join Microsoft MAPS_ to **Enabled: Advanced MAPS**
+* ID 1817: Set _MAPS: Configure the 'Block at First Sight' feature_ to **Enabled**
+* ID 1818: Set _MAPS: Send file samples when further analysis is required_ to **Disabled** (Always prompt)
+* ID 1819: Set _MpEngine: Enable file hash computation feature_ to **Enabled**
+* ID 1820: Set _MpEngine: Select cloud protection level_ to **Enabled: High blocking level or higher**
+* ID 1821: Set _Real-time Protection: Scan all downloaded files and attachments_ to **Enabled**
+* ID 1822: Set _Real-time Protection: Turn off real-time protection_ to **Disabled**
+* ID 1823: Set _Real-time Protection: Turn on behavior monitoring (Policy)_ to **Enabled**
+* ID 1824: Set _Real-time Protection: Turn on script scanning_ to **Enabled**
+* ID 1825: Set _Scan: Scan removable drives_ to **Enabled**
 * ID 1812: Enable sandboxing for Microsoft Defender Antivirus
 * ID 1900: Set _Microsoft Defender Exploit Guard\Attack Surface Reduction\Configure Attack Surface Reduction rules_ to **Enabled**
 	* Apply these rules (Set 'Value' to '1' (Block Mode)
@@ -489,11 +498,11 @@ In enterprise-managed mode, trusted zones can be defined via the network isolati
 
 #### Windows PowerShell
 
+* ID 2105: Set _Turn on Module Logging_ to **Enabled**
+* ID 2106: Set _Turn on Module Logging - Module Names_ to **\*** (Wildcard)
 * ID 2100, ID 2101: Set _Turn on PowerShell Script Block Logging_ to **Enabled**
-* ID 2102: Set _Turn on PowerShell Transcription_ to **Enabled**
+* ID 2102, 2107: Set _Turn on PowerShell Transcription_ to **Enabled**, Include invocation headers
 * ID 2103, ID 2104: Remove PowerShell Version 2
-* ID 2105, ID 2106: Set _Turn on PowerShell Module Logging_ to **Enabled**
-* ID 2107: Set _Turn on PowerShell Transcription (Invocation Header)_ to **Enabled**
 
 ### MS Security Guide
 
@@ -505,6 +514,14 @@ In enterprise-managed mode, trusted zones can be defined via the network isolati
 	* Add **NodeType=dword:00000002** to _HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NetBT\Parameters_
 * ID 2203: Set _WDigest Authentication_ to **Disabled**
 	* Add **UseLogonCredential=dword:00000000** to _HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest_
+* ID 2209: Set _Enable Structured Exception Handling Overwrite Protection (SEHOP)_ to **Enabled**
+	* Add **DisableExceptionChainValidation=dword:00000000** to _HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\kernel_
+* ID 2210: Set _Limits print driver installation to Administrators_ to **Enabled**
+	* Add **RestrictDriverInstallationToAdministrators=dword:00000001** to _HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Printers\PointAndPrint_
+* ID 2211: Set _Configure RPC packet level privacy setting for incoming connections_ to **Enabled**
+	* Add **RpcAuthnLevelPrivacyEnabled=dword:00000001** to _HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Print_
+* ID 2212: Set _Manage processing of Queue-specific files_ to **Enabled**
+	* Add **CopyFilesPolicy=dword:00000001** to _HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Printers_
 
 ### MSS (Legacy)
 
@@ -518,6 +535,18 @@ In enterprise-managed mode, trusted zones can be defined via the network isolati
 	* Add **EnableICMPRedirect=dword:00000000** to _HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\Tcpip\Parameters_
 * ID 2208: Set _MSS: (NoNameReleaseOnDemand) Allow the computer to ignore NetBIOS name release requests except from WINS servers_ to **Enabled**
 	* Add **NoNameReleaseOnDemand=dword:00000001** to _HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\Netbt\Parameters_
+
+## Scheduled Tasks
+
+* ID 2400: **Disable** the task _XblGameSave Standby Task_
+
+## Services
+
+* ID 2401, 2402: **Disable** the service _Print Spooler (Spooler)_
+* ID 2403, 2404: **Disable** the service _Xbox Accessory Management Service (XboxGipSvc)_
+* ID 2405, 2406: **Disable** the service _Xbox Live Auth Manager (XblAuthManager)_
+* ID 2407, 2408: **Disable** the service _Xbox Live Game Save (XblGameSave)_
+* ID 2409, 2410: **Disable** the service _Xbox Live Networking Service (XboxNetApiSvc)_
 
 ## Windows Security
 
@@ -589,8 +618,10 @@ Example of an XML configuration file:
 
 ### Windows PowerShell
 
+* ID 4304: Set _Turn on Module Logging_ to **Enabled**
+* ID 4305: Set _Turn on Module Logging - Module Names_ to **\*** (Wildcard)
 * ID 4300, ID 4301: Set _Turn on PowerShell Script Block Logging_ to **Enabled**
-* ID 4302: Set _Turn on PowerShell Transcription_ to **Enabled**
+* ID 4302, 4306: Set _Turn on PowerShell Transcription_ to **Enabled**, Include invocation headers
 * ID 4303: Use _ConstrainedLanguageMode_ for users who do not need PowerShell
 
 ### Office 2016 Hardening
