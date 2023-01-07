@@ -577,7 +577,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.1-1673095320"
+    $HardeningKittyVersion = "0.9.1-1673097437"
 
     #
     # Log, report and backup file
@@ -1629,6 +1629,7 @@
             }
 
             Try {
+                Enable-ComputerRestore -Drive $Env:SystemDrive
                 Checkpoint-Computer -Description 'HardeningKitty' -RestorePointType 'MODIFY_SETTINGS' -ErrorAction Stop -WarningAction Stop
             } catch {
 
