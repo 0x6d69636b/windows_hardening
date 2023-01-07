@@ -550,13 +550,6 @@ In enterprise-managed mode, trusted zones can be defined via the network isolati
 
 ## Windows Security
 
-### Virus & threat protection
-
-* ID 1802: Set _Cloud-delivered protection_ to **On** (only works if _Join MAPS_ is not disabled)
-* ID 1803: Set _Automatic sample submission_ to **Off**
-* ID 1804: Set _Controlled folder access_ to **On**
-* ID 1805: Do not disable Real time monitoring
-
 ### App & browser control / Exploit protection
 
 #### System settings

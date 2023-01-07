@@ -74,11 +74,6 @@ Id,CategoryEN,NameEN,Language,Category,Name
 574,"Administrative Templates: Network","Windows Connect Now: Prohibit access of the Windows Connect Now wizards",DE,"Administrative Vorlagen: Netzwerk","Windows-Sofortverbindung: Zugriff auf Windows-Sofortverbindungs-Assistenten verweigern"
 575,"Administrative Templates: Network","Windows Connection Manager: Minimize the number of simultaneous connections to the Internet or a Windows Domain",DE,"Administrative Vorlagen: Netzwerk","Windows-Verbindungs-Manager: Anzahl gleichzeitiger Verbindungen mit dem Internet oder einer Windows-Domäne minimieren"
 576,"Administrative Templates: Network","Windows Connection Manager: Prohibit connection to non-domain networks when connected to domain authenticated network",DE,"Administrative Vorlagen: Netzwerk","Windows-Verbindungs-Manager: Verbindung mit Nicht-Domänennetzwerken bei vorhandener Verbindung mit domänenauthentifiziertem Netzwerk nicht zulassen"
-1650,"Administrative Templates: Printer","Only use Package Point and Print (CVE-2021-36958)",,,
-1651,"Administrative Templates: Printer","Package Point and Print - Approved servers (CVE-2021-36958)",,,
-1645,"Administrative Templates: Printer","Point and Print Restrictions: Only administrators can install printer drivers on a print server (CVE-2021-34527)",,,
-1643,"Administrative Templates: Printer","Point and Print Restrictions: When installing drivers for a new connection (CVE-2021-34527)",,,
-1644,"Administrative Templates: Printer","Point and Print Restrictions: When updating drivers for an existing connection (CVE-2021-34527)",,,
 1700,"Administrative Templates: Printers","Configure RPC connection settings (RpcAuthentication)",,,
 1699,"Administrative Templates: Printers","Configure RPC connection settings (RpcUseNamedPipeProtocol)",,,
 1702,"Administrative Templates: Printers","Configure RPC listener settings (ForceKerberosForRpc)",,,
@@ -87,6 +82,11 @@ Id,CategoryEN,NameEN,Language,Category,Name
 1698,"Administrative Templates: Printers","Configure Redirection Guard",,,
 1704,"Administrative Templates: Printers","Limits print driver installation to Administrators",,,
 1705,"Administrative Templates: Printers","Manage processing of Queue-specific files",,,
+1650,"Administrative Templates: Printers","Only use Package Point and Print (CVE-2021-36958)",,,
+1651,"Administrative Templates: Printers","Package Point and Print - Approved servers (CVE-2021-36958)",,,
+1645,"Administrative Templates: Printers","Point and Print Restrictions: Only administrators can install printer drivers on a print server (CVE-2021-34527)",,,
+1643,"Administrative Templates: Printers","Point and Print Restrictions: When installing drivers for a new connection (CVE-2021-34527)",,,
+1644,"Administrative Templates: Printers","Point and Print Restrictions: When updating drivers for an existing connection (CVE-2021-34527)",,,
 298,"Administrative Templates: Start Menu and Taskbar","Notifications: Turn off notifications network usage",,,
 577,"Administrative Templates: Start Menu and Taskbar","Notifications: Turn off notifications network usage",DE,"Administrative Vorlagen: Startmenü und Taskleiste","Benachrichtigungen: Netzwerkverwendung für Benachrichtigungen deaktivieren"
 299,"Administrative Templates: Start Menu and Taskbar","Notifications: Turn off toast notifications on the lock screen",DE,"Administrative Vorlagen: Startmenü und Taskleiste","Benachrichtigungen: Popupbenachrichtigungen auf gesperrtem Bildschirm deaktivieren"
@@ -306,6 +306,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 1635,"Administrative Templates: Windows Components","EMET: System SEHOP",,,
 664,"Administrative Templates: Windows Components","Event Log Service: Application: Control Event Log behavior when the log file reaches its maximum size",,,
 178,"Administrative Templates: Windows Components","Event Log Service: Application: Specify the maximum log file size (KB)",,,
+1738,"Administrative Templates: Windows Components","Event Log Service: Microsoft-Windows-PowerShell/Operational: Specify the maximum log file size (KB)",,,
 665,"Administrative Templates: Windows Components","Event Log Service: Security: Control Event Log behavior when the log file reaches its maximum size",,,
 179,"Administrative Templates: Windows Components","Event Log Service: Security: Specify the maximum log file size (KB)",,,
 666,"Administrative Templates: Windows Components","Event Log Service: Setup: Control Event Log behavior when the log file reaches its maximum size",,,
@@ -613,6 +614,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 213,"Microsoft Defender Antivirus","Cloud-delivered protection",,,
 212,"Microsoft Defender Antivirus","Configure detection for potentially unwanted applications",DE,"Microsoft Defender Antivirus","Konfigurieren der Erkennung für potenziell unerwünschte Anwendungen"
 215,"Microsoft Defender Antivirus","Controlled folder access",,,
+1737,"Microsoft Defender Antivirus","Enable Tamper Protection (Status)",,,
 1642,"Microsoft Defender Antivirus","Enable sandboxing for Microsoft Defender Antivirus",,,
 1542,"Microsoft Defender Antivirus","Exclusions: Extension Exclusions",,,
 1734,"Microsoft Defender Antivirus","Exclusions: Extension Exclusions (Intune)",,,
@@ -1327,12 +1329,18 @@ Id,CategoryEN,NameEN,Language,Category,Name
 268,PowerShell,"Disable PowerShell version 2",,,
 269,PowerShell,"Disable PowerShell version 2 (root)",,,
 307,PowerShell,"PowerShell Language Mode",,,
+1739,PowerShell,"Turn on PowerShell Module Logging",,,
+1742,PowerShell,"Turn on PowerShell Module Logging",,,
+1740,PowerShell,"Turn on PowerShell Module Logging - Module Names",,,
+1743,PowerShell,"Turn on PowerShell Module Logging - Module Names",,,
 265,PowerShell,"Turn on PowerShell Script Block Logging",,,
 304,PowerShell,"Turn on PowerShell Script Block Logging",,,
 266,PowerShell,"Turn on PowerShell Script Block Logging (Invocation)",,,
 305,PowerShell,"Turn on PowerShell Script Block Logging (Invocation)",,,
 267,PowerShell,"Turn on PowerShell Transcription",,,
 306,PowerShell,"Turn on PowerShell Transcription",,,
+1741,PowerShell,"Turn on PowerShell Transcription (Invocation)",,,
+1744,PowerShell,"Turn on PowerShell Transcription (Invocation)",,,
 1556,PowerShell,"Turn on Script Execution",DE,PowerShell,"Skriptausführung aktivieren"
 1555,PowerShell,"Turn on Script Execution (Execution Policy)",DE,PowerShell,"Skriptausführung aktivieren (Execution Policy)"
 1600,"Schannel: TLS Settings: Chipers","AES 128/128",,,
