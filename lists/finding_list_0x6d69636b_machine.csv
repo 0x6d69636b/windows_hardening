@@ -331,6 +331,8 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 2400,"Scheduled Task","XblGameSave Standby Task",ScheduledTask,XblGameSaveTask,,,,,,Ready,Disabled,=,Medium
 2401,"System Services","Print Spooler (Spooler)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\Spooler,Start,,,,2,4,=,Medium
 2402,"System Services","Print Spooler (Spooler) (Service Startup type)",service,Spooler,,,,,,Automatic,Disabled,=,Medium
+2411,"System Services","WebClient (WebClient)",Registry,"",HKLM:\SYSTEM\CurrentControlSet\Services\WebClient,Start,,,,3,4,=,Medium
+2412,"System Services","WebClient (WebClient) (Service Startup type)",service,WebClient,,,,,,Manual,Disabled,=,Medium
 2403,"System Services","Xbox Accessory Management Service (XboxGipSvc)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\XboxGipSvc,Start,,,,3,4,=,Medium
 2404,"System Services","Xbox Accessory Management Service (XboxGipSvc) (Service Startup type)",service,XboxGipSvc,,,,,,Manual,Disabled,=,Medium
 2405,"System Services","Xbox Live Auth Manager (XblAuthManager)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\XblAuthManager,Start,,,,3,4,=,Medium

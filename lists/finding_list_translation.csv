@@ -1568,6 +1568,8 @@ Id,CategoryEN,NameEN,Language,Category,Name
 489,"System Services","UPnP Device Host (upnphost) (Service Startup type)",DE,Systemdienste,"UPnP-Gerätehost (upnphost) (Dienst Starttyp)"
 490,"System Services","Web Management Service (WMSvc)",DE,Systemdienste,"Web Management Service (WMSvc)"
 491,"System Services","Web Management Service (WMSvc) (Service Startup type)",DE,Systemdienste,"Web Management Service (WMSvc) (Dienst Starttyp)"
+1745,"System Services","WebClient (WebClient)",,,
+1746,"System Services","WebClient (WebClient) (Service Startup type)",,,
 492,"System Services","Windows Error Reporting Service (WerSvc)",DE,Systemdienste,"Windows-Fehlerberichterstattungsdienst (WerSvc)"
 493,"System Services","Windows Error Reporting Service (WerSvc) (Service Startup type)",DE,Systemdienste,"Windows-Fehlerberichterstattungsdienst (WerSvc) (Dienst Starttyp)"
 494,"System Services","Windows Event Collector (Wecsvc)",DE,Systemdienste,"Windows-Ereignissammlung (Wecsvc)"

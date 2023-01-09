@@ -543,6 +543,7 @@ In enterprise-managed mode, trusted zones can be defined via the network isolati
 ## Services
 
 * ID 2401, 2402: **Disable** the service _Print Spooler (Spooler)_
+* ID 2411, 2412: **Disable** the service _WebClient (WebClient)_
 * ID 2403, 2404: **Disable** the service _Xbox Accessory Management Service (XboxGipSvc)_
 * ID 2405, 2406: **Disable** the service _Xbox Live Auth Manager (XblAuthManager)_
 * ID 2407, 2408: **Disable** the service _Xbox Live Game Save (XblGameSave)_
