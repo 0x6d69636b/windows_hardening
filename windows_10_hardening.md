@@ -172,6 +172,13 @@ The IDs correspond to the finding lists for HardeningKitty [finding_list_0x6d696
 
 * ID 1604: Set _WLAN Service\WLAN Settings\Allow Windows to automatically connect to suggested open hotspots, to networks shared by contacts, and to hotspots offering paid services_ to **Disabled**
 
+#### Administrative Templates\PowerShell Core
+
+* ID 2108, ID 2109: Set _Turn on Module Logging_ to **Enabled**, Use Windows PowerShell Policy setting
+* ID 2110: Set _Turn on Module Logging - Module Names_ to **\*** (Wildcard)
+* ID 2111, ID 2112, ID 2113: Set _Turn on PowerShell Script Block Logging_ to **Enabled**, Log script block invocation, Use Windows PowerShell Policy setting
+* ID 2114, ID 2115, ID 2116: Set _Turn on PowerShell Transcription_ to **Enabled**, Include invocation headers, Use Windows PowerShell Policy setting
+
 ### Administrative Templates\Printer
 
 These settings are already set by default. If these settings are different, the system is vulnerable to [CVE-2021-34527](https://vuldb.com/?id.177880) and [CVE-2021-36958](https://vuldb.com/?id.180784).
@@ -318,7 +325,7 @@ These settings are already set by default. If these settings are different, the 
 #### Biometrics
 
 * ID 1707: Set _Allow the use of biometrics_ to **Disabled**
-* ID 1772: Set _Facial Features: Configure enhanced anti-spoofing_ to **Enabled**
+* ID 1773: Set _Facial Features: Configure enhanced anti-spoofing_ to **Enabled**
 
 #### BitLocker Drive Encryption
 
@@ -361,8 +368,10 @@ These settings are already set by default. If these settings are different, the 
 * ID 1728: Set _Application\Specify the maximum log file size (KB)_ to **Enabled: 32768** or higher
 * ID 1729: Set _Security\Specify the maximum log file size (KB)_ to **Enabled: 196608** or higher
 * ID 1730: Set _System\Specify the maximum log file size (KB)_ to **Enabled: 32768** or higher
-* ID 1772: Set _Microsoft-Windows-PowerShell/Operational\Specify the maximum log file size (KB)_ to **Enabled: 268435456** or higher
+* ID 1774: Set _Microsoft-Windows-PowerShell/Operational\Specify the maximum log file size (KB)_ to **Enabled: 268435456** or higher
 	* Add **MaxSize=dword:10000000** to _HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Channels\Microsoft-Windows-PowerShell/Operational_
+* ID 1775: Set _PowerShellCore/Operational\Specify the maximum log file size (KB)_ to **Enabled: 268435456** or higher
+	* Add **MaxSize=dword:10000000** to _HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Channels\PowerShellCore/Operational_
 
 #### File Explorer
 
@@ -587,6 +596,13 @@ Example of an XML configuration file:
 
 ## User Configuration
 
+#### Administrative Templates\PowerShell Core
+
+* ID 4307, ID 4308: Set _Turn on Module Logging_ to **Enabled**, Use Windows PowerShell Policy setting
+* ID 4309: Set _Turn on Module Logging - Module Names_ to **\*** (Wildcard)
+* ID 4310, ID 4311, ID 4312: Set _Turn on PowerShell Script Block Logging_ to **Enabled**, Log script block invocation, Use Windows PowerShell Policy setting
+* ID 4313, ID 4314, ID 4315: Set _Turn on PowerShell Transcription_ to **Enabled**, Include invocation headers, Use Windows PowerShell Policy setting
+
 ### Administrative Templates\Start Menu and Taskbar
 
 #### Notifications
@@ -615,7 +631,7 @@ Example of an XML configuration file:
 * ID 4304: Set _Turn on Module Logging_ to **Enabled**
 * ID 4305: Set _Turn on Module Logging - Module Names_ to **\*** (Wildcard)
 * ID 4300, ID 4301: Set _Turn on PowerShell Script Block Logging_ to **Enabled**
-* ID 4302, 4306: Set _Turn on PowerShell Transcription_ to **Enabled**, Include invocation headers
+* ID 4302, ID 4306: Set _Turn on PowerShell Transcription_ to **Enabled**, Include invocation headers
 * ID 4303: Use _ConstrainedLanguageMode_ for users who do not need PowerShell
 
 ### Office 2016 Hardening
