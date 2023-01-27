@@ -136,7 +136,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 10621,"MS Security Guide","Configure SMB v1 client driver",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\MrxSmb10,Start,,,,1,4,=,Medium
 10622,"MS Security Guide","Configure SMB v1 server",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters,SMB1,,,,1,0,=,Medium
 10623,"MS Security Guide","Enable Structured Exception Handling Overwrite Protection (SEHOP)",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\kernel",DisableExceptionChainValidation,,,,0,0,=,Medium
-10626,"MS Security Guide","Limits print driver installation to Administrators",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Printers\PointAndPrint",RestrictDriverInstallationToAdministrators,,,,0,1,=,Medium
+10626,"MS Security Guide","Limits print driver installation to Administrators",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Printers\PointAndPrint",RestrictDriverInstallationToAdministrators,,,,,1,=,Medium
 10627,"MS Security Guide","LSA Protection",Registry,,HKLM:\SYSTEM\CurrentControlSet\Control\Lsa,RunAsPPL,,,,,1,=,Medium
 10628,"MS Security Guide","Manage processing of Queue-specific files",Registry,,"HKLM:\Software\Policies\Microsoft\Windows NT\Printers",CopyFilesPolicy,,,,,1,=,Medium
 10624,"MS Security Guide","NetBT NodeType configuration",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\NetBT\Parameters,NodeType,,,,0,2,=,Medium
@@ -389,7 +389,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 11000,"Administrative Templates: Windows Components","Windows Game Recording and Broadcasting: Enables or disables Windows Game Recording and Broadcasting",Registry,,HKLM:\Software\Policies\Microsoft\Windows\GameDVR,AllowGameDVR,,,,1,0,=,Low
 11001,"Administrative Templates: Windows Components","Windows Ink Workspace: Allow Windows Ink Workspace",Registry,,HKLM:\Software\Policies\Microsoft\WindowsInkWorkspace,AllowWindowsInkWorkspace,,,,1,1,=,Low
 11002,"Administrative Templates: Windows Components","Windows Installer: Allow user control over installs",Registry,,HKLM:\Software\Policies\Microsoft\Windows\Installer,EnableUserControl,,,,1,0,=,Medium
-11003,"Administrative Templates: Windows Components","Windows Installer: Always install with elevated privileges",Registry,,HKLM:\Software\Policies\Microsoft\Windows\Installer,AlwaysInstallElevated,,,,1,0,=,Medium
+11003,"Administrative Templates: Windows Components","Windows Installer: Always install with elevated privileges",Registry,,HKLM:\Software\Policies\Microsoft\Windows\Installer,AlwaysInstallElevated,,,,0,0,=,Medium
 11004,"Administrative Templates: Windows Components","Windows Logon Options: Sign-in and lock last interactive user automatically after a restart",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,DisableAutomaticRestartSignOn,,,,0,1,=,Medium
 11005,PowerShell,"Turn on PowerShell Script Block Logging",Registry,,HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging,EnableScriptBlockLogging,,,,0,1,=,Medium
 11006,PowerShell,"Turn on PowerShell Script Block Logging (Invocation)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging,EnableScriptBlockInvocationLogging,,,,0,0,=,Low

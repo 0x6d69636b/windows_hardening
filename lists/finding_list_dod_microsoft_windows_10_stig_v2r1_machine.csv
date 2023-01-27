@@ -382,7 +382,7 @@ V-74417,"Administrative Templates: Windows Components","Windows Game Recording a
 V-63717,"Administrative Templates: Windows Components","Windows Hello for Business: Use a hardware security device",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\PassportForWork,RequireSecurityDevice,,,,,1,=,Medium
 V-99561,"Administrative Templates: Windows Components","Windows Ink Workspace: Allow Windows Ink Workspace",Registry,,HKLM:\Software\Policies\Microsoft\WindowsInkWorkspace,AllowWindowsInkWorkspace,,,,1,0,=,Medium
 V-63321,"Administrative Templates: Windows Components","Windows Installer: Allow user control over installs",Registry,,HKLM:\Software\Policies\Microsoft\Windows\Installer,EnableUserControl,,,,1,0,=,Medium
-V-63325,"Administrative Templates: Windows Components","Windows Installer: Always install with elevated privileges",Registry,,HKLM:\Software\Policies\Microsoft\Windows\Installer,AlwaysInstallElevated,,,,1,0,=,High
+V-63325,"Administrative Templates: Windows Components","Windows Installer: Always install with elevated privileges",Registry,,HKLM:\Software\Policies\Microsoft\Windows\Installer,AlwaysInstallElevated,,,,0,0,=,High
 V-63333,"Administrative Templates: Windows Components","Windows Logon Options: Sign-in and lock last interactive user automatically after a restart",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,DisableAutomaticRestartSignOn,,,,0,1,=,Medium
 V-68819,PowerShell,"Turn on PowerShell Script Block Logging",Registry,,HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging,EnableScriptBlockLogging,,,,0,1,=,Medium
 V-230220,PowerShell,"Turn on PowerShell Transcription",Registry,,HKLM:\Software\Policies\Microsoft\Windows\PowerShell\Transcription,EnableTranscripting,,,,0,1,=,Medium
