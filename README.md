@@ -148,7 +148,8 @@ Invoke-HardeningKitty -Mode Config -Backup
 
 Please test this function to see if it really works properly on the target system before making any serious changes. A Schrödinger's backup is dangerous.
 
-##### Non-default finding list
+##### Non-Default Finding List
+
 
 Note that if _-FileFindingList_ is not specified, the backup is referred to the default finding list. Before deploying a _specific_ list in _HailMary_ mode, always create a backup _referred to that specific list_.
 
