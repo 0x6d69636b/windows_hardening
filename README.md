@@ -157,7 +157,8 @@ Note that if _-FileFindingList_ is not specified, the backup is referred to the 
 Invoke-HardeningKitty -Mode Config -Backup -BackupFile ".\myBackup.csv" -FileFindingList ".\list\{list}.csv"
 ```
 
-##### Restoring a backup
+##### Restoring a Backup
+
 
 The _Backup_ switch creates a file in form of a finding list, to restore the backup load it in _HailMary_ mode like any find list:
 
