@@ -148,6 +148,24 @@ Invoke-HardeningKitty -Mode Config -Backup
 
 Please test this function to see if it really works properly on the target system before making any serious changes. A Schrödinger's backup is dangerous.
 
+##### Non-Default Finding List
+
+
+Note that if _-FileFindingList_ is not specified, the backup is referred to the default finding list. Before deploying a _specific_ list in _HailMary_ mode, always create a backup _referred to that specific list_.
+
+```powershell
+Invoke-HardeningKitty -Mode Config -Backup -BackupFile ".\myBackup.csv" -FileFindingList ".\list\{list}.csv"
+```
+
+##### Restoring a Backup
+
+
+The _Backup_ switch creates a file in form of a finding list, to restore the backup load it in _HailMary_ mode like any find list:
+
+```powershell
+Invoke-HardeningKitty -Mode HailMary -Log -Report -FileFindingList ".\myBackup.csv"
+```
+
 #### HailMary
 
 The _HailMary_ method is very powerful. It can be used to deploy a finding list on a system. All findings are set on this system as recommended in the list. With power comes responsibility. Please use this mode only if you know what you are doing. Be sure to have a backup of the system.
