@@ -1,4 +1,4 @@
-﻿Function Invoke-HardeningKitty {
+Function Invoke-HardeningKitty {
 
     <#
     .SYNOPSIS
@@ -795,6 +795,10 @@
 
                     try {
                         $Result = Get-ItemPropertyValue -Path $Finding.RegistryPath -Name $Finding.RegistryItem
+                        # Join the result with ";" characte if result if an array
+                        if ($Result -is [system.array]){
+                            $Result = $Result -join ";"
+                        }
                     } catch {
                         $Result = $Finding.DefaultValue
                     }
