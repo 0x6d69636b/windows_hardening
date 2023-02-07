@@ -1,4 +1,4 @@
-Function Invoke-HardeningKitty {
+﻿Function Invoke-HardeningKitty {
 
     <#
     .SYNOPSIS
@@ -577,7 +577,7 @@ Function Invoke-HardeningKitty {
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.1-1673097437"
+    $HardeningKittyVersion = "0.9.1-1675776870"
 
     #
     # Log, report and backup file
