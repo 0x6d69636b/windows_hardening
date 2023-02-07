@@ -795,7 +795,7 @@
 
                     try {
                         $Result = Get-ItemPropertyValue -Path $Finding.RegistryPath -Name $Finding.RegistryItem
-                        # Join the result with ";" characte if result if an array
+                        # Join the result with ";" character if result is an array
                         if ($Result -is [system.array]){
                             $Result = $Result -join ";"
                         }
