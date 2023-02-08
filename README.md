@@ -140,7 +140,11 @@ Invoke-HardeningKitty -Filter { $_.Severity -eq "Medium" }
 
 #### Backup
 
-Backups are important. Really important. Therefore, HardeningKitty also has a function to retrieve the current configuration and save it in a form that can be easily restored. The _Backup_ switch specifies that the file is written in form of a finding list and can thus be used for the _HailMary_ mode. The name and path of the backup can be specified with the parameter _BackupFile_.
+Backups are important. Really important. Therefore, HardeningKitty also has a function to retrieve the current configuration and save it in a form that can be partially restored.
+
+**Disclaimer:** HardeningKitty tries to restore the original configuration. This works quite well with registry keys and Hardening Kitty really tries its best. But the backup function is not a snapshot and does not replace a real system backup. It is not possible to restore the system 1:1 with HardeningKitty alone after HailMary. If this is a requirement, create an image or system backup and restore it.
+
+The _Backup_ switch specifies that the file is written in form of a finding list and can thus be used for the _HailMary_ mode. The name and path of the backup can be specified with the parameter _BackupFile_.
 
 ```powershell
 Invoke-HardeningKitty -Mode Config -Backup
@@ -150,7 +154,6 @@ Please test this function to see if it really works properly on the target syste
 
 ##### Non-Default Finding List
 
-
 Note that if _-FileFindingList_ is not specified, the backup is referred to the default finding list. Before deploying a _specific_ list in _HailMary_ mode, always create a backup _referred to that specific list_.
 
 ```powershell
@@ -158,7 +161,6 @@ Invoke-HardeningKitty -Mode Config -Backup -BackupFile ".\myBackup.csv" -FileFin
 ```
 
 ##### Restoring a Backup
-
 
 The _Backup_ switch creates a file in form of a finding list, to restore the backup load it in _HailMary_ mode like any find list:
 
