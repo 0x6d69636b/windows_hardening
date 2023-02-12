@@ -577,7 +577,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.1-1673097437"
+    $HardeningKittyVersion = "0.9.1-1675776870"
 
     #
     # Log, report and backup file
@@ -795,6 +795,10 @@
 
                     try {
                         $Result = Get-ItemPropertyValue -Path $Finding.RegistryPath -Name $Finding.RegistryItem
+                        # Join the result with ";" character if result is an array
+                        if ($Result -is [system.array]){
+                            $Result = $Result -join ";"
+                        }
                     } catch {
                         $Result = $Finding.DefaultValue
                     }
@@ -1720,7 +1724,7 @@
                 #
                 If ($Finding.RegistryItem -eq "MitigationOptions_FontBocking" -Or $Finding.RegistryItem -eq "Retention" -Or $Finding.RegistryItem -eq "AllocateDASD" -Or $Finding.RegistryItem -eq "ScRemoveOption" -Or $Finding.RegistryItem -eq "AutoAdminLogon") {
                     $RegType = "String"
-                } ElseIf ($Finding.RegistryItem -eq "Machine") {
+                } ElseIf ($Finding.RegistryItem -eq "Machine" -Or $Finding.RegistryItem -eq "EccCurves") {
                     $RegType = "MultiString"
                     $Finding.RecommendedValue = $Finding.RecommendedValue -split ";"
                 } ElseIf ($Finding.RecommendedValue -match "^\d+$") {
