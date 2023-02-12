@@ -577,7 +577,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.1-1675776870"
+    $HardeningKittyVersion = "0.9.1-1676202455"
 
     #
     # Log, report and backup file
@@ -796,7 +796,7 @@
                     try {
                         $Result = Get-ItemPropertyValue -Path $Finding.RegistryPath -Name $Finding.RegistryItem
                         # Join the result with ";" character if result is an array
-                        if ($Result -is [system.array]){
+                        if ($Result -is [system.array] -and ($Finding.RegistryItem -eq "Machine" -Or $Finding.RegistryItem -eq "EccCurves" -Or $Finding.RegistryItem -eq "NullSessionPipes")){
                             $Result = $Result -join ";"
                         }
                     } catch {
@@ -1724,7 +1724,7 @@
                 #
                 If ($Finding.RegistryItem -eq "MitigationOptions_FontBocking" -Or $Finding.RegistryItem -eq "Retention" -Or $Finding.RegistryItem -eq "AllocateDASD" -Or $Finding.RegistryItem -eq "ScRemoveOption" -Or $Finding.RegistryItem -eq "AutoAdminLogon") {
                     $RegType = "String"
-                } ElseIf ($Finding.RegistryItem -eq "Machine" -Or $Finding.RegistryItem -eq "EccCurves") {
+                } ElseIf ($Finding.RegistryItem -eq "Machine" -Or $Finding.RegistryItem -eq "EccCurves" -Or $Finding.RegistryItem -eq "NullSessionPipes") {
                     $RegType = "MultiString"
                     $Finding.RecommendedValue = $Finding.RecommendedValue -split ";"
                 } ElseIf ($Finding.RecommendedValue -match "^\d+$") {
