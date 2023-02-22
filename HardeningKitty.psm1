@@ -1,4 +1,4 @@
-﻿Function Invoke-HardeningKitty {
+Function Invoke-HardeningKitty {
 
     <#
     .SYNOPSIS
@@ -800,7 +800,13 @@
                             $Result = $Result -join ";"
                         }
                     } catch {
-                        $Result = $Finding.DefaultValue
+                        If ($Backup) {
+                            # If backup mode is enabled, with consider that this backup does not exists
+                            # and put "-NODATA-" as result to identify it as non-existing policy
+                            $Result = "-NODATA-"
+                        } Else {
+                            $Result = $Finding.DefaultValue
+                        }
                     }
                 } Else {
                     $Result = $Finding.DefaultValue
@@ -866,7 +872,7 @@
                         If ($ResultList | Where-Object { $_ -like "*" + $Finding.RegistryItem + "*" }) {
                             $Result = $Finding.RegistryItem
                         } Else {
-                            $Result = "Not found"
+                            $Result = "-NODATA-"
                         }
 
                     } catch {
