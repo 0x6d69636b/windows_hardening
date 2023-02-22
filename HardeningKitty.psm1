@@ -1,4 +1,4 @@
-Function Invoke-HardeningKitty {
+﻿Function Invoke-HardeningKitty {
 
     <#
     .SYNOPSIS
@@ -1800,8 +1800,8 @@ Function Invoke-HardeningKitty {
                     $ResultListCounter = 0
                     If ($ResultList | Where-Object { $_ -like "*" + $Finding.RegistryItem + "*" }) {
                         $ResultList.PSObject.Properties | ForEach-Object {
-                            If ( $_.Value -eq $Finding.RegistryItem ) {
-                                $Finding.RegistryItem = $_.Value.Name
+                            If ( $_.Value -eq $Finding.RecommendedValue ) {
+                                $Finding.RegistryItem = $_.Name
                                 Continue
                             }
                         }
