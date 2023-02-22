@@ -1817,18 +1817,64 @@ Function Invoke-HardeningKitty {
                     }
                 }
 
-                $Result = Set-ItemProperty -PassThru -Path $Finding.RegistryPath -Name $Finding.RegistryItem -Type $RegType -Value $Finding.RecommendedValue
+                $ResultText = ""
+                # Remove this policy if it should not exists
+                If ($Finding.RecommendedValue -eq '-NODATA-') {
+                    
+                    # Check if the key (item) already exists
+                    $keyExists = $true;
+                    try {
+                        # This key exists
+                        Get-ItemPropertyValue -Path $Finding.RegistryPath -Name $Finding.RegistryItem
+                    } catch {
+                        # This key does not exist
+                        $keyExists = $false;
+                    }
 
-                if ($Result) {
-                    $ResultText = "Registry value created/modified"
-                    $Message = "ID " + $Finding.ID + ", " + $Finding.RegistryPath + ", " + $Finding.RegistryItem + ", " + $ResultText
-                    $MessageSeverity = "Passed"
-                    $TestResult = "Passed"
-                } else {
-                    $ResultText = "Failed to create registry value"
-                    $Message = "ID " + $Finding.ID + ", " + $Finding.RegistryPath + ", " + $Finding.RegistryItem + ", " + $ResultText
-                    $MessageSeverity = "High"
-                    $TestResult = "Failed"
+                    If ($keyExists) {
+                        # key exists
+                        try {
+                            Remove-ItemProperty -Path $Finding.RegistryPath -Name $Finding.RegistryItem
+                            $ResultText = "Registry key removed"
+                            $Message = "ID " + $Finding.ID + ", " + $Finding.RegistryPath + ", " + $Finding.RegistryItem + ", " + $ResultText
+                            $MessageSeverity = "Passed"
+                            $TestResult = "Passed"
+                        } catch {
+                            $ResultText = "Failed to remove registry key"
+                            $Message = "ID " + $Finding.ID + ", " + $Finding.RegistryPath + ", " + $Finding.RegistryItem + ", " + $ResultText
+                            $MessageSeverity = "High"
+                            $TestResult = "Failed"
+                        }
+                    } Else {
+                        # key does not exists
+                        
+                        If ($Finding.Method -eq 'RegistryList') {
+                            # Don't show incorrect item 
+                            $ResultText = "This value does not already exists in list policy"
+                            $Message = "ID " + $Finding.ID + ", " + $Finding.RegistryPath + ", " + $ResultText
+                        } Else {
+                            $ResultText = "This key policy does not already exists"
+                            $Message = "ID " + $Finding.ID + ", " + $Finding.RegistryPath + ", " + $Finding.RegistryItem + ", " + $ResultText
+                        }
+                        $MessageSeverity = "Low"
+                        $TestResult = "Passed"
+                    }
+
+                    
+                } Else {
+                    $Result = Set-ItemProperty -PassThru -Path $Finding.RegistryPath -Name $Finding.RegistryItem -Type $RegType -Value $Finding.RecommendedValue
+
+                    if ($Result) {
+                        $ResultText = "Registry value created/modified"
+                        $Message = "ID " + $Finding.ID + ", " + $Finding.RegistryPath + ", " + $Finding.RegistryItem + ", " + $ResultText
+                        $MessageSeverity = "Passed"
+                        $TestResult = "Passed"
+                    } else {
+                        $ResultText = "Failed to create registry value"
+                        $Message = "ID " + $Finding.ID + ", " + $Finding.RegistryPath + ", " + $Finding.RegistryItem + ", " + $ResultText
+                        $MessageSeverity = "High"
+                        $TestResult = "Failed"
+                    }
                 }
 
                 Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
