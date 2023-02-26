@@ -1,4 +1,4 @@
-﻿Function Invoke-HardeningKitty {
+Function Invoke-HardeningKitty {
 
     <#
     .SYNOPSIS
@@ -809,7 +809,13 @@
                         }
                     }
                 } Else {
-                    $Result = $Finding.DefaultValue
+                    If ($Backup) {
+                        # If this policy does not exist and the backup mode is enabled, we 
+                        # put "-NODATA-" as result to identify it as non-existing policy
+                        $Result = "-NODATA-"
+                    } Else {
+                        $Result = $Finding.DefaultValue
+                    }
                 }
             }
 
@@ -879,7 +885,13 @@
                         $Result = $Finding.DefaultValue
                     }
                 } Else {
-                    $Result = $Finding.DefaultValue
+                    If ($Backup) {
+                        # If this policy does not exist and the backup mode is enabled, we 
+                        # put "-NODATA-" as result to identify it as non-existing policy
+                        $Result = "-NODATA-"
+                    } Else {
+                        $Result = $Finding.DefaultValue
+                    }
                 }
             }
 
