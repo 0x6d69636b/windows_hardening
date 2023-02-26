@@ -1,4 +1,4 @@
-Function Invoke-HardeningKitty {
+﻿Function Invoke-HardeningKitty {
 
     <#
     .SYNOPSIS
@@ -801,7 +801,7 @@ Function Invoke-HardeningKitty {
                         }
                     } catch {
                         If ($Backup) {
-                            # If backup mode is enabled, with consider that this backup does not exists
+                            # If an error occurs and the backup mode is enabled, we consider that this policy does not exist
                             # and put "-NODATA-" as result to identify it as non-existing policy
                             $Result = "-NODATA-"
                         } Else {
@@ -1853,7 +1853,7 @@ Function Invoke-HardeningKitty {
                     $keyExists = $true;
                     try {
                         # This key exists
-                        Get-ItemPropertyValue -Path $Finding.RegistryPath -Name $Finding.RegistryItem
+                        $Result = Get-ItemPropertyValue -Path $Finding.RegistryPath -Name $Finding.RegistryItem
                     } catch {
                         # This key does not exist
                         $keyExists = $false;
