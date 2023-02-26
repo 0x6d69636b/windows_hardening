@@ -8,10 +8,10 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 1200,"User Rights Assignment","Access this computer from the network",accesschk,SeNetworkLogonRight,,,,,,"BUILTIN\Backup Operators;BUILTIN\Users;BUILTIN\Administrators;Everyone",BUILTIN\Administrators,=,Medium
 1201,"User Rights Assignment","Allow log on locally",accesschk,SeInteractiveLogonRight,,,,,,"BUILTIN\Backup Operators;BUILTIN\Users;BUILTIN\Administrators;COMPUTERNAME\Guest",BUILTIN\Users;BUILTIN\Administrators,=,Medium
 1202,"User Rights Assignment","Debug programs",accesschk,SeDebugPrivilege,,,,,,BUILTIN\Administrators,,=,Medium
-1203,"User Rights Assignment","Deny access to this computer from the network",accesschk,SeDenyNetworkLogonRight,,,,,,COMPUTERNAME\Guest,"BUILTIN\Guests;NT AUTHORITY\Local account",=,Medium
-1204,"User Rights Assignment","Deny log on as a batch job",accesschk,SeDenyBatchLogonRight,,,,,,,BUILTIN\Guests,=,Medium
-1205,"User Rights Assignment","Deny log on as a service",accesschk,SeDenyServiceLogonRight,,,,,,,BUILTIN\Guests,=,Medium
-1206,"User Rights Assignment","Deny log on through Remote Desktop Services",accesschk,SeDenyRemoteInteractiveLogonRight,,,,,,,"BUILTIN\Guests;NT AUTHORITY\Local account",=,Medium
+1203,"User Rights Assignment","Deny access to this computer from the network",accesschk,SeDenyNetworkLogonRight,,,,,,COMPUTERNAME\Guest,"BUILTIN\Guests;NT AUTHORITY\Local account",contains,Medium
+1204,"User Rights Assignment","Deny log on as a batch job",accesschk,SeDenyBatchLogonRight,,,,,,,BUILTIN\Guests,contains,Medium
+1205,"User Rights Assignment","Deny log on as a service",accesschk,SeDenyServiceLogonRight,,,,,,,BUILTIN\Guests,contains,Medium
+1206,"User Rights Assignment","Deny log on through Remote Desktop Services",accesschk,SeDenyRemoteInteractiveLogonRight,,,,,,,"BUILTIN\Guests;NT AUTHORITY\Local account",contains,Medium
 1300,"Security Options","Accounts: Block Microsoft accounts",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,NoConnectedUser,,,,0,3,=,Low
 1301,"Security Options","Audit: Force audit policy subcategory settings to override audit policy category settings",Registry,,HKLM:\System\CurrentControlSet\Control\Lsa,SCENoApplyLegacyAuditPolicy,,,,1,1,=,Low
 1302,"Security Options","Interactive logon: Do not require CTRL+ALT+DEL",Registry,,HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System,DisableCAD,,,,1,0,=,Low
@@ -38,7 +38,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 1320,"Security Options","Shutdown: Allow system to be shut down without having to log on",Registry,,HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System,ShutdownWithoutLogon,,,,1,0,=,Medium
 1321,"Security Options","User Account Control: Admin Approval Mode for the Built-in Administrator account",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,FilterAdministratorToken,,,,0,1,=,Medium
 1322,"Security Options","User Account Control: Behavior of the elevation prompt for administrators in Admin Approval Mode",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,ConsentPromptBehaviorAdmin,,,,5,2,=,Medium
-1323,"Security Options","User Account Control: Behavior of the elevation prompt for standard users",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,ConsentPromptBehaviorUser,,,,0,1,=,Medium
+1323,"Security Options","User Account Control: Behavior of the elevation prompt for standard users",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,ConsentPromptBehaviorUser,,,,0,1,<=,Medium
 1400,"Windows Firewall","EnableFirewall (Domain Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile,EnableFirewall,,,,0,1,=,Medium
 1418,"Windows Firewall","EnableFirewall (Domain Profile)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile,EnableFirewall,,,,1,1,=,Medium
 1401,"Windows Firewall","Inbound Connections (Domain Profile, Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile,DefaultInboundAction,,,,1,1,=,Medium
