@@ -1807,14 +1807,15 @@ Function Invoke-HardeningKitty {
                 # other values are already there in order to set the next higher value and not overwrite existing keys.
                 #
                 If ($Finding.Method -eq 'RegistryList') {
-
+                    $RegistryItemFound = $false
+                    $ListPolicies = $Finding.RegistryPath
                     $ResultList = Get-ItemProperty -Path $Finding.RegistryPath
                     $ResultListCounter = 0
                     If ($ResultList | Where-Object { $_ -like "*" + $Finding.RegistryItem + "*" }) {
                         $ResultList.PSObject.Properties | ForEach-Object {
-                            If ( $_.Value -eq $Finding.RecommendedValue ) {
+                            If ($_.Value -eq $Finding.RegistryItem) {
                                 $Finding.RegistryItem = $_.Name
-                                Continue
+                                $RegistryItemFound = $true
                             }
                         }
                     } Else {
@@ -1822,13 +1823,28 @@ Function Invoke-HardeningKitty {
                             $ResultListCounter++
                         }
                     }
-                    If ($ResultListCounter -eq 0) {
-                        $Finding.RegistryItem = 1
-                    } Else {
-                        $Finding.RegistryItem = $ResultListCounter - 4
+                    # Check if registryItem (key name) has been found or not
+                    If ($RegistryItemFound -eq $false) {
+                        If ($ResultListCounter -eq 0) {
+                            $Finding.RegistryItem = 1
+                        } Else {
+                            # Check if key is already used and can be used
+                            $KeyAlreadyExists = $true
+                            $Finding.RegistryItem = 1
+                            while ($KeyAlreadyExists){
+                                try {
+                                    # This key exists and should be incremented
+                                    $Result = Get-ItemPropertyValue -Path $Finding.RegistryPath -Name $Finding.RegistryItem
+                                    $Finding.RegistryItem=$Finding.RegistryItem+1
+                                    $KeyAlreadyExists = $true;
+                                } catch {
+                                    # This key does not exist and it can be used
+                                    $KeyAlreadyExists = $false;
+                                }
+                            }
+                        }
                     }
                 }
-
                 $ResultText = ""
                 # Remove this policy if it should not exists
                 If ($Finding.RecommendedValue -eq '-NODATA-') {
