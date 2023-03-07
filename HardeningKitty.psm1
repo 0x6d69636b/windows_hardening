@@ -570,6 +570,30 @@
         Write-ProtocolEntry -Text $Message -LogLevel "Error"
     }
 
+    function ConvertToInt {
+        [CmdletBinding()]
+        Param (
+
+            [String]
+            $string
+        )
+        $int64 = $null
+        $int32 = $null
+
+        # Attempt to parse the string as an Int32
+        if ([Int32]::TryParse($string, [ref]$int32)) {
+            return $int32
+        }
+
+        # Attempt to parse the string as an Int64
+        if ([Int64]::TryParse($string, [ref]$int64)) {
+            return $int64
+        }
+
+        # If the string cannot be parsed as either an Int32 or an Int64, throw an error
+        throw "Cannot convert string '$str' to an integer."
+    }
+
     #
     # Binary Locations
     #
@@ -2995,7 +3019,7 @@
                      $Finding.RecommendedValue = $Finding.RecommendedValue -split ";"
                  } ElseIf ($Finding.RecommendedValue -match "^\d+$") {
                      $RegType = "DWord"
-                     $Finding.RecommendedValue = [int]$Finding.RecommendedValue
+                     $Finding.RecommendedValue = ConvertToInt -string $Finding.RecommendedValue
                  }
                  $RegPath = $Finding.RegistryPath.Replace(":","")
                  $RegItem = $Finding.RegistryItem
