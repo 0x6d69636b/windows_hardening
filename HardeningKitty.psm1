@@ -591,7 +591,7 @@
         }
 
         # If the string cannot be parsed as either an Int32 or an Int64, throw an error
-        throw "Cannot convert string '$str' to an integer."
+        throw "Cannot convert string '$string' to an integer."
     }
 
     #
