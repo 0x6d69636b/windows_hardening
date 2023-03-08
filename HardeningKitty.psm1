@@ -605,7 +605,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.1-1676202455"
+    $HardeningKittyVersion = "0.9.1-1677054190"
 
     #
     # Log, report and backup file
@@ -828,10 +828,22 @@
                             $Result = $Result -join ";"
                         }
                     } catch {
-                        $Result = $Finding.DefaultValue
+                        If ($Backup) {
+                            # If an error occurs and the backup mode is enabled, we consider that this policy does not exist
+                            # and put "-NODATA-" as result to identify it as non-existing policy
+                            $Result = "-NODATA-"
+                        } Else {
+                            $Result = $Finding.DefaultValue
+                        }
                     }
                 } Else {
-                    $Result = $Finding.DefaultValue
+                    If ($Backup) {
+                        # If this policy does not exist and the backup mode is enabled, we 
+                        # put "-NODATA-" as result to identify it as non-existing policy
+                        $Result = "-NODATA-"
+                    } Else {
+                        $Result = $Finding.DefaultValue
+                    }
                 }
             }
 
@@ -894,14 +906,20 @@
                         If ($ResultList | Where-Object { $_ -like "*" + $Finding.RegistryItem + "*" }) {
                             $Result = $Finding.RegistryItem
                         } Else {
-                            $Result = "Not found"
+                            $Result = "-NODATA-"
                         }
 
                     } catch {
                         $Result = $Finding.DefaultValue
                     }
                 } Else {
-                    $Result = $Finding.DefaultValue
+                    If ($Backup) {
+                        # If this policy does not exist and the backup mode is enabled, we 
+                        # put "-NODATA-" as result to identify it as non-existing policy
+                        $Result = "-NODATA-"
+                    } Else {
+                        $Result = $Finding.DefaultValue
+                    }
                 }
             }
 
@@ -1817,14 +1835,15 @@
                 # other values are already there in order to set the next higher value and not overwrite existing keys.
                 #
                 If ($Finding.Method -eq 'RegistryList') {
-
+                    $RegistryItemFound = $false
+                    $ListPolicies = $Finding.RegistryPath
                     $ResultList = Get-ItemProperty -Path $Finding.RegistryPath
                     $ResultListCounter = 0
                     If ($ResultList | Where-Object { $_ -like "*" + $Finding.RegistryItem + "*" }) {
                         $ResultList.PSObject.Properties | ForEach-Object {
-                            If ( $_.Value -eq $Finding.RegistryItem ) {
-                                $Finding.RegistryItem = $_.Value.Name
-                                Continue
+                            If ($_.Value -eq $Finding.RegistryItem) {
+                                $Finding.RegistryItem = $_.Name
+                                $RegistryItemFound = $true
                             }
                         }
                     } Else {
@@ -1832,25 +1851,86 @@
                             $ResultListCounter++
                         }
                     }
-                    If ($ResultListCounter -eq 0) {
-                        $Finding.RegistryItem = 1
-                    } Else {
-                        $Finding.RegistryItem = $ResultListCounter - 4
+                    # Check if registryItem (key name) has been found or not
+                    If ($RegistryItemFound -eq $false) {
+                        If ($ResultListCounter -eq 0) {
+                            $Finding.RegistryItem = 1
+                        } Else {
+                            # Check if key is already used and can be used
+                            $KeyAlreadyExists = $true
+                            $Finding.RegistryItem = 1
+                            while ($KeyAlreadyExists){
+                                try {
+                                    # This key exists and should be incremented
+                                    $Result = Get-ItemPropertyValue -Path $Finding.RegistryPath -Name $Finding.RegistryItem
+                                    $Finding.RegistryItem=$Finding.RegistryItem+1
+                                    $KeyAlreadyExists = $true;
+                                } catch {
+                                    # This key does not exist and it can be used
+                                    $KeyAlreadyExists = $false;
+                                }
+                            }
+                        }
                     }
                 }
+                $ResultText = ""
+                # Remove this policy if it should not exists
+                If ($Finding.RecommendedValue -eq '-NODATA-') {
+                    
+                    # Check if the key (item) already exists
+                    $keyExists = $true;
+                    try {
+                        # This key exists
+                        $Result = Get-ItemPropertyValue -Path $Finding.RegistryPath -Name $Finding.RegistryItem
+                    } catch {
+                        # This key does not exist
+                        $keyExists = $false;
+                    }
 
-                $Result = Set-ItemProperty -PassThru -Path $Finding.RegistryPath -Name $Finding.RegistryItem -Type $RegType -Value $Finding.RecommendedValue
+                    If ($keyExists) {
+                        # key exists
+                        try {
+                            Remove-ItemProperty -Path $Finding.RegistryPath -Name $Finding.RegistryItem
+                            $ResultText = "Registry key removed"
+                            $Message = "ID " + $Finding.ID + ", " + $Finding.RegistryPath + ", " + $Finding.RegistryItem + ", " + $ResultText
+                            $MessageSeverity = "Passed"
+                            $TestResult = "Passed"
+                        } catch {
+                            $ResultText = "Failed to remove registry key"
+                            $Message = "ID " + $Finding.ID + ", " + $Finding.RegistryPath + ", " + $Finding.RegistryItem + ", " + $ResultText
+                            $MessageSeverity = "High"
+                            $TestResult = "Failed"
+                        }
+                    } Else {
+                        # key does not exists
+                        
+                        If ($Finding.Method -eq 'RegistryList') {
+                            # Don't show incorrect item 
+                            $ResultText = "This value does not already exists in list policy"
+                            $Message = "ID " + $Finding.ID + ", " + $Finding.RegistryPath + ", " + $ResultText
+                        } Else {
+                            $ResultText = "This key policy does not already exists"
+                            $Message = "ID " + $Finding.ID + ", " + $Finding.RegistryPath + ", " + $Finding.RegistryItem + ", " + $ResultText
+                        }
+                        $MessageSeverity = "Low"
+                        $TestResult = "Passed"
+                    }
 
-                if ($Result) {
-                    $ResultText = "Registry value created/modified"
-                    $Message = "ID " + $Finding.ID + ", " + $Finding.RegistryPath + ", " + $Finding.RegistryItem + ", " + $ResultText
-                    $MessageSeverity = "Passed"
-                    $TestResult = "Passed"
-                } else {
-                    $ResultText = "Failed to create registry value"
-                    $Message = "ID " + $Finding.ID + ", " + $Finding.RegistryPath + ", " + $Finding.RegistryItem + ", " + $ResultText
-                    $MessageSeverity = "High"
-                    $TestResult = "Failed"
+                    
+                } Else {
+                    $Result = Set-ItemProperty -PassThru -Path $Finding.RegistryPath -Name $Finding.RegistryItem -Type $RegType -Value $Finding.RecommendedValue
+
+                    if ($Result) {
+                        $ResultText = "Registry value created/modified"
+                        $Message = "ID " + $Finding.ID + ", " + $Finding.RegistryPath + ", " + $Finding.RegistryItem + ", " + $ResultText
+                        $MessageSeverity = "Passed"
+                        $TestResult = "Passed"
+                    } else {
+                        $ResultText = "Failed to create registry value"
+                        $Message = "ID " + $Finding.ID + ", " + $Finding.RegistryPath + ", " + $Finding.RegistryItem + ", " + $ResultText
+                        $MessageSeverity = "High"
+                        $TestResult = "Failed"
+                    }
                 }
 
                 Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
