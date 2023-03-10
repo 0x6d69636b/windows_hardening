@@ -1,5 +1,5 @@
 ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Namespace,Property,DefaultValue,RecommendedValue,Operator,Severity
-1000,Features,"SMBv1 Support",WindowsOptionalFeature,smb1protocol,,,,,,Disabled,Disabled,=,High
+1000,Features,"SMBv1 Support",WindowsOptionalFeature,smb1protocol,,,,,,Disabled,Disabled,contains,High
 1103,"Account Policies","Store passwords using reversible encryption",secedit,"System Access\ClearTextPassword",,,,,,0,0,=,High
 1101,"Account Policies","Account lockout duration",accountpolicy,,,,,,,30,15,>=,Low
 1100,"Account Policies","Account lockout threshold",accountpolicy,,,,,,,Never,10,<=,Low
@@ -323,8 +323,8 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 2101,PowerShell,"Turn on PowerShell Script Block Logging (Invocation)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging,EnableScriptBlockInvocationLogging,,,,0,1,=,Low
 2102,PowerShell,"Turn on PowerShell Transcription",Registry,,HKLM:\Software\Policies\Microsoft\Windows\PowerShell\Transcription,EnableTranscripting,,,,0,1,=,Low
 2107,PowerShell,"Turn on PowerShell Transcription (Invocation)",Registry,,HKLM:\Software\Policies\Microsoft\Windows\PowerShell\Transcription,EnableInvocationHeader,,,,0,1,=,Low
-2103,PowerShell,"Disable PowerShell version 2",WindowsOptionalFeature,MicrosoftWindowsPowerShellV2,,,,,,Enabled,Disabled,=,Medium
-2104,PowerShell,"Disable PowerShell version 2 (root)",WindowsOptionalFeature,MicrosoftWindowsPowerShellV2Root,,,,,,Enabled,Disabled,=,Medium
+2103,PowerShell,"Disable PowerShell version 2",WindowsOptionalFeature,MicrosoftWindowsPowerShellV2,,,,,,Enabled,Disabled,contains,Medium
+2104,PowerShell,"Disable PowerShell version 2 (root)",WindowsOptionalFeature,MicrosoftWindowsPowerShellV2Root,,,,,,Enabled,Disabled,contains,Medium
 2200,"MS Security Guide","LSA Protection",Registry,,HKLM:\SYSTEM\CurrentControlSet\Control\Lsa,RunAsPPL,,,,,1,=,Medium
 2201,"MS Security Guide","Lsass.exe audit mode",Registry,,"HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\LSASS.exe",AuditLevel,,,,,8,=,Low
 2202,"MS Security Guide","NetBT NodeType configuration",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\NetBT\Parameters,NodeType,,,,0,2,=,Medium
