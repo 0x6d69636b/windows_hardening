@@ -545,7 +545,7 @@
         )
 
         $Script:StatsError++
-        $Message = "ID " + $FindingID + ", " + $FindingName + ", Method " + $FindingMethod + " requires admin priviliges. Test skipped."
+        $Message = "ID " + $FindingID + ", " + $FindingName + ", Method " + $FindingMethod + " requires admin privileges. Test skipped."
         Write-ProtocolEntry -Text $Message -LogLevel "Error"
     }
 
