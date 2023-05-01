@@ -1529,6 +1529,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 433,"System Services","Computer Browser (Browser) (Service Startup type) (!Check for false positive for service ""bowser""!)",DE,Systemdienste,"Computer Browser (Browser) (Dienst Starttyp) (!Check for false positive for service ""bowser""!)"
 1560,"System Services","Diagnostics Tracking Service (DiagTrack)",DE,Systemdienste,"Benutzererfahrung und Telemetrie im verbundenen Modus (DiagTrack)"
 1561,"System Services","Diagnostics Tracking Service (DiagTrack) (Service Startup type)",DE,Systemdienste,"Benutzererfahrung und Telemetrie im verbundenen Modus (DiagTrack) (Dienst Starttyp)"
+1778,"System Services","Disable mDNS in Dnscache service",,,
 434,"System Services","Downloaded Maps Manager (MapsBroker)",DE,Systemdienste,"Manager für heruntergeladene Karten (MapsBroker)"
 435,"System Services","Downloaded Maps Manager (MapsBroker) (Service Startup type)",DE,Systemdienste,"Manager für heruntergeladene Karten (MapsBroker) (Dienst Starttyp)"
 436,"System Services","Geolocation Service (lfsvc)",DE,Systemdienste,"Geolocation-Dienst (lfsvc)"
