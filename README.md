@@ -227,20 +227,32 @@ HardeningKitty can be used to audit systems against the following baselines / be
 | CIS Microsoft Windows 10 Enterprise (User) | 21H1 | 1.11.0 |
 | CIS Microsoft Windows 10 Enterprise (Machine) | 21H2 | 1.12.0 |
 | CIS Microsoft Windows 10 Enterprise (User) | 21H2 | 1.12.0 |
+| CIS Microsoft Windows 10 Enterprise (Machine) | 22H2 | 2.0.0 |
+| CIS Microsoft Windows 10 Enterprise (User) | 22H2 | 2.0.0 |
 | CIS Microsoft Windows 11 Enterprise (Machine) | 21H2 | 1.0.0 |
 | CIS Microsoft Windows 11 Enterprise (User) | 21H2 | 1.0.0 |
+| CIS Microsoft Windows 11 Enterprise (Machine) | 22H2 | 2.0.0 |
+| CIS Microsoft Windows 11 Enterprise (User) | 22H2 | 2.0.0 |
 | CIS Microsoft Windows Server 2012 R2 (Machine) | R2 | 2.4.0 |
 | CIS Microsoft Windows Server 2012 R2 (User) | R2 | 2.4.0 |
+| CIS Microsoft Windows Server 2012 R2 (Machine) | R2 | 2.6.0 |
+| CIS Microsoft Windows Server 2012 R2 (User) | R2 | 2.6.0 |
 | CIS Microsoft Windows Server 2016 (Machine) | 1607 | 1.2.0 |
 | CIS Microsoft Windows Server 2016 (User) | 1607 | 1.2.0 |
 | CIS Microsoft Windows Server 2016 (Machine) | 1607 | 1.3.0 |
 | CIS Microsoft Windows Server 2016 (User) | 1607 | 1.3.0 |
+| CIS Microsoft Windows Server 2016 (Machine) | 1607 | 2.0.0 |
+| CIS Microsoft Windows Server 2016 (User) | 1607 | 2.0.0 |
 | CIS Microsoft Windows Server 2019 (Machine) | 1809 | 1.1.0 |
 | CIS Microsoft Windows Server 2019 (User) | 1809 | 1.1.0 |
 | CIS Microsoft Windows Server 2019 (Machine) | 1809 | 1.2.1 |
 | CIS Microsoft Windows Server 2019 (User) | 1809 | 1.2.1 |
+| CIS Microsoft Windows Server 2019 (Machine) | 1809 | 2.0.0 |
+| CIS Microsoft Windows Server 2019 (User) | 1809 | 2.0.0 |
 | CIS Microsoft Windows Server 2022 (Machine) | 21H2 | 1.0.0 |
 | CIS Microsoft Windows Server 2022 (User) | 21H2 | 1.0.0 |
+| CIS Microsoft Windows Server 2022 (Machine) | 22H2 | 2.0.0 |
+| CIS Microsoft Windows Server 2022 (User) | 22H2 | 2.0.0 |
 | DoD Microsoft Windows 10 STIG (Machine) | 20H2 | v2r1 |
 | DoD Microsoft Windows 10 STIG (User) | 20H2 | v2r1 |
 | DoD Windows Server 2019 Domain Controller STIG (Machine) | 20H2 | v2r1 |

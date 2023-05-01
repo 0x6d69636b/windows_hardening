@@ -169,6 +169,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 1707,"Administrative Templates: System","Local Security Authority: Allow Custom SSPs and APs to be loaded into LSASS",,,
 1708,"Administrative Templates: System","Local Security Authority: Configures LSASS to run as a protected process",,,
 600,"Administrative Templates: System","Locale Services: Disallow copying of user input methods to the system account for sign-in",DE,"Administrative Vorlagen: System","Gebietsschemadienste: Kopieren von Benutzereingabemethoden ins Systemkonto für die Anmeldung nicht zulassen"
+1777,"Administrative Templates: System","Logon: Always use classic logon",,,
 601,"Administrative Templates: System","Logon: Block user from showing account details on sign-in",DE,"Administrative Vorlagen: System","Anmelden: Benutzer darf keine Kontodetails auf dem Anmeldebildschirm anzeigen"
 134,"Administrative Templates: System","Logon: Do not display network selection UI",DE,"Administrative Vorlagen: System","Anmelden: Netzwerkauswahl-UI nicht anzeigen"
 603,"Administrative Templates: System","Logon: Do not enumerate connected users on domain-joined computers",DE,"Administrative Vorlagen: System","Anmelden: Verbundene Benutzer auf Computern, die der Domäne angehören, nicht auflisten"
@@ -312,6 +313,10 @@ Id,CategoryEN,NameEN,Language,Category,Name
 964,"Administrative Templates: Windows Components","Data Collection and Preview Builds: Limit Enhanced diagnostic data to the minimum required by Windows Analytics",,,
 663,"Administrative Templates: Windows Components","Data Collection and Preview Builds: Toggle user control over Insider builds",DE,"Administrative Vorlagen: Windows-Komponenten","Datensammlung und Vorabversionen: Benutzersteuerung für Insider-Builds ein-/ausschalten  Hinweis: Diese Gruppenrichtlinie ist nur auf Windows 10 Versionen bis einschließlich der Version 1703 anwendbar. Für Versionen ab 1709 wird die Gruppenrichtlinie ""Vorabversionen verwalten"" verwendet (siehe CIS Benchmark Referenz 18.9.102.1.1)."
 177,"Administrative Templates: Windows Components","Delivery Optimization: Download Mode",DE,"Administrative Vorlagen: Windows-Komponenten","Übermittlungsoptimierung: Downloadmodus"
+1766,"Administrative Templates: Windows Components","Desktop App Installer: Enable App Installer",,,
+1767,"Administrative Templates: Windows Components","Desktop App Installer: Enable App Installer Experimental Features",,,
+1768,"Administrative Templates: Windows Components","Desktop App Installer: Enable App Installer Hash Override",,,
+1769,"Administrative Templates: Windows Components","Desktop App Installer: Enable App Installer ms-appinstaller protocol",,,
 1626,"Administrative Templates: Windows Components","EMET: Default Action and Mitigation Settings (AntiDetours)",,,
 1627,"Administrative Templates: Windows Components","EMET: Default Action and Mitigation Settings (BannedFunctions)",,,
 1628,"Administrative Templates: Windows Components","EMET: Default Action and Mitigation Settings (DeepHooks)",,,
@@ -338,9 +343,11 @@ Id,CategoryEN,NameEN,Language,Category,Name
 1535,"Administrative Templates: Windows Components","File Explorer: Explorer Frame Pane: Turn off Preview Pane",,,
 1536,"Administrative Templates: Windows Components","File Explorer: Explorer Frame Pane: Turn on or off details pane",,,
 669,"Administrative Templates: Windows Components","File Explorer: Turn off Data Execution Prevention for Explorer",DE,"Administrative Vorlagen: Windows-Komponenten","Datei-Explorer: Datenausführungsverhinderung für Explorer deaktivieren"
+1774,"Administrative Templates: Windows Components","File Explorer: Turn off files from Office.com in Quick access view",,,
 670,"Administrative Templates: Windows Components","File Explorer: Turn off heap termination on corruption",DE,"Administrative Vorlagen: Windows-Komponenten","Datei-Explorer: Heapabbruch bei Beschädigung deaktivieren"
 671,"Administrative Templates: Windows Components","File Explorer: Turn off shell protocol protected mode",DE,"Administrative Vorlagen: Windows-Komponenten","Datei-Explorer: Geschützten Modus für Shellprotokoll deaktivieren"
 182,"Administrative Templates: Windows Components","HomeGroup: Prevent the computer from joining a homegroup",,,
+1770,"Administrative Templates: Windows Components","Internet Explorer: Disable Internet Explorer 11 as a standalone browser",,,
 1636,"Administrative Templates: Windows Components","Location and Sensors: Turn off Windows Location Provider",,,
 672,"Administrative Templates: Windows Components","Location and Sensors: Turn off location",DE,"Administrative Vorlagen: Windows-Komponenten","Windows-Positionssuche: Speicherort deaktivieren"
 673,"Administrative Templates: Windows Components","Messaging: Allow Message Service Cloud Sync",DE,"Administrative Vorlagen: Windows-Komponenten","Nachrichten: Synchronisierung von Nachrichtendienstcloud zulassen"
@@ -351,6 +358,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 1637,"Administrative Templates: Windows Components","OneDrive: Prevent the usage of OneDrive for file storage on Windows 8.1",,,
 704,"Administrative Templates: Windows Components","Push To Install: Turn off Push To Install service",DE,"Administrative Vorlagen: Windows-Komponenten","Pushinstallation ausführen: Pushinstallationdienst deaktivieren"
 713,"Administrative Templates: Windows Components","RSS Feeds: Prevent downloading of enclosures",DE,"Administrative Vorlagen: Windows-Komponenten","RSS-Feeds: Herunterladen von Anlagen verhindern"
+1775,"Administrative Templates: Windows Components","Remote Desktop Connection Client: Disable Cloud Clipboard integration for server-to-client data transfer",,,
 184,"Administrative Templates: Windows Components","Remote Desktop Connection Client: Do not allow passwords to be saved",DE,"Administrative Vorlagen: Windows-Komponenten","Remotedesktopverbindungs-Client: Speichern von Kennwörtern nicht zulassen"
 185,"Administrative Templates: Windows Components","Remote Desktop Session Host: Allow users to connect remotely by using Remote Desktop Services",DE,"Administrative Vorlagen: Windows-Komponenten","Remotedesktopsitzungs-Host: Remoteverbindungen für Benutzer mithilfe der Remotedesktopdienste zulassen"
 798,"Administrative Templates: Windows Components","Remote Desktop Session Host: Connections: Restrict Remote Desktop Services users to a single Remote Desktop Services session",,,
@@ -360,6 +368,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 186,"Administrative Templates: Windows Components","Remote Desktop Session Host: Device and Resource Redirection: Do not allow drive redirection",DE,"Administrative Vorlagen: Windows-Komponenten","Remotedesktopsitzungs-Host/Geräte- und Ressourcenumleitung: Laufwerkumleitung nicht zulassen"
 1676,"Administrative Templates: Windows Components","Remote Desktop Session Host: Device and Resource Redirection: Do not allow location redirection",,,
 707,"Administrative Templates: Windows Components","Remote Desktop Session Host: Device and Resource Redirection: Do not allow supported Plug and Play device redirection",DE,"Administrative Vorlagen: Windows-Komponenten","Remotedesktopsitzungs-Host/Geräte- und Ressourcenumleitung: Umleitung bei unterstützten Plug & Play-Geräten nicht zulassen"
+1776,"Administrative Templates: Windows Components","Remote Desktop Session Host: Do not allow WebAuthn redirection",,,
 187,"Administrative Templates: Windows Components","Remote Desktop Session Host: Security: Always prompt for password upon connection",DE,"Administrative Vorlagen: Windows-Komponenten","Remotedesktopsitzungs-Host: Sicherheit: Bei der Verbindungsherstellung immer zur Kennworteingabe auffordern"
 188,"Administrative Templates: Windows Components","Remote Desktop Session Host: Security: Require secure RPC communication",DE,"Administrative Vorlagen: Windows-Komponenten","Remotedesktopsitzungs-Host: Sicherheit: Sichere RPC-Kommunikation anfordern"
 708,"Administrative Templates: Windows Components","Remote Desktop Session Host: Security: Require use of specific security layer for remote (RDP) connections",DE,"Administrative Vorlagen: Windows-Komponenten","Remotedesktopsitzungs-Host: Sicherheit: Verwendung einer bestimmten Sicherheitsstufe für Remoteverbindungen (RDP) ist erforderlich"
@@ -375,6 +384,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 192,"Administrative Templates: Windows Components","Search: Allow Cortana above lock screen",,,
 193,"Administrative Templates: Windows Components","Search: Allow indexing of encrypted files",DE,"Administrative Vorlagen: Windows-Komponenten","Suche: Indizieren verschlüsselter Dateien zulassen"
 194,"Administrative Templates: Windows Components","Search: Allow search and Cortana to use location",DE,"Administrative Vorlagen: Windows-Komponenten","Suche: Der Suche und Cortana die Nutzung von Positionsdaten erlauben"
+1771,"Administrative Templates: Windows Components","Search: Allow search highlights",,,
 195,"Administrative Templates: Windows Components","Search: Set what information is shared in Search",,,
 714,"Administrative Templates: Windows Components","Software Protection Platform: Turn off KMS Client Online AVS Validation",DE,"Administrative Vorlagen: Windows-Komponenten","Softwareschutz-Plattform: AVS-Onlineüberprüfung für KMS-Client ausschalten"
 715,"Administrative Templates: Windows Components","Store: Disable all apps from Microsoft Store",DE,"Administrative Vorlagen: Windows-Komponenten","Store: Alle Apps aus dem Microsoft Store deaktivieren  Hinweis: Der Name dieser Einstellung enthält einen Fehler hinsichtlich der Wortwahl zum Status, wann Store Apps deaktiviert oder aktiviert sind. Der korrekte Titel wäre ""Alle Apps aus dem Microsoft Store aktivieren""."
@@ -392,6 +402,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 208,"Administrative Templates: Windows Components","WinRM Service: Allow unencrypted traffic",DE,"Administrative Vorlagen: Windows-Komponenten","WinRM-Dienst: Unverschlüsselten Verkehr zulassen"
 209,"Administrative Templates: Windows Components","WinRM Service: Disallow WinRM from storing RunAs credentials",DE,"Administrative Vorlagen: Windows-Komponenten","WinRM-Dienst: Speichern von RunAs-Anmeldeinformationen durch WinRM nicht zulassen"
 1709,"Administrative Templates: Windows Components","Windows Defender SmartScreen: Enhanced Phishing Protection",,,
+1772,"Administrative Templates: Windows Components","Windows Defender SmartScreen: Notify Malicious",,,
 1710,"Administrative Templates: Windows Components","Windows Defender SmartScreen: Notify Password Reuse",,,
 1711,"Administrative Templates: Windows Components","Windows Defender SmartScreen: Notify Unsafe App",,,
 1712,"Administrative Templates: Windows Components","Windows Defender SmartScreen: Service Enabled",,,
@@ -399,6 +410,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 1638,"Administrative Templates: Windows Components","Windows Error Reporting: Consent: Configure Default consent",,,
 196,"Administrative Templates: Windows Components","Windows Error Reporting: Disable Windows Error Reporting",,,
 197,"Administrative Templates: Windows Components","Windows Game Recording and Broadcasting: Enables or disables Windows Game Recording and Broadcasting",DE,"Administrative Vorlagen: Windows-Komponenten","Windows-Spielaufzeichnung und -übertragung: Aktiviert oder deaktiviert die Windows-Spieleaufzeichnung und -übertragung"
+1773,"Administrative Templates: Windows Components","Windows Hello for Business: Enable ESS with Supported Peripherals",,,
 963,"Administrative Templates: Windows Components","Windows Hello for Business: Use a hardware security device",,,
 198,"Administrative Templates: Windows Components","Windows Ink Workspace: Allow Windows Ink Workspace",DE,"Administrative Vorlagen: Windows-Komponenten","Windows Ink-Arbeitsbereich: Windows Ink-Arbeitsbereich zulassen"
 734,"Administrative Templates: Windows Components","Windows Ink Workspace: Allow suggested apps in Windows Ink Workspace",DE,"Administrative Vorlagen: Windows-Komponenten","Windows Ink-Arbeitsbereich: Vorgeschlagene Apps im Windows Ink-Arbeitsbereich zulassen"
