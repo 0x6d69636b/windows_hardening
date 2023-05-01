@@ -178,6 +178,14 @@ Invoke-HardeningKitty -Mode HailMary -Log -Report -FileFindingList .\lists\findi
 
 Before HailMary is run, a finding list must be picked. It is important to check whether the settings have an influence on the stability and functionality of the system. Before running HailMary, a backup should be made.
 
+#### Create a Group Policy (experimental)
+
+Thanks to @gderybel, HardeningKitty can convert a finding list into a group policy. At the moment only registry settings can be converted and not everything has been tested yet. A new policy is created, as long as it is not assigned to an object, no change is made to the system. Use it with care.
+
+```powershell
+Invoke-HardeningKitty -Mode GPO -FileFindingList .\lists\finding_list_0x6d69636b_machine.csv -GPOName HardeningKitty-Machine-01
+```
+
 ### HardeningKitty Score
 
 Each Passed finding gives 4 points, a Low finding gives 2 points, a Medium finding gives 1 point and a High Finding gives 0 points.

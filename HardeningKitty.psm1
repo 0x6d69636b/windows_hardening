@@ -605,7 +605,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.1-1682232567"
+    $HardeningKittyVersion = "0.9.1-1682943550"
 
     #
     # Log, report and backup file
@@ -838,7 +838,7 @@
                     }
                 } Else {
                     If ($Backup) {
-                        # If this policy does not exist and the backup mode is enabled, we 
+                        # If this policy does not exist and the backup mode is enabled, we
                         # put "-NODATA-" as result to identify it as non-existing policy
                         $Result = "-NODATA-"
                     } Else {
@@ -914,7 +914,7 @@
                     }
                 } Else {
                     If ($Backup) {
-                        # If this policy does not exist and the backup mode is enabled, we 
+                        # If this policy does not exist and the backup mode is enabled, we
                         # put "-NODATA-" as result to identify it as non-existing policy
                         $Result = "-NODATA-"
                     } Else {
@@ -1876,7 +1876,7 @@
                 $ResultText = ""
                 # Remove this policy if it should not exists
                 If ($Finding.RecommendedValue -eq '-NODATA-') {
-                    
+
                     # Check if the key (item) already exists
                     $keyExists = $true;
                     try {
@@ -1903,9 +1903,9 @@
                         }
                     } Else {
                         # key does not exists
-                        
+
                         If ($Finding.Method -eq 'RegistryList') {
-                            # Don't show incorrect item 
+                            # Don't show incorrect item
                             $ResultText = "This value does not already exists in list policy"
                             $Message = "ID " + $Finding.ID + ", " + $Finding.RegistryPath + ", " + $ResultText
                         } Else {
@@ -1916,7 +1916,7 @@
                         $TestResult = "Passed"
                     }
 
-                    
+
                 } Else {
                     $Result = Set-ItemProperty -PassThru -Path $Finding.RegistryPath -Name $Finding.RegistryItem -Type $RegType -Value $Finding.RecommendedValue
 
@@ -3043,7 +3043,7 @@
              $Message = "The GPO Name $GPOname was not found."
              Write-ProtocolEntry -Text $Message -LogLevel "Error"
              Break
-         } 
+         }
          If ($FileFindingList.Length -eq 0) {
              # Control if a Finding list is given
              $CurrentLocation = $PSScriptRoot
