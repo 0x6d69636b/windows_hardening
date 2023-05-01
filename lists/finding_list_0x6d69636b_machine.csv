@@ -351,6 +351,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 2408,"System Services","Xbox Live Game Save (XblGameSave) (Service Startup type)",service,XblGameSave,,,,,,Manual,Disabled,=,Medium
 2409,"System Services","Xbox Live Networking Service (XboxNetApiSvc)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\XboxNetApiSvc,Start,,,,3,4,=,Medium
 2410,"System Services","Xbox Live Networking Service (XboxNetApiSvc) (Service Startup type)",service,XboxNetApiSvc,,,,,,Manual,Disabled,=,Medium
+2411,"System Services","mDNS Service",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters,EnableMDNS,0,,,,0,=,Medium
 1950,"Microsoft Defender Exploit Guard","Exploit protection: Control flow guard (CFG)",Processmitigation,Cfg.Enable,,,,,,On,ON,=,Medium
 1951,"Microsoft Defender Exploit Guard","Exploit protection: Data Execution Prevention (DEP)",Processmitigation,DEP.Enable,,,,,,On,ON,=,Medium
 1952,"Microsoft Defender Exploit Guard","Exploit protection: Override Data Execution Prevention (DEP)",Processmitigation,DEP.OverrideDEP,,,,,,False,False,=,Medium
