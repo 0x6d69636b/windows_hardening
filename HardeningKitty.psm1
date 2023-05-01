@@ -120,7 +120,7 @@
         $FileFindingList,
 
         # Choose mode, read system config, audit system config, harden system config
-        [ValidateSet("Audit", "Config", "HailMary")]
+        [ValidateSet("Audit", "Config", "HailMary", "GPO")]
         [String]
         $Mode = "Audit",
 
@@ -170,7 +170,11 @@
 
         # Use PowerShell ScriptBlock syntax to filter the finding list
         [scriptblock]
-        $Filter
+        $Filter,
+
+         # Define name of the GPO name
+        [String]
+        $GPOname
     )
 
     Function Write-ProtocolEntry {
@@ -564,6 +568,30 @@
         $Script:StatsError++
         $Message = "ID " + $FindingID + ", " + $FindingName + ", Method " + $FindingMethod + " requires $Binary and it was not found. Test skipped."
         Write-ProtocolEntry -Text $Message -LogLevel "Error"
+    }
+
+    function ConvertToInt {
+        [CmdletBinding()]
+        Param (
+
+            [String]
+            $string
+        )
+        $int64 = $null
+        $int32 = $null
+
+        # Attempt to parse the string as an Int32
+        if ([Int32]::TryParse($string, [ref]$int32)) {
+            return $int32
+        }
+
+        # Attempt to parse the string as an Int64
+        if ([Int64]::TryParse($string, [ref]$int64)) {
+            return $int64
+        }
+
+        # If the string cannot be parsed as either an Int32 or an Int64, throw an error
+        throw "Cannot convert string '$string' to an integer."
     }
 
     #
@@ -3000,6 +3028,103 @@
             }
         }
     }
+
+
+    #
+    # Start GPO mode
+    # HardeningKitty configures all settings in a finding list file.
+    # Even though HardeningKitty works very carefully.
+    # The GPO mode create a GPO containing every registry method remediation.
+    #
+    Elseif ($Mode -eq "GPO") {
+         Write-Output "`n"
+         If ($GPOname.Length -eq 0) {
+             # Control if a GPO name is given
+             $Message = "The GPO Name $GPOname was not found."
+             Write-ProtocolEntry -Text $Message -LogLevel "Error"
+             Break
+         } 
+         If ($FileFindingList.Length -eq 0) {
+             # Control if a Finding list is given
+             $CurrentLocation = $PSScriptRoot
+             $DefaultList = "$CurrentLocation\lists\finding_list_0x6d69636b_machine.csv"
+
+             If (Test-Path -Path $DefaultList) {
+                 $FileFindingList = $DefaultList
+             } Else {
+                 $Message = "The finding list $DefaultList was not found."
+                 Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                 Break
+             }
+         }
+
+         # Should check if user is domain admin
+
+         Try
+         {
+             New-GPO -Name $GPOname -ErrorAction Stop | Out-Null
+         }
+         Catch [System.ArgumentException] {
+             # Control if the Name of the GPO is ok
+             Write-ProtocolEntry -Text $_.Exception.Message -LogLevel "Error"
+             Break
+         }
+
+         # Iterrate over finding list
+         $FindingList = Import-Csv -Path $FileFindingList -Delimiter ","
+         ForEach ($Finding in $FindingList) {
+             #
+             # Only Registry Method Policies
+             #
+             If ($Finding.Method -eq "Registry") {
+                 $RegType = "String"
+
+                 #
+                 # Basically this is true, but there is an exception for the finding "MitigationOptions_FontBocking",
+                 # the value "10000000000" is written to the registry as a string...
+                 #
+                 # ... and more exceptions are added over time:
+                 #
+                 # MitigationOptions_FontBocking => Mitigation Options: Untrusted Font Blocking
+                 # Machine => Network access: Remotely accessible registry paths
+                 # Retention => Event Log Service: *: Control Event Log behavior when the log file reaches its maximum size
+                 # AllocateDASD => Devices: Allowed to format and eject removable media
+                 # ScRemoveOption => Interactive logon: Smart card removal behavior
+                 # AutoAdminLogon => MSS: (AutoAdminLogon) Enable Automatic Logon (not recommended)
+                 #
+                 If ($Finding.RegistryItem -eq "MitigationOptions_FontBocking" -Or $Finding.RegistryItem -eq "Retention" -Or $Finding.RegistryItem -eq "AllocateDASD" -Or $Finding.RegistryItem -eq "ScRemoveOption" -Or $Finding.RegistryItem -eq "AutoAdminLogon") {
+                     $RegType = "String"
+                 } ElseIf ($Finding.RegistryItem -eq "Machine") {
+                     $RegType = "MultiString"
+                     $Finding.RecommendedValue = $Finding.RecommendedValue -split ";"
+                 } ElseIf ($Finding.RecommendedValue -match "^\d+$") {
+                     $RegType = "DWord"
+                     $Finding.RecommendedValue = ConvertToInt -string $Finding.RecommendedValue
+                 }
+                 $RegPath = $Finding.RegistryPath.Replace(":","")
+                 $RegItem = $Finding.RegistryItem
+
+                 try{
+                     Set-GPRegistryValue -Name $GPOname -Key $RegPath -ValueName $RegItem -Type $RegType -Value $Finding.RecommendedValue | Out-Null
+                     $ResultText = "Registry value added successfully"
+                     $Message = "ID " + $Finding.ID + ", " + $Finding.RegistryPath + ", " + $Finding.RegistryItem + ", " + $ResultText
+                     $MessageSeverity = "Passed"
+                     $TestResult = "Passed"
+                 } catch {
+                     $ResultText = "Failed to add registry key"
+                     $Message = "ID " + $Finding.ID + ", " + $Finding.RegistryPath + ", " + $ResultText
+                     $MessageSeverity = "High"
+                     $TestResult = "Failed"
+
+                 } finally {
+                     Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                     If ($Log) {
+                         Add-MessageToFile -Text $Message -File $LogFile
+                     }
+                 }
+             }
+         }
+     }
 
     Write-Output "`n"
     Write-ProtocolEntry -Text "HardeningKitty is done" -LogLevel "Info"
