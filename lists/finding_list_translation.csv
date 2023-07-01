@@ -1334,6 +1334,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 1280,"Office 2016 / Office 365","Restrict legacy JScript execution for Office (Visio)",,,
 1282,"Office 2016 / Office 365","Restrict legacy JScript execution for Office (Word)",,,
 1009,"Office 2016 / Office 365","Security Settings: ActiveX Control Initialization",,,
+1782,"Office 2016 / Office 365","Security Settings: Allow Basic Authentication prompts from network proxies",,,
 1285,"Office 2016 / Office 365","Security Settings: Allow VBA to load typelib references by path from untrusted intranet locations",,,
 1016,"Office 2016 / Office 365","Security Settings: Allow mix of policy and user locations",,,
 1290,"Office 2016 / Office 365","Security Settings: Application Guard: Prevent users from removing Application Guard protection on files",,,

@@ -54,6 +54,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 5053,"Office 2016 / Office 365","Global Options: Disable UI extending from documents and templates (Visio)",Registry,,HKCU:\software\policies\microsoft\office\16.0\common\toolbars\visio,noextensibilitycustomizationfromdocument,,,,,0,=,Medium
 5054,"Office 2016 / Office 365","Global Options: Disable UI extending from documents and templates (Word)",Registry,,HKCU:\software\policies\microsoft\office\16.0\common\toolbars\word,noextensibilitycustomizationfromdocument,,,,,1,=,Medium
 5070,"Office 2016 / Office 365","Security Settings: ActiveX Control Initialization",Registry,,HKCU:\software\policies\microsoft\office\common\security,uficontrols,,,,,6,=,Medium
+5235,"Office 2016 / Office 365","Security Settings: Allow Basic Authentication prompts from network proxies",Registry,,HKCU:\software\policies\microsoft\office\16.0\common\identity,basicauthproxybehavior,,,,,0,=,Medium
 5210,"Office 2016 / Office 365","Security Settings: Allow VBA to load typelib references by path from untrusted intranet locations",Registry,,HKCU:\software\policies\microsoft\vba\security,allowvbaintranetreferences,,,,,0,=,Medium
 5071,"Office 2016 / Office 365","Security Settings: Automation Security",Registry,,HKCU:\software\policies\microsoft\office\common\security,automationsecurity,,,,,2,=,Medium
 5211,"Office 2016 / Office 365","Security Settings: Control how Office handles form-based sign-in prompts",Registry,,HKCU:\software\policies\microsoft\office\16.0\common,fbabehavior,,,,,1,=,Medium
