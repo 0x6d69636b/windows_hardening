@@ -10,13 +10,13 @@
     RootModule = 'HardeningKitty.psm1'
 
     # Version number of this module.
-    ModuleVersion = '0.9.1'
+    ModuleVersion = '0.9.2'
 
     # Supported PSEditions
     # CompatiblePSEditions = @()
 
     # ID used to uniquely identify this module
-    GUID = '2bb9428b-c689-40e6-bc49-793c413926d4'
+    GUID = '321dfbea-1bbe-11ee-be56-0242ac120002'
 
     # Author of this module
     Author = 'Michael Schneider'
