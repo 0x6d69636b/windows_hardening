@@ -605,7 +605,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.2-1689422691"
+    $HardeningKittyVersion = "0.9.2-1689427634"
 
     #
     # Log, report and backup file
@@ -3065,8 +3065,10 @@
             Continue
         }
 
-        $CheckRsatStatus = Get-WindowsCapability -Online |? { $_.Name -like "Rsat.GroupPolicy.Management.Tools*" }
-        If (-not($CheckRsatStatus.State -eq "Installed")) {
+        # Check if the New-GPO cmdlet is available
+        try {
+            $CheckRsatStatus = Get-Command New-GPO -ErrorAction Stop
+        } catch {
             Write-BinaryError -Binary "Group Policy Management PowerShell Module" -FindingID "0" -FindingName "GPO Mode" -FindingMethod "Create a GPO"
             Continue
         }
