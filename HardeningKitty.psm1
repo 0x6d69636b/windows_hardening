@@ -605,7 +605,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.2-1688621497"
+    $HardeningKittyVersion = "0.9.2-1689422691"
 
     #
     # Log, report and backup file
@@ -3037,93 +3037,104 @@
     # The GPO mode create a GPO containing every registry method remediation.
     #
     Elseif ($Mode -eq "GPO") {
-         Write-Output "`n"
-         If ($GPOname.Length -eq 0) {
-             # Control if a GPO name is given
-             $Message = "The GPO Name $GPOname was not found."
-             Write-ProtocolEntry -Text $Message -LogLevel "Error"
-             Break
-         }
-         If ($FileFindingList.Length -eq 0) {
-             # Control if a Finding list is given
-             $CurrentLocation = $PSScriptRoot
-             $DefaultList = "$CurrentLocation\lists\finding_list_0x6d69636b_machine.csv"
 
-             If (Test-Path -Path $DefaultList) {
-                 $FileFindingList = $DefaultList
-             } Else {
-                 $Message = "The finding list $DefaultList was not found."
-                 Write-ProtocolEntry -Text $Message -LogLevel "Error"
-                 Break
-             }
-         }
+        Write-Output "`n"
+        If ($GPOname.Length -eq 0) {
+            # Control if a GPO name is given
+            $Message = "The GPO Name $GPOname was not found."
+            Write-ProtocolEntry -Text $Message -LogLevel "Error"
+            Break
+        }
+        If ($FileFindingList.Length -eq 0) {
+            # Control if a Finding list is given
+            $CurrentLocation = $PSScriptRoot
+            $DefaultList = "$CurrentLocation\lists\finding_list_0x6d69636b_machine.csv"
 
-         # Should check if user is domain admin
+            If (Test-Path -Path $DefaultList) {
+                $FileFindingList = $DefaultList
+            } Else {
+                $Message = "The finding list $DefaultList was not found."
+                Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                Break
+            }
+        }
 
-         Try
-         {
-             New-GPO -Name $GPOname -ErrorAction Stop | Out-Null
-         }
-         Catch [System.ArgumentException] {
-             # Control if the Name of the GPO is ok
-             Write-ProtocolEntry -Text $_.Exception.Message -LogLevel "Error"
-             Break
-         }
+        # Check if the user has admin rights, skip test if not
+        If (-not($IsAdmin)) {
+            Write-NotAdminError -FindingID "0" -FindingName "GPO Mode" -FindingMethod "Create a GPO"
+            Continue
+        }
 
-         # Iterrate over finding list
-         $FindingList = Import-Csv -Path $FileFindingList -Delimiter ","
-         ForEach ($Finding in $FindingList) {
-             #
-             # Only Registry Method Policies
-             #
-             If ($Finding.Method -eq "Registry") {
-                 $RegType = "String"
+        $CheckRsatStatus = Get-WindowsCapability -Online |? { $_.Name -like "Rsat.GroupPolicy.Management.Tools*" }
+        If (-not($CheckRsatStatus.State -eq "Installed")) {
+            Write-BinaryError -Binary "Group Policy Management PowerShell Module" -FindingID "0" -FindingName "GPO Mode" -FindingMethod "Create a GPO"
+            Continue
+        }
 
-                 #
-                 # Basically this is true, but there is an exception for the finding "MitigationOptions_FontBocking",
-                 # the value "10000000000" is written to the registry as a string...
-                 #
-                 # ... and more exceptions are added over time:
-                 #
-                 # MitigationOptions_FontBocking => Mitigation Options: Untrusted Font Blocking
-                 # Machine => Network access: Remotely accessible registry paths
-                 # Retention => Event Log Service: *: Control Event Log behavior when the log file reaches its maximum size
-                 # AllocateDASD => Devices: Allowed to format and eject removable media
-                 # ScRemoveOption => Interactive logon: Smart card removal behavior
-                 # AutoAdminLogon => MSS: (AutoAdminLogon) Enable Automatic Logon (not recommended)
-                 #
-                 If ($Finding.RegistryItem -eq "MitigationOptions_FontBocking" -Or $Finding.RegistryItem -eq "Retention" -Or $Finding.RegistryItem -eq "AllocateDASD" -Or $Finding.RegistryItem -eq "ScRemoveOption" -Or $Finding.RegistryItem -eq "AutoAdminLogon") {
-                     $RegType = "String"
-                 } ElseIf ($Finding.RegistryItem -eq "Machine") {
-                     $RegType = "MultiString"
-                     $Finding.RecommendedValue = $Finding.RecommendedValue -split ";"
-                 } ElseIf ($Finding.RecommendedValue -match "^\d+$") {
-                     $RegType = "DWord"
-                     $Finding.RecommendedValue = ConvertToInt -string $Finding.RecommendedValue
-                 }
-                 $RegPath = $Finding.RegistryPath.Replace(":","")
-                 $RegItem = $Finding.RegistryItem
+        # Should check if user is domain admin
+        try {
+            New-GPO -Name $GPOname -ErrorAction Stop | Out-Null
+        }
+        catch [System.ArgumentException] {
+            # Control if the Name of the GPO is ok
+            Write-ProtocolEntry -Text $_.Exception.Message -LogLevel "Error"
+            Break
+        }
 
-                 try{
-                     Set-GPRegistryValue -Name $GPOname -Key $RegPath -ValueName $RegItem -Type $RegType -Value $Finding.RecommendedValue | Out-Null
-                     $ResultText = "Registry value added successfully"
-                     $Message = "ID " + $Finding.ID + ", " + $Finding.RegistryPath + ", " + $Finding.RegistryItem + ", " + $ResultText
-                     $MessageSeverity = "Passed"
-                     $TestResult = "Passed"
-                 } catch {
-                     $ResultText = "Failed to add registry key"
-                     $Message = "ID " + $Finding.ID + ", " + $Finding.RegistryPath + ", " + $ResultText
-                     $MessageSeverity = "High"
-                     $TestResult = "Failed"
+        # Iterrate over finding list
+        $FindingList = Import-Csv -Path $FileFindingList -Delimiter ","
+        ForEach ($Finding in $FindingList) {
+            #
+            # Only Registry Method Policies
+            #
+            If ($Finding.Method -eq "Registry") {
+                $RegType = "String"
 
-                 } finally {
-                     Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-                     If ($Log) {
-                         Add-MessageToFile -Text $Message -File $LogFile
-                     }
-                 }
-             }
-         }
+                #
+                # Basically this is true, but there is an exception for the finding "MitigationOptions_FontBocking",
+                # the value "10000000000" is written to the registry as a string...
+                #
+                # ... and more exceptions are added over time:
+                #
+                # MitigationOptions_FontBocking => Mitigation Options: Untrusted Font Blocking
+                # Machine => Network access: Remotely accessible registry paths
+                # Retention => Event Log Service: *: Control Event Log behavior when the log file reaches its maximum size
+                # AllocateDASD => Devices: Allowed to format and eject removable media
+                # ScRemoveOption => Interactive logon: Smart card removal behavior
+                # AutoAdminLogon => MSS: (AutoAdminLogon) Enable Automatic Logon (not recommended)
+                #
+                If ($Finding.RegistryItem -eq "MitigationOptions_FontBocking" -Or $Finding.RegistryItem -eq "Retention" -Or $Finding.RegistryItem -eq "AllocateDASD" -Or $Finding.RegistryItem -eq "ScRemoveOption" -Or $Finding.RegistryItem -eq "AutoAdminLogon") {
+                    $RegType = "String"
+                } ElseIf ($Finding.RegistryItem -eq "Machine") {
+                    $RegType = "MultiString"
+                    $Finding.RecommendedValue = $Finding.RecommendedValue -split ";"
+                } ElseIf ($Finding.RecommendedValue -match "^\d+$") {
+                    $RegType = "DWord"
+                    $Finding.RecommendedValue = ConvertToInt -string $Finding.RecommendedValue
+                }
+                $RegPath = $Finding.RegistryPath.Replace(":","")
+                $RegItem = $Finding.RegistryItem
+
+                try {
+                    Set-GPRegistryValue -Name $GPOname -Key $RegPath -ValueName $RegItem -Type $RegType -Value $Finding.RecommendedValue | Out-Null
+                    $ResultText = "Registry value added successfully"
+                    $Message = "ID " + $Finding.ID + ", " + $Finding.RegistryPath + ", " + $Finding.RegistryItem + ", " + $ResultText
+                    $MessageSeverity = "Passed"
+                    $TestResult = "Passed"
+                } catch {
+                    $ResultText = "Failed to add registry key"
+                    $Message = "ID " + $Finding.ID + ", " + $Finding.RegistryPath + ", " + $ResultText
+                    $MessageSeverity = "High"
+                    $TestResult = "Failed"
+
+                } finally {
+                    Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                    If ($Log) {
+                        Add-MessageToFile -Text $Message -File $LogFile
+                    }
+                }
+            }
+        }
      }
 
     Write-Output "`n"

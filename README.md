@@ -180,7 +180,7 @@ Before HailMary is run, a finding list must be picked. It is important to check 
 
 #### Create a Group Policy (experimental)
 
-Thanks to [@gderybel](https://github.com/gderybel), HardeningKitty can convert a finding list into a group policy. At the moment only registry settings can be converted and not everything has been tested yet. A new policy is created, as long as it is not assigned to an object, no change is made to the system. Use it with care.
+Thanks to [@gderybel](https://github.com/gderybel), HardeningKitty can convert a finding list into a group policy. As a basic requirement, the Group Policy Management PowerShell module must be installed. At the moment only registry settings can be converted and not everything has been tested yet. A new policy is created, as long as it is not assigned to an object, no change is made to the system. Use it with care.
 
 ```powershell
 Invoke-HardeningKitty -Mode GPO -FileFindingList .\lists\finding_list_0x6d69636b_machine.csv -GPOName HardeningKitty-Machine-01
