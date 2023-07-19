@@ -112,7 +112,7 @@ InstallHardeningKitty
 
 #### Audit
 
-HardeningKitty performs an audit, saves the results in a CSV file and creates a log file. The files are automatically named and receive a timestamp. Using the parameters _ReportFile_ or _LogFile_, it is also possible to assign your own name and path.
+The default mode is _audit_. HardeningKitty performs an audit, saves the results to a CSV file and creates a log file. The files are automatically named and receive a timestamp. Using the parameters _ReportFile_ or _LogFile_, it is also possible to assign your own name and path.
 
 The _Filter_ parameter can be used to filter the hardening list. For this purpose the PowerShell ScriptBlock syntax must be used, for example `{ $_.ID -eq 4505 }`. The following elements are useful for filtering: ID, Category, Name, Method, and Severity.
 
@@ -126,16 +126,20 @@ HardeningKitty can be executed with a specific list defined by the parameter _Fi
 Invoke-HardeningKitty -FileFindingList .\lists\finding_list_0x6d69636b_user.csv -SkipMachineInformation
 ```
 
-HardeningKitty uses the default list, and saves the results in a specific file.
-
-```powershell
-Invoke-HardeningKitty -Mode Config -Report -ReportFile C:\tmp\my_hardeningkitty_report.csv
-```
-
 HardeningKitty uses the default list, and checks only tests with the severity Medium.
 
 ```powershell
 Invoke-HardeningKitty -Filter { $_.Severity -eq "Medium" }
+```
+
+#### Config
+
+The mode _config_ retrives all current settings of a system. If a setting has not been configured, HardeningKitty will use a default value stored in the finding list. This mode can be combined with other functions, for example to create a backup.
+
+HardeningKitty gets the current settings and stores them in a report:
+
+```powershell
+Invoke-HardeningKitty -Mode Config -Report -ReportFile C:\tmp\my_hardeningkitty_report.csv
 ```
 
 #### Backup
