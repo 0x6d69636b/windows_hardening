@@ -605,7 +605,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.2-1689427634"
+    $HardeningKittyVersion = "0.9.2-1690255284"
 
     #
     # Log, report and backup file
@@ -843,6 +843,10 @@
                         $Result = "-NODATA-"
                     } Else {
                         $Result = $Finding.DefaultValue
+                        # Multiline Registry Keys need a semicolon instead of a space
+                        If ($Finding.RegistryItem -eq "Machine") {
+                            $Result = $Result.Replace(";", " ")
+                        }
                     }
                 }
             }
@@ -1448,7 +1452,7 @@
                 # Hardened UNC Paths => Remove spaces in result and recommendation only if result is not null or empty
                 #
                 If ($Finding.Method -eq 'Registry' -and $Finding.RegistryItem -eq "Machine") {
-                    $Finding.RecommendedValue = $Finding.RecommendedValue.Replace(";", " ")
+                    # $Finding.RecommendedValue = $Finding.RecommendedValue.Replace(";", " ")
                 } ElseIf ($Finding.Method -eq 'Registry' -and $Finding.RegistryPath -eq "HKLM:\Software\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths") {
                     If (![string]::IsNullOrEmpty($Result)) {
                         $Result = $Result.Replace(" ", "")
