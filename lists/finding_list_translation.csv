@@ -1223,6 +1223,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 974,"Office 2016 / Office 365","Microsoft Excel: Force file extension to match file type",,,
 971,"Office 2016 / Office 365","Microsoft Excel: Load pictures from Web pages not created in Excel",,,
 1660,"Office 2016 / Office 365","Microsoft Excel: Prevent Excel from running XLM macros",,,
+1783,"Office 2016 / Office 365","Microsoft Excel: Python Notification Settings",,,
 1297,"Office 2016 / Office 365","Microsoft Excel: Require that application add-ins are signed by Trusted Publisher",,,
 975,"Office 2016 / Office 365","Microsoft Excel: Scan encrypted macros in Excel Open XML workbooks",,,
 997,"Office 2016 / Office 365","Microsoft Excel: Set document behavior if file validation fails (Allow edit in Protected View)",,,

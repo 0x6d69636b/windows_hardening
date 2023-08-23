@@ -666,7 +666,7 @@ For Office 365 Hardening, lists [Microsoft 365 Apps (Machine)](https://github.co
 
 Apply the following registry settings for your main/working user(s)
 
-* ID 4402, ID 4403, ID 4404: Excel registry settings
+* ID 4402, ID 4403, ID 4404, ID 4424: Excel registry settings
 * ID 4410: OneNote registry settings
 * ID 4413, ID 4414: Word registry settings
 
@@ -675,6 +675,9 @@ Apply the following registry settings for your main/working user(s)
 "DontUpdateLinks"=dword:00000001
 "DDEAllowed"=dword:00000000
 "DDECleaned"=dword:00000001
+
+[HKEY_CURRENT_USER\software\policies\microsoft\office\16.0\excel\security]
+"PythonFunctionWarnings"=dword:00000002
 
 [HKEY_CURRENT_USER\Software\Microsoft\Office\16.0\OneNote\Options]
 "DisableEmbeddedFiles"=dword:00000001
