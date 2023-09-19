@@ -961,6 +961,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 809,"Microsoft Edge","Allow user-level native messaging hosts (installed without admin permissions)",,,
 803,"Microsoft Edge","Allow users to proceed from the HTTPS warning page",,,
 1662,"Microsoft Edge","Allow using the deprecated U2F Security Key API (deprecated)",,,
+1784,"Microsoft Edge","Automatically open downloaded MHT or MHTML files from the web in Internet Explorer mode",,,
 1659,"Microsoft Edge","Configure Edge TyposquattingChecker",,,
 811,"Microsoft Edge","Configure Microsoft Defender SmartScreen",,,
 812,"Microsoft Edge","Configure Microsoft Defender SmartScreen to block potentially unwanted apps",,,

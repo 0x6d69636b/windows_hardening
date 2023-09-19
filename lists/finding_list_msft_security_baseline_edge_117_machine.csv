@@ -1,0 +1,20 @@
+ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Namespace,Property,DefaultValue,RecommendedValue,Operator,Severity
+1015,"Microsoft Edge","Allow unconfigured sites to be reloaded in Internet Explorer mode",Registry,,HKLM:\Software\Policies\Microsoft\Edge,InternetExplorerIntegrationReloadInIEModeAllowed,,,,,0,=,Low
+1000,"Microsoft Edge","Allow users to proceed from the HTTPS warning page",Registry,,HKLM:\Software\Policies\Microsoft\Edge,SSLErrorOverrideAllowed,,,,1,0,=,Low
+1026,"Microsoft Edge","Automatically open downloaded MHT or MHTML files from the web in Internet Explorer mode",Registry,,HKLM:\Software\Policies\Microsoft\Edge,InternetExplorerIntegrationZoneIdentifierMhtFileAllowed,,,,,0,=,Low
+1019,"Microsoft Edge","Enable browser legacy extension point blocking",Registry,,HKLM:\Software\Policies\Microsoft\Edge,BrowserLegacyExtensionPointsBlockingEnabled,,,,,1,=,Low
+1001,"Microsoft Edge","Enable site isolation for every site",Registry,,HKLM:\Software\Policies\Microsoft\Edge,SitePerProcess,,,,0,1,=,Low
+1023,"Microsoft Edge","Enhance images enabled",Registry,,HKLM:\Software\Policies\Microsoft\Edge,EdgeEnhanceImagesEnabled,,,,,0,=,Low
+1025,"Microsoft Edge","Force WebSQL to be enabled",Registry,,HKLM:\Software\Policies\Microsoft\Edge,WebSQLAccess,,,,,0,=,Low
+1021,"Microsoft Edge","Show the Reload in Internet Explorer mode button in the toolbar",Registry,,HKLM:\Software\Policies\Microsoft\Edge,InternetExplorerModeToolbarButtonEnabled,,,,,0,=,Low
+1017,"Microsoft Edge","Specifies whether SharedArrayBuffers can be used in a non cross-origin-isolated context",Registry,,HKLM:\Software\Policies\Microsoft\Edge,SharedArrayBufferUnrestrictedAccessAllowed,,,,,0,=,Low
+1004,"Microsoft Edge","Control which extensions cannot be installed",Registry,,HKLM:\Software\Policies\Microsoft\Edge\ExtensionInstallBlocklist,1,,,,0,*,=,Low
+1012,"Microsoft Edge","Allow Basic authentication for HTTP",Registry,,HKLM:\Software\Policies\Microsoft\Edge,BasicAuthOverHttpEnabled,,,,,0,=,Low
+1005,"Microsoft Edge","Supported authentication schemes",Registry,,HKLM:\Software\Policies\Microsoft\Edge,AuthSchemes,,,,0,"ntlm,negotiate",=,Low
+1006,"Microsoft Edge","Allow user-level native messaging hosts (installed without admin permissions)",Registry,,HKLM:\Software\Policies\Microsoft\Edge,NativeMessagingUserLevelHosts,,,,1,0,=,Low
+1016,"Microsoft Edge","Specifies whether to allow insecure websites to make requests to more-private network endpoints",Registry,,HKLM:\Software\Policies\Microsoft\Edge,InsecurePrivateNetworkRequestsAllowed,,,,,0,=,Low
+1008,"Microsoft Edge","Configure Microsoft Defender SmartScreen",Registry,,HKLM:\Software\Policies\Microsoft\Edge,SmartScreenEnabled,,,,0,1,=,Low
+1009,"Microsoft Edge","Configure Microsoft Defender SmartScreen to block potentially unwanted apps",Registry,,HKLM:\Software\Policies\Microsoft\Edge,SmartScreenPuaEnabled,,,,0,1,=,Low
+1010,"Microsoft Edge","Prevent bypassing Microsoft Defender SmartScreen prompts for sites",Registry,,HKLM:\Software\Policies\Microsoft\Edge,PreventSmartScreenPromptOverride,,,,,1,=,Low
+1011,"Microsoft Edge","Prevent bypassing of Microsoft Defender SmartScreen warnings about downloads",Registry,,HKLM:\Software\Policies\Microsoft\Edge,PreventSmartScreenPromptOverrideForFiles,,,,0,1,=,Low
+1022,"Microsoft Edge","Configure Edge TyposquattingChecker",Registry,,HKLM:\Software\Policies\Microsoft\Edge,TyposquattingCheckerEnabled,,,,,1,=,Low
