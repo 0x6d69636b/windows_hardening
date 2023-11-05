@@ -166,6 +166,9 @@ Id,CategoryEN,NameEN,Language,Category,Name
 598,"Administrative Templates: System","Kerberos: Support device authentication using certificate (DevicePKInitBehavior)",DE,"Administrative Vorlagen: System","Kerberos: Geräteauthentifizierung mittels Zertifikat unterstützen (DevicePKInitBehavior)"
 599,"Administrative Templates: System","Kerberos: Support device authentication using certificate (DevicePKInitEnabled)",DE,"Administrative Vorlagen: System","Kerberos: Geräteauthentifizierung mittels Zertifikat unterstützen (DevicePKInitEnabled)"
 131,"Administrative Templates: System","Kernel DMA Protection: Enumeration policy for external devices incompatible with Kernel DMA Protection",DE,"Administrative Vorlagen: System","Kernel-DMA-Schutz: Aufzählungsrichtlinie für externe Geräte, die nicht Kernel-DMA-Schutz kompatibel sind"
+1785,"Administrative Templates: System","LAPS: Configure password backup directory",,,
+1786,"Administrative Templates: System","LAPS: Enable password backup for DSRM accounts",,,
+1787,"Administrative Templates: System","LAPS: Enable password encryption",,,
 1707,"Administrative Templates: System","Local Security Authority: Allow Custom SSPs and APs to be loaded into LSASS",,,
 1708,"Administrative Templates: System","Local Security Authority: Configures LSASS to run as a protected process",,,
 600,"Administrative Templates: System","Locale Services: Disallow copying of user input methods to the system account for sign-in",DE,"Administrative Vorlagen: System","Gebietsschemadienste: Kopieren von Benutzereingabemethoden ins Systemkonto für die Anmeldung nicht zulassen"
@@ -644,6 +647,8 @@ Id,CategoryEN,NameEN,Language,Category,Name
 214,"Microsoft Defender Antivirus","Automatic sample submission",,,
 213,"Microsoft Defender Antivirus","Cloud-delivered protection",,,
 212,"Microsoft Defender Antivirus","Configure detection for potentially unwanted applications",DE,"Microsoft Defender Antivirus","Konfigurieren der Erkennung für potenziell unerwünschte Anwendungen"
+1788,"Microsoft Defender Antivirus","Configure local administrator merge behavior for lists",,,
+1789,"Microsoft Defender Antivirus","Control whether or not exclusions are visible to Local Admins",,,
 215,"Microsoft Defender Antivirus","Controlled folder access",,,
 1737,"Microsoft Defender Antivirus","Enable Tamper Protection (Status)",,,
 1642,"Microsoft Defender Antivirus","Enable sandboxing for Microsoft Defender Antivirus",,,
@@ -661,14 +666,19 @@ Id,CategoryEN,NameEN,Language,Category,Name
 957,"Microsoft Defender Antivirus","MAPS: Configure the 'Block at First Sight' feature",,,
 676,"Microsoft Defender Antivirus","MAPS: Join Microsoft MAPS",DE,"Microsoft Defender Antivirus","Beitritt zu Microsoft MAPS"
 956,"Microsoft Defender Antivirus","MAPS: Send file samples when further analysis is required",,,
+1791,"Microsoft Defender Antivirus","MpEngine: Configure extended cloud check",,,
 678,"Microsoft Defender Antivirus","MpEngine: Enable file hash computation feature",,,
 958,"Microsoft Defender Antivirus","MpEngine: Select cloud protection level",,,
 216,"Microsoft Defender Antivirus","Real time monitoring",,,
+1793,"Microsoft Defender Antivirus","Real-time Protection: Configure monitoring for incoming and outgoing file and program activity",,,
+1794,"Microsoft Defender Antivirus","Real-time Protection: Monitor file and program activity on your computer",,,
 959,"Microsoft Defender Antivirus","Real-time Protection: Scan all downloaded files and attachments",,,
 960,"Microsoft Defender Antivirus","Real-time Protection: Turn off real-time protection",,,
 679,"Microsoft Defender Antivirus","Real-time Protection: Turn on behavior monitoring (Policy)",DE,"Microsoft Defender Antivirus","Aktivieren der Verhaltensüberwachung"
+1796,"Microsoft Defender Antivirus","Real-time Protection: Turn on process scanning whenever real-time protection is enabled",,,
 1653,"Microsoft Defender Antivirus","Real-time Protection: Turn on script scanning",,,
 680,"Microsoft Defender Antivirus","Reporting: Configure Watson events",DE,"Microsoft Defender Antivirus","Konfigurieren von Watson-Ereignissen"
+1795,"Microsoft Defender Antivirus","Scan: Scan packed executables",,,
 681,"Microsoft Defender Antivirus","Scan: Scan removable drives",DE,"Microsoft Defender Antivirus","Scan: Scannen von Wechseldatenträgern"
 1526,"Microsoft Defender Antivirus","Scan: Specify the day of the week to run a scheduled scan",,,
 682,"Microsoft Defender Antivirus","Scan: Turn on e-mail scanning",DE,"Microsoft Defender Antivirus","Scan: Aktivieren von E-Mail-Scans"
@@ -681,6 +691,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 1532,"Microsoft Defender Antivirus","Threats: Specify threat alert levels at which default action should not be taken when detected: Medium (2)",,,
 1534,"Microsoft Defender Antivirus","Threats: Specify threat alert levels at which default action should not be taken when detected: Severe (5)",,,
 211,"Microsoft Defender Antivirus","Turn off Microsoft Defender Antivirus",DE,"Microsoft Defender Antivirus","Windows Defender Antivirus deaktivieren"
+1790,"Microsoft Defender Antivirus","Turn off routine remediation",,,
 685,"Microsoft Defender Application Guard","Allow auditing events in Microsoft Defender Application Guard",,,
 686,"Microsoft Defender Application Guard","Allow camera and microphone access in Microsoft Defender Application Guard",,,
 687,"Microsoft Defender Application Guard","Allow data persistence for Microsoft Defender Application Guard",,,
