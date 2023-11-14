@@ -1444,7 +1444,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 1583,"Schannel: TLS Settings: Protocols","Server: TLSv1.1 (Disabledbydefault)",,,
 1586,"Schannel: TLS Settings: Protocols","Server: TLSv1.2",,,
 1587,"Schannel: TLS Settings: Protocols","Server: TLSv1.2 (Disabledbydefault)",,,
-1622,"Schannel: TLS Settings: Protocols","Server: TLSv1.3 ",,,
+1622,"Schannel: TLS Settings: Protocols","Server: TLSv1.3",,,
 1623,"Schannel: TLS Settings: Protocols","Server: TLSv1.3 (Disabledbydefault)",,,
 1714,"Scheduled Task","XblGameSave Standby Task",,,
 379,"Security Options","Accounts: Administrator account status",DE,Sicherheitseinstellungen,"Konten: Administratorkontostatus"

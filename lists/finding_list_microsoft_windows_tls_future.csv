@@ -27,10 +27,10 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 1025,"Schannel: TLS Settings: Protocols","Server: TLSv1.2 (Disabledbydefault)",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server",Disabledbydefault,,,,,0,=,Medium
 1026,"Schannel: TLS Settings: Protocols","Client: TLSv1.2",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client",Enabled,,,,,1,=,Medium
 1027,"Schannel: TLS Settings: Protocols","Client: TLSv1.2 (Disabledbydefault)",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client",Disabledbydefault,,,,,0,=,Medium
-1060,"Schannel: TLS Settings: Protocols","Server: TLSv1.3 ",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.3\Server",Enabled,,,,,0,=,Medium
-1061,"Schannel: TLS Settings: Protocols","Server: TLSv1.3 (Disabledbydefault)",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.3\Server",Disabledbydefault,,,,,1,=,Medium
-1062,"Schannel: TLS Settings: Protocols","Client: TLSv1.3",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.3\Client",Enabled,,,,,0,=,Medium
-1063,"Schannel: TLS Settings: Protocols","Client: TLSv1.3 (Disabledbydefault)",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.3\Client",Disabledbydefault,,,,,1,=,Medium
+1060,"Schannel: TLS Settings: Protocols","Server: TLSv1.3",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.3\Server",Enabled,,,,,1,=,Medium
+1061,"Schannel: TLS Settings: Protocols","Server: TLSv1.3 (Disabledbydefault)",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.3\Server",Disabledbydefault,,,,,0,=,Medium
+1062,"Schannel: TLS Settings: Protocols","Client: TLSv1.3",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.3\Client",Enabled,,,,,1,=,Medium
+1063,"Schannel: TLS Settings: Protocols","Client: TLSv1.3 (Disabledbydefault)",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.3\Client",Disabledbydefault,,,,,0,=,Medium
 1028,"Schannel: TLS Settings: Ciphers",NULL,Registry,,HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\NULL,Enabled,,,,,0,=,High
 1029,"Schannel: TLS Settings: Ciphers","DES 56/56",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\DES 56/56",Enabled,,,,,0,=,High
 1030,"Schannel: TLS Settings: Ciphers","RC2 40/128",Registry,,"HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC2 40/128",Enabled,,,,,0,=,High
