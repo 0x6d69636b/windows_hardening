@@ -605,7 +605,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.3-1701693447"
+    $HardeningKittyVersion = "0.9.3-1702922807"
 
     #
     # Log, report and backup file
@@ -621,14 +621,39 @@
         $ListName = [System.IO.Path]::GetFileNameWithoutExtension($FileFindingList)
     }
 
-    If ($Log -and $LogFile.Length -eq 0) {
-        $LogFile = "hardeningkitty_log_" + $Hostname + "_" + $ListName + "-$FileDate.log"
+    If ($Log) {
+        If ($LogFile.Length -eq 0) {
+            $LogFile = "hardeningkitty_log_" + $Hostname + "_" + $ListName + "-$FileDate.log"
+        } ElseIf ($(Split-Path -Path $LogFile).Length -ne 0) {
+            If ( -Not(Test-Path -Path $(Split-Path $LogFile))) {
+                $Message = "The path to your log file does not exist."
+                $Log = $false
+                Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                Break
+            }
+        }
     }
-    If ($Report -and $ReportFile.Length -eq 0) {
-        $ReportFile = "hardeningkitty_report_" + $Hostname + "_" + $ListName + "-$FileDate.csv"
+    If ($Report) {
+        If ($ReportFile.Length -eq 0) {
+            $ReportFile = "hardeningkitty_report_" + $Hostname + "_" + $ListName + "-$FileDate.csv"
+        } ElseIf ($(Split-Path -Path $ReportFile).Length -ne 0) {
+            If ( -Not(Test-Path -Path $(Split-Path $ReportFile))) {
+                $Message = "The path to your report file does not exist."
+                Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                Break
+            }
+        }
     }
-    If ($Backup -and $BackupFile.Length -eq 0) {
-        $BackupFile = "hardeningkitty_backup_" + $Hostname + "_" + $ListName + "-$FileDate.csv"
+    If ($Backup) {
+        If ($BackupFile.Length -eq 0) {
+            $BackupFile = "hardeningkitty_backup_" + $Hostname + "_" + $ListName + "-$FileDate.csv"
+        } ElseIf ($(Split-Path -Path $BackupFile).Length -ne 0) {
+            If ( -Not(Test-Path -Path $(Split-Path $BackupFile))) {
+                $Message = "The path to your backup file does not exist."
+                Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                Break
+            }
+        }
     }
     $ReportAllResults = @()
     $BackupAllResults = @()
