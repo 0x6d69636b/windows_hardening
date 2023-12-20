@@ -425,18 +425,6 @@ These settings are already set by default. If these settings are different, the 
 * ID 1967: Do not use exclusions for ASR Rules: **empty list**
 * ID 1965: Set _Microsoft Defender Exploit Guard\Network Protection\Prevent users and apps from accessing dangerous websites_ to **Block**
 
-#### Microsoft Defender Application Guard
-
-Application Guard can be used in _Standalone mode_ on Windows 10 Pro and Enterprise edition, and in _Enterprise-managed mode_ in Windows 10 Enterprise. To use Application Guard in standalone mode, Microsoft Edge must be started manually with Application Guard.
-
-In enterprise-managed mode, trusted zones can be defined via the network isolation settings and then Application Guard is automatically applied.
-
-* ID 1980: Enable Support for _Microsoft Defender Application Guard_
-	* Check Status: `Get-WindowsOptionalFeature -Online -FeatureName Windows-Defender-ApplicationGuard`
-	* Enable: `Enable-WindowsOptionalFeature -Online -FeatureName Windows-Defender-ApplicationGuard`
-* ID 1981: Set _Turn on Microsoft Defender Application Guard in Managed Mode_ to **Enabled: 3** (Enable Microsoft Defender Application Guard for Microsoft Edge AND isolated Windows environments)
-* ID 1982: Set _Allow auditing events in Microsoft Defender Application Guard_ to **Enabled**
-
 #### News and interests
 
 * ID 1767: Set _Enable news and interests on the taskbar_ to **Disabled**
