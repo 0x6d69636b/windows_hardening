@@ -605,7 +605,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.3-1702922807"
+    $HardeningKittyVersion = "0.9.3-1709581849"
 
     #
     # Log, report and backup file
@@ -2796,6 +2796,12 @@
                 # Check if the user has admin rights, skip test if not
                 If (-not($IsAdmin)) {
                     Write-NotAdminError -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
+                    Continue
+                }
+
+                $FwState = $Finding.RecommendedValue
+                If ($FwState -eq 'False') {
+                    # Do not create a firewall rule with state equal to false
                     Continue
                 }
 
