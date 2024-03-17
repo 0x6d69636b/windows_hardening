@@ -222,7 +222,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 1817,"Microsoft Defender Antivirus","MAPS: Configure the 'Block at First Sight' feature",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Spynet",DisableBlockAtFirstSeen,,,,,0,=,Medium
 1818,"Microsoft Defender Antivirus","MAPS: Send file samples when further analysis is required",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Spynet",SubmitSamplesConsent,,,,,0,=,Medium
 1819,"Microsoft Defender Antivirus","MpEngine: Enable file hash computation feature",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\MpEngine",EnableFileHashComputation,,,,,1,=,Medium
-1820,"Microsoft Defender Antivirus","MpEngine: Select cloud protection level",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\MpEngine",MpCloudBlockLevel,,,,,2,>=,Medium
+1820,"Microsoft Defender Antivirus","MpEngine: Select cloud protection level",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\MpEngine",MpCloudBlockLevel,,,,0,2,>=,Medium
 1821,"Microsoft Defender Antivirus","Real-time Protection: Scan all downloaded files and attachments",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Real-Time Protection",DisableIOAVProtection,,,,0,0,=,Medium
 1822,"Microsoft Defender Antivirus","Real-time Protection: Turn off real-time protection",Registry,,"HKLM:\Software\Policies\Microsoft\Windows Defender\Real-Time Protection",DisableRealtimeMonitoring,,,,0,0,=,Medium
 1823,"Microsoft Defender Antivirus","Real-time Protection: Turn on behavior monitoring (Policy)",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection",DisableBehaviorMonitoring,,,,0,0,=,Medium
