@@ -605,7 +605,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.3-1709581849"
+    $HardeningKittyVersion = "0.9.3-1712926595"
 
     #
     # Log, report and backup file
@@ -1094,11 +1094,12 @@
                     Continue
                 }
 
+                $Area = "USER_RIGHTS"
                 $TempFileName = [System.IO.Path]::GetTempFileName()
 
                 try {
 
-                    &$BinarySecedit /export /cfg $TempFileName /areas USER_RIGHTS | Out-Null
+                    &$BinarySecedit /export /cfg $TempFileName /areas $Area | Out-Null
                     $ResultOutputRaw = Get-Content -Encoding unicode $TempFileName | Select-String $Finding.MethodArgument
 
                     If ($null -eq $ResultOutputRaw) {
@@ -2017,59 +2018,7 @@
 
                 Out-IniFile -InputObject $Data -FilePath $TempFileName -Encoding Unicode
 
-                &$BinarySecedit /import /cfg $TempFileName /overwrite /areas $Area /db $TempDbFileName /quiet | Out-Null
-
-                if ($LastExitCode -ne 0) {
-                    $ResultText = "Failed to import security policy into temporary database"
-                    $Message = "ID " + $Finding.ID + ", " + $Finding.MethodArgument + ", " + $Finding.RecommendedValue + ", " + $ResultText
-                    $MessageSeverity = "High"
-                    $TestResult = "Failed"
-                    Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-                    If ($Log) {
-                        Add-MessageToFile -Text $Message -File $LogFile
-                    }
-                    If ($Report) {
-                        $ReportResult = [ordered] @{
-                            ID = $Finding.ID
-                            Category = $Finding.Category
-                            Name = $Finding.Name
-                            Severity = $MessageSeverity
-                            Result = $ResultText
-                            Recommended = ""
-                            TestResult = $TestResult
-                            SeverityFinding = ""
-                        }
-                        $ReportAllResults += $ReportResult
-                    }
-                    Remove-Item $TempFileName
-                    Remove-Item $TempDbFileName
-                    Continue
-                }
-
-                $ResultText = "Imported security policy into temporary database"
-                $Message = "ID " + $Finding.ID + ", " + $Finding.MethodArgument + ", " + $Finding.RecommendedValue + ", " + $ResultText
-                $MessageSeverity = "Passed"
-                $TestResult = "Passed"
-
-                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-                If ($Log) {
-                    Add-MessageToFile -Text $Message -File $LogFile
-                }
-                If ($Report) {
-                    $ReportResult = [ordered] @{
-                        ID = $Finding.ID
-                        Category = $Finding.Category
-                        Name = $Finding.Name
-                        Severity = $MessageSeverity
-                        Result = $ResultText
-                        Recommended = ""
-                        TestResult = $TestResult
-                        SeverityFinding = ""
-                    }
-                    $ReportAllResults += $ReportResult
-                }
-
-                &$BinarySecedit /configure /db $TempDbFileName /overwrite /areas SECURITYPOLICY /quiet | Out-Null
+                &$BinarySecedit /configure /cfg $TempFileName /overwrite /areas $Area /db $TempDbFileName /quiet | Out-Null
 
                 if ($LastExitCode -ne 0) {
                     $ResultText = "Failed to configure security policy"
@@ -2263,10 +2212,11 @@
                     Continue
                 }
 
+                $Area = "USER_RIGHTS";
                 $TempFileName = [System.IO.Path]::GetTempFileName()
                 $TempDbFileName = [System.IO.Path]::GetTempFileName()
 
-                &$BinarySecedit /export /cfg $TempFileName /areas USER_RIGHTS | Out-Null
+                &$BinarySecedit /export /cfg $TempFileName /areas $Area | Out-Null
 
                 if ($Finding.RecommendedValue -eq "") {
                     (Get-Content -Encoding unicode $TempFileName) -replace "$($Finding.MethodArgument).*", "$($Finding.MethodArgument) = " | Out-File $TempFileName
@@ -2296,42 +2246,7 @@
                     }
                 }
 
-                &$BinarySecedit /import /cfg $TempFileName /overwrite /areas USER_RIGHTS /db $TempDbFileName /quiet | Out-Null
-
-                if ($LastExitCode -ne 0) {
-                    $ResultText = "Failed to import user right assignment into temporary database"
-                    $Message = "ID " + $Finding.ID + ", " + $Finding.MethodArgument + ", " + $Finding.RecommendedValue + ", " + $ResultText
-                    $MessageSeverity = "High"
-                    Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-                    Remove-Item $TempFileName
-                    Remove-Item $TempDbFileName
-                    Continue
-                }
-
-                $ResultText = "Imported user right assignment into temporary database"
-                $Message = "ID " + $Finding.ID + ", " + $Finding.MethodArgument + ", " + $Finding.RecommendedValue + ", " + $ResultText
-                $MessageSeverity = "Passed"
-                $TestResult = "Passed"
-
-                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
-                If ($Log) {
-                    Add-MessageToFile -Text $Message -File $LogFile
-                }
-                If ($Report) {
-                    $ReportResult = [ordered] @{
-                        ID = $Finding.ID
-                        Category = $Finding.Category
-                        Name = $Finding.Name
-                        Severity = $MessageSeverity
-                        Result = $ResultText
-                        Recommended = ""
-                        TestResult = $TestResult
-                        SeverityFinding = ""
-                    }
-                    $ReportAllResults += $ReportResult
-                }
-
-                &$BinarySecedit /configure /db $TempDbFileName /overwrite /areas USER_RIGHTS /quiet | Out-Null
+                &$BinarySecedit /configure /cfg $TempFileName /overwrite /areas $Area /db $TempDbFileName /quiet | Out-Null
 
                 if ($LastExitCode -ne 0) {
                     $ResultText = "Failed to configure system user right assignment"
