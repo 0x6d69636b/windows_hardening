@@ -451,6 +451,10 @@ These settings are already set by default. If these settings are different, the 
 * ID 1744: Set _Allow search and Cortana to use location_ to **Disabled**
 * ID 1745: Set _Set what information is shared in Search_ to **Enabled: Anonymous info**
 
+#### Windows AI
+
+* ID xxxx: Set _Turn off Saving Snapshots for Windows_ to **Enabled** (Recall)
+
 #### Windows Error Reporting
 
 * ID 1746: Set _Disable Windows Error Reporting_ to **Enabled**
@@ -611,6 +615,10 @@ Example of an XML configuration file:
 
 * ID 4200: Set _Do not use diagnostic data for tailored experiences_ to **Enabled**
 * ID 4201: Set _Do not suggest third-party content in Windows spotlight_ to **Enabled**
+
+#### Windows AI
+
+* ID xxxx: Set _Turn off Saving Snapshots for Windows_ to **Enabled** (Recall)
 
 #### Windows Installer
 

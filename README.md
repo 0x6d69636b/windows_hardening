@@ -1,4 +1,4 @@
-# HardeningKitty and Windows 10 Hardening
+# HardeningKitty and Windows Hardening
 
 ## Introduction
 
