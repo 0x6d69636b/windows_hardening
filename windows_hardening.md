@@ -453,7 +453,7 @@ These settings are already set by default. If these settings are different, the 
 
 #### Windows AI
 
-* ID xxxx: Set _Turn off Saving Snapshots for Windows_ to **Enabled** (Recall)
+* ID 1776: Set _Turn off Saving Snapshots for Windows_ to **Enabled** (Recall)
 
 #### Windows Error Reporting
 
@@ -618,7 +618,7 @@ Example of an XML configuration file:
 
 #### Windows AI
 
-* ID xxxx: Set _Turn off Saving Snapshots for Windows_ to **Enabled** (Recall)
+* ID 4203: Set _Turn off Saving Snapshots for Windows_ to **Enabled** (Recall)
 
 #### Windows Installer
 
