@@ -451,10 +451,6 @@ These settings are already set by default. If these settings are different, the 
 * ID 1744: Set _Allow search and Cortana to use location_ to **Disabled**
 * ID 1745: Set _Set what information is shared in Search_ to **Enabled: Anonymous info**
 
-#### Windows AI
-
-* ID 1776: Set _Turn off Saving Snapshots for Windows_ to **Enabled** (Recall)
-
 #### Windows Error Reporting
 
 * ID 1746: Set _Disable Windows Error Reporting_ to **Enabled**
