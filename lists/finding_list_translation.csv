@@ -18,9 +18,6 @@ Id,CategoryEN,NameEN,Language,Category,Name
 343,"Account Policies","Relax minimum password length limits",,,
 4,"Account Policies","Reset account lockout counter",DE,Kontorichtlinien,"Zurücksetzungsdauer des Kontosperrungszählers"
 344,"Account Policies","Store passwords using reversible encryption",DE,Kontorichtlinien,"Kennwort mit umkehrbarer Verschlüsselung speichern"
-1667,"Administrative Templates","Printers: Allow Print Spooler to accept client connections",,,
-1668,"Administrative Templates","Printers: Point and Print Restrictions: When installing drivers for a new connection",,,
-1669,"Administrative Templates","Printers: Point and Print Restrictions: When updating drivers for an existing connection",,,
 530,"Administrative Templates: Control Panel","Allow Online Tips",DE,"Administrative Vorlagen: Systemsteuerung","Onlinetipps zulassen"
 735,"Administrative Templates: Control Panel","Enable screen saver",DE,"Administrative Vorlagen: Systemsteuerung","Bildschirmschoner aktivieren"
 801,"Administrative Templates: Control Panel","Force specific screen saver: Screen saver executable name",DE,"Administrative Vorlagen: Systemsteuerung","Bestimmten Bildschirmschoner erzwingen"
@@ -92,6 +89,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 1762,"Administrative Templates: PowerShellCore","Turn on PowerShell Transcription (Invocation)",,,
 1755,"Administrative Templates: PowerShellCore","Turn on PowerShell Transcription (PowerShell Policy)",,,
 1763,"Administrative Templates: PowerShellCore","Turn on PowerShell Transcription (PowerShell Policy)",,,
+1667,"Administrative Templates: Printers","Allow Print Spooler to accept client connections",,,
 1700,"Administrative Templates: Printers","Configure RPC connection settings (RpcAuthentication)",,,
 1699,"Administrative Templates: Printers","Configure RPC connection settings (RpcUseNamedPipeProtocol)",,,
 1702,"Administrative Templates: Printers","Configure RPC listener settings (ForceKerberosForRpc)",,,
@@ -103,7 +101,9 @@ Id,CategoryEN,NameEN,Language,Category,Name
 1650,"Administrative Templates: Printers","Only use Package Point and Print (CVE-2021-36958)",,,
 1651,"Administrative Templates: Printers","Package Point and Print - Approved servers (CVE-2021-36958)",,,
 1645,"Administrative Templates: Printers","Point and Print Restrictions: Only administrators can install printer drivers on a print server (CVE-2021-34527)",,,
+1668,"Administrative Templates: Printers","Point and Print Restrictions: When installing drivers for a new connection",,,
 1643,"Administrative Templates: Printers","Point and Print Restrictions: When installing drivers for a new connection (CVE-2021-34527)",,,
+1669,"Administrative Templates: Printers","Point and Print Restrictions: When updating drivers for an existing connection",,,
 1644,"Administrative Templates: Printers","Point and Print Restrictions: When updating drivers for an existing connection (CVE-2021-34527)",,,
 298,"Administrative Templates: Start Menu and Taskbar","Notifications: Turn off notifications network usage",,,
 577,"Administrative Templates: Start Menu and Taskbar","Notifications: Turn off notifications network usage",DE,"Administrative Vorlagen: Startmenü und Taskleiste","Benachrichtigungen: Netzwerkverwendung für Benachrichtigungen deaktivieren"
