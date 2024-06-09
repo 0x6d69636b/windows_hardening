@@ -108,6 +108,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 298,"Administrative Templates: Start Menu and Taskbar","Notifications: Turn off notifications network usage",,,
 577,"Administrative Templates: Start Menu and Taskbar","Notifications: Turn off notifications network usage",DE,"Administrative Vorlagen: Startmenü und Taskleiste","Benachrichtigungen: Netzwerkverwendung für Benachrichtigungen deaktivieren"
 299,"Administrative Templates: Start Menu and Taskbar","Notifications: Turn off toast notifications on the lock screen",DE,"Administrative Vorlagen: Startmenü und Taskleiste","Benachrichtigungen: Popupbenachrichtigungen auf gesperrtem Bildschirm deaktivieren"
+1805,"Administrative Templates: Start Menu and Taskbar","Remove Personalized Website Recommendations from the Recommended section in the Start Menu",,,
 578,"Administrative Templates: System","Audit Process Creation: Include command line in process creation events",,,
 103,"Administrative Templates: System","Credentials Delegation: Allow delegation default credentials",,,
 104,"Administrative Templates: System","Credentials Delegation: Encryption Oracle Remediation",DE,"Administrative Vorlagen: System","Delegierung von Anmeldeinformationen: Encryption Oracle-Abwehr"
@@ -168,8 +169,14 @@ Id,CategoryEN,NameEN,Language,Category,Name
 599,"Administrative Templates: System","Kerberos: Support device authentication using certificate (DevicePKInitEnabled)",DE,"Administrative Vorlagen: System","Kerberos: Geräteauthentifizierung mittels Zertifikat unterstützen (DevicePKInitEnabled)"
 131,"Administrative Templates: System","Kernel DMA Protection: Enumeration policy for external devices incompatible with Kernel DMA Protection",DE,"Administrative Vorlagen: System","Kernel-DMA-Schutz: Aufzählungsrichtlinie für externe Geräte, die nicht Kernel-DMA-Schutz kompatibel sind"
 1785,"Administrative Templates: System","LAPS: Configure password backup directory",,,
+1806,"Administrative Templates: System","LAPS: Do not allow password expiration time longer than required by policy",,,
 1786,"Administrative Templates: System","LAPS: Enable password backup for DSRM accounts",,,
 1787,"Administrative Templates: System","LAPS: Enable password encryption",,,
+1809,"Administrative Templates: System","LAPS: Password Settings: Password Age (Days)",,,
+1807,"Administrative Templates: System","LAPS: Password Settings: Password Complexity",,,
+1808,"Administrative Templates: System","LAPS: Password Settings: Password Length",,,
+1811,"Administrative Templates: System","LAPS: Post-authentication actions: Actions",,,
+1810,"Administrative Templates: System","LAPS: Post-authentication actions: Grace period (hours)",,,
 1707,"Administrative Templates: System","Local Security Authority: Allow Custom SSPs and APs to be loaded into LSASS",,,
 1708,"Administrative Templates: System","Local Security Authority: Configures LSASS to run as a protected process",,,
 600,"Administrative Templates: System","Locale Services: Disallow copying of user input methods to the system account for sign-in",DE,"Administrative Vorlagen: System","Gebietsschemadienste: Kopieren von Benutzereingabemethoden ins Systemkonto für die Anmeldung nicht zulassen"
@@ -407,6 +414,8 @@ Id,CategoryEN,NameEN,Language,Category,Name
 209,"Administrative Templates: Windows Components","WinRM Service: Disallow WinRM from storing RunAs credentials",DE,"Administrative Vorlagen: Windows-Komponenten","WinRM-Dienst: Speichern von RunAs-Anmeldeinformationen durch WinRM nicht zulassen"
 1797,"Administrative Templates: Windows Components","Windows AI​: Turn off Saving Snapshots for Windows",,,
 1798,"Administrative Templates: Windows Components","Windows AI​: Turn off Saving Snapshots for Windows (User)",,,
+1803,"Administrative Templates: Windows Components","Windows Copilot: Turn off Windows Copilot",,,
+1812,"Administrative Templates: Windows Components","Windows Defender SmartScreen: Automatic Data Collection",,,
 1709,"Administrative Templates: Windows Components","Windows Defender SmartScreen: Enhanced Phishing Protection",,,
 1772,"Administrative Templates: Windows Components","Windows Defender SmartScreen: Notify Malicious",,,
 1710,"Administrative Templates: Windows Components","Windows Defender SmartScreen: Notify Password Reuse",,,
@@ -435,7 +444,9 @@ Id,CategoryEN,NameEN,Language,Category,Name
 732,"Administrative Templates: Windows Components","Windows Update: Legacy Policies: No auto-restart with logged on users for scheduled automatic updates installations",DE,"Administrative Vorlagen: Windows-Komponenten","Windows Update: Keinen automatischen Neustart für geplante Installationen automatischer Updates durchführen, wenn Benutzer angemeldet sind"
 730,"Administrative Templates: Windows Components","Windows Update: Manage end user experience: Configure Automatic Updates",DE,"Administrative Vorlagen: Windows-Komponenten","Windows Update: Automatische Updates konfigurieren"
 731,"Administrative Templates: Windows Components","Windows Update: Manage end user experience: Configure Automatic Updates: Scheduled install day",DE,"Administrative Vorlagen: Windows-Komponenten","Windows Update: Automatische Updates konfigurieren: Geplanter Installationstag"
+1813,"Administrative Templates: Windows Components","Windows Update: Manage end user experience: Enable features introduced via servicing that are off by default",,,
 733,"Administrative Templates: Windows Components","Windows Update: Manage end user experience: Remove access to 'Pause updates' feature",DE,"Administrative Vorlagen: Windows-Komponenten","Windows Update: Zugriff auf Feature ""Updates aussetzen"" entfernen"
+1814,"Administrative Templates: Windows Components","Windows Update: Manage updates offered from Windows Update: Enable optional updates",,,
 723,"Administrative Templates: Windows Components","Windows Update: Manage updates offered from Windows Update: Manage preview builds (ManagePreviewBuilds)",,,
 724,"Administrative Templates: Windows Components","Windows Update: Manage updates offered from Windows Update: Manage preview builds (ManagePreviewBuildsPolicyValue)",,,
 726,"Administrative Templates: Windows Components","Windows Update: Manage updates offered from Windows Update: Select when Preview Builds and Feature Updates are received (BranchReadinessLevel)",,,
@@ -1697,6 +1708,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 761,"User Rights Assignment","Log on as a batch job (DC)",,,
 367,"User Rights Assignment","Log on as a service",DE,"Zuweisen von Benutzerrechten","Anmelden als Dienst"
 368,"User Rights Assignment","Log on as a service (Hyper-V)",DE,"Zuweisen von Benutzerrechten","Anmelden als Dienst (Hyper-V)"
+1804,"User Rights Assignment","Log on as a service (Windows Defender Application Guard)",,,
 369,"User Rights Assignment","Manage auditing and security log",DE,"Zuweisen von Benutzerrechten","Verwalten von Überwachungs- und Sicherheitsprotokollen"
 763,"User Rights Assignment","Manage auditing and security log (DC and Exchange)",,,
 762,"User Rights Assignment","Manage auditing and security log (DC)",,,
