@@ -142,6 +142,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 585,"Administrative Templates: System","Device Installation: Device Installation Restrictions: Prevent installation of devices using drivers that match c06ff265-ae09-48f0-812c-16753d7cba83 (SBP-2 drive)",DE,"Administrative Vorlagen: System","Geräteinstallation: Einschränkungen bei der Geräteinstallation: Installation von Geräten mit Treibern verhindern, die diesen Gerätesetupklassen entsprechen c06ff265-ae09-48f0-812c-16753d7cba83 (SBP-2 drive)"
 111,"Administrative Templates: System","Device Installation: Device Installation Restrictions: Prevent installation of devices using drivers that match d48179be-ec20-11d1-b6b8-00c04fa372a7 (SBP-2 drive)",DE,"Administrative Vorlagen: System","Geräteinstallation: Einschränkungen bei der Geräteinstallation: Installation von Geräten mit Treibern verhindern, die diesen Gerätesetupklassen entsprechen d48179be-ec20-11d1-b6b8-00c04fa372a7 (SBP-2 drive)"
 122,"Administrative Templates: System","Early Launch Antimalware: Boot-Start Driver Initialization Policy",DE,"Administrative Vorlagen: System","Antischadsoftware-Frühstart: Richtlinie für Bootstarttreiber-Initialisierung"
+1802,"Administrative Templates: System","Group Policy: Configure security policy processing: Do not apply during periodic background processing",,,
 1688,"Administrative Templates: System","Group Policy: Configure security policy processing: Process even if the Group Policy objects have not changed",,,
 587,"Administrative Templates: System","Group Policy: Continue experiences on this device",DE,"Administrative Vorlagen: System","Gruppenrichtlinie: Auf der Oberfläche dieses Geräts weiterverarbeiten"
 124,"Administrative Templates: System","Group Policy: Do not apply during periodic background processing",DE,"Administrative Vorlagen: System","Gruppenrichtlinie: Während regelmäßiger Hintergrundverarbeitung nicht übernehmen"
@@ -620,6 +621,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 1696,"MS Security Guide","Configure RPC packet level privacy setting for incoming connections",,,
 538,"MS Security Guide","Configure SMB v1 client driver",DE,"MS Security Guide","Configure SMB v1 client driver"
 539,"MS Security Guide","Configure SMB v1 server",DE,"MS Security Guide","Configure SMB v1 server"
+1801,"MS Security Guide","Enable Certificate Padding",,,
 540,"MS Security Guide","Enable Structured Exception Handling Overwrite Protection (SEHOP)",DE,"MS Security Guide","Enable Structured Exception Handling Overwrite Protection (SEHOP)"
 791,"MS Security Guide","Extended Protection for LDAP Authentication (DC)",,,
 270,"MS Security Guide","LSA Protection",DE,"MS Security Guide","LSA Protection"
@@ -1522,6 +1524,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 28,"Security Options","Network security: Minimum session security for NTLM SSP based (including secure RPC) servers",DE,Sicherheitseinstellungen,"Netzwerksicherheit: Minimale Sitzungssicherheit für NTLM-SSP-basierte Server (einschließlich sicherer RPC-Server)"
 29,"Security Options","Network security: Restrict NTLM: Audit Incoming NTLM Traffic",,,
 30,"Security Options","Network security: Restrict NTLM: Audit NTLM authentication in this domain",,,
+1800,"Security Options","Network security: Restrict NTLM: Audit NTLM authentication in this domain (DC only)",,,
 1558,"Security Options","Network security: Restrict NTLM: Incoming NTLM traffic",DE,Sicherheitseinstellungen,"Netzwerksicherheit: Beschränken von NTLM: Eingehender NTLM-Datenverkehr"
 31,"Security Options","Network security: Restrict NTLM: Outgoing NTLM traffic to remote servers",DE,Sicherheitseinstellungen,"Netzwerksicherheit: Beschränken von NTLM: Ausgehenden NTLM-Datenverkehr zu Remoteservern"
 32,"Security Options","Shutdown: Allow system to be shut down without having to log on",,,
@@ -1653,6 +1656,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 747,"User Rights Assignment","Add workstations to domain (DC)",,,
 347,"User Rights Assignment","Adjust memory quotas for a process",DE,"Zuweisen von Benutzerrechten","Anpassen von Speicherkontigenten für einen Prozess"
 6,"User Rights Assignment","Allow log on locally",DE,"Zuweisen von Benutzerrechten","Lokal anmelden zulassen"
+1799,"User Rights Assignment","Allow log on locally (DC only)",,,
 348,"User Rights Assignment","Allow log on through Remote Desktop Services",DE,"Zuweisen von Benutzerrechten","Anmelden über Remotedesktopdienste zulassen"
 748,"User Rights Assignment","Allow log on through Remote Desktop Services (DC)",,,
 749,"User Rights Assignment","Allow log on through Remote Desktop Services (Member)",,,
