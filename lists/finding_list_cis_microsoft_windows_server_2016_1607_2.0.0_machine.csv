@@ -79,8 +79,8 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 2.3.6.4,"Security Options","Domain member: Disable machine account password changes",Registry,,HKLM:\System\CurrentControlSet\Services\Netlogon\Parameters,DisablePasswordChange,,,,0,0,=,Medium
 2.3.6.5,"Security Options","Domain member: Maximum machine account password age",Registry,,HKLM:\System\CurrentControlSet\Services\Netlogon\Parameters,MaximumPasswordAge,,,,30,30,<=!0,Medium
 2.3.6.6,"Security Options","Domain member: Require strong (Windows 2000 or later) session key",Registry,,HKLM:\System\CurrentControlSet\Services\Netlogon\Parameters,RequireStrongKey,,,,1,1,=,Medium
-2.3.7.2,"Security Options","Interactive logon: Do not require CTRL+ALT+DEL",Registry,,HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System,DisableCAD,,,,1,0,=,Low
 2.3.7.1,"Security Options","Interactive logon: Don't display username at sign-in",Registry,,HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System,DontDisplayUserName,,,,0,1,=,Low
+2.3.7.2,"Security Options","Interactive logon: Do not require CTRL+ALT+DEL",Registry,,HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System,DisableCAD,,,,1,0,=,Low
 2.3.7.3,"Security Options","Interactive logon: Machine inactivity limit",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,InactivityTimeoutSecs,,,,900,900,<=!0,Medium
 2.3.7.4,"Security Options","Interactive logon: Message text for users attempting to log on",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,LegalNoticeText,,,,,,!=,Low
 2.3.7.5,"Security Options","Interactive logon: Message title for users attempting to log on",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,LegalNoticeCaption,,,,,,!=,Low
@@ -323,8 +323,8 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 18.10.7.3,"Administrative Templates: Windows Components","AutoPlay Policies: Turn off Autoplay",Registry,,HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer,NoDriveTypeAutoRun,,,,0,255,=,Medium
 18.10.8.1.1,"Administrative Templates: Windows Components","Biometrics: Facial Features: Configure enhanced anti-spoofing",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Biometrics\FacialFeatures,EnhancedAntiSpoofing,,,,,1,=,Medium
 18.10.10.1,"Administrative Templates: Windows Components","Camera: Allow Use of Camera",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Camera,AllowCamera,,,,1,0,=,Medium
-18.10.12.2,"Administrative Templates: Windows Components","Cloud Content: Turn off Microsoft consumer experiences",Registry,,HKLM:\Software\Policies\Microsoft\Windows\CloudContent,DisableWindowsConsumerFeatures,,,,0,1,=,Medium
 18.10.12.1,"Administrative Templates: Windows Components","Cloud Content: Turn off cloud consumer account state content",Registry,,HKLM:\Software\Policies\Microsoft\Windows\CloudContent,DisableConsumerAccountStateContent,,,,,1,=,Medium
+18.10.12.2,"Administrative Templates: Windows Components","Cloud Content: Turn off Microsoft consumer experiences",Registry,,HKLM:\Software\Policies\Microsoft\Windows\CloudContent,DisableWindowsConsumerFeatures,,,,0,1,=,Medium
 18.10.13.1,"Administrative Templates: Windows Components","Connect: Require pin for pairing",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\Connect,RequirePinForPairing,,,,0,1,>=,Medium
 18.10.14.1,"Administrative Templates: Windows Components","Credential User Interface: Do not display the password reveal button",Registry,,HKLM:\Software\Policies\Microsoft\Windows\CredUI,DisablePasswordReveal,,,,0,1,=,Medium
 18.10.14.2,"Administrative Templates: Windows Components","Credential User Interface: Enumerate administrator accounts on elevation",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\CredUI,EnumerateAdministrators,,,,1,0,=,Medium
