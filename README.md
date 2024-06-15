@@ -241,6 +241,8 @@ HardeningKitty can be used to audit systems against the following baselines / be
 | CIS Microsoft Windows 10 Enterprise (User) | 21H2 | 1.12.0 |
 | CIS Microsoft Windows 10 Enterprise (Machine) | 22H2 | 2.0.0 |
 | CIS Microsoft Windows 10 Enterprise (User) | 22H2 | 2.0.0 |
+| CIS Microsoft Windows 10 Enterprise (Machine) | 22H2 | 3.0.0 |
+| CIS Microsoft Windows 10 Enterprise (User) | 22H2 | 3.0.0 |
 | CIS Microsoft Windows 11 Enterprise (Machine) | 21H2 | 1.0.0 |
 | CIS Microsoft Windows 11 Enterprise (User) | 21H2 | 1.0.0 |
 | CIS Microsoft Windows 11 Enterprise (Machine) | 22H2 | 2.0.0 |
