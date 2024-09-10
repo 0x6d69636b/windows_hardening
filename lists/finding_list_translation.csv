@@ -730,6 +730,9 @@ Id,CategoryEN,NameEN,Language,Category,Name
 243,"Microsoft Defender Exploit Guard","ASR: Block Office communication application from creating child processes",DE,"Microsoft Defender Exploit Guard","ASR: Office-Kommunikationsanwendung am Erstellen von untergeordneten Prozessen hindern"
 1729,"Microsoft Defender Exploit Guard","ASR: Block Office communication application from creating child processes (Intune)",,,
 242,"Microsoft Defender Exploit Guard","ASR: Block Office communication application from creating child processes (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Office-Kommunikationsanwendung am Erstellen von untergeordneten Prozessen hindern (Richtlinie)"
+1823,"Microsoft Defender Exploit Guard","ASR: Block Webshell creation for Servers",,,
+1822,"Microsoft Defender Exploit Guard","ASR: Block Webshell creation for Servers (Intune)",,,
+1821,"Microsoft Defender Exploit Guard","ASR: Block Webshell creation for Servers (Policy)",,,
 231,"Microsoft Defender Exploit Guard","ASR: Block Win32 API calls from Office macros",DE,"Microsoft Defender Exploit Guard","ASR: Win32-API-Aufrufe von Office-Makros blockieren"
 1723,"Microsoft Defender Exploit Guard","ASR: Block Win32 API calls from Office macros (Intune)",,,
 230,"Microsoft Defender Exploit Guard","ASR: Block Win32 API calls from Office macros (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Win32-API-Aufrufe von Office-Makros blockieren (Richtlinie)"
@@ -757,9 +760,15 @@ Id,CategoryEN,NameEN,Language,Category,Name
 239,"Microsoft Defender Exploit Guard","ASR: Block process creations originating from PSExec and WMI commands",,,
 1727,"Microsoft Defender Exploit Guard","ASR: Block process creations originating from PSExec and WMI commands (Intune)",,,
 238,"Microsoft Defender Exploit Guard","ASR: Block process creations originating from PSExec and WMI commands (Policy)",,,
+1817,"Microsoft Defender Exploit Guard","ASR: Block rebooting machine in Safe Mode (preview)",,,
+1816,"Microsoft Defender Exploit Guard","ASR: Block rebooting machine in Safe Mode (preview) (Intune)",,,
+1815,"Microsoft Defender Exploit Guard","ASR: Block rebooting machine in Safe Mode (preview) (Policy)",,,
 241,"Microsoft Defender Exploit Guard","ASR: Block untrusted and unsigned processes that run from USB",DE,"Microsoft Defender Exploit Guard","ASR: Nicht vertrauenswürdige und nicht signierte Prozess, die von USB ausgeführt werden, blockieren"
 1728,"Microsoft Defender Exploit Guard","ASR: Block untrusted and unsigned processes that run from USB (Intune)",,,
 240,"Microsoft Defender Exploit Guard","ASR: Block untrusted and unsigned processes that run from USB (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Nicht vertrauenswürdige und nicht signierte Prozess, die von USB ausgeführt werden, blockieren (Richtlinie)"
+1820,"Microsoft Defender Exploit Guard","ASR: Block use of copied or impersonated system tools (preview)",,,
+1819,"Microsoft Defender Exploit Guard","ASR: Block use of copied or impersonated system tools (preview) (Intune)",,,
+1818,"Microsoft Defender Exploit Guard","ASR: Block use of copied or impersonated system tools (preview) (Policy)",,,
 1546,"Microsoft Defender Exploit Guard","ASR: Exclude files and paths from Attack Surface Reduction Rules",,,
 1732,"Microsoft Defender Exploit Guard","ASR: Exclude files and paths from Attack Surface Reduction Rules (Intune)",,,
 1545,"Microsoft Defender Exploit Guard","ASR: Exclude files and paths from Attack Surface Reduction Rules (Policy)",,,
@@ -988,7 +997,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 803,"Microsoft Edge","Allow users to proceed from the HTTPS warning page",,,
 1662,"Microsoft Edge","Allow using the deprecated U2F Security Key API (deprecated)",,,
 1784,"Microsoft Edge","Automatically open downloaded MHT or MHTML files from the web in Internet Explorer mode",,,
-1659,"Microsoft Edge","Configure Edge TyposquattingChecker",,,
+1659,"Microsoft Edge","Configure Edge Website Typo Protection",,,
 811,"Microsoft Edge","Configure Microsoft Defender SmartScreen",,,
 812,"Microsoft Edge","Configure Microsoft Defender SmartScreen to block potentially unwanted apps",,,
 696,"Microsoft Edge","Configure Password Manager",,,
@@ -999,7 +1008,9 @@ Id,CategoryEN,NameEN,Language,Category,Name
 699,"Microsoft Edge","Configure the Adobe Flash Click-to-Run setting",,,
 807,"Microsoft Edge","Control which extensions cannot be installed",,,
 806,"Microsoft Edge","Default Adobe Flash setting (obsolete)",,,
+1824,"Microsoft Edge","Dynamic Code Settings",,,
 1654,"Microsoft Edge","Enable 3DES cipher suites in TLS",,,
+1825,"Microsoft Edge","Enable Application Bound Encryption",,,
 1655,"Microsoft Edge","Enable browser legacy extension point blocking",,,
 810,"Microsoft Edge","Enable saving passwords to the password manager",,,
 804,"Microsoft Edge","Enable site isolation for every site",,,
