@@ -160,7 +160,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 5.21.1,"System Services","Remote Desktop Configuration (SessionEnv)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\SessionEnv,Start,,,,3,4,=,Medium
 5.21.2,"System Services","Remote Desktop Configuration (SessionEnv) (Service Startup type)",service,SessionEnv,,,,,,Manual,Disabled,=,Medium
 5.22.1,"System Services","Remote Desktop Services (TermService)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\TermService,Start,,,,3,4,=,Medium
-5.22.1,"System Services","Remote Desktop Services (TermService) (Service Startup type)",service,TermService,,,,,,Manual,Disabled,=,Medium
+5.22.2,"System Services","Remote Desktop Services (TermService) (Service Startup type)",service,TermService,,,,,,Manual,Disabled,=,Medium
 5.23.1,"System Services","Remote Desktop Services UserMode Port Redirector (UmRdpService)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\UmRdpService,Start,,,,3,4,=,Medium
 5.23.2,"System Services","Remote Desktop Services UserMode Port Redirector (UmRdpService) (Service Startup type)",service,UmRdpService,,,,,,Manual,Disabled,=,Medium
 5.24.1,"System Services","Remote Procedure Call (RPC) Locator (RpcLocator)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\RpcLocator,Start,,,,3,4,=,Medium
@@ -196,7 +196,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 5.39.1,"System Services","Windows PushToInstall Service (PushToInstall)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\PushToInstall,Start,,,,3,4,=,Medium
 5.39.2,"System Services","Windows PushToInstall Service (PushToInstall) (Service Startup type)",service,PushToInstall,,,,,,Manual,Disabled,=,Medium
 5.40.1,"System Services","Windows Remote Management (WS-Management) (WinRM)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\WinRM,Start,,,,3,4,=,Medium
-5.40.1,"System Services","Windows Remote Management (WS-Management) (WinRM) (Service Startup type)",service,WinRM,,,,,,Manual,Disabled,=,Medium
+5.40.2,"System Services","Windows Remote Management (WS-Management) (WinRM) (Service Startup type)",service,WinRM,,,,,,Manual,Disabled,=,Medium
 5.41.1,"System Services","World Wide Web Publishing Service (W3SVC)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\W3SVC,Start,,,,,4,=|0,Medium
 5.41.2,"System Services","World Wide Web Publishing Service (W3SVC) (Service Startup type)",service,W3SVC,,,,,,,Disabled,=|0,Medium
 5.42.1,"System Services","Xbox Accessory Management Service (XboxGipSvc)",Registry,,HKLM:\SYSTEM\CurrentControlSet\Services\XboxGipSvc,Start,,,,3,4,=,Medium
