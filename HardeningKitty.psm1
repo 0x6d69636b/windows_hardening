@@ -495,7 +495,7 @@
             .SYNOPSIS
 
                 Translate the well-known account name (user or group) into the Security Identifier (SID)
-                No attempt is made to get a Computer SID or Domain SID to identify groups such as Domain Admins,
+                No attempt is made to get a Domain SID to identify groups such as Domain Admins,
                 as the possibility for false positives is too great. In this case the account name is returned.
         #>
 
@@ -506,8 +506,15 @@
             $AccountName
         )
 
+        # Get Computer SID and set well-known local user SID
+        $ComputerSid = ((Get-LocalUser | Select-Object -First 1).SID).AccountDomainSID.ToString()
+        $LocalAdminSid = $ComputerSid + "-500"
+        $LocalGuestSid = $ComputerSid + "-501"
+
         Switch ($AccountName) {
 
+            "Administrator" { $AccountSid = $LocalAdminSid; Break }
+            "Guest" { $AccountSid = $LocalGuestSid; Break }
             "BUILTIN\Account Operators" { $AccountSid = "S-1-5-32-548"; Break }
             "BUILTIN\Administrators" { $AccountSid = "S-1-5-32-544"; Break }
             "BUILTIN\Backup Operators" { $AccountSid = "S-1-5-32-551"; Break }
@@ -605,7 +612,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.3-1712926595"
+    $HardeningKittyVersion = "0.9.3-1726808773"
 
     #
     # Log, report and backup file
