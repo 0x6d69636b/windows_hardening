@@ -542,7 +542,7 @@ These settings are already set by default. If these settings are different, the 
 * ID 2411: **Disable** _mDNS_ in _Dnscache_ service
 	* Add **EnableMDNS=dword:00000000** to _HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters_
 * ID 2401, 2402: **Disable** the service _Print Spooler (Spooler)_
-* ID 2411, 2412: **Disable** the service _WebClient (WebClient)_
+* ID 2412, 2413: **Disable** the service _WebClient (WebClient)_
 * ID 2403, 2404: **Disable** the service _Xbox Accessory Management Service (XboxGipSvc)_
 * ID 2405, 2406: **Disable** the service _Xbox Live Auth Manager (XblAuthManager)_
 * ID 2407, 2408: **Disable** the service _Xbox Live Game Save (XblGameSave)_
