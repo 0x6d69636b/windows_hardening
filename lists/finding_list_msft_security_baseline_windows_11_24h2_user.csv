@@ -1,0 +1,6 @@
+ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Namespace,Property,DefaultValue,RecommendedValue,Operator,Severity
+10000,"Administrative Templates: Start Menu and Taskbar","Notifications: Turn off toast notifications on the lock screen",Registry,,HKCU:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\PushNotifications,NoToastApplicationNotificationOnLockScreen,,,,0,1,=,Medium
+10001,"Administrative Templates: Windows Components","Cloud Content: Do not suggest third-party content in Windows spotlight",Registry,,HKCU:\Software\Policies\Microsoft\Windows\CloudContent,DisableThirdPartySuggestions,,,,0,1,=,Medium
+10002,"Internet Explorer","Turn on the auto-complete feature for user names and passwords on forms (Main)",Registry,,"HKCU:\Software\Policies\Microsoft\Internet Explorer\Main","FormSuggest Passwords",,,,,no,=,Medium
+10003,"Internet Explorer","Turn on the auto-complete feature for user names and passwords on forms (Control Panel)",Registry,,"HKCU:\Software\Policies\Microsoft\Internet Explorer\Control Panel","FormSuggest Passwords",,,,,1,=,Medium
+10004,"Internet Explorer","Turn on the auto-complete feature for user names and passwords on forms (Ask)",Registry,,"HKCU:\Software\Policies\Microsoft\Internet Explorer\Main","FormSuggest PW Ask",,,,,no,=,Medium
