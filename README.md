@@ -176,6 +176,8 @@ Invoke-HardeningKitty -Mode HailMary -Log -Report -FileFindingList ".\myBackup.c
 
 The _HailMary_ method is very powerful. It can be used to deploy a finding list on a system. All findings are set on this system as recommended in the list. With power comes responsibility. Please use this mode only if you know what you are doing. Be sure to have a backup of the system.
 
+For now, the filter function is only supported in Audit and Config mode. As the HailMary mode is a delicate matter, create your own file and remove all the lines you want to filter.
+
 ```powershell
 Invoke-HardeningKitty -Mode HailMary -Log -Report -FileFindingList .\lists\finding_list_0x6d69636b_machine.csv
 ```
