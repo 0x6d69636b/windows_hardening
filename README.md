@@ -74,12 +74,12 @@ PS C:\tmp> Invoke-HardeningKitty -EmojiSupport
 
 ### How To Install
 
-First create the directory *HardeningKitty* and for every version a sub directory like *0.9.2* in a path listed in the *PSModulePath* environment variable.
+First create the directory *HardeningKitty* and for every version a sub directory like *0.9.3* in a path listed in the *PSModulePath* environment variable.
 
 Copy the module *HardeningKitty.psm1*, *HardeningKitty.psd1*, and the *lists* directory to this new directory.
 
 ```powershell
-PS C:\tmp> $Version = "0.9.2"
+PS C:\tmp> $Version = "0.9.3"
 PS C:\tmp> New-Item -Path $Env:ProgramFiles\WindowsPowerShell\Modules\HardeningKitty\$Version -ItemType Directory
 PS C:\tmp> Copy-Item -Path .\HardeningKitty.psd1,.\HardeningKitty.psm1,.\lists\ -Destination $Env:ProgramFiles\WindowsPowerShell\Modules\HardeningKitty\$Version\ -Recurse
 ```
