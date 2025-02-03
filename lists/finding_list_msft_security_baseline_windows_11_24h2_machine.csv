@@ -413,8 +413,6 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 11043,"Administrative Templates: Windows Components","Windows Defender SmartScreen: Service Enabled",Registry,,HKLM:\Software\Policies\Microsoft\Windows\WTDS\Components,ServiceEnabled,,,,,1,=,Medium
 10951,"Administrative Templates: Windows Components","File Explorer: Configure Windows Defender SmartScreen",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\System,EnableSmartScreen,,,,1,1,=,Medium
 10954,"Administrative Templates: Windows Components","File Explorer: Configure Windows Defender SmartScreen to warn and prevent bypass",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\System,ShellSmartScreenLevel,,,,Warn,Block,=,Medium
-10952,"Microsoft Edge","Configure Windows Defender SmartScreen",Registry,,HKLM:\Software\Policies\Microsoft\MicrosoftEdge\PhishingFilter,EnabledV9,,,,,1,=,Medium
-10953,"Microsoft Edge","Prevent bypassing Microsoft Defender SmartScreen prompts for sites",Registry,,HKLM:\Software\Policies\Microsoft\MicrosoftEdge\PhishingFilter,PreventOverride,,,,,1,=,Medium
 11000,"Administrative Templates: Windows Components","Windows Game Recording and Broadcasting: Enables or disables Windows Game Recording and Broadcasting",Registry,,HKLM:\Software\Policies\Microsoft\Windows\GameDVR,AllowGameDVR,,,,1,0,=,Low
 11001,"Administrative Templates: Windows Components","Windows Ink Workspace: Allow Windows Ink Workspace",Registry,,HKLM:\Software\Policies\Microsoft\WindowsInkWorkspace,AllowWindowsInkWorkspace,,,,1,1,=,Low
 11002,"Administrative Templates: Windows Components","Windows Installer: Allow user control over installs",Registry,,HKLM:\Software\Policies\Microsoft\Windows\Installer,EnableUserControl,,,,1,0,=,Medium
