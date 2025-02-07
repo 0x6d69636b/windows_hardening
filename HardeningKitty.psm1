@@ -23,40 +23,38 @@
         to predefined values. HardeningKitty reads settings from the registry and uses other modules
         to read configurations outside the registry.
 
-
     .PARAMETER FileFindingList
 
         Path to a finding list in CSV format. HardeningKitty has one list each for machine and user settings.
-
 
     .PARAMETER Mode
 
         The mode Config only retrieves the settings, while the mode Audit performs an assessment of the settings.
         The mode HailMary hardens the system according to recommendations of the HardeningKitty list.
 
+    .PARAMETER Source
+
+        Defines whether the system is configured using Group Policy (GPO) or Microsoft Intune. The information
+        gathering process differs between these sources.
 
     .PARAMETER EmojiSupport
 
         The use of emoji is activated. The terminal should support this accordingly. Windows Terminal
         offers full support.
 
-
     .PARAMETER Log
 
         The logging function is activated. The script output is additionally logged in a file. The file
         name is assigned by HardeningKitty itself and the file is stored in the same directory as the script.
 
-
     .PARAMETER LogFile
 
         The name and location of the log file can be defined by the user.
-
 
     .PARAMETER Report
 
         The retrieved settings and their assessment result are stored in CSV format in a machine-readable format.
         The file name is assigned by HardeningKitty itself and the file is stored in the same directory as the script.
-
 
     .PARAMETER ReportFile
 
@@ -123,6 +121,11 @@
         [ValidateSet("Audit", "Config", "HailMary", "GPO")]
         [String]
         $Mode = "Audit",
+
+        # Choose source, Group Policy or Microsoft Intune
+        [ValidateSet("GPO", "Intune")]
+        [String]
+        $Source = "GPO",
 
         # Activate emoji support for Windows Terminal
         [Switch]
@@ -612,7 +615,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.4-1738953608"
+    $HardeningKittyVersion = "0.9.4-1738955650"
 
     #
     # Log, report and backup file
@@ -852,37 +855,42 @@
             #
             If ($Finding.Method -eq 'Registry') {
 
-                If (Test-Path -Path $Finding.RegistryPath) {
+                If ($Source -eq 'GPO') {
+                    If (Test-Path -Path $Finding.RegistryPath) {
 
-                    try {
-                        $Result = Get-ItemPropertyValue -Path $Finding.RegistryPath -Name $Finding.RegistryItem
-                        # Join the result with ";" character if result is an array
-                        if ($Result -is [system.array] -and ($Finding.RegistryItem -eq "Machine" -Or $Finding.RegistryItem -eq "EccCurves" -Or $Finding.RegistryItem -eq "NullSessionPipes" -Or $Finding.RegistryItem -eq "NullSessionShares")){
-                            $Result = $Result -join ";"
+                        try {
+                            $Result = Get-ItemPropertyValue -Path $Finding.RegistryPath -Name $Finding.RegistryItem
+                            # Join the result with ";" character if result is an array
+                            if ($Result -is [system.array] -and ($Finding.RegistryItem -eq "Machine" -Or $Finding.RegistryItem -eq "EccCurves" -Or $Finding.RegistryItem -eq "NullSessionPipes" -Or $Finding.RegistryItem -eq "NullSessionShares")){
+                                $Result = $Result -join ";"
+                            }
+                        } catch {
+                            If ($Backup) {
+                                # If an error occurs and the backup mode is enabled, we consider that this policy does not exist
+                                # and put "-NODATA-" as result to identify it as non-existing policy
+                                $Result = "-NODATA-"
+                            } Else {
+                                $Result = $Finding.DefaultValue
+                                $ResultDefaultVaulue = $true
+                            }
                         }
-                    } catch {
+                    } Else {
                         If ($Backup) {
-                            # If an error occurs and the backup mode is enabled, we consider that this policy does not exist
-                            # and put "-NODATA-" as result to identify it as non-existing policy
+                            # If this policy does not exist and the backup mode is enabled, we
+                            # put "-NODATA-" as result to identify it as non-existing policy
                             $Result = "-NODATA-"
                         } Else {
                             $Result = $Finding.DefaultValue
                             $ResultDefaultVaulue = $true
+                            # Multiline Registry Keys need a semicolon instead of a space
+                            If ($Finding.RegistryItem -eq "Machine") {
+                                $Result = $Result.Replace(";", " ")
+                            }
                         }
                     }
-                } Else {
-                    If ($Backup) {
-                        # If this policy does not exist and the backup mode is enabled, we
-                        # put "-NODATA-" as result to identify it as non-existing policy
-                        $Result = "-NODATA-"
-                    } Else {
-                        $Result = $Finding.DefaultValue
-                        $ResultDefaultVaulue = $true
-                        # Multiline Registry Keys need a semicolon instead of a space
-                        If ($Finding.RegistryItem -eq "Machine") {
-                            $Result = $Result.Replace(";", " ")
-                        }
-                    }
+                } ElseIf ($Source -eq 'Intune') {
+                    ###TODO
+                    $Result = "TBD"
                 }
             }
 
@@ -937,30 +945,35 @@
             #
             ElseIf ($Finding.Method -eq 'RegistryList') {
 
-                If (Test-Path -Path $Finding.RegistryPath) {
+                If ($Source -eq 'GPO') {
+                    If (Test-Path -Path $Finding.RegistryPath) {
 
-                    try {
-                        $ResultList = Get-ItemProperty -Path $Finding.RegistryPath
+                        try {
+                            $ResultList = Get-ItemProperty -Path $Finding.RegistryPath
 
-                        If ($ResultList | Where-Object { $_ -like "*" + $Finding.RegistryItem + "*" }) {
-                            $Result = $Finding.RegistryItem
-                        } Else {
-                            $Result = "-NODATA-"
+                            If ($ResultList | Where-Object { $_ -like "*" + $Finding.RegistryItem + "*" }) {
+                                $Result = $Finding.RegistryItem
+                            } Else {
+                                $Result = "-NODATA-"
+                            }
+
+                        } catch {
+                            $Result = $Finding.DefaultValue
+                            $ResultDefaultVaulue = $true
                         }
-
-                    } catch {
-                        $Result = $Finding.DefaultValue
-                        $ResultDefaultVaulue = $true
-                    }
-                } Else {
-                    If ($Backup) {
-                        # If this policy does not exist and the backup mode is enabled, we
-                        # put "-NODATA-" as result to identify it as non-existing policy
-                        $Result = "-NODATA-"
                     } Else {
-                        $Result = $Finding.DefaultValue
-                        $ResultDefaultVaulue = $true
+                        If ($Backup) {
+                            # If this policy does not exist and the backup mode is enabled, we
+                            # put "-NODATA-" as result to identify it as non-existing policy
+                            $Result = "-NODATA-"
+                        } Else {
+                            $Result = $Finding.DefaultValue
+                            $ResultDefaultVaulue = $true
+                        }
                     }
+                } ElseIf ($Source -eq 'Intune') {
+                    ###TODO
+                    $Result = "TBD"
                 }
             }
 
