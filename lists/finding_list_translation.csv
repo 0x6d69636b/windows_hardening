@@ -734,6 +734,9 @@ Id,CategoryEN,NameEN,Language,Category,Name
 1527,"Microsoft Defender Antivirus","Security Intelligence Updates: Define the number of days before spyware security intelligence is considered out of date",,,
 1528,"Microsoft Defender Antivirus","Security Intelligence Updates: Define the number of days before virus security intelligence is considered out of date",,,
 1529,"Microsoft Defender Antivirus","Security Intelligence Updates: Specify the day of the week to check for security intelligence updates",,,
+1863,"Microsoft Defender Antivirus","Select the channel for Microsoft Defender daily security intelligence updates",,,
+1864,"Microsoft Defender Antivirus","Select the channel for Microsoft Defender monthly engine updates",,,
+1865,"Microsoft Defender Antivirus","Select the channel for Microsoft Defender monthly platform updates",,,
 1530,"Microsoft Defender Antivirus","Threats: Specify threat alert levels at which default action should not be taken when detected",,,
 1533,"Microsoft Defender Antivirus","Threats: Specify threat alert levels at which default action should not be taken when detected: High (4)",,,
 1531,"Microsoft Defender Antivirus","Threats: Specify threat alert levels at which default action should not be taken when detected: Low (1)",,,
@@ -1019,6 +1022,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 261,"Microsoft Defender Exploit Guard","Exploit protection: Validate heap integrity",,,
 251,"Microsoft Defender Exploit Guard","Force use of Data Execution Prevention (DEP)",,,
 677,"Microsoft Defender Exploit Guard","Network Protection: Prevent users and apps from accessing dangerous websites",DE,"Microsoft Defender Exploit Guard","Netzwerkschutz: Benutzer- und App-Zugriff auf gefährliche Websites verhindern"
+1866,"Microsoft Defender Exploit Guard","Network Protection: This settings controls whether Network Protection is allowed to be configured into block or audit mode on Windows Server",,,
 1331,"Microsoft Defender Exploit Guard","Use a common set of exploit protection settings",,,
 691,"Microsoft Edge","Allow Address bar drop-down list suggestions",,,
 692,"Microsoft Edge","Allow Adobe Flash",,,
@@ -1523,6 +1527,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 1320,"Security Options","Domain controller: Allow vulnerable Netlogon secure channel connections",,,
 961,"Security Options","Domain controller: LDAP server channel binding token requirements",,,
 768,"Security Options","Domain controller: LDAP server signing requirements",,,
+1867,"Security Options","Domain controller: LDAP server signing requirements Enforcement",,,
 769,"Security Options","Domain controller: Refuse machine account password changes (DC)",,,
 387,"Security Options","Domain member: Digitally encrypt or sign secure channel data (always)",DE,Sicherheitseinstellungen,"Domänenmitglied: Daten des sicheren Kanals digital verschlüsseln oder signieren (immer)"
 388,"Security Options","Domain member: Digitally encrypt secure channel data (when possible)",DE,Sicherheitseinstellungen,"Domänenmitglied: Daten des sicheren Kanals digital verschlüsseln (wenn möglich)"
