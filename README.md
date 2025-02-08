@@ -330,6 +330,8 @@ HardeningKitty can be used to audit systems against the following baselines / be
 | Microsoft Security Baseline for Microsoft 365 Apps for enterprise (User) | v2206 | Final |
 | Microsoft Security Baseline for Microsoft 365 Apps for enterprise (Machine) | v2306, v2312 | Final |
 | Microsoft Security Baseline for Microsoft 365 Apps for enterprise (User) | v2306, v2312 | Final |
+| Microsoft Security Baseline for Microsoft 365 Apps for enterprise (Machine) | v2412 | Final |
+| Microsoft Security Baseline for Microsoft 365 Apps for enterprise (User) | v2412 | Final |
 | Microsoft Windows Server TLS Settings | 1809 | 1.0 |
 | Microsoft Windows Server TLS Settings (Future Use with TLSv1.3) | 1903 | 1.0 |
 
@@ -366,6 +368,7 @@ HardeningKitty can be used to audit systems against the following baselines / be
 * [Security baseline for Microsoft 365 Apps for enterprise v2206](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-for-m365-apps-for-enterprise-v2306/ba-p/3858702)
 * [Security baseline for Microsoft 365 Apps for enterprise v2306](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-for-m365-apps-for-enterprise-v2306/ba-p/3858702)
 * [Security baseline for Microsoft 365 Apps for enterprise v2312](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-review-for-m365-apps-for-enterprise-v2312/ba-p/4009591)
+* [Security Baseline for M365 Apps for enterprise v2412](https://techcommunity.microsoft.com/blog/microsoft-security-baselines/security-baseline-for-m365-apps-for-enterprise-v2412/4357320)
 * [mackwage/windows_hardening.cmd](https://gist.github.com/mackwage/08604751462126599d7e52f233490efe)
 * [Security baseline for Microsoft Edge version 87](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-for-microsoft-edge-version-87/ba-p/1950297)
 * [Security baseline for Microsoft Edge version 89](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-for-microsoft-edge-version-89/ba-p/2186265)
