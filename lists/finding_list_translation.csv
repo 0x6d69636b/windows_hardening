@@ -440,8 +440,8 @@ Id,CategoryEN,NameEN,Language,Category,Name
 206,"Administrative Templates: Windows Components","WinRM Service: Allow remote server management through WinRM",DE,"Administrative Vorlagen: Windows-Komponenten","WinRM-Dienst: Remoteserververwaltung über WinRM zulassen"
 208,"Administrative Templates: Windows Components","WinRM Service: Allow unencrypted traffic",DE,"Administrative Vorlagen: Windows-Komponenten","WinRM-Dienst: Unverschlüsselten Verkehr zulassen"
 209,"Administrative Templates: Windows Components","WinRM Service: Disallow WinRM from storing RunAs credentials",DE,"Administrative Vorlagen: Windows-Komponenten","WinRM-Dienst: Speichern von RunAs-Anmeldeinformationen durch WinRM nicht zulassen"
-1797,"Administrative Templates: Windows Components","Windows AI​: Turn off Saving Snapshots for Windows",,,
-1798,"Administrative Templates: Windows Components","Windows AI​: Turn off Saving Snapshots for Windows (User)",,,
+1797,"Administrative Templates: Windows Components","Windows AI: Turn off Saving Snapshots for Windows",,,
+1798,"Administrative Templates: Windows Components","Windows AI: Turn off Saving Snapshots for Windows (User)",,,
 1803,"Administrative Templates: Windows Components","Windows Copilot: Turn off Windows Copilot",,,
 1812,"Administrative Templates: Windows Components","Windows Defender SmartScreen: Automatic Data Collection",,,
 1709,"Administrative Templates: Windows Components","Windows Defender SmartScreen: Enhanced Phishing Protection",,,
