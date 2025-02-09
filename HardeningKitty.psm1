@@ -615,7 +615,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.4-1738955650"
+    $HardeningKittyVersion = "0.9.4-1739085299"
 
     #
     # Log, report and backup file
@@ -781,6 +781,16 @@
     }
 
     #
+    # Intune Warning
+    #
+    If ($Source -eq "Intune") {
+        Write-Output "`n"
+        Write-ProtocolEntry -Text "Intune warning" -LogLevel "Info"
+        $Message = "Hello friend, welcome to an adventure. Intune support is still in development and HardeningKitty has a lot of work to do to be able to query and evaluate Intune settings. Since you're already here, please help! Please maintain the finding lists and share information about Intune registry paths and values via discussions or issues. Since Intune support is still under development, do not expect a comprehensive review, the audit mode is not usable until further notice."
+        Write-ProtocolEntry -Text $Message -LogLevel "Warning"
+    }
+
+    #
     # User information
     #
     If (-not($SkipUserInformation)) {
@@ -857,7 +867,6 @@
 
                 If ($Source -eq 'GPO') {
                     If (Test-Path -Path $Finding.RegistryPath) {
-
                         try {
                             $Result = Get-ItemPropertyValue -Path $Finding.RegistryPath -Name $Finding.RegistryItem
                             # Join the result with ";" character if result is an array
@@ -889,8 +898,53 @@
                         }
                     }
                 } ElseIf ($Source -eq 'Intune') {
-                    ###TODO
-                    $Result = "TBD"
+                    # Check if the finding list has an Intune setting
+                    If ([string]::IsNullOrEmpty($Finding.RegistryPathIntune)) {
+                        $Result = "NotSupported"
+                    } Else {
+                        # Check if HardeningKitty needs to get the WinningProvider
+                        If ([string]::IsNullOrEmpty($Finding.RegistryPathDCP)) {
+                            # Get result directly
+                            If (Test-Path -Path $Finding.RegistryPathIntune) {
+                                try {
+                                    $Result = Get-ItemPropertyValue -Path $Finding.RegistryPathIntune -Name $Finding.RegistryItemIntune
+                                } catch {
+                                    $Result = "ErrorGettingResult"
+                                }
+                            } Else {
+                                $Result = "PathNotExists"
+                            }
+                        } Else {
+                            # Check if policy enabled and get the WinningProvider
+                            If (Test-Path -Path $Finding.RegistryPathDCP) {
+                                try {
+                                    $FindingProviderSet = $Finding.RegistryItemDCP + "_ProviderSet"
+                                    $ProviderSet = Get-ItemPropertyValue -Path $Finding.RegistryPathDCP -Name $FindingProviderSet
+                                    If ($ProviderSet -eq 1) {
+                                        $FindingWinningProvider = $Finding.RegistryItemDCP + "_WinningProvider"
+                                        $WinningProvider = Get-ItemPropertyValue -Path $Finding.RegistryPathDCP -Name $FindingWinningProvider
+                                    } Else {
+                                        $Result = "NotEnabled"
+                                    }
+                                } catch {
+                                    $Result = "NotConfigured"
+                                }
+                                # Use the WinningProvider and get the result
+                                $FindingRegistryPathIntune = $($Finding.RegistryPathIntune).Replace("{GUID}",$WinningProvider)
+                                If (Test-Path -Path $FindingRegistryPathIntune) {
+                                    try {
+                                        $Result = Get-ItemPropertyValue -Path $FindingRegistryPathIntune -Name $Finding.RegistryItemIntune
+                                    } catch {
+                                        $Result = "ErrorGettingResult"
+                                    }
+                                } Else {
+                                    $Result = "WinningProviderNotExists"
+                                }
+                            } Else {
+                                $Result = "NotConfigured"
+                            }
+                        }
+                    }
                 }
             }
 
@@ -971,9 +1025,6 @@
                             $ResultDefaultVaulue = $true
                         }
                     }
-                } ElseIf ($Source -eq 'Intune') {
-                    ###TODO
-                    $Result = "TBD"
                 }
             }
 
@@ -1521,13 +1572,15 @@
                 # Machine => Network access: Remotely accessible registry paths
                 # Hardened UNC Paths => Remove spaces in result and recommendation only if result is not null or empty
                 #
-                If ($Finding.Method -eq 'Registry' -and $Finding.RegistryItem -eq "Machine") {
-                    # $Finding.RecommendedValue = $Finding.RecommendedValue.Replace(";", " ")
-                } ElseIf ($Finding.Method -eq 'Registry' -and $Finding.RegistryPath -eq "HKLM:\Software\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths") {
-                    If (![string]::IsNullOrEmpty($Result)) {
-                        $Result = $Result.Replace(" ", "")
+                If ($Source -eq "GPO") {
+                    If ($Finding.Method -eq 'Registry' -and $Finding.RegistryItem -eq "Machine") {
+                        # $Finding.RecommendedValue = $Finding.RecommendedValue.Replace(";", " ")
+                    } ElseIf ($Finding.Method -eq 'Registry' -and $Finding.RegistryPath -eq "HKLM:\Software\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths") {
+                        If (![string]::IsNullOrEmpty($Result)) {
+                            $Result = $Result.Replace(" ", "")
+                        }
+                        $Finding.RecommendedValue = $Finding.RecommendedValue.Replace(" ", "")
                     }
-                    $Finding.RecommendedValue = $Finding.RecommendedValue.Replace(" ", "")
                 }
 
                 #
@@ -1553,18 +1606,31 @@
                     }
                 }
 
+                #
+                # Compare the result with the recommendation
+                #
                 $ResultPassed = $false
-                Switch ($Finding.Operator) {
-
-                    "="  { If ([string] $Result -eq $Finding.RecommendedValue) { $ResultPassed = $true }; Break }
-                    "<=" { try { If ([int]$Result -le [int]$Finding.RecommendedValue) { $ResultPassed = $true } } catch { $ResultPassed = $false }; Break }
-                    "<=!0" { try { If ([int]$Result -le [int]$Finding.RecommendedValue -and [int]$Result -ne 0) { $ResultPassed = $true } } catch { $ResultPassed = $false }; Break }
-                    ">=" { try { If ([int]$Result -ge [int]$Finding.RecommendedValue) { $ResultPassed = $true } } catch { $ResultPassed = $false }; Break }
-                    "contains" { If ($Result.ToString().Contains($Finding.RecommendedValue)) { $ResultPassed = $true }; Break }
-                    "!="  { If ([string] $Result -ne $Finding.RecommendedValue) { $ResultPassed = $true }; Break }
-                    "=|0" { try { If ([string]$Result -eq $Finding.RecommendedValue -or $Result.Length -eq 0) { $ResultPassed = $true } } catch { $ResultPassed = $false }; Break }
+                If ($Source -eq "Intune" -and $Finding.Method -eq "Registry") {
+                    Switch ($Finding.OperatorIntune) {
+                        "="  { If ([string] $Result -eq $Finding.RecommendedValueIntune) { $ResultPassed = $true }; Break }
+                        "<=" { try { If ([int]$Result -le [int]$Finding.RecommendedValueIntune) { $ResultPassed = $true } } catch { $ResultPassed = $false }; Break }
+                        "<=!0" { try { If ([int]$Result -le [int]$Finding.RecommendedValueIntune -and [int]$Result -ne 0) { $ResultPassed = $true } } catch { $ResultPassed = $false }; Break }
+                        ">=" { try { If ([int]$Result -ge [int]$Finding.RecommendedValueIntune) { $ResultPassed = $true } } catch { $ResultPassed = $false }; Break }
+                        "contains" { If ($Result.ToString().Contains($Finding.RecommendedValueIntune)) { $ResultPassed = $true }; Break }
+                        "!="  { If ([string] $Result -ne $Finding.RecommendedValueIntune) { $ResultPassed = $true }; Break }
+                        "=|0" { try { If ([string]$Result -eq $Finding.RecommendedValueIntune -or $Result.Length -eq 0) { $ResultPassed = $true } } catch { $ResultPassed = $false }; Break }
+                    }
+                } Else {
+                    Switch ($Finding.Operator) {
+                        "="  { If ([string] $Result -eq $Finding.RecommendedValue) { $ResultPassed = $true }; Break }
+                        "<=" { try { If ([int]$Result -le [int]$Finding.RecommendedValue) { $ResultPassed = $true } } catch { $ResultPassed = $false }; Break }
+                        "<=!0" { try { If ([int]$Result -le [int]$Finding.RecommendedValue -and [int]$Result -ne 0) { $ResultPassed = $true } } catch { $ResultPassed = $false }; Break }
+                        ">=" { try { If ([int]$Result -ge [int]$Finding.RecommendedValue) { $ResultPassed = $true } } catch { $ResultPassed = $false }; Break }
+                        "contains" { If ($Result.ToString().Contains($Finding.RecommendedValue)) { $ResultPassed = $true }; Break }
+                        "!="  { If ([string] $Result -ne $Finding.RecommendedValue) { $ResultPassed = $true }; Break }
+                        "=|0" { try { If ([string]$Result -eq $Finding.RecommendedValue -or $Result.Length -eq 0) { $ResultPassed = $true } } catch { $ResultPassed = $false }; Break }
+                    }
                 }
-
                 #
                 # Restore Result after SID translation
                 # The results are already available as SID, for better readability they are translated into their names
@@ -1590,7 +1656,12 @@
 
                     # Passed
                     $TestResult = "Passed"
-                    $Message = "ID " + $Finding.ID + ", " + $Finding.Name + ", Result=$Result, Recommended=" + $Finding.RecommendedValue + ", Severity=Passed"
+                    If ($Source -eq "Intune" -and $Finding.Method -eq "Registry") {
+                        $MessageRecommendedValue = $Finding.RecommendedValueIntune
+                    } Else {
+                        $MessageRecommendedValue = $Finding.RecommendedValue
+                    }
+                    $Message = "ID " + $Finding.ID + ", " + $Finding.Name + ", Result=$Result, Recommended=" + $MessageRecommendedValue + ", Severity=Passed"
                     Write-ResultEntry -Text $Message -SeverityLevel "Passed"
 
                     If ($Log) {
@@ -1604,7 +1675,7 @@
                             Name = $Finding.Name
                             Severity = "Passed"
                             Result = $Result
-                            Recommended = $Finding.RecommendedValue
+                            Recommended = $MessageRecommendedValue
                             TestResult = $TestResult
                             SeverityFinding = $Finding.Severity
                             DefaultValue = $ResultDefaultVaulue
@@ -1619,10 +1690,17 @@
 
                     # Failed
                     $TestResult = "Failed"
-                    If ($Finding.Operator -eq "!=") {
-                        $Message = "ID " + $Finding.ID + ", " + $Finding.Name + ", Result=$Result, Recommended=Not " + $Finding.RecommendedValue + ", Severity=" + $Finding.Severity
+                    If ($Source -eq "Intune" -and $Finding.Method -eq "Registry") {
+                        $MessageRecommendedValue = $Finding.RecommendedValueIntune
+                        $FindingOperator = $Finding.OperatorIntune
                     } Else {
-                        $Message = "ID " + $Finding.ID + ", " + $Finding.Name + ", Result=$Result, Recommended=" + $Finding.RecommendedValue + ", Severity=" + $Finding.Severity
+                        $MessageRecommendedValue = $Finding.RecommendedValue
+                        $FindingOperator = $Finding.Operator
+                    }
+                    If ($FindingOperator -eq "!=") {
+                        $Message = "ID " + $Finding.ID + ", " + $Finding.Name + ", Result=$Result, Recommended=Not " + $MessageRecommendedValue + ", Severity=" + $Finding.Severity
+                    } Else {
+                        $Message = "ID " + $Finding.ID + ", " + $Finding.Name + ", Result=$Result, Recommended=" + $MessageRecommendedValue + ", Severity=" + $Finding.Severity
                     }
 
                     Write-ResultEntry -Text $Message -SeverityLevel $Finding.Severity
@@ -1638,7 +1716,7 @@
                             Name = $Finding.Name
                             Severity = $Finding.Severity
                             Result = $Result
-                            Recommended = $Finding.RecommendedValue
+                            Recommended = $MessageRecommendedValue
                             TestResult = $TestResult
                             SeverityFinding = $Finding.Severity
                             DefaultValue = $ResultDefaultVaulue
@@ -1673,7 +1751,7 @@
                         Name = $Finding.Name
                         Severity = ""
                         Result = $Result
-                        Recommended = $Finding.RecommendedValue
+                        Recommended = ""
                         TestResult = ""
                         SeverityFinding = ""
                         DefaultValue = $ResultDefaultVaulue
