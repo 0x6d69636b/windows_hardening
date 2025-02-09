@@ -615,7 +615,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.4-1739085299"
+    $HardeningKittyVersion = "0.9.4-1739104199"
 
     #
     # Log, report and backup file
@@ -918,10 +918,10 @@
                             # Check if policy enabled and get the WinningProvider
                             If (Test-Path -Path $Finding.RegistryPathDCP) {
                                 try {
-                                    $FindingProviderSet = $Finding.RegistryItemDCP + "_ProviderSet"
+                                    $FindingProviderSet = $Finding.RegistryItemIntune + "_ProviderSet"
                                     $ProviderSet = Get-ItemPropertyValue -Path $Finding.RegistryPathDCP -Name $FindingProviderSet
                                     If ($ProviderSet -eq 1) {
-                                        $FindingWinningProvider = $Finding.RegistryItemDCP + "_WinningProvider"
+                                        $FindingWinningProvider = $Finding.RegistryItemIntune + "_WinningProvider"
                                         $WinningProvider = Get-ItemPropertyValue -Path $Finding.RegistryPathDCP -Name $FindingWinningProvider
                                     } Else {
                                         $Result = "NotEnabled"
