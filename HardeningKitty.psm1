@@ -615,7 +615,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.4-1739104199"
+    $HardeningKittyVersion = "0.9.4-1739108581"
 
     #
     # Log, report and backup file
@@ -909,7 +909,7 @@
                                 try {
                                     $Result = Get-ItemPropertyValue -Path $Finding.RegistryPathIntune -Name $Finding.RegistryItemIntune
                                 } catch {
-                                    $Result = "ErrorGettingResult"
+                                    $Result = "NotConfigured"
                                 }
                             } Else {
                                 $Result = "PathNotExists"
@@ -935,7 +935,7 @@
                                     try {
                                         $Result = Get-ItemPropertyValue -Path $FindingRegistryPathIntune -Name $Finding.RegistryItemIntune
                                     } catch {
-                                        $Result = "ErrorGettingResult"
+                                        $Result = "NotConfigured"
                                     }
                                 } Else {
                                     $Result = "WinningProviderNotExists"
@@ -1586,13 +1586,13 @@
                 #
                 # Handling for registry keys with an "advanced" format
                 #
-                If ($Finding.Method -eq 'Registry' -and $Finding.RegistryItem -eq "ASRRules") {
+                If ($Source -eq "Intune" -and $Finding.Method -eq 'Registry' -and $Finding.RegistryItemIntune -eq "AttackSurfaceReductionRules") {
 
                     try {
                         $ResultAsr = $Result.Split("|")
                         ForEach ($AsrRow in $ResultAsr) {
                             $AsrRule = $AsrRow.Split("=")
-                            If ($AsrRule[0] -eq $Finding.MethodArgument) {
+                            If ($AsrRule[0] -eq $Finding.RegistryItem) {
                                 $Result = $AsrRule[1]
                                 Break
                             } Else {
@@ -1631,6 +1631,7 @@
                         "=|0" { try { If ([string]$Result -eq $Finding.RecommendedValue -or $Result.Length -eq 0) { $ResultPassed = $true } } catch { $ResultPassed = $false }; Break }
                     }
                 }
+
                 #
                 # Restore Result after SID translation
                 # The results are already available as SID, for better readability they are translated into their names
@@ -1653,7 +1654,6 @@
                 }
 
                 If ($ResultPassed) {
-
                     # Passed
                     $TestResult = "Passed"
                     If ($Source -eq "Intune" -and $Finding.Method -eq "Registry") {
@@ -1687,7 +1687,6 @@
                     $StatsPassed++
 
                 } Else {
-
                     # Failed
                     $TestResult = "Failed"
                     If ($Source -eq "Intune" -and $Finding.Method -eq "Registry") {
