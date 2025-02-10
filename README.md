@@ -299,7 +299,7 @@ HardeningKitty can be used to audit systems against the following baselines / be
 | Microsoft Security baseline for Microsoft Edge | 112, 113 | Final |
 | Microsoft Security baseline for Microsoft Edge | 114, 115, 116 | Final |
 | Microsoft Security baseline for Microsoft Edge | 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127 | Final |
-| Microsoft Security baseline for Microsoft Edge | 128, 129, 130, 131, 132 | Final |
+| Microsoft Security baseline for Microsoft Edge | 128, 129, 130, 131, 132, 133 | Final |
 | Microsoft Security baseline for Windows 10 | 2004 | Final |
 | Microsoft Security baseline for Windows 10 | 20H2, 21H1 | Final |
 | Microsoft Security baseline for Windows 10 | 21H2 | Final |
@@ -411,7 +411,8 @@ HardeningKitty can be used to audit systems against the following baselines / be
 * [Security baseline for Microsoft Edge v129](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-review-for-microsoft-edge-version-129/ba-p/4250551)
 * [Security baseline for Microsoft Edge v130](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-review-for-microsoft-edge-version-130/ba-p/4273981)
 * [Security baseline for Microsoft Edge v131](https://techcommunity.microsoft.com/blog/microsoft-security-baselines/security-review-for-microsoft-edge-version-131/4298314)
-* [Security baseline for Microsoft Edge v132](https://techcommunity.microsoft.com/blog/microsoft-security-baselines/security-review-for-microsoft-edge-version-132/4358734
+* [Security baseline for Microsoft Edge v132](https://techcommunity.microsoft.com/blog/microsoft-security-baselines/security-review-for-microsoft-edge-version-132/4358734)
+* [Security baseline for Microsoft Edge v133](https://techcommunity.microsoft.com/blog/microsoft-security-baselines/security-review-for-microsoft-edge-version-133/4376048)
 * [Microsoft Edge - Policies](https://docs.microsoft.com/en-us/DeployEdge/microsoft-edge-policies)
 * [A hint for Office 365 Telemetry](https://twitter.com/milenkowski/status/1326865844215934979)
 * [BSI: Microsoft Office Telemetry Analysis report](https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Publikationen/Studien/Office_Telemetrie/Office_Telemetrie.pdf?__blob=publicationFile&v=5)
@@ -430,3 +431,4 @@ HardeningKitty can be used to audit systems against the following baselines / be
 * [Migrating from Windows PowerShell 5.1 to PowerShell 7](https://learn.microsoft.com/en-us/powershell/scripting/whats-new/migrating-from-windows-powershell-51-to-powershell-7)
 * [Data security and Python in Excel](https://support.microsoft.com/en-us/office/data-security-and-python-in-excel-33cc88a4-4a87-485e-9ff9-f35958278327)
 * [Deprecated features for Windows client](https://learn.microsoft.com/en-us/windows/whats-new/deprecated-features)
+* [Windows Client management - Policy CSP](https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-configuration-service-provider)
