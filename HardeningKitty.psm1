@@ -661,7 +661,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.4-1739958307"
+    $HardeningKittyVersion = "0.9.4-1739977002"
 
     #
     # Log, report and backup file
@@ -3230,6 +3230,8 @@
 
     # Write report file
     If ($Report) {
+        Write-Output "`n"
+        Write-ProtocolEntry -Text "HardeningKitty prepares the report" -LogLevel "Info"
         ForEach ($ReportResult in $ReportAllResults) {
             $ResultObject = [pscustomobject] $ReportResult
             $ResultObject | Export-Csv -Path $ReportFile -Delimiter "," -NoTypeInformation -Append
@@ -3238,6 +3240,8 @@
 
     # Write backup file
     If ($Backup) {
+        Write-Output "`n"
+        Write-ProtocolEntry -Text "HardeningKitty prepares the backup file" -LogLevel "Info"
         ForEach ($BackupResult in $BackupAllResults) {
             $BackupObject = [pscustomobject] $BackupResult
             $BackupObject | Export-Csv -Path $BackupFile -Delimiter "," -NoTypeInformation -Append
