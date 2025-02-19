@@ -547,7 +547,7 @@
         Return $AccountSid
     }
 
-    function Write-NotAdminError {
+    Function Write-NotAdminError {
         [CmdletBinding()]
         param (
             [String]
@@ -563,7 +563,7 @@
         Write-ProtocolEntry -Text $Message -LogLevel "Error"
     }
 
-    function Write-BinaryError {
+    Function Write-BinaryError {
         [CmdletBinding()]
         param (
             [String]
@@ -580,7 +580,7 @@
         Write-ProtocolEntry -Text $Message -LogLevel "Error"
     }
 
-    function ConvertToInt {
+    Function ConvertToInt {
         [CmdletBinding()]
         Param (
 
@@ -604,6 +604,52 @@
         throw "Cannot convert string '$string' to an integer."
     }
 
+    Function Get-IntuneResult {
+        # Check if the finding list has an Intune setting
+        If ([string]::IsNullOrEmpty($Finding.RegistryPathIntune)) {
+            $Result = "NotSupported"
+        } Else {
+            # Check if HardeningKitty needs to get the WinningProvider
+            If ([string]::IsNullOrEmpty($Finding.RegistryPathDCP)) {
+                # Get result directly
+                If (Test-Path -Path $Finding.RegistryPathIntune) {
+                    try {
+                        $Result = Get-ItemPropertyValue -Path $Finding.RegistryPathIntune -Name $Finding.RegistryItemIntune
+                    } catch {
+                        $Result = "NotConfigured"
+                    }
+                } Else {
+                    $Result = "PathNotExists"
+                }
+            } Else {
+                # Check if policy enabled
+                If (Test-Path -Path $Finding.RegistryPathDCP) {
+                    try {
+                        # Get the WinningProvider
+                        $FindingWinningProvider = $Finding.RegistryItemIntune + "_WinningProvider"
+                        $WinningProvider = Get-ItemPropertyValue -Path $Finding.RegistryPathDCP -Name $FindingWinningProvider
+                        # Use the WinningProvider and get the result
+                        $FindingRegistryPathIntune = $($Finding.RegistryPathIntune).Replace("{GUID}",$WinningProvider)
+                        If (Test-Path -Path $FindingRegistryPathIntune) {
+                            try {
+                                $Result = Get-ItemPropertyValue -Path $FindingRegistryPathIntune -Name $Finding.RegistryItemIntune
+                            } catch {
+                                $Result = "NotConfigured"
+                            }
+                        } Else {
+                            $Result = "WinningProviderNotExists"
+                        }
+                    } catch {
+                        $Result = "NotConfigured"
+                    }
+                } Else {
+                    $Result = "NotConfigured"
+                }
+            }
+        }
+        return $Result
+    }
+
     #
     # Binary Locations
     #
@@ -615,7 +661,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.4-1739108581"
+    $HardeningKittyVersion = "0.9.4-1739958307"
 
     #
     # Log, report and backup file
@@ -898,53 +944,7 @@
                         }
                     }
                 } ElseIf ($Source -eq 'Intune') {
-                    # Check if the finding list has an Intune setting
-                    If ([string]::IsNullOrEmpty($Finding.RegistryPathIntune)) {
-                        $Result = "NotSupported"
-                    } Else {
-                        # Check if HardeningKitty needs to get the WinningProvider
-                        If ([string]::IsNullOrEmpty($Finding.RegistryPathDCP)) {
-                            # Get result directly
-                            If (Test-Path -Path $Finding.RegistryPathIntune) {
-                                try {
-                                    $Result = Get-ItemPropertyValue -Path $Finding.RegistryPathIntune -Name $Finding.RegistryItemIntune
-                                } catch {
-                                    $Result = "NotConfigured"
-                                }
-                            } Else {
-                                $Result = "PathNotExists"
-                            }
-                        } Else {
-                            # Check if policy enabled and get the WinningProvider
-                            If (Test-Path -Path $Finding.RegistryPathDCP) {
-                                try {
-                                    $FindingProviderSet = $Finding.RegistryItemIntune + "_ProviderSet"
-                                    $ProviderSet = Get-ItemPropertyValue -Path $Finding.RegistryPathDCP -Name $FindingProviderSet
-                                    If ($ProviderSet -eq 1) {
-                                        $FindingWinningProvider = $Finding.RegistryItemIntune + "_WinningProvider"
-                                        $WinningProvider = Get-ItemPropertyValue -Path $Finding.RegistryPathDCP -Name $FindingWinningProvider
-                                    } Else {
-                                        $Result = "NotEnabled"
-                                    }
-                                } catch {
-                                    $Result = "NotConfigured"
-                                }
-                                # Use the WinningProvider and get the result
-                                $FindingRegistryPathIntune = $($Finding.RegistryPathIntune).Replace("{GUID}",$WinningProvider)
-                                If (Test-Path -Path $FindingRegistryPathIntune) {
-                                    try {
-                                        $Result = Get-ItemPropertyValue -Path $FindingRegistryPathIntune -Name $Finding.RegistryItemIntune
-                                    } catch {
-                                        $Result = "NotConfigured"
-                                    }
-                                } Else {
-                                    $Result = "WinningProviderNotExists"
-                                }
-                            } Else {
-                                $Result = "NotConfigured"
-                            }
-                        }
-                    }
+                    $Result = Get-IntuneResult
                 }
             }
 
@@ -1089,35 +1089,41 @@
             #
             ElseIf ($Finding.Method -eq 'accountpolicy') {
 
-                # Check if net binary is available, skip test if not
-                If (-Not (Test-Path $BinaryNet)) {
-                    Write-BinaryError -Binary $BinaryNet -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
-                    Continue
+                If ($Source -eq 'Intune') {
+                    $Result = Get-IntuneResult
                 }
 
-                try {
+                If ($Source -eq 'GPO' -or $Result -eq 'NotSupported') {
 
-                    $ResultOutput = &$BinaryNet accounts
-
-                    # "Parse" account policy
-                    Switch ($Finding.Name) {
-                        "Force user logoff how long after time expires" { $ResultOutput[0] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result = $Matches[2]; Break }
-                        "Network security: Force logoff when logon hours expires" { $ResultOutput[0] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result = $Matches[2]; Break }
-                        "Minimum password age" { $ResultOutput[1] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result = $Matches[2]; Break }
-                        "Maximum password age" { $ResultOutput[2] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result = $Matches[2]; Break }
-                        "Minimum password length" { $ResultOutput[3] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result = $Matches[2]; Break }
-                        "Length of password history maintained" { $ResultOutput[4] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result = $Matches[2]; Break }
-                        "Account lockout threshold" { $ResultOutput[5] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result = $Matches[2]; Break }
-                        "Account lockout duration" { $ResultOutput[6] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result = $Matches[2]; Break }
-                        "Reset account lockout counter" { $ResultOutput[7] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result = $Matches[2]; Break }
+                    # Check if net binary is available, skip test if not
+                    If (-Not (Test-Path $BinaryNet)) {
+                        Write-BinaryError -Binary $BinaryNet -FindingID $Finding.ID -FindingName $Finding.Name -FindingMethod $Finding.Method
+                        Continue
                     }
 
-                } catch {
-                    $Result = $Finding.DefaultValue
-                    $ResultDefaultVaulue = $true
+                    try {
+
+                        $ResultOutput = &$BinaryNet accounts
+
+                        # "Parse" account policy
+                        Switch ($Finding.Name) {
+                            "Force user logoff how long after time expires" { $ResultOutput[0] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result = $Matches[2]; Break }
+                            "Network security: Force logoff when logon hours expires" { $ResultOutput[0] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result = $Matches[2]; Break }
+                            "Minimum password age" { $ResultOutput[1] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result = $Matches[2]; Break }
+                            "Maximum password age" { $ResultOutput[2] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result = $Matches[2]; Break }
+                            "Minimum password length" { $ResultOutput[3] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result = $Matches[2]; Break }
+                            "Length of password history maintained" { $ResultOutput[4] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result = $Matches[2]; Break }
+                            "Account lockout threshold" { $ResultOutput[5] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result = $Matches[2]; Break }
+                            "Account lockout duration" { $ResultOutput[6] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result = $Matches[2]; Break }
+                            "Reset account lockout counter" { $ResultOutput[7] -match '([a-zA-Z:, /-]+)  ([a-z0-9, ]+)' | Out-Null; $Result = $Matches[2]; Break }
+                        }
+
+                    } catch {
+                        $Result = $Finding.DefaultValue
+                        $ResultDefaultVaulue = $true
+                    }
                 }
             }
-
             #
             # Get Local Account Information
             # The PowerShell function Get-LocalUser is used for this.
