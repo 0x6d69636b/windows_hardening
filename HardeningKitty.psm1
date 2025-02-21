@@ -609,12 +609,31 @@
         If ([string]::IsNullOrEmpty($Finding.RegistryPathIntune)) {
             $Result = "NotSupported"
         } Else {
+            # Intune user policy settings contain a SID value, we need to replace it
+            # We get the value from the registry, as the SID must not match the current user's SID
+            If ([string] $Finding.RegistryPathIntune.contains("{SID}") -or [string] $Finding.RegistryPathDCP.contains("{SID}")) {
+                $FindingUserSIDPath = Get-ChildItem -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\current\" | Select-String -Pattern "S-1"
+                $FindingUserSID = $FindingUserSIDPath.ToString().Trim().Split("\")
+                # Replace SID in Intune path
+                If ([string] $Finding.RegistryPathIntune.contains("{SID}")){
+                    $FindingRegistryPathIntuneUser = $($Finding.RegistryPathIntune).Replace("{SID}",$FindingUserSID[5])
+                    $FindingRegistryPathIntune = $FindingRegistryPathIntuneUser
+                }
+                # Replace SID in DCP path
+                If ([string] $Finding.RegistryPathDCP.contains("{SID}")){
+                    $FindingRegistryPathDCPUser = $($Finding.RegistryPathDCP).Replace("{SID}",$FindingUserSID[5])
+                    $FindingRegistryPathDCP = $FindingRegistryPathDCPUser
+                }
+            } Else {
+                $FindingRegistryPathIntune = $Finding.RegistryPathIntune
+                $FindingRegistryPathDCP = $Finding.RegistryPathDCP
+            }
             # Check if HardeningKitty needs to get the WinningProvider
-            If ([string]::IsNullOrEmpty($Finding.RegistryPathDCP)) {
+            If ([string]::IsNullOrEmpty($FindingRegistryPathDCP)) {
                 # Get result directly
-                If (Test-Path -Path $Finding.RegistryPathIntune) {
+                If (Test-Path -Path $FindingRegistryPathIntune) {
                     try {
-                        $Result = Get-ItemPropertyValue -Path $Finding.RegistryPathIntune -Name $Finding.RegistryItemIntune
+                        $Result = Get-ItemPropertyValue -Path $FindingRegistryPathIntune -Name $Finding.RegistryItemIntune
                     } catch {
                         $Result = "NotConfigured"
                     }
@@ -623,13 +642,13 @@
                 }
             } Else {
                 # Check if policy enabled
-                If (Test-Path -Path $Finding.RegistryPathDCP) {
+                If (Test-Path -Path $FindingRegistryPathDCP) {
                     try {
                         # Get the WinningProvider
                         $FindingWinningProvider = $Finding.RegistryItemIntune + "_WinningProvider"
-                        $WinningProvider = Get-ItemPropertyValue -Path $Finding.RegistryPathDCP -Name $FindingWinningProvider
+                        $WinningProvider = Get-ItemPropertyValue -Path $FindingRegistryPathDCP -Name $FindingWinningProvider
                         # Use the WinningProvider and get the result
-                        $FindingRegistryPathIntune = $($Finding.RegistryPathIntune).Replace("{GUID}",$WinningProvider)
+                        $FindingRegistryPathIntune = $($FindingRegistryPathIntune).Replace("{GUID}",$WinningProvider)
                         If (Test-Path -Path $FindingRegistryPathIntune) {
                             try {
                                 $Result = Get-ItemPropertyValue -Path $FindingRegistryPathIntune -Name $Finding.RegistryItemIntune
@@ -661,7 +680,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.4-1739977002"
+    $HardeningKittyVersion = "0.9.4-1740124374"
 
     #
     # Log, report and backup file
@@ -3223,10 +3242,7 @@
                 }
             }
         }
-     }
-
-    Write-Output "`n"
-    Write-ProtocolEntry -Text "HardeningKitty is done" -LogLevel "Info"
+    }
 
     # Write report file
     If ($Report) {
@@ -3263,14 +3279,13 @@
         If ($StatsPassed -eq 0 ) {
             $HardeningKittyScoreRounded = 1.00
         }
-
         If ($Script:StatsError -gt 0) {
             Write-ProtocolEntry -Text "During the execution of HardeningKitty errors occurred due to missing admin rights or tools. For a complete result, these errors should be resolved. Total errors: $Script:StatsError" -LogLevel "Error"
         }
-
+        Write-Output "`n"
         Write-ProtocolEntry -Text "Your HardeningKitty score is: $HardeningKittyScoreRounded. HardeningKitty Statistics: Total checks: $StatsTotal - Passed: $StatsPassed, Low: $StatsLow, Medium: $StatsMedium, High: $StatsHigh." -LogLevel "Info"
     }
-    Write-Output "`n"
+    Write-ProtocolEntry -Text "HardeningKitty is done" -LogLevel "Info"
 }
 
 Export-ModuleMember -Function Invoke-HardeningKitty
