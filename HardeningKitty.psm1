@@ -680,7 +680,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.4-1740124374"
+    $HardeningKittyVersion = "0.9.4-1742580965"
 
     #
     # Log, report and backup file
@@ -910,7 +910,7 @@
             # Reset
             #
             $Result = ""
-            $ResultDefaultVaulue = $false
+            $ResultDefaultValue = $false
 
             #
             # Category
@@ -945,7 +945,7 @@
                                 $Result = "-NODATA-"
                             } Else {
                                 $Result = $Finding.DefaultValue
-                                $ResultDefaultVaulue = $true
+                                $ResultDefaultValue = $true
                             }
                         }
                     } Else {
@@ -955,7 +955,7 @@
                             $Result = "-NODATA-"
                         } Else {
                             $Result = $Finding.DefaultValue
-                            $ResultDefaultVaulue = $true
+                            $ResultDefaultValue = $true
                             # Multiline Registry Keys need a semicolon instead of a space
                             If ($Finding.RegistryItem -eq "Machine") {
                                 $Result = $Result.Replace(";", " ")
@@ -1032,7 +1032,7 @@
 
                         } catch {
                             $Result = $Finding.DefaultValue
-                            $ResultDefaultVaulue = $true
+                            $ResultDefaultValue = $true
                         }
                     } Else {
                         If ($Backup) {
@@ -1041,7 +1041,7 @@
                             $Result = "-NODATA-"
                         } Else {
                             $Result = $Finding.DefaultValue
-                            $ResultDefaultVaulue = $true
+                            $ResultDefaultValue = $true
                         }
                     }
                 }
@@ -1096,7 +1096,7 @@
 
                 } catch {
                     $Result = $Finding.DefaultValue
-                    $ResultDefaultVaulue = $true
+                    $ResultDefaultValue = $true
                 }
             }
 
@@ -1139,7 +1139,7 @@
 
                     } catch {
                         $Result = $Finding.DefaultValue
-                        $ResultDefaultVaulue = $true
+                        $ResultDefaultValue = $true
                     }
                 }
             }
@@ -1166,12 +1166,12 @@
                         $Result = $ResultOutput.Name
                     } Else {
                         $Result = $Finding.DefaultValue
-                        $ResultDefaultVaulue = $true
+                        $ResultDefaultValue = $true
                     }
 
                 } catch {
                     $Result = $Finding.DefaultValue
-                    $ResultDefaultVaulue = $true
+                    $ResultDefaultValue = $true
                 }
             }
 
@@ -1245,7 +1245,7 @@
 
                 } catch {
                     $Result = $Finding.DefaultValue
-                    $ResultDefaultVaulue = $true
+                    $ResultDefaultValue = $true
                 }
             }
 
@@ -1269,7 +1269,7 @@
 
                 } catch {
                     $Result = $Finding.DefaultValue
-                    $ResultDefaultVaulue = $true
+                    $ResultDefaultValue = $true
                 }
             }
 
@@ -1298,7 +1298,7 @@
 
                 } catch {
                     $Result = $Finding.DefaultValue
-                    $ResultDefaultVaulue = $true
+                    $ResultDefaultValue = $true
                 }
             }
 
@@ -1315,7 +1315,7 @@
 
                 } catch {
                     $Result = $Finding.DefaultValue
-                    $ResultDefaultVaulue = $true
+                    $ResultDefaultValue = $true
                 }
             }
 
@@ -1334,7 +1334,7 @@
 
                 } catch {
                     $Result = $Finding.DefaultValue
-                    $ResultDefaultVaulue = $true
+                    $ResultDefaultValue = $true
                 }
             }
 
@@ -1353,7 +1353,7 @@
 
                 } catch {
                     $Result = $Finding.DefaultValue
-                    $ResultDefaultVaulue = $true
+                    $ResultDefaultValue = $true
                 }
             }
 
@@ -1383,7 +1383,7 @@
 
                 } catch {
                     $Result = $Finding.DefaultValue
-                    $ResultDefaultVaulue = $true
+                    $ResultDefaultValue = $true
                 }
             }
 
@@ -1415,7 +1415,7 @@
 
                 } catch {
                     $Result = $Finding.DefaultValue
-                    $ResultDefaultVaulue = $true
+                    $ResultDefaultValue = $true
                 }
             }
 
@@ -1438,7 +1438,7 @@
 
                 } catch {
                     $Result = $Finding.DefaultValue
-                    $ResultDefaultVaulue = $true
+                    $ResultDefaultValue = $true
                 }
             }
 
@@ -1461,7 +1461,7 @@
 
                 } catch {
                     $Result = $Finding.DefaultValue
-                    $ResultDefaultVaulue = $true
+                    $ResultDefaultValue = $true
                 }
             }
 
@@ -1492,12 +1492,12 @@
                         $Result = $Matches[1]
                     } Else {
                         $Result = $Finding.DefaultValue
-                        $ResultDefaultVaulue = $true
+                        $ResultDefaultValue = $true
                     }
 
                 } catch {
                     $Result = $Finding.DefaultValue
-                    $ResultDefaultVaulue = $true
+                    $ResultDefaultValue = $true
                 }
             }
 
@@ -1514,7 +1514,7 @@
 
                 } catch {
                     $Result = $Finding.DefaultValue
-                    $ResultDefaultVaulue = $true
+                    $ResultDefaultValue = $true
                 }
             }
 
@@ -1531,7 +1531,7 @@
 
                 } catch {
                     $Result = $Finding.DefaultValue
-                    $ResultDefaultVaulue = $true
+                    $ResultDefaultValue = $true
                 }
             }
 
@@ -1548,7 +1548,7 @@
 
                 } catch {
                     $Result = $Finding.DefaultValue
-                    $ResultDefaultVaulue = $true
+                    $ResultDefaultValue = $true
                 }
             }
 
@@ -1622,12 +1622,12 @@
                                 Break
                             } Else {
                                 $Result = $Finding.DefaultValue
-                                $ResultDefaultVaulue = $true
+                                $ResultDefaultValue = $true
                             }
                         }
                     } catch {
                         $Result = $Finding.DefaultValue
-                        $ResultDefaultVaulue = $true
+                        $ResultDefaultValue = $true
                     }
                 }
 
@@ -1642,6 +1642,7 @@
                         "<=!0" { try { If ([int]$Result -le [int]$Finding.RecommendedValueIntune -and [int]$Result -ne 0) { $ResultPassed = $true } } catch { $ResultPassed = $false }; Break }
                         ">=" { try { If ([int]$Result -ge [int]$Finding.RecommendedValueIntune) { $ResultPassed = $true } } catch { $ResultPassed = $false }; Break }
                         "contains" { If ($Result.ToString().Contains($Finding.RecommendedValueIntune)) { $ResultPassed = $true }; Break }
+                        "notcontains" { If (-not($Result.ToString().Contains($Finding.RecommendedValueIntune))) { $ResultPassed = $true }; Break }
                         "!="  { If ([string] $Result -ne $Finding.RecommendedValueIntune) { $ResultPassed = $true }; Break }
                         "=|0" { try { If ([string]$Result -eq $Finding.RecommendedValueIntune -or $Result.Length -eq 0) { $ResultPassed = $true } } catch { $ResultPassed = $false }; Break }
                     }
@@ -1652,6 +1653,7 @@
                         "<=!0" { try { If ([int]$Result -le [int]$Finding.RecommendedValue -and [int]$Result -ne 0) { $ResultPassed = $true } } catch { $ResultPassed = $false }; Break }
                         ">=" { try { If ([int]$Result -ge [int]$Finding.RecommendedValue) { $ResultPassed = $true } } catch { $ResultPassed = $false }; Break }
                         "contains" { If ($Result.ToString().Contains($Finding.RecommendedValue)) { $ResultPassed = $true }; Break }
+                        "notcontains" { If (-not($Result.ToString().Contains($Finding.RecommendedValue))) { $ResultPassed = $true }; Break }
                         "!="  { If ([string] $Result -ne $Finding.RecommendedValue) { $ResultPassed = $true }; Break }
                         "=|0" { try { If ([string]$Result -eq $Finding.RecommendedValue -or $Result.Length -eq 0) { $ResultPassed = $true } } catch { $ResultPassed = $false }; Break }
                     }
@@ -1703,7 +1705,8 @@
                             Recommended = $MessageRecommendedValue
                             TestResult = $TestResult
                             SeverityFinding = $Finding.Severity
-                            DefaultValue = $ResultDefaultVaulue
+                            DefaultValue = $ResultDefaultValue
+                            Filter = $Finding.Filter
                         }
                         $ReportAllResults += $ReportResult
                     }
@@ -1743,7 +1746,8 @@
                             Recommended = $MessageRecommendedValue
                             TestResult = $TestResult
                             SeverityFinding = $Finding.Severity
-                            DefaultValue = $ResultDefaultVaulue
+                            DefaultValue = $ResultDefaultValue
+                            Filter = $Finding.Filter
                         }
                         $ReportAllResults += $ReportResult
                     }
@@ -1778,7 +1782,8 @@
                         Recommended = ""
                         TestResult = ""
                         SeverityFinding = ""
-                        DefaultValue = $ResultDefaultVaulue
+                        DefaultValue = $ResultDefaultValue
+                        Filter = $Finding.Filter
                     }
                     $ReportAllResults += $ReportResult
                 }
@@ -2802,12 +2807,12 @@
                         $Result = $Matches[1]
                     } Else {
                         $Result = $Finding.DefaultValue
-                        $ResultDefaultVaulue = $true
+                        $ResultDefaultValue = $true
                     }
 
                 } catch {
                     $Result = $Finding.DefaultValue
-                    $ResultDefaultVaulue = $true
+                    $ResultDefaultValue = $true
                 }
 
                 If ($Result -ne $Finding.RecommendedValue) {
@@ -2892,7 +2897,7 @@
 
                 } catch {
                     $Result = $Finding.DefaultValue
-                    $ResultDefaultVaulue = $true
+                    $ResultDefaultValue = $true
                 }
 
                 # Go on if rule not exists
@@ -2966,7 +2971,7 @@
 
                 } catch {
                     $Result = $Finding.DefaultValue
-                    $ResultDefaultVaulue = $true
+                    $ResultDefaultValue = $true
                 }
 
                 # Check if a modification is requried
