@@ -251,6 +251,8 @@ HardeningKitty can be used to audit systems against the following baselines / be
 | CIS Microsoft Windows 11 Enterprise (User) | 22H2 | 2.0.0 |
 | CIS Microsoft Windows 11 Enterprise (Machine) | 23H2 | 3.0.0 |
 | CIS Microsoft Windows 11 Enterprise (User) | 23H2 | 3.0.0 |
+| CIS Microsoft Windows 11 Enterprise (Machine) | 24H2 | 4.0.0 |
+| CIS Microsoft Windows 11 Enterprise (User) | 24H2 | 4.0.0 |
 | CIS Microsoft Windows Server 2012 R2 (Machine) | R2 | 2.4.0 |
 | CIS Microsoft Windows Server 2012 R2 (User) | R2 | 2.4.0 |
 | CIS Microsoft Windows Server 2012 R2 (Machine) | R2 | 2.6.0 |
@@ -279,6 +281,8 @@ HardeningKitty can be used to audit systems against the following baselines / be
 | CIS Microsoft Windows Server 2022 (User) | 22H2 | 2.0.0 |
 | CIS Microsoft Windows Server 2022 (Machine) | 22H2 | 3.0.0 |
 | CIS Microsoft Windows Server 2022 (User) | 22H2 | 3.0.0 |
+| CIS Microsoft Windows Server 2025 (Machine) | 24H2 | 1.0.0 |
+| CIS Microsoft Windows Server 2025 (User) | 24H2 | 1.0.0 |
 | DoD Microsoft Windows 10 STIG (Machine) | 20H2 | v2r1 |
 | DoD Microsoft Windows 10 STIG (User) | 20H2 | v2r1 |
 | DoD Windows Server 2019 Domain Controller STIG (Machine) | 20H2 | v2r1 |
