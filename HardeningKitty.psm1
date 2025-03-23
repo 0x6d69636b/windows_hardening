@@ -680,7 +680,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.4-1742580965"
+    $HardeningKittyVersion = "0.9.4-1742741163"
 
     #
     # Log, report and backup file
@@ -3257,6 +3257,7 @@
             $ResultObject = [pscustomobject] $ReportResult
             $ResultObject | Export-Csv -Path $ReportFile -Delimiter "," -NoTypeInformation -Append
         }
+        Write-ProtocolEntry -Text "Report done" -LogLevel "Info"
     }
 
     # Write backup file
@@ -3267,6 +3268,7 @@
             $BackupObject = [pscustomobject] $BackupResult
             $BackupObject | Export-Csv -Path $BackupFile -Delimiter "," -NoTypeInformation -Append
         }
+        Write-ProtocolEntry -Text "Backup file done" -LogLevel "Info"
     }
 
     If ($Mode -eq "Audit") {
