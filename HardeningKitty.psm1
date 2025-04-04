@@ -1614,33 +1614,44 @@
                 # Handling for registry keys with an "advanced" format
                 #
                 If ($Source -eq "Intune" -and $Finding.Method -eq 'Registry' -and $Finding.RegistryItemIntune -eq "AttackSurfaceReductionRules") {
-
-                    try {
-                        $ResultAsr = $Result.Split("|")
-                        ForEach ($AsrRow in $ResultAsr) {
-                            $AsrRule = $AsrRow.Split("=")
-                            If ($AsrRule[0] -eq $Finding.RegistryItem) {
-                                $Result = $AsrRule[1]
-                                Break
-                            } Else {
-                                $Result = $Finding.DefaultValue
-                                $ResultDefaultValue = $true
-                            }
+                    #
+                    # ASR rules
+                    #
+                    If ($Finding.RegistryItem -eq "ExploitGuard_ASR_Rules") {
+                        # There is no Intune setting for generally enabled ASR rules, if something is configured, HardeningKitty assumes it is in use
+                        If ($Result.Length -gt 0) {
+                            $Result = 1
                         }
-                    } catch {
-                        $Result = $Finding.DefaultValue
-                        $ResultDefaultValue = $true
+                    } Else {
+                        # Going through ASR rules
+                        try {
+                            $ResultAsr = $Result.Split("|")
+                            ForEach ($AsrRow in $ResultAsr) {
+                                $AsrRule = $AsrRow.Split("=")
+                                If ($AsrRule[0] -eq $Finding.RegistryItem) {
+                                    $Result = $AsrRule[1]
+                                    Break
+                                } Else {
+                                    $Result = $Finding.DefaultValue
+                                    $ResultDefaultValue = $true
+                                }
+                            }
+                        } catch {
+                            $Result = $Finding.DefaultValue
+                            $ResultDefaultValue = $true
+                        }
                     }
                 } ElseIf ($Source -eq "Intune" -and $Finding.Method -eq 'Registry' -and $Finding.RegistryItemIntune -eq "HardenedUNCPaths") {
                     #
-                    # Intune uses &#xF000; as a delimiter to configure multiple classes
+                    # Hardened UNC path
+                    # Intune uses &#xF000; as a delimiter to configure multiple paths
                     # All UNC paths are in the value parameter of the "Pol_HardenedPaths" data id
                     #
                     $Delimiter = [char]::ConvertFromUtf32(0xF000)
                     If ($Result.contains($Delimiter)) {
                         $PreviousValue = ""
                         try {
-                            # Finding List contains path and the recommend configuration
+                            # Finding list contains path and the recommend configuration
                             $RecommendedValue = $Finding.RecommendedValueIntune.Split(";")
                             # Convert raw Intune value into XML, and separate the components
                             $XmlString = "<root>$Result</root>"
@@ -1659,13 +1670,66 @@
                             $Result = "NotConfigured"
                         }
                     }
+                } ElseIf ($Source -eq "Intune" -and $Finding.RegistryItemIntune -eq "PreventInstallationOfMatchingDeviceSetupClasses") {
+                    #
+                    # Prevent installation of devices using drivers that match an device setup class
+                    #
+                    try {
+                        # Finding list contains id and the recommend configuration
+                        $RecommendedValue = $Finding.RecommendedValueIntune.Split(";")
+
+                        # Check if setting is enabled
+                        If ($RecommendedValue[0] -eq "PreventInstallationOfMatchingDeviceSetupClasses") {
+                            If ($Result.StartsWith("<enabled")) {
+                                $Result = $RecommendedValue[0]+";<enabled />"
+                            } Else {
+                                $Result = $RecommendedValue[0]+";<disabled />"
+                            }
+                        # Go through additional configuration
+                        } Else {
+                            # Convert raw Intune value to XML
+                            $XmlString = "<root>$Result</root>"
+                            $XmlObject = [xml]$XmlString
+
+                            ForEach ($row in $XmlObject.root) {
+                                # Check if retroactive mode is active
+                                If ($RecommendedValue[0] -eq "DeviceInstall_Classes_Deny_Retroactive") {
+                                    If ($row.data.id -eq $RecommendedValue[0]) {
+                                        If ($row.data.value -eq $RecommendedValue[1]) {
+                                            $Result = $RecommendedValue[0]+";true"
+                                            Break
+                                        }
+                                    }
+                                # Check list of device classes
+                                } ElseIf ($RecommendedValue[0] -eq "DeviceInstall_Classes_Deny_List") {
+                                    If ($row.data.id -eq $RecommendedValue[0]) {
+                                        # Intune uses &#xF000; as a delimiter to configure multiple classes
+                                        $Delimiter = [char]::ConvertFromUtf32(0xF000)
+                                        $DenyList = $row.data.value.Split($Delimiter)
+                                        # Go through list of device classes
+                                        ForEach ($entry in $DenyList) {
+                                            If ($entry -eq $RecommendedValue[1]) {
+                                                $Result = $RecommendedValue[0]+";"+$entry
+                                                Break
+                                            } Else {
+                                                $Result = $RecommendedValue[0]+";{NotFound}"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } catch {
+                        # If something goes wrong or Intune output is unexpected
+                        $Result = "NotConfigured"
+                    }
                 }
 
                 #
                 # Compare the result with the recommendation
                 #
                 $ResultPassed = $false
-                If ($Source -eq "Intune" -and $Finding.Method -eq "Registry") {
+                If ($Source -eq "Intune" -and ($Finding.Method -eq "Registry" -or $Finding.Method -eq "RegistryList")) {
                     Switch ($Finding.OperatorIntune) {
                         "="  { If ([string] $Result -eq $Finding.RecommendedValueIntune) { $ResultPassed = $true }; Break }
                         "<=" { try { If ([int]$Result -le [int]$Finding.RecommendedValueIntune) { $ResultPassed = $true } } catch { $ResultPassed = $false }; Break }
@@ -1713,7 +1777,7 @@
                 If ($ResultPassed) {
                     # Passed
                     $TestResult = "Passed"
-                    If ($Source -eq "Intune" -and $Finding.Method -eq "Registry") {
+                    If ($Source -eq "Intune" -and ($Finding.Method -eq "Registry" -or $Finding.Method -eq "RegistryList")) {
                         $MessageRecommendedValue = $Finding.RecommendedValueIntune
                     } Else {
                         $MessageRecommendedValue = $Finding.RecommendedValue
