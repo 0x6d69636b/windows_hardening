@@ -680,7 +680,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.4-1743744068"
+    $HardeningKittyVersion = "0.9.4-1743750137"
 
     #
     # Log, report and backup file
@@ -1044,6 +1044,8 @@
                             $ResultDefaultValue = $true
                         }
                     }
+                } ElseIf ($Source -eq 'Intune') {
+                    $Result = Get-IntuneResult
                 }
             }
 
