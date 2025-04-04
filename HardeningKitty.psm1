@@ -680,7 +680,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.4-1742741163"
+    $HardeningKittyVersion = "0.9.4-1743744068"
 
     #
     # Log, report and backup file
@@ -1628,6 +1628,34 @@
                     } catch {
                         $Result = $Finding.DefaultValue
                         $ResultDefaultValue = $true
+                    }
+                } ElseIf ($Source -eq "Intune" -and $Finding.Method -eq 'Registry' -and $Finding.RegistryItemIntune -eq "HardenedUNCPaths") {
+                    #
+                    # Intune uses &#xF000; as a delimiter to configure multiple classes
+                    # All UNC paths are in the value parameter of the "Pol_HardenedPaths" data id
+                    #
+                    $Delimiter = [char]::ConvertFromUtf32(0xF000)
+                    If ($Result.contains($Delimiter)) {
+                        $PreviousValue = ""
+                        try {
+                            # Finding List contains path and the recommend configuration
+                            $RecommendedValue = $Finding.RecommendedValueIntune.Split(";")
+                            # Convert raw Intune value into XML, and separate the components
+                            $XmlString = "<root>$Result</root>"
+                            $XmlObject = [xml]$XmlString
+                            $UncPaths = $XmlObject.root.data.value.Split($Delimiter)
+                            # The path configuration is in the element before the path in the array
+                            ForEach ($UncPath in $UncPaths) {
+                                If ($UncPath -eq $RecommendedValue[0]) {
+                                    $Result = $RecommendedValue[0]+";"+$PreviousValue
+                                    Break
+                                }
+                                $PreviousValue = $UncPath
+                            }
+                        } catch {
+                            # If something goes wrong or Intune output is unexpected
+                            $Result = "NotConfigured"
+                        }
                     }
                 }
 
