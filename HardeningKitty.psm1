@@ -680,7 +680,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.4-1743750137"
+    $HardeningKittyVersion = "0.9.4-1747119502"
 
     #
     # Log, report and backup file
@@ -1613,6 +1613,12 @@
                 #
                 # Handling for registry keys with an "advanced" format
                 #
+
+                # Define list of registry items
+                $RegistryItemCollection = @("ConfigureRpcConnectionPolicy", "ConfigureRpcListenerPolicy", "CSE_Registry", "CSE_Security", "PointAndPrintRestrictions",
+                "SpecifyMaximumFileSizeApplicationLog", "SpecifyMaximumFileSizeSecurityLog", "SpecifyMaximumFileSizeSystemLog", "Channel_LogMaxSize_3" )
+
+                # Go through all the special cases that require additional handling
                 If ($Source -eq "Intune" -and $Finding.Method -eq 'Registry' -and $Finding.RegistryItemIntune -eq "AttackSurfaceReductionRules") {
                     #
                     # ASR rules
@@ -1717,6 +1723,23 @@
                                         }
                                     }
                                 }
+                            }
+                        }
+                    } catch {
+                        # If something goes wrong or Intune output is unexpected
+                        $Result = "NotConfigured"
+                    }
+                } ElseIf ($Source -eq "Intune" -and $Finding.Method -eq 'Registry' -and $Finding.RegistryItemIntune -in $RegistryItemCollection) {
+                    #
+                    # Parse the Intune settings in "XML" format to retrieve a specific item/configuration
+                    #
+                    try {
+                        $XmlString = "<root>$Result</root>"
+                        $XmlObject = [xml]$XmlString
+                        ForEach ($row in $XmlObject.root.data) {
+                            If ([string]$row.id.Equals($Finding.MethodArgument)) {
+                                $Result = $row.value
+                                Break
                             }
                         }
                     } catch {
