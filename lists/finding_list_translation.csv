@@ -42,6 +42,8 @@ Id,CategoryEN,NameEN,Language,Category,Name
 788,"Administrative Templates: LAPS","Password Settings: Password Length (Member)",,,
 1666,"Administrative Templates: Network","DNS Client: Configure DNS over HTTPS (DoH) name resolution",,,
 1697,"Administrative Templates: Network","DNS Client: Configure NetBIOS settings",,,
+1887,"Administrative Templates: Network","DNS Client: Configure multicast DNS (mDNS) protocol",,,
+1888,"Administrative Templates: Network","DNS Client: Turn off default IPv6 DNS Servers",,,
 99,"Administrative Templates: Network","DNS Client: Turn off multicast name resolution (LLMNR)",DE,"Administrative Vorlagen: Netzwerk","DNS-Client: Multicastnamensauflösung deaktivieren (LLMNR)"
 568,"Administrative Templates: Network","Disable IPv6",,,
 553,"Administrative Templates: Network","Fonts: Enable Font Providers",DE,"Administrative Vorlagen: Netzwerk","Schriftarten: Schriftartenanbieter aktivieren"
@@ -72,6 +74,8 @@ Id,CategoryEN,NameEN,Language,Category,Name
 567,"Administrative Templates: Network","Network Provider: Hardened UNC Paths (SYSVOL)",DE,"Administrative Vorlagen: Netzwerk","Netzwerkanbieter: Gehärtete UNC-Pfade (SYSVOL)"
 1328,"Administrative Templates: Network","SSL Configuration Settings: ECC Curve Order",,,
 1602,"Administrative Templates: Network","SSL Configuration Settings: SSL Cipher Suite Order",,,
+1907,"Administrative Templates: Network","SSL Configuration Settings: SSL Cipher Suite Order (NULL bulk encryption)",,,
+1906,"Administrative Templates: Network","SSL Configuration Settings: SSL Cipher Suite Order (RSA key transport)",,,
 101,"Administrative Templates: Network","Turn off Microsoft Peer-to-Peer Networking Services",DE,"Administrative Vorlagen: Netzwerk","Microsoft Peer-zu-Peer-Netzwerkdienste deaktivieren"
 559,"Administrative Templates: Network","Turn on Responder (RSPNDR) driver (AllowRspndrOnDomain)",DE,"Administrative Vorlagen: Netzwerk","Treiber für den Beantworter (RSPNDR) aktivieren (AllowRspndrOnDomain)"
 560,"Administrative Templates: Network","Turn on Responder (RSPNDR) driver (AllowRspndrOnPublicNet)",DE,"Administrative Vorlagen: Netzwerk","Treiber für den Beantworter (RSPNDR) aktivieren (AllowRspndrOnPublicNet)"
@@ -112,6 +116,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 1703,"Administrative Templates: Printers","Configure RPC over TCP port",,,
 1844,"Administrative Templates: Printers","Configure RPC packet level privacy setting for incoming connections",,,
 1698,"Administrative Templates: Printers","Configure Redirection Guard",,,
+1889,"Administrative Templates: Printers","Configure Windows protected print",,,
 1704,"Administrative Templates: Printers","Limits print driver installation to Administrators",,,
 1705,"Administrative Templates: Printers","Manage processing of Queue-specific files",,,
 1650,"Administrative Templates: Printers","Only use Package Point and Print (CVE-2021-36958)",,,
@@ -217,6 +222,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 605,"Administrative Templates: System","Logon: Turn off picture password sign-in",DE,"Administrative Vorlagen: System","Anmelden: Anmeldung mit Bildcode deaktivieren"
 132,"Administrative Templates: System","Logon: Turn on convenience PIN sign-in",DE,"Administrative Vorlagen: System","Anmelden: Komfortable PIN-Anmeldung aktivieren"
 135,"Administrative Templates: System","Mitigation Options: Untrusted Font Blocking",,,
+1890,"Administrative Templates: System","Net Logon: DC Locator DNS Records: Block NetBIOS-based discovery for domain controller location",,,
 136,"Administrative Templates: System","OS Policies: Allow Clipboard synchronization across devices",DE,"Administrative Vorlagen: System","Betriebssystemrichtlinien: Synchronisierung der Zwischenablage geräteübergreifend zulassen"
 606,"Administrative Templates: System","OS Policies: Allow upload of User Activities",DE,"Administrative Vorlagen: System","Betriebssystemrichtlinien: Upload von Benutzeraktivitäten zulassen"
 1329,"Administrative Templates: System","PIN Complexity: Minimum PIN length",,,
@@ -230,6 +236,9 @@ Id,CategoryEN,NameEN,Language,Category,Name
 795,"Administrative Templates: System","Remote Procedure Call: Enable RPC Endpoint Mapper Client Authentication (Member)",,,
 144,"Administrative Templates: System","Remote Procedure Call: Restrict Unauthenticated RPC clients",DE,"Administrative Vorlagen: System","Remoteprozeduraufruf: Nicht authentifizierte RPC-Clients einschränken"
 796,"Administrative Templates: System","Remote Procedure Call: Restrict Unauthenticated RPC clients (Member)",,,
+1891,"Administrative Templates: System","Security Account Manager: Configure SAM change password RPC methods policy",,,
+1908,"Administrative Templates: System","Security Account Manager: Configure SAM change password RPC methods policy (DC)",,,
+1909,"Administrative Templates: System","Security Account Manager: Configure SAM change password RPC methods policy (Member)",,,
 1685,"Administrative Templates: System","Security Account Manager: Configure validation of ROCA-vulnerable WHfB keys during authentication",,,
 1686,"Administrative Templates: System","Security Account Manager: Configure validation of ROCA-vulnerable WHfB keys during authentication (DC only)",,,
 145,"Administrative Templates: System","Security Settings: Enable svchost.exe mitigation options",,,
@@ -249,8 +258,12 @@ Id,CategoryEN,NameEN,Language,Category,Name
 147,"Administrative Templates: System","User Profiles: Turn off the advertising ID",DE,"Administrative Vorlagen: System","Benutzerprofile: Werbe-ID deaktivieren"
 146,"Administrative Templates: System","Windows Performance PerfTrack: Enable/Disable PerfTrack",DE,"Administrative Vorlagen: System","Windows-Leistungsnachverfolgungsmodul: PerfTrack aktivieren/deaktivieren"
 150,"Administrative Templates: Windows Components","App Package Deployment: Allow a Windows app to share application data between users",DE,"Administrative Vorlagen: Windows-Komponenten","Bereitstellung von App-Paketen: Windows-Apps die Freigabe von Anwendungsdaten zwischen Benutzern erlauben"
+1895,"Administrative Templates: Windows Components","App Package Deployment: Not allow per-user unsigned packages to install by default (requires explicitly allow per install)",,,
 610,"Administrative Templates: Windows Components","App Package Deployment: Prevent non-admin users from installing packaged Windows apps",,,
 151,"Administrative Templates: Windows Components","App Privacy: Let Windows apps activate with voice while the system is locked",,,
+1892,"Administrative Templates: Windows Components","App and Device Inventory: Turn off API Sampling",,,
+1893,"Administrative Templates: Windows Components","App and Device Inventory: Turn off Application Footprint",,,
+1894,"Administrative Templates: Windows Components","App and Device Inventory: Turn off Install Tracing",,,
 722,"Administrative Templates: Windows Components","App and browser protection: Prevent users from modifying settings",DE,"Administrative Vorlagen: Windows-Komponenten","App- und Browserschutz: Benutzer am Ändern von Einstellungen hindern"
 611,"Administrative Templates: Windows Components","App runtime: Allow Microsoft accounts to be optional",DE,"Administrative Vorlagen: Windows-Komponenten","App-Laufzeit: Zulassen, dass Microsoft-Konten optional sind"
 152,"Administrative Templates: Windows Components","App runtime: Block launching Universal Windows apps with Windows Runtime API access from hosted content",DE,"Administrative Vorlagen: Windows-Komponenten","App-Laufzeit: Starten von universellen Windows-Apps mit Windows-Runtime-API-Zugriff von gehosteten Inhalten aus blockieren"
@@ -354,7 +367,10 @@ Id,CategoryEN,NameEN,Language,Category,Name
 1766,"Administrative Templates: Windows Components","Desktop App Installer: Enable App Installer",,,
 1767,"Administrative Templates: Windows Components","Desktop App Installer: Enable App Installer Experimental Features",,,
 1768,"Administrative Templates: Windows Components","Desktop App Installer: Enable App Installer Hash Override",,,
+1896,"Administrative Templates: Windows Components","Desktop App Installer: Enable App Installer Local Archive Malware Scan Override",,,
+1897,"Administrative Templates: Windows Components","Desktop App Installer: Enable App Installer Microsoft Store Source Certificate Validation Bypass",,,
 1769,"Administrative Templates: Windows Components","Desktop App Installer: Enable App Installer ms-appinstaller protocol",,,
+1898,"Administrative Templates: Windows Components","Desktop App Installer: Enable Windows Package Manager command line interfaces",,,
 1626,"Administrative Templates: Windows Components","EMET: Default Action and Mitigation Settings (AntiDetours)",,,
 1627,"Administrative Templates: Windows Components","EMET: Default Action and Mitigation Settings (BannedFunctions)",,,
 1628,"Administrative Templates: Windows Components","EMET: Default Action and Mitigation Settings (DeepHooks)",,,
@@ -382,7 +398,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 1535,"Administrative Templates: Windows Components","File Explorer: Explorer Frame Pane: Turn off Preview Pane",,,
 1536,"Administrative Templates: Windows Components","File Explorer: Explorer Frame Pane: Turn on or off details pane",,,
 669,"Administrative Templates: Windows Components","File Explorer: Turn off Data Execution Prevention for Explorer",DE,"Administrative Vorlagen: Windows-Komponenten","Datei-Explorer: Datenausführungsverhinderung für Explorer deaktivieren"
-1774,"Administrative Templates: Windows Components","File Explorer: Turn off files from Office.com in Quick access view",,,
+1774,"Administrative Templates: Windows Components","File Explorer: Turn off account-based insights, recent, favorite, and recommended files in File Explorer",,,
 670,"Administrative Templates: Windows Components","File Explorer: Turn off heap termination on corruption",DE,"Administrative Vorlagen: Windows-Komponenten","Datei-Explorer: Heapabbruch bei Beschädigung deaktivieren"
 671,"Administrative Templates: Windows Components","File Explorer: Turn off shell protocol protected mode",DE,"Administrative Vorlagen: Windows-Komponenten","Datei-Explorer: Geschützten Modus für Shellprotokoll deaktivieren"
 182,"Administrative Templates: Windows Components","HomeGroup: Prevent the computer from joining a homegroup",,,
@@ -397,6 +413,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 1637,"Administrative Templates: Windows Components","OneDrive: Prevent the usage of OneDrive for file storage on Windows 8.1",,,
 704,"Administrative Templates: Windows Components","Push To Install: Turn off Push To Install service",DE,"Administrative Vorlagen: Windows-Komponenten","Pushinstallation ausführen: Pushinstallationdienst deaktivieren"
 713,"Administrative Templates: Windows Components","RSS Feeds: Prevent downloading of enclosures",DE,"Administrative Vorlagen: Windows-Komponenten","RSS-Feeds: Herunterladen von Anlagen verhindern"
+1904,"Administrative Templates: Windows Components","RSS Feeds: Turn on Basic feed authentication over HTTP",,,
 1775,"Administrative Templates: Windows Components","Remote Desktop Connection Client: Disable Cloud Clipboard integration for server-to-client data transfer",,,
 184,"Administrative Templates: Windows Components","Remote Desktop Connection Client: Do not allow passwords to be saved",DE,"Administrative Vorlagen: Windows-Komponenten","Remotedesktopverbindungs-Client: Speichern von Kennwörtern nicht zulassen"
 185,"Administrative Templates: Windows Components","Remote Desktop Session Host: Allow users to connect remotely by using Remote Desktop Services",DE,"Administrative Vorlagen: Windows-Komponenten","Remotedesktopsitzungs-Host: Remoteverbindungen für Benutzer mithilfe der Remotedesktopdienste zulassen"
@@ -404,10 +421,11 @@ Id,CategoryEN,NameEN,Language,Category,Name
 1675,"Administrative Templates: Windows Components","Remote Desktop Session Host: Device and Resource Redirection: Allow UI Automation redirection",,,
 705,"Administrative Templates: Windows Components","Remote Desktop Session Host: Device and Resource Redirection: Do not allow COM port redirection",DE,"Administrative Vorlagen: Windows-Komponenten","Remotedesktopsitzungs-Host/Geräte- und Ressourcenumleitung: COM-Anschlussumleitung nicht zulassen"
 706,"Administrative Templates: Windows Components","Remote Desktop Session Host: Device and Resource Redirection: Do not allow LPT port redirection",DE,"Administrative Vorlagen: Windows-Komponenten","Remotedesktopsitzungs-Host/Geräte- und Ressourcenumleitung: LPT-Anschlussumleitung nicht zulassen"
+1776,"Administrative Templates: Windows Components","Remote Desktop Session Host: Device and Resource Redirection: Do not allow WebAuthn redirection",,,
 186,"Administrative Templates: Windows Components","Remote Desktop Session Host: Device and Resource Redirection: Do not allow drive redirection",DE,"Administrative Vorlagen: Windows-Komponenten","Remotedesktopsitzungs-Host/Geräte- und Ressourcenumleitung: Laufwerkumleitung nicht zulassen"
 1676,"Administrative Templates: Windows Components","Remote Desktop Session Host: Device and Resource Redirection: Do not allow location redirection",,,
 707,"Administrative Templates: Windows Components","Remote Desktop Session Host: Device and Resource Redirection: Do not allow supported Plug and Play device redirection",DE,"Administrative Vorlagen: Windows-Komponenten","Remotedesktopsitzungs-Host/Geräte- und Ressourcenumleitung: Umleitung bei unterstützten Plug & Play-Geräten nicht zulassen"
-1776,"Administrative Templates: Windows Components","Remote Desktop Session Host: Do not allow WebAuthn redirection",,,
+1903,"Administrative Templates: Windows Components","Remote Desktop Session Host: Device and Resource Redirection: Restrict clipboard transfer from server to client",,,
 187,"Administrative Templates: Windows Components","Remote Desktop Session Host: Security: Always prompt for password upon connection",DE,"Administrative Vorlagen: Windows-Komponenten","Remotedesktopsitzungs-Host: Sicherheit: Bei der Verbindungsherstellung immer zur Kennworteingabe auffordern"
 188,"Administrative Templates: Windows Components","Remote Desktop Session Host: Security: Require secure RPC communication",DE,"Administrative Vorlagen: Windows-Komponenten","Remotedesktopsitzungs-Host: Sicherheit: Sichere RPC-Kommunikation anfordern"
 708,"Administrative Templates: Windows Components","Remote Desktop Session Host: Security: Require use of specific security layer for remote (RDP) connections",DE,"Administrative Vorlagen: Windows-Komponenten","Remotedesktopsitzungs-Host: Sicherheit: Verwendung einer bestimmten Sicherheitsstufe für Remoteverbindungen (RDP) ist erforderlich"
@@ -467,6 +485,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 744,"Administrative Templates: Windows Components","Windows Media Player: Playback: Prevent Codec Download",DE,"Administrative Vorlagen: Windows-Komponenten","Windows Media Player: Wiedergabe: Codec-Download verhindern"
 210,"Administrative Templates: Windows Components","Windows Remote Shell: Allow Remote Shell Access",DE,"Administrative Vorlagen: Windows-Komponenten","Windows-Remoteshell: Remoteshellzugriff zulassen"
 1678,"Administrative Templates: Windows Components","Windows Sandbox: Allow clipboard sharing with Windows Sandbox",,,
+1905,"Administrative Templates: Windows Components","Windows Sandbox: Allow mapping folders into Windows Sandbox",,,
 1679,"Administrative Templates: Windows Components","Windows Sandbox: Allow networking in Windows Sandbox",,,
 1557,"Administrative Templates: Windows Components","Windows Update: Configure Automatic Updates: Configure automatic updating",DE,"Administrative Vorlagen: Windows-Komponenten","Windows Update: Automatische Updates konfigurieren"
 732,"Administrative Templates: Windows Components","Windows Update: Legacy Policies: No auto-restart with logged on users for scheduled automatic updates installations",DE,"Administrative Vorlagen: Windows-Komponenten","Windows Update: Keinen automatischen Neustart für geplante Installationen automatischer Updates durchführen, wenn Benutzer angemeldet sind"
@@ -721,12 +740,16 @@ Id,CategoryEN,NameEN,Language,Category,Name
 679,"Microsoft Defender Antivirus","Real-time Protection: Turn on behavior monitoring (Policy)",DE,"Microsoft Defender Antivirus","Aktivieren der Verhaltensüberwachung"
 1796,"Microsoft Defender Antivirus","Real-time Protection: Turn on process scanning whenever real-time protection is enabled",,,
 1653,"Microsoft Defender Antivirus","Real-time Protection: Turn on script scanning",,,
+1899,"Microsoft Defender Antivirus","Remediation: Behavioral Network Blocks: Brute-Force Protection: Configure Brute-Force Protection aggressiveness",,,
+1900,"Microsoft Defender Antivirus","Remediation: Behavioral Network Blocks: Brute-Force Protection: Configure Remote Encryption Protection Mode",,,
+1901,"Microsoft Defender Antivirus","Remediation: Behavioral Network Blocks: Remote Encryption Protection: Configure how aggressively Remote Encryption Protection blocks threats",,,
 680,"Microsoft Defender Antivirus","Reporting: Configure Watson events",DE,"Microsoft Defender Antivirus","Konfigurieren von Watson-Ereignissen"
 1861,"Microsoft Defender Antivirus","Reporting: Configure whether to report Dynamic Signature dropped events",,,
 1862,"Microsoft Defender Antivirus","Scan: Scan excluded files and directories during quick scans",,,
 1795,"Microsoft Defender Antivirus","Scan: Scan packed executables",,,
 681,"Microsoft Defender Antivirus","Scan: Scan removable drives",DE,"Microsoft Defender Antivirus","Scan: Scannen von Wechseldatenträgern"
 1526,"Microsoft Defender Antivirus","Scan: Specify the day of the week to run a scheduled scan",,,
+1902,"Microsoft Defender Antivirus","Scan: Trigger a quick scan after X days without any scans",,,
 682,"Microsoft Defender Antivirus","Scan: Turn on e-mail scanning",DE,"Microsoft Defender Antivirus","Scan: Aktivieren von E-Mail-Scans"
 1527,"Microsoft Defender Antivirus","Security Intelligence Updates: Define the number of days before spyware security intelligence is considered out of date",,,
 1528,"Microsoft Defender Antivirus","Security Intelligence Updates: Define the number of days before virus security intelligence is considered out of date",,,
@@ -779,12 +802,12 @@ Id,CategoryEN,NameEN,Language,Category,Name
 246,"Microsoft Defender Exploit Guard","ASR: Block persistence through WMI event subscription (Policy)",,,
 239,"Microsoft Defender Exploit Guard","ASR: Block process creations originating from PSExec and WMI commands",,,
 238,"Microsoft Defender Exploit Guard","ASR: Block process creations originating from PSExec and WMI commands (Policy)",,,
-1817,"Microsoft Defender Exploit Guard","ASR: Block rebooting machine in Safe Mode (preview)",,,
-1815,"Microsoft Defender Exploit Guard","ASR: Block rebooting machine in Safe Mode (preview) (Policy)",,,
+1817,"Microsoft Defender Exploit Guard","ASR: Block rebooting machine in Safe Mode",,,
+1815,"Microsoft Defender Exploit Guard","ASR: Block rebooting machine in Safe Mode (Policy)",,,
 241,"Microsoft Defender Exploit Guard","ASR: Block untrusted and unsigned processes that run from USB",DE,"Microsoft Defender Exploit Guard","ASR: Nicht vertrauenswürdige und nicht signierte Prozess, die von USB ausgeführt werden, blockieren"
 240,"Microsoft Defender Exploit Guard","ASR: Block untrusted and unsigned processes that run from USB (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Nicht vertrauenswürdige und nicht signierte Prozess, die von USB ausgeführt werden, blockieren (Richtlinie)"
-1820,"Microsoft Defender Exploit Guard","ASR: Block use of copied or impersonated system tools (preview)",,,
-1818,"Microsoft Defender Exploit Guard","ASR: Block use of copied or impersonated system tools (preview) (Policy)",,,
+1820,"Microsoft Defender Exploit Guard","ASR: Block use of copied or impersonated system tools",,,
+1818,"Microsoft Defender Exploit Guard","ASR: Block use of copied or impersonated system tools (Policy)",,,
 1546,"Microsoft Defender Exploit Guard","ASR: Exclude files and paths from Attack Surface Reduction Rules",,,
 1545,"Microsoft Defender Exploit Guard","ASR: Exclude files and paths from Attack Surface Reduction Rules (Policy)",,,
 235,"Microsoft Defender Exploit Guard","ASR: Use advanced protection against ransomware",,,
@@ -1571,6 +1594,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 418,"Security Options","Network security: Do not store LAN Manager hash value on next password change",DE,Sicherheitseinstellungen,"Netzwerksicherheit: Keine LAN Manager-Hashwerte für nächste Kennwortänderung speichern"
 419,"Security Options","Network security: Force logoff when logon hours expires",DE,Sicherheitseinstellungen,"Netzwerksicherheit: Abmeldung nach Ablauf der Anmeldezeit erzwingen"
 25,"Security Options","Network security: LAN Manager authentication level",DE,Sicherheitseinstellungen,"Netzwerksicherheit: LAN Manager-Authentifizierungsebene"
+1882,"Security Options","Network security: LDAP client encryption requirements",,,
 26,"Security Options","Network security: LDAP client signing requirements",DE,Sicherheitseinstellungen,"Netzwerksicherheit: Signaturanforderungen für LDAP-Clients"
 27,"Security Options","Network security: Minimum session security for NTLM SSP based (including secure RPC) clients",DE,Sicherheitseinstellungen,"Netzwerksicherheit: Minimale Sitzungssicherheit für NTLM-SSP-basierte Clients (einschließlich sicherer RPC-Clients)"
 28,"Security Options","Network security: Minimum session security for NTLM SSP based (including secure RPC) servers",DE,Sicherheitseinstellungen,"Netzwerksicherheit: Minimale Sitzungssicherheit für NTLM-SSP-basierte Server (einschließlich sicherer RPC-Server)"
@@ -1607,6 +1631,8 @@ Id,CategoryEN,NameEN,Language,Category,Name
 1778,"System Services","Disable mDNS in Dnscache service",,,
 434,"System Services","Downloaded Maps Manager (MapsBroker)",DE,Systemdienste,"Manager für heruntergeladene Karten (MapsBroker)"
 435,"System Services","Downloaded Maps Manager (MapsBroker) (Service Startup type)",DE,Systemdienste,"Manager für heruntergeladene Karten (MapsBroker) (Dienst Starttyp)"
+1885,"System Services","GameInput Service (GameInputSvc)",,,
+1886,"System Services","GameInput Service (GameInputSvc) (Service Startup type)",,,
 436,"System Services","Geolocation Service (lfsvc)",DE,Systemdienste,"Geolocation-Dienst (lfsvc)"
 437,"System Services","Geolocation Service (lfsvc) (Service Startup type)",DE,Systemdienste,"Geolocation-Dienst (lfsvc) (Dienst Starttyp)"
 438,"System Services","IIS Admin Service (IISADMIN)",DE,Systemdienste,"IIS Admin Service (IISADMIN)"
@@ -1677,6 +1703,8 @@ Id,CategoryEN,NameEN,Language,Category,Name
 491,"System Services","Web Management Service (WMSvc) (Service Startup type)",DE,Systemdienste,"Web Management Service (WMSvc) (Dienst Starttyp)"
 1745,"System Services","WebClient (WebClient)",,,
 1746,"System Services","WebClient (WebClient) (Service Startup type)",,,
+1883,"System Services","WinHTTP Web Proxy Auto-Discovery Service (WinHttpAutoProxySvc)",,,
+1884,"System Services","WinHTTP Web Proxy Auto-Discovery Service (WinHttpAutoProxySvc) (Service Startup type)",,,
 492,"System Services","Windows Error Reporting Service (WerSvc)",DE,Systemdienste,"Windows-Fehlerberichterstattungsdienst (WerSvc)"
 493,"System Services","Windows Error Reporting Service (WerSvc) (Service Startup type)",DE,Systemdienste,"Windows-Fehlerberichterstattungsdienst (WerSvc) (Dienst Starttyp)"
 494,"System Services","Windows Event Collector (Wecsvc)",DE,Systemdienste,"Windows-Ereignissammlung (Wecsvc)"
