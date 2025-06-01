@@ -680,7 +680,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.4-1747119502"
+    $HardeningKittyVersion = "0.9.4-1748775708"
 
     #
     # Log, report and backup file
@@ -1529,8 +1529,16 @@
                 try {
 
                     $ResultOutput = Get-Service -Name $Finding.MethodArgument 2> $null
-                    $Result = $ResultOutput.StartType
-
+                    
+                    # Use only processes, not drivers
+                    # https://learn.microsoft.com/en-us/dotnet/api/system.serviceprocess.servicetype
+                    If ($ResultOutput.ServiceType -eq "Win32OwnProcess" -or $ResultOutput.ServiceType -eq "Win32ShareProcess" -or $ResultOutput.ServiceType -eq "InteractiveProcess") {
+                        $Result = $ResultOutput.StartType
+                    } Else {
+                        $Result = $Finding.DefaultValue
+                        $ResultDefaultValue = $true
+                    }
+                    
                 } catch {
                     $Result = $Finding.DefaultValue
                     $ResultDefaultValue = $true
