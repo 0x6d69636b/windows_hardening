@@ -1532,7 +1532,7 @@
                     
                     # Use only processes, not drivers
                     # https://learn.microsoft.com/en-us/dotnet/api/system.serviceprocess.servicetype
-                    If ($ResultOutput.ServiceType -eq "Win32OwnProcess" -or $ResultOutput.ServiceType -eq "Win32ShareProcess" -or $ResultOutput.ServiceType -eq "InteractiveProcess") {
+                    If ($ResultOutput.ServiceType.value__ -ge 16) {
                         $Result = $ResultOutput.StartType
                     } Else {
                         $Result = $Finding.DefaultValue
