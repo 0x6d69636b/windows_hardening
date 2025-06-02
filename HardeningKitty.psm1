@@ -680,7 +680,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.4-1748775708"
+    $HardeningKittyVersion = "0.9.4-1748880223"
 
     #
     # Log, report and backup file
