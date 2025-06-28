@@ -674,6 +674,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 1694,"Internet Explorer","Turn on the auto-complete feature for user names and passwords on forms (Ask)",,,
 1693,"Internet Explorer","Turn on the auto-complete feature for user names and passwords on forms (Control Panel)",,,
 1692,"Internet Explorer","Turn on the auto-complete feature for user names and passwords on forms (Main)",,,
+1910,"MS Security Guide","Add Extended Protection for LDAP Authentication (Domain Controllers only)",,,
 537,"MS Security Guide","Apply UAC restrictions to local accounts on network logons",DE,"MS Security Guide","Apply UAC restrictions to local accounts on network logons"
 790,"MS Security Guide","Apply UAC restrictions to local accounts on network logons (Member)",,,
 1696,"MS Security Guide","Configure RPC packet level privacy setting for incoming connections",,,
