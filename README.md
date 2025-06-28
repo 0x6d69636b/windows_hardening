@@ -324,6 +324,8 @@ HardeningKitty can be used to audit systems against the following baselines / be
 | Microsoft Security baseline for Windows Server 2022 (Member) | 21H2 | Final |
 | Microsoft Security baseline for Windows Server 2025 (DC) | 24H2 | Final |
 | Microsoft Security baseline for Windows Server 2025 (Member) | 24H2 | Final |
+| Microsoft Security baseline for Windows Server 2025 (DC) | 2506 | Final |
+| Microsoft Security baseline for Windows Server 2025 (Member) | 2506 | Final |
 | Microsoft Security baseline for Office 365 ProPlus (Machine) | Sept 2019 | Final |
 | Microsoft Security baseline for Office 365 ProPlus (User) | Sept 2019 | Final |
 | Microsoft Security Baseline for Microsoft 365 Apps for enterprise (Machine) | v2104, v2106 | Final |
@@ -347,7 +349,8 @@ HardeningKitty can be used to audit systems against the following baselines / be
 * [Security baseline (FINAL) for Windows 10, version 21H1](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-final-for-windows-10-version-21h1/ba-p/2362353)
 * [Security baseline for Windows 10, version 21H2](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-baseline-for-windows-10-version-21h2/ba-p/3042703)
 * [Windows Server 2022 Security Baseline](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/windows-server-2022-security-baseline/ba-p/2724685)
-* [Windows Server 2025, security baseline](https://techcommunity.microsoft.com/blog/microsoft-security-baselines/windows-server-2025-security-baseline/4358733)
+* [Security baseline for Windows Server 2025, security baseline](https://techcommunity.microsoft.com/blog/microsoft-security-baselines/windows-server-2025-security-baseline/4358733)
+* [Security baseline for Windows Server 2025, version 2506](https://techcommunity.microsoft.com/blog/microsoft-security-baselines/security-baseline-for-windows-server-2025-version-2506/4426431)
 * [Windows 11 Security baseline](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/windows-11-security-baseline/ba-p/2810772)
 * [Windows 11, version 22H2 Security baseline](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/windows-11-version-22h2-security-baseline/ba-p/3632520)
 * [Windows 11, version 23H2 security baseline](https://techcommunity.microsoft.com/t5/microsoft-security-baselines/windows-11-version-23h2-security-baseline/ba-p/3967618)
