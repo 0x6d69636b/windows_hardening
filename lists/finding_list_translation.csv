@@ -1031,6 +1031,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 693,"Microsoft Edge","Allow InPrivate Browsing",,,
 694,"Microsoft Edge","Allow Sideloading of extension",,,
 802,"Microsoft Edge","Allow certificates signed using SHA-1 when issued by local trust anchors (deprecated)",,,
+1911,"Microsoft Edge","Allow software WebGL fallback using SwiftShader",,,
 1646,"Microsoft Edge","Allow unconfigured sites to be reloaded in Internet Explorer mode",,,
 809,"Microsoft Edge","Allow user-level native messaging hosts (installed without admin permissions)",,,
 803,"Microsoft Edge","Allow users to proceed from the HTTPS warning page",,,
