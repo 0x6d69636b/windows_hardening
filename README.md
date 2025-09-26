@@ -281,6 +281,8 @@ HardeningKitty can be used to audit systems against the following baselines / be
 | CIS Microsoft Windows Server 2022 (User) | 22H2 | 2.0.0 |
 | CIS Microsoft Windows Server 2022 (Machine) | 22H2 | 3.0.0 |
 | CIS Microsoft Windows Server 2022 (User) | 22H2 | 3.0.0 |
+| CIS Microsoft Windows Server 2022 (Machine) | 22H2 | 4.0.0 |
+| CIS Microsoft Windows Server 2022 (User) | 22H2 | 4.0.0 |
 | CIS Microsoft Windows Server 2025 (Machine) | 24H2 | 1.0.0 |
 | CIS Microsoft Windows Server 2025 (User) | 24H2 | 1.0.0 |
 | DoD Microsoft Windows 10 STIG (Machine) | 20H2 | v2r1 |
