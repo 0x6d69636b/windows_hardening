@@ -515,7 +515,6 @@
         $LocalGuestSid = $ComputerSid + "-501"
 
         Switch ($AccountName) {
-
             "Administrator" { $AccountSid = $LocalAdminSid; Break }
             "Guest" { $AccountSid = $LocalGuestSid; Break }
             "BUILTIN\Account Operators" { $AccountSid = "S-1-5-32-548"; Break }
@@ -540,7 +539,8 @@
             "NT AUTHORITY\SYSTEM" { $AccountSid = "S-1-5-18"; Break }
             "NT SERVICE\WdiServiceHost" { $AccountSid = "S-1-5-80-3139157870-2983391045-3678747466-658725712-1809340420"; Break }
             "NT VIRTUAL MACHINE\Virtual Machines" { $AccountSid = "S-1-5-83-0"; Break }
-            "Window Manager\Window Manager Group" { $AccountSid = "S-1-5-90-0"; Break }
+            "RESTRICTED SERVICES\PrintSpoolerService" { $AccountSid = "S-1-5-99-216390572-1995538116-3857911515-2404958512-2623887229"; Break }
+            "Window Manager\Window Manager Group" { $AccountSid = "S-1-5-90-0"; Break }            
             Default { $AccountSid = $AccountName }
         }
 
@@ -680,7 +680,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.4-1748880223"
+    $HardeningKittyVersion = "0.9.4-1759654192"
 
     #
     # Log, report and backup file
