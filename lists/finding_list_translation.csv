@@ -539,6 +539,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 97,"Advanced Audit Policy Configuration","System Integrity",,,
 74,"Advanced Audit Policy Configuration","User Account Management",,,
 1,Features,"SMBv1 Support",,,
+1913,"Internet Explorer","Disable Internet Explorer 11 Launch Via COM Automation",,,
 835,"Internet Explorer","Internet Control Panel: Advanced Page: Allow software to run or install even if the signature is invalid",,,
 836,"Internet Explorer","Internet Control Panel: Advanced Page: Check for server certificate revocation",,,
 837,"Internet Explorer","Internet Control Panel: Advanced Page: Check for signatures on downloaded programs",,,
@@ -681,6 +682,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 538,"MS Security Guide","Configure SMB v1 client driver",DE,"MS Security Guide","Configure SMB v1 client driver"
 539,"MS Security Guide","Configure SMB v1 server",DE,"MS Security Guide","Configure SMB v1 server"
 1801,"MS Security Guide","Enable Certificate Padding",,,
+1912,"MS Security Guide","Enable Certificate Padding (32-bit subsystem on 64-bit OS)",,,
 540,"MS Security Guide","Enable Structured Exception Handling Overwrite Protection (SEHOP)",DE,"MS Security Guide","Enable Structured Exception Handling Overwrite Protection (SEHOP)"
 791,"MS Security Guide","Extended Protection for LDAP Authentication (DC)",,,
 270,"MS Security Guide","LSA Protection",DE,"MS Security Guide","LSA Protection"
