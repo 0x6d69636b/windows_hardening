@@ -652,11 +652,14 @@ Id,CategoryEN,NameEN,Language,Category,Name
 206,"Administrative Templates: Windows Components","WinRM Service: Allow remote server management through WinRM",DE,"Administrative Vorlagen: Windows-Komponenten","WinRM-Dienst: Remoteserververwaltung über WinRM zulassen"
 208,"Administrative Templates: Windows Components","WinRM Service: Allow unencrypted traffic",DE,"Administrative Vorlagen: Windows-Komponenten","WinRM-Dienst: Unverschlüsselten Verkehr zulassen"
 209,"Administrative Templates: Windows Components","WinRM Service: Disallow WinRM from storing RunAs credentials",DE,"Administrative Vorlagen: Windows-Komponenten","WinRM-Dienst: Speichern von RunAs-Anmeldeinformationen durch WinRM nicht zulassen"
+1914,"Administrative Templates: Windows Components","Windows AI: Allow Recall to be enabled",,,
 1797,"Administrative Templates: Windows Components","Windows AI: Turn off Saving Snapshots for Windows",,,
 1798,"Administrative Templates: Windows Components","Windows AI: Turn off Saving Snapshots for Windows (User)",,,
 1803,"Administrative Templates: Windows Components","Windows Copilot: Turn off Windows Copilot",,,
 1812,"Administrative Templates: Windows Components","Windows Defender SmartScreen: Automatic Data Collection",,,
 1709,"Administrative Templates: Windows Components","Windows Defender SmartScreen: Enhanced Phishing Protection",,,
+1915,"Administrative Templates: Windows Components","Windows Defender SmartScreen: Explorer: Configure Windows Defender SmartScreen",,,
+1916,"Administrative Templates: Windows Components","Windows Defender SmartScreen: Explorer: Configure Windows Defender SmartScreen to warn and prevent bypass",,,
 1772,"Administrative Templates: Windows Components","Windows Defender SmartScreen: Notify Malicious",,,
 1710,"Administrative Templates: Windows Components","Windows Defender SmartScreen: Notify Password Reuse",,,
 1711,"Administrative Templates: Windows Components","Windows Defender SmartScreen: Notify Unsafe App",,,
@@ -677,6 +680,23 @@ Id,CategoryEN,NameEN,Language,Category,Name
 1713,"Administrative Templates: Windows Components","Windows Logon Options: Configure the transmission of the user's password in the content of MPR notifications sent by winlogon",,,
 202,"Administrative Templates: Windows Components","Windows Logon Options: Sign-in and lock last interactive user automatically after a restart",DE,"Administrative Vorlagen: Windows-Komponenten","Windows-Anmeldeoptionen: Automatisches Anmelden des letzten interaktiven Benutzers nach einem vom System initiierten Neustart"
 744,"Administrative Templates: Windows Components","Windows Media Player: Playback: Prevent Codec Download",DE,"Administrative Vorlagen: Windows-Komponenten","Windows Media Player: Wiedergabe: Codec-Download verhindern"
+268,"Administrative Templates: Windows Components","Windows PowerShell: Disable PowerShell version 2",,,
+269,"Administrative Templates: Windows Components","Windows PowerShell: Disable PowerShell version 2 (root)",,,
+307,"Administrative Templates: Windows Components","Windows PowerShell: PowerShell Language Mode",,,
+1739,"Administrative Templates: Windows Components","Windows PowerShell: Turn on PowerShell Module Logging",,,
+1742,"Administrative Templates: Windows Components","Windows PowerShell: Turn on PowerShell Module Logging",,,
+1740,"Administrative Templates: Windows Components","Windows PowerShell: Turn on PowerShell Module Logging - Module Names",,,
+1743,"Administrative Templates: Windows Components","Windows PowerShell: Turn on PowerShell Module Logging - Module Names",,,
+265,"Administrative Templates: Windows Components","Windows PowerShell: Turn on PowerShell Script Block Logging",,,
+304,"Administrative Templates: Windows Components","Windows PowerShell: Turn on PowerShell Script Block Logging",,,
+266,"Administrative Templates: Windows Components","Windows PowerShell: Turn on PowerShell Script Block Logging (Invocation)",,,
+305,"Administrative Templates: Windows Components","Windows PowerShell: Turn on PowerShell Script Block Logging (Invocation)",,,
+267,"Administrative Templates: Windows Components","Windows PowerShell: Turn on PowerShell Transcription",,,
+306,"Administrative Templates: Windows Components","Windows PowerShell: Turn on PowerShell Transcription",,,
+1741,"Administrative Templates: Windows Components","Windows PowerShell: Turn on PowerShell Transcription (Invocation)",,,
+1744,"Administrative Templates: Windows Components","Windows PowerShell: Turn on PowerShell Transcription (Invocation)",,,
+1556,"Administrative Templates: Windows Components","Windows PowerShell: Turn on Script Execution",DE,PowerShell,"Skriptausführung aktivieren"
+1555,"Administrative Templates: Windows Components","Windows PowerShell: Turn on Script Execution (Execution Policy)",DE,PowerShell,"Skriptausführung aktivieren (Execution Policy)"
 210,"Administrative Templates: Windows Components","Windows Remote Shell: Allow Remote Shell Access",DE,"Administrative Vorlagen: Windows-Komponenten","Windows-Remoteshell: Remoteshellzugriff zulassen"
 1678,"Administrative Templates: Windows Components","Windows Sandbox: Allow clipboard sharing with Windows Sandbox",,,
 1905,"Administrative Templates: Windows Components","Windows Sandbox: Allow mapping folders into Windows Sandbox",,,
@@ -1456,23 +1476,6 @@ Id,CategoryEN,NameEN,Language,Category,Name
 329,"Office 365","Allow the use of connected experiences that download online content",,,
 331,"Office 365","Configure the level of client software diagnostic data sent by Office to Microsoft",,,
 326,"Office 365","Disable the Office 365 Telemetry module",,,
-268,PowerShell,"Disable PowerShell version 2",,,
-269,PowerShell,"Disable PowerShell version 2 (root)",,,
-307,PowerShell,"PowerShell Language Mode",,,
-1739,PowerShell,"Turn on PowerShell Module Logging",,,
-1742,PowerShell,"Turn on PowerShell Module Logging",,,
-1740,PowerShell,"Turn on PowerShell Module Logging - Module Names",,,
-1743,PowerShell,"Turn on PowerShell Module Logging - Module Names",,,
-265,PowerShell,"Turn on PowerShell Script Block Logging",,,
-304,PowerShell,"Turn on PowerShell Script Block Logging",,,
-266,PowerShell,"Turn on PowerShell Script Block Logging (Invocation)",,,
-305,PowerShell,"Turn on PowerShell Script Block Logging (Invocation)",,,
-267,PowerShell,"Turn on PowerShell Transcription",,,
-306,PowerShell,"Turn on PowerShell Transcription",,,
-1741,PowerShell,"Turn on PowerShell Transcription (Invocation)",,,
-1744,PowerShell,"Turn on PowerShell Transcription (Invocation)",,,
-1556,PowerShell,"Turn on Script Execution",DE,PowerShell,"Skriptausführung aktivieren"
-1555,PowerShell,"Turn on Script Execution (Execution Policy)",DE,PowerShell,"Skriptausführung aktivieren (Execution Policy)"
 1600,"Schannel: TLS Settings: Ciphers","AES 128/128",,,
 1601,"Schannel: TLS Settings: Ciphers","AES 256/256",,,
 1591,"Schannel: TLS Settings: Ciphers","DES 56/56",,,
