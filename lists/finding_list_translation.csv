@@ -563,6 +563,49 @@ Id,CategoryEN,NameEN,Language,Category,Name
 957,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: MAPS: Configure the 'Block at First Sight' feature",,,
 676,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: MAPS: Join Microsoft MAPS",DE,"Microsoft Defender Antivirus","Beitritt zu Microsoft MAPS"
 956,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: MAPS: Send file samples when further analysis is required",,,
+245,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block Adobe Reader from creating child processes",DE,"Microsoft Defender Exploit Guard","ASR: Adobe Reader am Erstellen von untergeordneten Prozessen hindern"
+244,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block Adobe Reader from creating child processes (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Adobe Reader am Erstellen von untergeordneten Prozessen hindern (Richtlinie)"
+227,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block JavaScript or VBScript from launching downloaded executable content",DE,"Microsoft Defender Exploit Guard","ASR: JavaScript und VBScript am Starten heruntergeladener ausführbarer Inhalte hindern"
+226,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block JavaScript or VBScript from launching downloaded executable content (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: JavaScript und VBScript am Starten heruntergeladener ausführbarer Inhalte hindern (Richtlinie)"
+223,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block Office applications from creating executable content",DE,"Microsoft Defender Exploit Guard","ASR: Office-Anwendungen am Erstellen ausführbarer Inhalte hindern"
+222,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block Office applications from creating executable content (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Office-Anwendungen am Erstellen ausführbarer Inhalte hindern (Richtlinie)"
+225,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block Office applications from injecting code into other processes",DE,"Microsoft Defender Exploit Guard","ASR: Office-Anwendungen am Einfügen von Code in untergeordnete Prozesse hindern"
+224,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block Office applications from injecting code into other processes (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Office-Anwendungen am Einfügen von Code in untergeordnete Prozesse hindern (Richtlinie)"
+243,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block Office communication application from creating child processes",DE,"Microsoft Defender Exploit Guard","ASR: Office-Kommunikationsanwendung am Erstellen von untergeordneten Prozessen hindern"
+242,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block Office communication application from creating child processes (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Office-Kommunikationsanwendung am Erstellen von untergeordneten Prozessen hindern (Richtlinie)"
+1823,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block Webshell creation for Servers",,,
+1821,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block Webshell creation for Servers (Policy)",,,
+231,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block Win32 API calls from Office macros",DE,"Microsoft Defender Exploit Guard","ASR: Win32-API-Aufrufe von Office-Makros blockieren"
+230,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block Win32 API calls from Office macros (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Win32-API-Aufrufe von Office-Makros blockieren (Richtlinie)"
+1641,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block abuse of exploited vulnerable signed drivers",,,
+1640,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block abuse of exploited vulnerable signed drivers (Policy)",,,
+221,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block all Office applications from creating child processes",DE,"Microsoft Defender Exploit Guard","ASR: Alle Office-Anwendungen am Erstellen von untergeordneten Prozessen hindern"
+220,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block all Office applications from creating child processes (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Alle Office-Anwendungen am Erstellen von untergeordneten Prozessen hindern (Richtlinie)"
+237,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block credential stealing from the Windows local security authority subsystem (lsass.exe)",DE,"Microsoft Defender Exploit Guard","ASR: Diebstahl von Anmeldeinformationen aus dem Subsystem für die lokale Sicherheitsautorität (lsass.exe) blockieren"
+236,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block credential stealing from the Windows local security authority subsystem (lsass.exe) (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Diebstahl von Anmeldeinformationen aus dem Subsystem für die lokale Sicherheitsautorität (lsass.exe) blockieren (Richtlinie)"
+219,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block executable content from email client and webmail",DE,"Microsoft Defender Exploit Guard","ASR: Ausführbare Inhalte aus E-Mail-Client und Web-E-Mail blockieren"
+218,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block executable content from email client and webmail (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Ausführbare Inhalte aus E-Mail-Client und Web-E-Mail blockieren (Richtlinie)"
+233,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block executable files from running unless they meet a prevalence, age, or trusted list criterion",,,
+232,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block executable files from running unless they meet a prevalence, age, or trusted list criterion (Policy)",,,
+229,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block execution of potentially obfuscated scripts",DE,"Microsoft Defender Exploit Guard","ASR: Ausführung potenziell verborgener Skripts blockieren"
+228,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block execution of potentially obfuscated scripts (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Ausführung potenziell verborgener Skripts blockieren (Richtlinie)"
+247,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block persistence through WMI event subscription",,,
+246,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block persistence through WMI event subscription (Policy)",,,
+239,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block process creations originating from PSExec and WMI commands",,,
+238,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block process creations originating from PSExec and WMI commands (Policy)",,,
+1817,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block rebooting machine in Safe Mode",,,
+1815,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block rebooting machine in Safe Mode (Policy)",,,
+241,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block untrusted and unsigned processes that run from USB",DE,"Microsoft Defender Exploit Guard","ASR: Nicht vertrauenswürdige und nicht signierte Prozess, die von USB ausgeführt werden, blockieren"
+240,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block untrusted and unsigned processes that run from USB (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Nicht vertrauenswürdige und nicht signierte Prozess, die von USB ausgeführt werden, blockieren (Richtlinie)"
+1820,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block use of copied or impersonated system tools",,,
+1818,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Block use of copied or impersonated system tools (Policy)",,,
+1546,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Exclude files and paths from Attack Surface Reduction Rules",,,
+1545,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Exclude files and paths from Attack Surface Reduction Rules (Policy)",,,
+235,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Use advanced protection against ransomware",,,
+234,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: ASR: Use advanced protection against ransomware (Policy)",,,
+217,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: Attack Surface Reduction rules",DE,"Microsoft Defender Exploit Guard","Regeln zur Verringerung der Angriffsfläche konfigurieren"
+677,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: Network Protection: Prevent users and apps from accessing dangerous websites",DE,"Microsoft Defender Exploit Guard","Netzwerkschutz: Benutzer- und App-Zugriff auf gefährliche Websites verhindern"
+1866,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Microsoft Defender Exploit Guard: Network Protection: This settings controls whether Network Protection is allowed to be configured into block or audit mode on Windows Server",,,
 1791,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: MpEngine: Configure extended cloud check",,,
 678,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: MpEngine: Enable file hash computation feature",,,
 958,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: MpEngine: Select cloud protection level",,,
@@ -839,47 +882,6 @@ Id,CategoryEN,NameEN,Language,Category,Name
 689,"Microsoft Defender Application Guard","Configure Microsoft Defender Application Guard clipboard settings: Clipboard behavior setting",,,
 1306,"Microsoft Defender Application Guard","Support for Microsoft Defender Application Guard",,,
 690,"Microsoft Defender Application Guard","Turn on Microsoft Defender Application Guard in Managed Mode",,,
-245,"Microsoft Defender Exploit Guard","ASR: Block Adobe Reader from creating child processes",DE,"Microsoft Defender Exploit Guard","ASR: Adobe Reader am Erstellen von untergeordneten Prozessen hindern"
-244,"Microsoft Defender Exploit Guard","ASR: Block Adobe Reader from creating child processes (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Adobe Reader am Erstellen von untergeordneten Prozessen hindern (Richtlinie)"
-227,"Microsoft Defender Exploit Guard","ASR: Block JavaScript or VBScript from launching downloaded executable content",DE,"Microsoft Defender Exploit Guard","ASR: JavaScript und VBScript am Starten heruntergeladener ausführbarer Inhalte hindern"
-226,"Microsoft Defender Exploit Guard","ASR: Block JavaScript or VBScript from launching downloaded executable content (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: JavaScript und VBScript am Starten heruntergeladener ausführbarer Inhalte hindern (Richtlinie)"
-223,"Microsoft Defender Exploit Guard","ASR: Block Office applications from creating executable content",DE,"Microsoft Defender Exploit Guard","ASR: Office-Anwendungen am Erstellen ausführbarer Inhalte hindern"
-222,"Microsoft Defender Exploit Guard","ASR: Block Office applications from creating executable content (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Office-Anwendungen am Erstellen ausführbarer Inhalte hindern (Richtlinie)"
-225,"Microsoft Defender Exploit Guard","ASR: Block Office applications from injecting code into other processes",DE,"Microsoft Defender Exploit Guard","ASR: Office-Anwendungen am Einfügen von Code in untergeordnete Prozesse hindern"
-224,"Microsoft Defender Exploit Guard","ASR: Block Office applications from injecting code into other processes (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Office-Anwendungen am Einfügen von Code in untergeordnete Prozesse hindern (Richtlinie)"
-243,"Microsoft Defender Exploit Guard","ASR: Block Office communication application from creating child processes",DE,"Microsoft Defender Exploit Guard","ASR: Office-Kommunikationsanwendung am Erstellen von untergeordneten Prozessen hindern"
-242,"Microsoft Defender Exploit Guard","ASR: Block Office communication application from creating child processes (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Office-Kommunikationsanwendung am Erstellen von untergeordneten Prozessen hindern (Richtlinie)"
-1823,"Microsoft Defender Exploit Guard","ASR: Block Webshell creation for Servers",,,
-1821,"Microsoft Defender Exploit Guard","ASR: Block Webshell creation for Servers (Policy)",,,
-231,"Microsoft Defender Exploit Guard","ASR: Block Win32 API calls from Office macros",DE,"Microsoft Defender Exploit Guard","ASR: Win32-API-Aufrufe von Office-Makros blockieren"
-230,"Microsoft Defender Exploit Guard","ASR: Block Win32 API calls from Office macros (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Win32-API-Aufrufe von Office-Makros blockieren (Richtlinie)"
-1641,"Microsoft Defender Exploit Guard","ASR: Block abuse of exploited vulnerable signed drivers",,,
-1640,"Microsoft Defender Exploit Guard","ASR: Block abuse of exploited vulnerable signed drivers (Policy)",,,
-221,"Microsoft Defender Exploit Guard","ASR: Block all Office applications from creating child processes",DE,"Microsoft Defender Exploit Guard","ASR: Alle Office-Anwendungen am Erstellen von untergeordneten Prozessen hindern"
-220,"Microsoft Defender Exploit Guard","ASR: Block all Office applications from creating child processes (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Alle Office-Anwendungen am Erstellen von untergeordneten Prozessen hindern (Richtlinie)"
-237,"Microsoft Defender Exploit Guard","ASR: Block credential stealing from the Windows local security authority subsystem (lsass.exe)",DE,"Microsoft Defender Exploit Guard","ASR: Diebstahl von Anmeldeinformationen aus dem Subsystem für die lokale Sicherheitsautorität (lsass.exe) blockieren"
-236,"Microsoft Defender Exploit Guard","ASR: Block credential stealing from the Windows local security authority subsystem (lsass.exe) (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Diebstahl von Anmeldeinformationen aus dem Subsystem für die lokale Sicherheitsautorität (lsass.exe) blockieren (Richtlinie)"
-219,"Microsoft Defender Exploit Guard","ASR: Block executable content from email client and webmail",DE,"Microsoft Defender Exploit Guard","ASR: Ausführbare Inhalte aus E-Mail-Client und Web-E-Mail blockieren"
-218,"Microsoft Defender Exploit Guard","ASR: Block executable content from email client and webmail (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Ausführbare Inhalte aus E-Mail-Client und Web-E-Mail blockieren (Richtlinie)"
-233,"Microsoft Defender Exploit Guard","ASR: Block executable files from running unless they meet a prevalence, age, or trusted list criterion",,,
-232,"Microsoft Defender Exploit Guard","ASR: Block executable files from running unless they meet a prevalence, age, or trusted list criterion (Policy)",,,
-229,"Microsoft Defender Exploit Guard","ASR: Block execution of potentially obfuscated scripts",DE,"Microsoft Defender Exploit Guard","ASR: Ausführung potenziell verborgener Skripts blockieren"
-228,"Microsoft Defender Exploit Guard","ASR: Block execution of potentially obfuscated scripts (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Ausführung potenziell verborgener Skripts blockieren (Richtlinie)"
-247,"Microsoft Defender Exploit Guard","ASR: Block persistence through WMI event subscription",,,
-246,"Microsoft Defender Exploit Guard","ASR: Block persistence through WMI event subscription (Policy)",,,
-239,"Microsoft Defender Exploit Guard","ASR: Block process creations originating from PSExec and WMI commands",,,
-238,"Microsoft Defender Exploit Guard","ASR: Block process creations originating from PSExec and WMI commands (Policy)",,,
-1817,"Microsoft Defender Exploit Guard","ASR: Block rebooting machine in Safe Mode",,,
-1815,"Microsoft Defender Exploit Guard","ASR: Block rebooting machine in Safe Mode (Policy)",,,
-241,"Microsoft Defender Exploit Guard","ASR: Block untrusted and unsigned processes that run from USB",DE,"Microsoft Defender Exploit Guard","ASR: Nicht vertrauenswürdige und nicht signierte Prozess, die von USB ausgeführt werden, blockieren"
-240,"Microsoft Defender Exploit Guard","ASR: Block untrusted and unsigned processes that run from USB (Policy)",DE,"Microsoft Defender Exploit Guard","ASR: Nicht vertrauenswürdige und nicht signierte Prozess, die von USB ausgeführt werden, blockieren (Richtlinie)"
-1820,"Microsoft Defender Exploit Guard","ASR: Block use of copied or impersonated system tools",,,
-1818,"Microsoft Defender Exploit Guard","ASR: Block use of copied or impersonated system tools (Policy)",,,
-1546,"Microsoft Defender Exploit Guard","ASR: Exclude files and paths from Attack Surface Reduction Rules",,,
-1545,"Microsoft Defender Exploit Guard","ASR: Exclude files and paths from Attack Surface Reduction Rules (Policy)",,,
-235,"Microsoft Defender Exploit Guard","ASR: Use advanced protection against ransomware",,,
-234,"Microsoft Defender Exploit Guard","ASR: Use advanced protection against ransomware (Policy)",,,
-217,"Microsoft Defender Exploit Guard","Attack Surface Reduction rules",DE,"Microsoft Defender Exploit Guard","Regeln zur Verringerung der Angriffsfläche konfigurieren"
 1362,"Microsoft Defender Exploit Guard","Exploit protection: Child Process: Override Child Process (GROOVE.EXE)",,,
 1352,"Microsoft Defender Exploit Guard","Exploit protection: Child Process: Override Child Process (fltldr.exe)",,,
 248,"Microsoft Defender Exploit Guard","Exploit protection: Control flow guard (CFG)",,,
@@ -1088,8 +1090,6 @@ Id,CategoryEN,NameEN,Language,Category,Name
 258,"Microsoft Defender Exploit Guard","Exploit protection: Validate exception chains (SEHOP)",,,
 261,"Microsoft Defender Exploit Guard","Exploit protection: Validate heap integrity",,,
 251,"Microsoft Defender Exploit Guard","Force use of Data Execution Prevention (DEP)",,,
-677,"Microsoft Defender Exploit Guard","Network Protection: Prevent users and apps from accessing dangerous websites",DE,"Microsoft Defender Exploit Guard","Netzwerkschutz: Benutzer- und App-Zugriff auf gefährliche Websites verhindern"
-1866,"Microsoft Defender Exploit Guard","Network Protection: This settings controls whether Network Protection is allowed to be configured into block or audit mode on Windows Server",,,
 1331,"Microsoft Defender Exploit Guard","Use a common set of exploit protection settings",,,
 1000,"Office 2016 / Office 365","Global Options: Disable UI extending from documents and templates (Access)",,,
 1001,"Office 2016 / Office 365","Global Options: Disable UI extending from documents and templates (Excel)",,,
