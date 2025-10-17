@@ -219,8 +219,8 @@ HardeningKitty can be used to audit systems against the following baselines / be
 
 | Name | System Version    | Version  |
 | :--- | :---------------- | :------  |
-| 0x6d69636b Windows 10 (Machine) | 22H2 | |
-| 0x6d69636b Windows 10 (User) | 22H2 | |
+| 0x6d69636b Windows 11 (Machine) | 25H2 | |
+| 0x6d69636b Windows 11 (User) | 25H2 | |
 | BSI SiSyPHuS Windows 10 hoher Schutzbedarf Domänenmitglied (Machine) | 1809 | 1.0 |
 | BSI SiSyPHuS Windows 10 hoher Schutzbedarf Domänenmitglied (User) | 1809| 1.0
 | BSI SiSyPHuS Windows 10 normaler Schutzbedarf Domänenmitglied (Machine) | 1809| 1.0 |
