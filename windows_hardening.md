@@ -690,6 +690,8 @@ Example of an XML configuration file:
 
 * ID 4001: Set _Turn off toast notifications on the lock screen_ to **Enabled**
 
+### Administrative Templates\System
+
 #### Internet Communication Management
 
 * ID 4100: Set _Internet Communication Settings\Turn off Help Experience Improvement Program_ to **Enabled**
