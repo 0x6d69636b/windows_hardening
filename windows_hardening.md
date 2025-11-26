@@ -737,7 +737,12 @@ For Office 365 Hardening, lists [Microsoft 365 Apps (Machine)](https://github.co
 * ID 4405: Set _Don’t allow Dynamic Data Exchange (DDE) server launch in Excel_ to **Enabled**
 * ID 4406: Set _Don’t allow Dynamic Data Exchange (DDE) server lookup in Excel_ to **Enabled**	
 * ID 4407: Set _Block macros from running in Office files from the Internet_ to **Enabled**	
-* ID 4408, ID 4409: Set _VBA Macro Notification Settings_ to **Disable all**	
+* ID 4408, ID 4409: Set _VBA Macro Notification Settings_ to **Disable all**
+
+#### Outlook
+
+* ID 4425: Set _Folder Home Pages for Outlook Special Folders\Do not allow Home Page URL to be set in folder Properties_ to **Enabled**
+* ID 4426: Set _Outlook Today Settings\Outlook Today availability_ to **Disabled**
 
 #### PowerPoint
 
