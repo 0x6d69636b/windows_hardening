@@ -3059,7 +3059,8 @@
                     }
                 } Else {
                     # Excellent
-                    $ResultText = "Rule already exists"
+                    $ResultText = "Rule already exists, setting Recommended Value"
+                    Set-NetFirewallRule -DisplayName $FwDisplayName -Enabled $Finding.RecommendedValue
                     $Message = "ID " + $Finding.ID + ", " + $Finding.Name + ", " + $ResultText
                     $MessageSeverity = "Passed"
                     $TestResult = "Passed"
