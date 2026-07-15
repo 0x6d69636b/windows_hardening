@@ -200,7 +200,7 @@
             depending on the level. If the Log parameter is set, the
             output is also stored in a file.
         #>
-        
+
         [CmdletBinding()]
         Param (
             [String]
@@ -829,7 +829,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.4-1784122047"
+    $HardeningKittyVersion = "0.9.4-1784123720"
 
     #
     # Finding list integrity
@@ -3210,23 +3210,24 @@
                 If ($Result -ne $Finding.RecommendedValue) {
 
                     try {
-
                         $ResultOutput = &$BinaryBcdedit "/set" $Finding.MethodArgument $Finding.RecommendedValue
-
+                        $ResultExitCode = $LASTEXITCODE
                     } catch {
+                        $ResultExitCode = 1
+                    }
 
+                    If ($ResultExitCode -eq 0) {
+                        $ResultText = "Setting enabled. Please restart the system to activate it"
+                        $Message = "ID " + $Finding.ID + ", " + $Finding.Name + ", " + $ResultText
+                        $MessageSeverity = "Passed"
+                        $TestResult = "Passed"
+                    } Else {
                         $ResultText = "Setting could not be enabled"
                         $Message = "ID " + $Finding.ID + ", " + $Finding.Name + ", " + $ResultText
                         $MessageSeverity = "High"
                         $TestResult = "Failed"
                     }
-
-                    $ResultText = "Setting enabled. Please restart the system to activate it"
-                    $Message = "ID " + $Finding.ID + ", " + $Finding.Name + ", " + $ResultText
-                    $MessageSeverity = "Passed"
-                    $TestResult = "Passed"
                 } Else {
-
                     $ResultText = "Setting is already set correct"
                     $Message = "ID " + $Finding.ID + ", " + $Finding.Name + ", " + $ResultText
                     $MessageSeverity = "Passed"
