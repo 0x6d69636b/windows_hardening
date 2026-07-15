@@ -25,7 +25,7 @@
     CompanyName = 'scip ag'
 
     # Copyright statement for this module
-    Copyright = 'MIT License, Copyright (c) 2022 Michael Schneider'
+    Copyright = 'MIT License, Copyright (c) 2017 Michael Schneider'
 
     # Description of the functionality provided by this module
     Description = 'Module to audit and harden Windows machines based on various guidelines'
