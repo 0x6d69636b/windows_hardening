@@ -745,7 +745,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.4-1784098849"
+    $HardeningKittyVersion = "0.9.4-1784103628"
 
     #
     # Log, report and backup file
@@ -1278,7 +1278,9 @@
                 try {
 
                     &$BinarySecedit /export /cfg $TempFileName /areas $Area | Out-Null
-                    $ResultOutputRaw = Get-Content -Encoding unicode $TempFileName | Select-String $Finding.MethodArgument
+                    # -SimpleMatch: MethodArgument comes from the finding list and must be treated
+                    # as literal text, not a regular expression
+                    $ResultOutputRaw = Get-Content -Encoding unicode $TempFileName | Select-String -SimpleMatch $Finding.MethodArgument
 
                     If ($null -eq $ResultOutputRaw) {
                         $Result = ""
@@ -2368,6 +2370,34 @@
                     "Security Options" { $Area = "SECURITYPOLICY"; Break }
                 }
 
+                # MethodArgument comes from the finding list and is written into the security
+                # policy that is applied with secedit /configure /overwrite. Reject control
+                # characters (CR/LF) so a finding list entry cannot inject additional INI lines.
+                If ($Finding.MethodArgument -match "[\r\n]") {
+                    $ResultText = "Invalid MethodArgument, contains control characters"
+                    $Message = "ID " + $Finding.ID + ", " + $Finding.Name + ", " + $ResultText
+                    $MessageSeverity = "High"
+                    $TestResult = "Failed"
+                    Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                    If ($Log) {
+                        Add-MessageToFile -Text $Message -File $LogFile
+                    }
+                    If ($Report) {
+                        $ReportResult = [ordered] @{
+                            ID = $Finding.ID
+                            Category = $Finding.Category
+                            Name = $Finding.Name
+                            Severity = $MessageSeverity
+                            Result = $ResultText
+                            Recommended = ""
+                            TestResult = $TestResult
+                            SeverityFinding = ""
+                        }
+                        $ReportAllResults += $ReportResult
+                    }
+                    Continue
+                }
+
                 $TempFileName = New-HardeningKittyTempFile -Directory $HardeningKittyTempDir -CreateFile
                 $TempDbFileName = New-HardeningKittyTempFile -Directory $HardeningKittyTempDir -CreateFile
 
@@ -2574,13 +2604,49 @@
                 }
 
                 $Area = "USER_RIGHTS";
+
+                # MethodArgument comes from the finding list and is written into the security
+                # policy that is applied with secedit /configure /overwrite. Reject control
+                # characters (CR/LF) so a finding list entry cannot inject additional INI lines.
+                If ($Finding.MethodArgument -match "[\r\n]") {
+                    $ResultText = "Invalid MethodArgument, contains control characters"
+                    $Message = "ID " + $Finding.ID + ", " + $Finding.Name + ", " + $ResultText
+                    $MessageSeverity = "High"
+                    $TestResult = "Failed"
+                    Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                    If ($Log) {
+                        Add-MessageToFile -Text $Message -File $LogFile
+                    }
+                    If ($Report) {
+                        $ReportResult = [ordered] @{
+                            ID = $Finding.ID
+                            Category = $Finding.Category
+                            Name = $Finding.Name
+                            Severity = $MessageSeverity
+                            Result = $ResultText
+                            Recommended = ""
+                            TestResult = $TestResult
+                            SeverityFinding = ""
+                        }
+                        $ReportAllResults += $ReportResult
+                    }
+                    Continue
+                }
+
                 $TempFileName = New-HardeningKittyTempFile -Directory $HardeningKittyTempDir -CreateFile
                 $TempDbFileName = New-HardeningKittyTempFile -Directory $HardeningKittyTempDir -CreateFile
 
                 &$BinarySecedit /export /cfg $TempFileName /areas $Area | Out-Null
 
+                # MethodArgument is used to locate and rewrite the matching line. Escape it so it is
+                # treated as literal text and cannot inject regular-expression metacharacters. The
+                # replacement text is likewise escaped so a literal "$" is not interpreted as a
+                # regex substitution token ($1, $&, ...).
+                $MethodArgumentPattern = [regex]::Escape($Finding.MethodArgument) + ".*"
+
                 if ($Finding.RecommendedValue -eq "") {
-                    (Get-Content -Encoding unicode $TempFileName) -replace "$($Finding.MethodArgument).*", "$($Finding.MethodArgument) = " | Out-File $TempFileName
+                    $Replacement = ($Finding.MethodArgument + " = ").Replace('$', '$$')
+                    (Get-Content -Encoding unicode $TempFileName) -replace $MethodArgumentPattern, $Replacement | Out-File $TempFileName
                 } else {
                     $ListTranslated = @()
                     $Finding.RecommendedValue -split ';' | Where-Object {
@@ -2592,8 +2658,9 @@
                     }
 
                     # If User Right Assignment exists, replace values
-                    If ( ((Get-Content -Encoding unicode $TempFileName) | Select-String $($Finding.MethodArgument)).Count -gt 0 ) {
-                        (Get-Content -Encoding unicode $TempFileName) -replace "$($Finding.MethodArgument).*", "$($Finding.MethodArgument) = $($ListTranslated -join ',')" | Out-File $TempFileName
+                    If ( ((Get-Content -Encoding unicode $TempFileName) | Select-String -SimpleMatch $Finding.MethodArgument).Count -gt 0 ) {
+                        $Replacement = ($Finding.MethodArgument + " = " + ($ListTranslated -join ',')).Replace('$', '$$')
+                        (Get-Content -Encoding unicode $TempFileName) -replace $MethodArgumentPattern, $Replacement | Out-File $TempFileName
                     }
                     # If it does not exist, add a new entry into the file at the right position
                     Else {
@@ -3503,7 +3570,7 @@
     If ($HardeningKittyTempDir -and (Test-Path -LiteralPath $HardeningKittyTempDir)) {
         Remove-Item -LiteralPath $HardeningKittyTempDir -Recurse -Force -ErrorAction SilentlyContinue
     }
-    
+
     Write-ProtocolEntry -Text "HardeningKitty is done" -LogLevel "Info"
 }
 
