@@ -194,18 +194,15 @@
     )
 
     Function Write-ProtocolEntry {
-
         <#
         .SYNOPSIS
-
             Output of an event with timestamp and different formatting
             depending on the level. If the Log parameter is set, the
             output is also stored in a file.
         #>
-
+        
         [CmdletBinding()]
         Param (
-
             [String]
             $Text,
 
@@ -231,17 +228,14 @@
     }
 
     Function Add-MessageToFile {
-
         <#
         .SYNOPSIS
-
             Write message to a file, this function can be used for logs,
             reports, backups and more.
         #>
 
         [CmdletBinding()]
         Param (
-
             [String]
             $Text,
 
@@ -259,10 +253,8 @@
     }
 
     Function Write-ResultEntry {
-
         <#
         .SYNOPSIS
-
             Output of the assessment result with different formatting
             depending on the severity level. If emoji support is enabled,
             a suitable symbol is used for the severity rating.
@@ -303,14 +295,11 @@
     }
 
     Function Get-IniContent ($filePath) {
-
         <#
         .SYNOPSIS
-
             Read a .ini file into a tree of hashtables
 
         .NOTES
-
             Original source see https://devblogs.microsoft.com/scripting/use-powershell-to-work-with-any-ini-file/
         #>
 
@@ -340,15 +329,12 @@
     }
 
     Function Out-IniFile($InputObject, $FilePath, $Encoding) {
-
         <#
-            .SYNOPSIS
+        .SYNOPSIS
+            Write a hashtable out to a .ini file
 
-                Write a hashtable out to a .ini file
-
-            .NOTES
-
-                Original source see https://devblogs.microsoft.com/scripting/use-powershell-to-work-with-any-ini-file/
+        .NOTES
+            Original source see https://devblogs.microsoft.com/scripting/use-powershell-to-work-with-any-ini-file/
         #>
 
         $outFile = New-Item -Force -ItemType file -Path $Filepath
@@ -373,11 +359,9 @@
     }
 
     Function Get-HashtableValueDeep {
-
         <#
-            .SYNOPSIS
-
-                Get a value from a tree of hashtables
+        .SYNOPSIS
+            Get a value from a tree of hashtables
         #>
 
         [CmdletBinding()]
@@ -410,16 +394,13 @@
     }
 
     Function Set-HashtableValueDeep {
-
         <#
-            .SYNOPSIS
-
-                Set a value in a tree of hashtables, using recursion.
+        .SYNOPSIS
+            Set a value in a tree of hashtables, using recursion.
         #>
 
         [CmdletBinding()]
         Param (
-
             [Hashtable]
             $Table,
 
@@ -448,11 +429,9 @@
     }
 
     Function Get-SidFromAccount {
-
         <#
-            .SYNOPSIS
-
-                Translate the account name (user or group) into the Security Identifier (SID)
+        .SYNOPSIS
+            Translate the account name (user or group) into the Security Identifier (SID)
         #>
 
         [CmdletBinding()]
@@ -477,11 +456,9 @@
     }
 
     Function Get-AccountFromSid {
-
         <#
-            .SYNOPSIS
-
-                Translate the Security Identifier (SID) into the account name (user or group)
+        .SYNOPSIS
+            Translate the Security Identifier (SID) into the account name (user or group)
         #>
 
         [CmdletBinding()]
@@ -506,13 +483,11 @@
     }
 
     Function Translate-SidFromWellkownAccount {
-
         <#
-            .SYNOPSIS
-
-                Translate the well-known account name (user or group) into the Security Identifier (SID)
-                No attempt is made to get a Domain SID to identify groups such as Domain Admins,
-                as the possibility for false positives is too great. In this case the account name is returned.
+        .SYNOPSIS
+            Translate the well-known account name (user or group) into the Security Identifier (SID)
+            No attempt is made to get a Domain SID to identify groups such as Domain Admins,
+            as the possibility for false positives is too great. In this case the account name is returned.
         #>
 
         [CmdletBinding()]
@@ -641,6 +616,7 @@
             Without it only a path is returned, which is required by auditpol.exe
             as it refuses to back up into an existing file.
         #>
+
         [CmdletBinding()]
         param (
             [Parameter(Mandatory = $true)]
@@ -659,7 +635,6 @@
     }
 
     Function Confirm-FindingListIntegrity {
-
         <#
         .SYNOPSIS
             Verify a finding list against the signed official manifest.
@@ -854,7 +829,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.4-1784116600"
+    $HardeningKittyVersion = "0.9.4-1784122047"
 
     #
     # Finding list integrity
