@@ -580,6 +580,71 @@
         Write-ProtocolEntry -Text $Message -LogLevel "Error"
     }
 
+    Function New-HardeningKittyTempDirectory {
+        <#
+        .SYNOPSIS
+            Create a private working directory for temporary files.
+
+        .DESCRIPTION
+            This function creates a dedicated directory with a random name and an ACL restricted to
+            the current user (inheritance disabled), so temporary files cannot be pre-created,
+            tampered with or read by other users. This protects the auditpol backup and the secedit exports
+            which contain security configuration information.
+        #>
+
+        $TempPath = [System.IO.Path]::GetTempPath()
+        Do {
+            $DirectoryPath = Join-Path -Path $TempPath -ChildPath ("HardeningKitty_" + [System.IO.Path]::GetRandomFileName())
+        } Until (-Not (Test-Path -LiteralPath $DirectoryPath))
+
+        $Directory = New-Item -Path $DirectoryPath -ItemType Directory -ErrorAction Stop
+
+        # Restrict access to the current user and remove inherited permissions
+        $CurrentUser = [System.Security.Principal.WindowsIdentity]::GetCurrent().User
+        $Acl = Get-Acl -Path $Directory.FullName
+        $Acl.SetAccessRuleProtection($true, $false)
+        $AccessRule = New-Object System.Security.AccessControl.FileSystemAccessRule(
+            $CurrentUser,
+            [System.Security.AccessControl.FileSystemRights]::FullControl,
+            ([System.Security.AccessControl.InheritanceFlags]::ContainerInherit -bor [System.Security.AccessControl.InheritanceFlags]::ObjectInherit),
+            [System.Security.AccessControl.PropagationFlags]::None,
+            [System.Security.AccessControl.AccessControlType]::Allow
+        )
+        $Acl.AddAccessRule($AccessRule)
+        Set-Acl -Path $Directory.FullName -AclObject $Acl
+
+        Return $Directory.FullName
+    }
+
+    Function New-HardeningKittyTempFile {
+        <#
+        .SYNOPSIS
+            Return a path to a uniquely named temporary file inside the private
+            HardeningKitty working directory.
+
+        .DESCRIPTION
+            The random file name comes from a cryptographically strong source. With
+            -CreateFile an empty file is created, mirroring the GetTempFileName() behaviour.
+            Without it only a path is returned, which is required by auditpol.exe
+            as it refuses to back up into an existing file.
+        #>
+        [CmdletBinding()]
+        param (
+            [Parameter(Mandatory = $true)]
+            [String]
+            $Directory,
+            [Switch]
+            $CreateFile
+        )
+        Do {
+            $FilePath = Join-Path -Path $Directory -ChildPath ([System.IO.Path]::GetRandomFileName())
+        } Until (-Not (Test-Path -LiteralPath $FilePath))
+        If ($CreateFile) {
+            New-Item -Path $FilePath -ItemType File -ErrorAction Stop | Out-Null
+        }
+        Return $FilePath
+    }
+
     Function ConvertToInt {
         [CmdletBinding()]
         Param (
@@ -680,7 +745,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.4-1768134928"
+    $HardeningKittyVersion = "0.9.4-1784098849"
 
     #
     # Log, report and backup file
@@ -872,6 +937,12 @@
     }
 
     #
+    # Private working directory
+    # The auditpol backup and the secedit exports are written here.
+    #
+    $HardeningKittyTempDir = New-HardeningKittyTempDirectory
+
+    #
     # Start Config/Audit mode
     # The processing is done per category of the finding list.
     # The finding list defines which module is used and the arguments and recommended values for the test.
@@ -987,8 +1058,7 @@
                     Continue
                 }
 
-                $TempFileName = [System.IO.Path]::GetTempFileName()
-
+                $TempFileName = New-HardeningKittyTempFile -Directory $HardeningKittyTempDir -CreateFile
                 $Area = "";
 
                 Switch ($Finding.Category) {
@@ -1073,8 +1143,9 @@
 
                     $SubCategory = $Finding.MethodArgument
 
-                    # auditpol.exe does not write a backup in an existing file, so we have to build a name instead of create one
-                    $TempFileName = [System.IO.Path]::GetTempPath() + "HardeningKitty_auditpol-" + $(Get-Date -Format yyyyMMdd-HHmmss) + ".csv"
+                    # auditpol.exe does not write a backup into an existing file, so a path is
+                    # generated without creating the file
+                    $TempFileName = New-HardeningKittyTempFile -Directory $HardeningKittyTempDir
                     &$BinaryAuditpol /backup /file:$TempFileName > $null
 
                     $ResultOutputLoad = Get-Content $TempFileName
@@ -1202,7 +1273,7 @@
                 }
 
                 $Area = "USER_RIGHTS"
-                $TempFileName = [System.IO.Path]::GetTempFileName()
+                $TempFileName = New-HardeningKittyTempFile -Directory $HardeningKittyTempDir -CreateFile
 
                 try {
 
@@ -2297,8 +2368,8 @@
                     "Security Options" { $Area = "SECURITYPOLICY"; Break }
                 }
 
-                $TempFileName = [System.IO.Path]::GetTempFileName()
-                $TempDbFileName = [System.IO.Path]::GetTempFileName()
+                $TempFileName = New-HardeningKittyTempFile -Directory $HardeningKittyTempDir -CreateFile
+                $TempDbFileName = New-HardeningKittyTempFile -Directory $HardeningKittyTempDir -CreateFile
 
                 &$BinarySecedit /export /cfg $TempFileName /areas $Area | Out-Null
 
@@ -2503,8 +2574,8 @@
                 }
 
                 $Area = "USER_RIGHTS";
-                $TempFileName = [System.IO.Path]::GetTempFileName()
-                $TempDbFileName = [System.IO.Path]::GetTempFileName()
+                $TempFileName = New-HardeningKittyTempFile -Directory $HardeningKittyTempDir -CreateFile
+                $TempDbFileName = New-HardeningKittyTempFile -Directory $HardeningKittyTempDir -CreateFile
 
                 &$BinarySecedit /export /cfg $TempFileName /areas $Area | Out-Null
 
@@ -3427,6 +3498,12 @@
         Write-Output "`n"
         Write-ProtocolEntry -Text "Your HardeningKitty score is: $HardeningKittyScoreRounded. HardeningKitty Statistics: Total checks: $StatsTotal - Passed: $StatsPassed, Low: $StatsLow, Medium: $StatsMedium, High: $StatsHigh." -LogLevel "Info"
     }
+
+    # Remove the private working directory and any remaining temporary files
+    If ($HardeningKittyTempDir -and (Test-Path -LiteralPath $HardeningKittyTempDir)) {
+        Remove-Item -LiteralPath $HardeningKittyTempDir -Recurse -Force -ErrorAction SilentlyContinue
+    }
+    
     Write-ProtocolEntry -Text "HardeningKitty is done" -LogLevel "Info"
 }
 
