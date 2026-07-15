@@ -89,6 +89,15 @@
         The Filter parameter can be used to filter the hardening list. For this purpose the PowerShell ScriptBlock syntax must be used, for example { $_.ID -eq 4505 }.
         The following elements are useful for filtering: ID, Category, Name, Method, and Severity.
 
+    .PARAMETER GPOname
+
+        The GPOname parameter defines the name of the GPO policy.
+
+    .PARAMETER AllowCustomList
+
+        Use a finding list that is not verified against the maintainer signature (a custom or modified list) in a write mode (HailMary, GPO).
+        Running your own list is your own risk.
+
     .EXAMPLE
         Invoke-HardeningKitty -Mode Audit -Log -Report
 
@@ -177,7 +186,11 @@
 
          # Define name of the GPO name
         [String]
-        $GPOname
+        $GPOname,
+
+        # Use a finding list that is not verified against the maintainer signature
+        [Switch]
+        $AllowCustomList
     )
 
     Function Write-ProtocolEntry {
@@ -645,6 +658,102 @@
         Return $FilePath
     }
 
+    Function Confirm-FindingListIntegrity {
+
+        <#
+        .SYNOPSIS
+            Verify a finding list against the signed official manifest.
+
+        .DESCRIPTION
+            Official finding lists are attested by lists\hardeningkitty_lists_manifest.psd1, which
+            maps each official list file name to its SHA-256 hash and is signed with a detached
+            PKCS#7 signature (hardeningkitty_lists_manifest.psd1.p7s) by the maintainer certificate.
+
+            A list is "verified" when the detached signature is intact, the signer thumbprint matches
+            the pinned thumbprint, and the list SHA-256 matches the manifest entry for its name.
+
+            The signature is checked with SignedCms.CheckSignature($true), which validates signature
+            integrity only and deliberately ignores the certificate chain and validity period. The
+            trust anchor is the pinned thumbprint, not a public CA, so a self-signed certificate is
+            sufficient and no timestamp is required.
+
+            This function never throws; it always returns a status object with the properties
+            Verified (bool), Reason (string) and Hash (string, SHA-256 of the list).
+        #>
+
+        [CmdletBinding()]
+        param (
+            [Parameter(Mandatory = $true)]
+            [String]
+            $ListPath,
+            [Parameter(Mandatory = $true)]
+            [String]
+            $ManifestPath,
+            [Parameter(Mandatory = $true)]
+            [String]
+            $SignaturePath,
+            [String]
+            $PinnedThumbprint
+        )
+
+        $Hash = ""
+
+        try {
+
+            # Hash of the list under test (reported even when verification fails)
+            If (Test-Path -LiteralPath $ListPath) {
+                $Hash = (Get-FileHash -Algorithm SHA256 -LiteralPath $ListPath).Hash
+            }
+
+            # Trust anchor must be configured
+            If ([String]::IsNullOrWhiteSpace($PinnedThumbprint) -or $PinnedThumbprint -eq "REPLACE_WITH_MAINTAINER_CERT_THUMBPRINT") {
+                Return [pscustomobject] @{ Verified = $false; Reason = "signing thumbprint not configured"; Hash = $Hash }
+            }
+
+            # Manifest and detached signature must be present
+            If (-Not (Test-Path -LiteralPath $ManifestPath) -or -Not (Test-Path -LiteralPath $SignaturePath)) {
+                Return [pscustomobject] @{ Verified = $false; Reason = "signed manifest not found"; Hash = $Hash }
+            }
+
+            # The PKCS#7/CMS types (SignedCms, ContentInfo) live in the System.Security assembly,
+            # which is not loaded by default on Windows PowerShell 5.1 (already present on PS 7).
+            If (-not ([System.Management.Automation.PSTypeName]'System.Security.Cryptography.Pkcs.SignedCms').Type) {
+                Add-Type -AssemblyName System.Security
+            }
+
+            # Verify the detached PKCS#7 signature over the manifest bytes (integrity only)
+            $ManifestBytes = [System.IO.File]::ReadAllBytes($ManifestPath)
+            $SignatureBytes = [System.IO.File]::ReadAllBytes($SignaturePath)
+            $ContentInfo = New-Object System.Security.Cryptography.Pkcs.ContentInfo(, $ManifestBytes)
+            $SignedCms = New-Object System.Security.Cryptography.Pkcs.SignedCms($ContentInfo, $true)
+            $SignedCms.Decode($SignatureBytes)
+            $SignedCms.CheckSignature($true)
+
+            # Signer must be the pinned maintainer certificate
+            $SignerThumbprint = $SignedCms.SignerInfos[0].Certificate.Thumbprint
+            If ($SignerThumbprint -ne $PinnedThumbprint) {
+                Return [pscustomobject] @{ Verified = $false; Reason = "manifest signed by an untrusted certificate"; Hash = $Hash }
+            }
+
+            # The manifest content is trustworthy only now that its signature is verified
+            $Manifest = Import-PowerShellDataFile -Path $ManifestPath
+            $ListName = Split-Path -Path $ListPath -Leaf
+            $ExpectedHash = $Manifest.Lists[$ListName]
+
+            If ([String]::IsNullOrEmpty($ExpectedHash)) {
+                Return [pscustomobject] @{ Verified = $false; Reason = "not an official list"; Hash = $Hash }
+            }
+            If ($ExpectedHash -ne $Hash) {
+                Return [pscustomobject] @{ Verified = $false; Reason = "list content does not match the signed manifest"; Hash = $Hash }
+            }
+
+            Return [pscustomobject] @{ Verified = $true; Reason = "official"; Hash = $Hash }
+
+        } catch {
+            Return [pscustomobject] @{ Verified = $false; Reason = "verification error: $($_.Exception.Message)"; Hash = $Hash }
+        }
+    }
+
     Function ConvertToInt {
         [CmdletBinding()]
         Param (
@@ -745,7 +854,13 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.4-1784103628"
+    $HardeningKittyVersion = "0.9.4-1784116600"
+
+    #
+    # Finding list integrity
+    #
+    $HardeningKittyListSigningThumbprint = "F47005C8B9BECD8225E13A00A256BEE23DE27673"
+    $HardeningKittyListManifestName = "hardeningkitty_lists_manifest.psd1"
 
     #
     # Log, report and backup file
@@ -965,6 +1080,19 @@
         }
 
         $FindingList = Import-Csv -Path $FileFindingList -Delimiter ","
+
+        # Verify the finding list against the signed official manifest. In read modes (Audit, Config)
+        # this is informational only - nothing is applied to the system.
+        $ListStatus = Confirm-FindingListIntegrity -ListPath $FileFindingList `
+            -ManifestPath (Join-Path -Path $PSScriptRoot -ChildPath "lists\$HardeningKittyListManifestName") `
+            -SignaturePath (Join-Path -Path $PSScriptRoot -ChildPath "lists\$HardeningKittyListManifestName.p7s") `
+            -PinnedThumbprint $HardeningKittyListSigningThumbprint
+        If ($ListStatus.Verified) {
+            Write-ProtocolEntry -Text "Finding list verified as official (signature valid). SHA-256: $($ListStatus.Hash)" -LogLevel "Success"
+        } Else {
+            Write-ProtocolEntry -Text "Finding list is custom / unverified ($($ListStatus.Reason)). SHA-256: $($ListStatus.Hash)" -LogLevel "Warning"
+        }
+
         If ($Filter) {
             $FindingList = $FindingList | Where-Object -FilterScript $Filter
             If ($FindingList.Length -eq 0) {
@@ -2042,6 +2170,23 @@
         }
 
         $FindingList = Import-Csv -Path $FileFindingList -Delimiter ","
+
+        # Verify the finding list against the signed official manifest before applying anything.
+        # HailMary is a write mode: refuse an unverified (custom / modified) list unless the operator
+        # explicitly accepts the risk with -AllowCustomList.
+        $ListStatus = Confirm-FindingListIntegrity -ListPath $FileFindingList `
+            -ManifestPath (Join-Path -Path $PSScriptRoot -ChildPath "lists\$HardeningKittyListManifestName") `
+            -SignaturePath (Join-Path -Path $PSScriptRoot -ChildPath "lists\$HardeningKittyListManifestName.p7s") `
+            -PinnedThumbprint $HardeningKittyListSigningThumbprint
+        If ($ListStatus.Verified) {
+            Write-ProtocolEntry -Text "Finding list verified as official (signature valid). SHA-256: $($ListStatus.Hash)" -LogLevel "Success"
+        } ElseIf ($AllowCustomList) {
+            Write-ProtocolEntry -Text "Applying an UNVERIFIED finding list at your own risk ($($ListStatus.Reason)). SHA-256: $($ListStatus.Hash)" -LogLevel "Warning"
+        } Else {
+            Write-ProtocolEntry -Text "Refusing to apply an unverified finding list in $Mode mode ($($ListStatus.Reason)). SHA-256: $($ListStatus.Hash). Re-run with -AllowCustomList to apply it at your own risk." -LogLevel "Error"
+            Break
+        }
+
         $LastCategory = ""
         $ProcessmitigationEnableArray = @()
         $ProcessmitigationDisableArray = @()
@@ -3468,6 +3613,24 @@
 
         # Iterrate over finding list
         $FindingList = Import-Csv -Path $FileFindingList -Delimiter ","
+
+        # Verify the finding list against the signed official manifest before creating the GPO.
+        # GPO is a write mode: refuse an unverified (custom / modified) list unless the operator
+        # explicitly accepts the risk with -AllowCustomList. This runs before New-GPO so a refused
+        # run does not leave an empty GPO behind.
+        $ListStatus = Confirm-FindingListIntegrity -ListPath $FileFindingList `
+            -ManifestPath (Join-Path -Path $PSScriptRoot -ChildPath "lists\$HardeningKittyListManifestName") `
+            -SignaturePath (Join-Path -Path $PSScriptRoot -ChildPath "lists\$HardeningKittyListManifestName.p7s") `
+            -PinnedThumbprint $HardeningKittyListSigningThumbprint
+        If ($ListStatus.Verified) {
+            Write-ProtocolEntry -Text "Finding list verified as official (signature valid). SHA-256: $($ListStatus.Hash)" -LogLevel "Success"
+        } ElseIf ($AllowCustomList) {
+            Write-ProtocolEntry -Text "Applying an UNVERIFIED finding list at your own risk ($($ListStatus.Reason)). SHA-256: $($ListStatus.Hash)" -LogLevel "Warning"
+        } Else {
+            Write-ProtocolEntry -Text "Refusing to apply an unverified finding list in $Mode mode ($($ListStatus.Reason)). SHA-256: $($ListStatus.Hash). Re-run with -AllowCustomList to apply it at your own risk." -LogLevel "Error"
+            Break
+        }
+
         ForEach ($Finding in $FindingList) {
             #
             # Only Registry Method Policies

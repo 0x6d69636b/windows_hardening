@@ -192,6 +192,37 @@ Thanks to [@gderybel](https://github.com/gderybel), HardeningKitty can convert a
 Invoke-HardeningKitty -Mode GPO -FileFindingList .\lists\finding_list_0x6d69636b_machine.csv -GPOName HardeningKitty-Machine-01
 ```
 
+### Finding List Integrity
+
+In the write modes (_HailMary_ and _GPO_) the finding list fully controls what is applied to the system. To ensure that a list has not been tampered with en route to the operator (e.g. poisoned repository, shared baseline, downloaded or emailed 'run this list'), HardeningKitty can verify that a list is the authentic and unaltered from that published by the maintainer.
+
+The official lists are attested by a signed manifest shipped in the `lists\` directory:
+
+* `lists\hardeningkitty_lists_manifest.psd1` - a readable file mapping each official list to its SHA-256 hash
+* `lists\hardeningkitty_lists_manifest.psd1.p7s` - a detached signature over that manifest, created with the maintainer certificate
+
+At runtime, HardeningKitty verifies the detached signature and checks that the signer's certificate matches the thumbprint pinned in the module (`$HardeningKittyListSigningThumbprint`). It also compares the hash of the loaded list against the manifest. A list whose hash is in the signed manifest is **official / verified**. Any other list is **custom / unverified**. This is provenance, not an allow-list - custom lists are fully supported.
+
+Behaviour by mode:
+
+* **Audit / Config** (read-only): the verification result is shown as information only. Custom lists run without restriction
+* **HailMary / GPO** (write): a verified official list runs normally. A custom or modified list will be **refused** unless the risk is explicitly accepted with the `-AllowCustomList` switch
+
+```powershell
+# Apply your own (unverified) list in HailMary - accept the risk
+Invoke-HardeningKitty -Mode HailMary -FileFindingList .\my_custom_list.csv -AllowCustomList
+```
+
+Note that verification only confirms that a list has not been altered by the publisher. It cannot guarantee that the settings in a list are safe. It also does not protect against a malicious administrator - someone with administrator privileges can change the system directly. However, it does protect the honest operator against running a tampered or incorrect list.
+
+#### Running Your Own Lists
+
+Building and running your own custom lists is fully supported. An unsigned custom list simply runs in Audit/Config and requires the `-AllowCustomList` switch in write mode. To get the same 'verified' experience for your own lists, sign your list content with your code-signing certificate and pin your thumbprint locally. HardeningKitty's trust anchor is a single thumbprint.
+
+#### Why RSA and not ECC?
+
+The manifest is signed and verified as a PKCS#7/CMS structure (`System.Security.Cryptography.Pkcs.SignedCms`). On Windows PowerShell 5.1 (.NET Framework 4.x, still the default on Windows) CMS signing/verification with ECDSA keys is unreliable, whereas RSA works across both Windows PowerShell 5.1 and PowerShell 7. Since HardeningKitty must run on both, RSA-4096 is the interoperable choice.
+
 ### HardeningKitty Score
 
 Each Passed finding gives 4 points, a Low finding gives 2 points, a Medium finding gives 1 point and a High Finding gives 0 points.
