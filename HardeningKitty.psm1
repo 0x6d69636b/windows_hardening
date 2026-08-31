@@ -634,6 +634,216 @@
         Return $FilePath
     }
 
+    Function Remove-HardeningKittyTempDirectory {
+        <#
+        .SYNOPSIS
+            Remove the private HardeningKitty working directory when execution stops early.
+        #>
+
+        [CmdletBinding()]
+        param (
+            [String]
+            $LiteralPath
+        )
+
+        If (-not([String]::IsNullOrWhiteSpace($LiteralPath)) -and (Test-Path -LiteralPath $LiteralPath)) {
+            Remove-Item -LiteralPath $LiteralPath -Recurse -Force -ErrorAction SilentlyContinue
+        }
+    }
+
+    Function Read-HardeningKittyFileSnapshot {
+        <#
+        .SYNOPSIS
+            Read a file exactly once into memory.
+
+        .DESCRIPTION
+            The file handle denies writes and deletes while the snapshot is being read. All parsing
+            and hashing must use the returned bytes instead of reopening the source path.
+        #>
+
+        [CmdletBinding()]
+        param (
+            [Parameter(Mandatory = $true)]
+            [String]
+            $LiteralPath,
+            [Int64]
+            $MaximumLength = 67108864
+        )
+
+        $Stream = $null
+        $MemoryStream = $null
+        try {
+            $Stream = [System.IO.File]::Open(
+                $LiteralPath,
+                [System.IO.FileMode]::Open,
+                [System.IO.FileAccess]::Read,
+                [System.IO.FileShare]::Read
+            )
+            If ($Stream.Length -gt $MaximumLength) {
+                throw "File exceeds the maximum supported size of $MaximumLength bytes."
+            }
+            $MemoryStream = New-Object System.IO.MemoryStream
+            $Stream.CopyTo($MemoryStream)
+            Return ,$MemoryStream.ToArray()
+        } finally {
+            If ($null -ne $MemoryStream) {
+                $MemoryStream.Dispose()
+            }
+            If ($null -ne $Stream) {
+                $Stream.Dispose()
+            }
+        }
+    }
+
+    Function ConvertFrom-HardeningKittyTextBytes {
+        <#
+        .SYNOPSIS
+            Decode a captured text file without locale-dependent fallback behavior.
+        #>
+
+        [CmdletBinding()]
+        param (
+            [Parameter(Mandatory = $true)]
+            [Byte[]]
+            $Bytes
+        )
+
+        $Offset = 0
+        If ($Bytes.Length -ge 4 -and
+            (($Bytes[0] -eq 0x00 -and $Bytes[1] -eq 0x00 -and $Bytes[2] -eq 0xFE -and $Bytes[3] -eq 0xFF) -or
+             ($Bytes[0] -eq 0xFF -and $Bytes[1] -eq 0xFE -and $Bytes[2] -eq 0x00 -and $Bytes[3] -eq 0x00))) {
+            throw "UTF-32 input is not supported."
+        } ElseIf ($Bytes.Length -ge 3 -and $Bytes[0] -eq 0xEF -and $Bytes[1] -eq 0xBB -and $Bytes[2] -eq 0xBF) {
+            $Encoding = New-Object System.Text.UTF8Encoding($false, $true)
+            $Offset = 3
+        } ElseIf ($Bytes.Length -ge 2 -and $Bytes[0] -eq 0xFF -and $Bytes[1] -eq 0xFE) {
+            $Encoding = New-Object System.Text.UnicodeEncoding($false, $true, $true)
+            $Offset = 2
+        } ElseIf ($Bytes.Length -ge 2 -and $Bytes[0] -eq 0xFE -and $Bytes[1] -eq 0xFF) {
+            $Encoding = New-Object System.Text.UnicodeEncoding($true, $true, $true)
+            $Offset = 2
+        } Else {
+            $Encoding = New-Object System.Text.UTF8Encoding($false, $true)
+        }
+
+        Return $Encoding.GetString($Bytes, $Offset, $Bytes.Length - $Offset)
+    }
+
+    Function Read-FindingListSnapshot {
+        <#
+        .SYNOPSIS
+            Parse a finding list from the same immutable byte snapshot used for integrity checks.
+        #>
+
+        [CmdletBinding()]
+        param (
+            [Parameter(Mandatory = $true)]
+            [String]
+            $LiteralPath
+        )
+
+        $Bytes = [Byte[]](Read-HardeningKittyFileSnapshot -LiteralPath $LiteralPath)
+        $CsvText = ConvertFrom-HardeningKittyTextBytes -Bytes $Bytes
+        $Rows = @(ConvertFrom-Csv -InputObject $CsvText -Delimiter "," -ErrorAction Stop)
+        $Headers = @()
+        If ($Rows.Count -gt 0) {
+            $Headers = @($Rows[0].PSObject.Properties.Name)
+        }
+
+        Return [pscustomobject] @{
+            Bytes = $Bytes
+            Rows = $Rows
+            Headers = $Headers
+        }
+    }
+
+    Function Test-FindingListWriteSchema {
+        <#
+        .SYNOPSIS
+            Validate the minimum schema required by HailMary and GPO modes.
+
+        .DESCRIPTION
+            Provenance and executability are separate properties. A signed auxiliary CSV must not
+            be treated as an executable remediation list just because it appears in the manifest.
+        #>
+
+        [CmdletBinding()]
+        param (
+            [Parameter(Mandatory = $true)]
+            [Object]
+            $Snapshot
+        )
+
+        $RequiredHeaders = @(
+            "ID", "Category", "Name", "Method", "MethodArgument", "RegistryPath", "RegistryItem",
+            "ClassName", "Namespace", "Property", "DefaultValue", "RecommendedValue", "Operator", "Severity"
+        )
+
+        If ($Snapshot.Rows.Count -eq 0) {
+            Return [pscustomobject] @{ Valid = $false; Reason = "the finding list contains no data rows"; MissingHeaders = $RequiredHeaders }
+        }
+
+        $MissingHeaders = @($RequiredHeaders | Where-Object { $Snapshot.Headers -notcontains $_ })
+        If ($MissingHeaders.Count -gt 0) {
+            Return [pscustomobject] @{
+                Valid = $false
+                Reason = "required columns are missing: $($MissingHeaders -join ', ')"
+                MissingHeaders = $MissingHeaders
+            }
+        }
+
+        Return [pscustomobject] @{ Valid = $true; Reason = "valid remediation schema"; MissingHeaders = @() }
+    }
+
+    Function ConvertFrom-HardeningKittyManifestBytes {
+        <#
+        .SYNOPSIS
+            Parse a verified data-file manifest directly from its captured bytes.
+        #>
+
+        [CmdletBinding()]
+        param (
+            [Parameter(Mandatory = $true)]
+            [Byte[]]
+            $Bytes
+        )
+
+        $ManifestText = ConvertFrom-HardeningKittyTextBytes -Bytes $Bytes
+        $Tokens = $null
+        $ParseErrors = $null
+        $ManifestAst = [System.Management.Automation.Language.Parser]::ParseInput(
+            $ManifestText,
+            [ref]$Tokens,
+            [ref]$ParseErrors
+        )
+        If ($ParseErrors.Count -ne 0) {
+            throw "the signed manifest contains a PowerShell parse error"
+        }
+        If ($ManifestAst.EndBlock.Statements.Count -ne 1) {
+            throw "the signed manifest must contain exactly one statement"
+        }
+
+        $Statement = $ManifestAst.EndBlock.Statements[0]
+        If ($Statement -isnot [System.Management.Automation.Language.PipelineAst] -or
+            $Statement.PipelineElements.Count -ne 1 -or
+            $Statement.PipelineElements[0] -isnot [System.Management.Automation.Language.CommandExpressionAst] -or
+            $Statement.PipelineElements[0].Expression -isnot [System.Management.Automation.Language.HashtableAst]) {
+            throw "the signed manifest must contain only a literal hashtable"
+        }
+
+        $Manifest = $Statement.PipelineElements[0].Expression.SafeGetValue()
+        If ($Manifest.Version -ne 1 -or $Manifest.Algorithm -ne "SHA256" -or $Manifest.Lists -isnot [System.Collections.IDictionary]) {
+            throw "the signed manifest has an unsupported schema"
+        }
+        ForEach ($Entry in $Manifest.Lists.GetEnumerator()) {
+            If ([String]::IsNullOrWhiteSpace([String]$Entry.Key) -or [String]$Entry.Value -notmatch "^[0-9A-Fa-f]{64}$") {
+                throw "the signed manifest contains an invalid list entry"
+            }
+        }
+
+        Return $Manifest
+    }
+
     Function Confirm-FindingListIntegrity {
         <#
         .SYNOPSIS
@@ -662,6 +872,9 @@
             [String]
             $ListPath,
             [Parameter(Mandatory = $true)]
+            [Byte[]]
+            $ListBytes,
+            [Parameter(Mandatory = $true)]
             [String]
             $ManifestPath,
             [Parameter(Mandatory = $true)]
@@ -675,19 +888,18 @@
 
         try {
 
-            # Hash of the list under test (reported even when verification fails)
-            If (Test-Path -LiteralPath $ListPath) {
-                $Hash = (Get-FileHash -Algorithm SHA256 -LiteralPath $ListPath).Hash
+            # Hash the exact byte snapshot that was parsed by the caller.
+            $Sha256 = [System.Security.Cryptography.SHA256]::Create()
+            try {
+                $HashBytes = $Sha256.ComputeHash($ListBytes)
+                $Hash = [System.BitConverter]::ToString($HashBytes).Replace("-", "")
+            } finally {
+                $Sha256.Dispose()
             }
 
             # Trust anchor must be configured
             If ([String]::IsNullOrWhiteSpace($PinnedThumbprint) -or $PinnedThumbprint -eq "REPLACE_WITH_MAINTAINER_CERT_THUMBPRINT") {
                 Return [pscustomobject] @{ Verified = $false; Reason = "signing thumbprint not configured"; Hash = $Hash }
-            }
-
-            # Manifest and detached signature must be present
-            If (-Not (Test-Path -LiteralPath $ManifestPath) -or -Not (Test-Path -LiteralPath $SignaturePath)) {
-                Return [pscustomobject] @{ Verified = $false; Reason = "signed manifest not found"; Hash = $Hash }
             }
 
             # The PKCS#7/CMS types (SignedCms, ContentInfo) live in the System.Security assembly,
@@ -697,22 +909,27 @@
             }
 
             # Verify the detached PKCS#7 signature over the manifest bytes (integrity only)
-            $ManifestBytes = [System.IO.File]::ReadAllBytes($ManifestPath)
-            $SignatureBytes = [System.IO.File]::ReadAllBytes($SignaturePath)
+            $ManifestBytes = [Byte[]](Read-HardeningKittyFileSnapshot -LiteralPath $ManifestPath)
+            $SignatureBytes = [Byte[]](Read-HardeningKittyFileSnapshot -LiteralPath $SignaturePath)
             $ContentInfo = New-Object System.Security.Cryptography.Pkcs.ContentInfo(, $ManifestBytes)
             $SignedCms = New-Object System.Security.Cryptography.Pkcs.SignedCms($ContentInfo, $true)
             $SignedCms.Decode($SignatureBytes)
             $SignedCms.CheckSignature($true)
 
             # Signer must be the pinned maintainer certificate
+            If ($SignedCms.SignerInfos.Count -ne 1 -or $null -eq $SignedCms.SignerInfos[0].Certificate) {
+                Return [pscustomobject] @{ Verified = $false; Reason = "manifest must contain exactly one certificate-backed signature"; Hash = $Hash }
+            }
             $SignerThumbprint = $SignedCms.SignerInfos[0].Certificate.Thumbprint
-            If ($SignerThumbprint -ne $PinnedThumbprint) {
+            $NormalizedSignerThumbprint = ($SignerThumbprint -replace "\s", "").ToUpperInvariant()
+            $NormalizedPinnedThumbprint = ($PinnedThumbprint -replace "\s", "").ToUpperInvariant()
+            If ($NormalizedSignerThumbprint -ne $NormalizedPinnedThumbprint) {
                 Return [pscustomobject] @{ Verified = $false; Reason = "manifest signed by an untrusted certificate"; Hash = $Hash }
             }
 
-            # The manifest content is trustworthy only now that its signature is verified
-            $Manifest = Import-PowerShellDataFile -Path $ManifestPath
-            $ListName = Split-Path -Path $ListPath -Leaf
+            # Parse the same bytes that were authenticated, without reopening the manifest path.
+            $Manifest = ConvertFrom-HardeningKittyManifestBytes -Bytes $ManifestBytes
+            $ListName = [System.IO.Path]::GetFileName($ListPath)
             $ExpectedHash = $Manifest.Lists[$ListName]
 
             If ([String]::IsNullOrEmpty($ExpectedHash)) {
@@ -1050,15 +1267,24 @@
             } Else {
                 $Message = "The finding list $DefaultList was not found."
                 Write-ProtocolEntry -Text $Message -LogLevel "Error"
-                Continue
+                Remove-HardeningKittyTempDirectory -LiteralPath $HardeningKittyTempDir
+                Return
             }
         }
 
-        $FindingList = Import-Csv -Path $FileFindingList -Delimiter ","
+        try {
+            $FindingListSnapshot = Read-FindingListSnapshot -LiteralPath $FileFindingList
+            $FindingList = $FindingListSnapshot.Rows
+        } catch {
+            Write-ProtocolEntry -Text "The finding list could not be read safely: $($_.Exception.Message)" -LogLevel "Error"
+            Remove-HardeningKittyTempDirectory -LiteralPath $HardeningKittyTempDir
+            Return
+        }
 
         # Verify the finding list against the signed official manifest. In read modes (Audit, Config)
         # this is informational only - nothing is applied to the system.
         $ListStatus = Confirm-FindingListIntegrity -ListPath $FileFindingList `
+            -ListBytes $FindingListSnapshot.Bytes `
             -ManifestPath (Join-Path -Path $PSScriptRoot -ChildPath "lists\$HardeningKittyListManifestName") `
             -SignaturePath (Join-Path -Path $PSScriptRoot -ChildPath "lists\$HardeningKittyListManifestName.p7s") `
             -PinnedThumbprint $HardeningKittyListSigningThumbprint
@@ -1073,7 +1299,8 @@
             If ($FindingList.Length -eq 0) {
                 $Message = "Your filter did not return any results, please adjust the filter so that HardeningKitty has something to work with."
                 Write-ProtocolEntry -Text $Message -LogLevel "Error"
-                Break
+                Remove-HardeningKittyTempDirectory -LiteralPath $HardeningKittyTempDir
+                Return
             }
         }
         $LastCategory = ""
@@ -2133,23 +2360,24 @@
             # $DefaultList = "$CurrentLocation\lists\finding_list_0x6d69636b_machine.csv"
             $Message = "No finding list has been specified - I'm sorry Dave, I'm afraid I can't do that. Please select a suitable list and specify it with the FileFindingList parameter. Select the finding list wisely and check beforehand whether the settings can affect the stability or the function of your system."
             Write-ProtocolEntry -Text $Message -LogLevel "Error"
-            Continue
-
-            If (Test-Path -Path $DefaultList) {
-                $FileFindingList = $DefaultList
-            } Else {
-                $Message = "The finding list $DefaultList was not found."
-                Write-ProtocolEntry -Text $Message -LogLevel "Error"
-                Continue
-            }
+            Remove-HardeningKittyTempDirectory -LiteralPath $HardeningKittyTempDir
+            Return
         }
 
-        $FindingList = Import-Csv -Path $FileFindingList -Delimiter ","
+        try {
+            $FindingListSnapshot = Read-FindingListSnapshot -LiteralPath $FileFindingList
+            $FindingList = $FindingListSnapshot.Rows
+        } catch {
+            Write-ProtocolEntry -Text "The finding list could not be read safely: $($_.Exception.Message)" -LogLevel "Error"
+            Remove-HardeningKittyTempDirectory -LiteralPath $HardeningKittyTempDir
+            Return
+        }
 
         # Verify the finding list against the signed official manifest before applying anything.
         # HailMary is a write mode: refuse an unverified (custom / modified) list unless the operator
         # explicitly accepts the risk with -AllowCustomList.
         $ListStatus = Confirm-FindingListIntegrity -ListPath $FileFindingList `
+            -ListBytes $FindingListSnapshot.Bytes `
             -ManifestPath (Join-Path -Path $PSScriptRoot -ChildPath "lists\$HardeningKittyListManifestName") `
             -SignaturePath (Join-Path -Path $PSScriptRoot -ChildPath "lists\$HardeningKittyListManifestName.p7s") `
             -PinnedThumbprint $HardeningKittyListSigningThumbprint
@@ -2159,7 +2387,17 @@
             Write-ProtocolEntry -Text "Applying an UNVERIFIED finding list at your own risk ($($ListStatus.Reason)). SHA-256: $($ListStatus.Hash)" -LogLevel "Warning"
         } Else {
             Write-ProtocolEntry -Text "Refusing to apply an unverified finding list in $Mode mode ($($ListStatus.Reason)). SHA-256: $($ListStatus.Hash). Re-run with -AllowCustomList to apply it at your own risk." -LogLevel "Error"
-            Break
+            Remove-HardeningKittyTempDirectory -LiteralPath $HardeningKittyTempDir
+            Return
+        }
+
+        # A valid signature proves provenance, not that a CSV is executable as a remediation list.
+        # This check is mandatory for official and custom lists alike.
+        $SchemaStatus = Test-FindingListWriteSchema -Snapshot $FindingListSnapshot
+        If (-not($SchemaStatus.Valid)) {
+            Write-ProtocolEntry -Text "Refusing to apply a finding list with an invalid remediation schema ($($SchemaStatus.Reason))." -LogLevel "Error"
+            Remove-HardeningKittyTempDirectory -LiteralPath $HardeningKittyTempDir
+            Return
         }
 
         $LastCategory = ""
@@ -2179,7 +2417,8 @@
             # Check if the user has admin rights, skip test if not
             If (-not($IsAdmin)) {
                 Write-NotAdminError -FindingID "42" -FindingName "System Restore Point" -FindingMethod "Checkpoint-Computer"
-                Continue
+                Remove-HardeningKittyTempDirectory -LiteralPath $HardeningKittyTempDir
+                Return
             }
 
             If ($PSVersionTable.PSVersion.Major -gt 5) {
@@ -2188,7 +2427,8 @@
                 If ($Log) {
                     Add-MessageToFile -Text $Message -File $LogFile
                 }
-                Break
+                Remove-HardeningKittyTempDirectory -LiteralPath $HardeningKittyTempDir
+                Return
             }
 
             Try {
@@ -2201,7 +2441,8 @@
                 If ($Log) {
                     Add-MessageToFile -Text $Message -File $LogFile
                 }
-                Break
+                Remove-HardeningKittyTempDirectory -LiteralPath $HardeningKittyTempDir
+                Return
             }
 
             $Message = "Creating a system restore point was successful"
@@ -2212,6 +2453,33 @@
         }
 
         ForEach ($Finding in $FindingList) {
+
+            # Negative comparison operators describe a forbidden value, not the value that should
+            # be written. Applying RecommendedValue for these operators would enforce the finding.
+            If (@("!=", "notcontains") -contains [String]$Finding.Operator) {
+                $ResultText = "Remediation skipped because operator $($Finding.Operator) requires a distinct remediation value"
+                $Message = "ID " + $Finding.ID + ", " + $Finding.Name + ", " + $ResultText
+                $MessageSeverity = "High"
+                $TestResult = "Failed"
+                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                If ($Log) {
+                    Add-MessageToFile -Text $Message -File $LogFile
+                }
+                If ($Report) {
+                    $ReportResult = [ordered] @{
+                        ID = $Finding.ID
+                        Category = $Finding.Category
+                        Name = $Finding.Name
+                        Severity = $MessageSeverity
+                        Result = $ResultText
+                        Recommended = $Finding.RecommendedValue
+                        TestResult = $TestResult
+                        SeverityFinding = $Finding.Severity
+                    }
+                    $ReportAllResults += $ReportResult
+                }
+                Continue
+            }
 
             #
             # Category
@@ -3547,7 +3815,8 @@
             # Control if a GPO name is given
             $Message = "The GPO Name $GPOname was not found."
             Write-ProtocolEntry -Text $Message -LogLevel "Error"
-            Break
+            Remove-HardeningKittyTempDirectory -LiteralPath $HardeningKittyTempDir
+            Return
         }
         If ($FileFindingList.Length -eq 0) {
             # Control if a Finding list is given
@@ -3559,42 +3828,26 @@
             } Else {
                 $Message = "The finding list $DefaultList was not found."
                 Write-ProtocolEntry -Text $Message -LogLevel "Error"
-                Break
+                Remove-HardeningKittyTempDirectory -LiteralPath $HardeningKittyTempDir
+                Return
             }
         }
 
-        # Check if the user has admin rights, skip test if not
-        If (-not($IsAdmin)) {
-            Write-NotAdminError -FindingID "0" -FindingName "GPO Mode" -FindingMethod "Create a GPO"
-            Continue
-        }
-
-        # Check if the New-GPO cmdlet is available
+        # Capture, parse and validate the finding list before checking privileges or creating a GPO.
         try {
-            $CheckRsatStatus = Get-Command New-GPO -ErrorAction Stop
+            $FindingListSnapshot = Read-FindingListSnapshot -LiteralPath $FileFindingList
+            $FindingList = $FindingListSnapshot.Rows
         } catch {
-            Write-BinaryError -Binary "Group Policy Management PowerShell Module" -FindingID "0" -FindingName "GPO Mode" -FindingMethod "Create a GPO"
-            Continue
+            Write-ProtocolEntry -Text "The finding list could not be read safely: $($_.Exception.Message)" -LogLevel "Error"
+            Remove-HardeningKittyTempDirectory -LiteralPath $HardeningKittyTempDir
+            Return
         }
-
-        # Should check if user is domain admin
-        try {
-            New-GPO -Name $GPOname -ErrorAction Stop | Out-Null
-        }
-        catch [System.ArgumentException] {
-            # Control if the Name of the GPO is ok
-            Write-ProtocolEntry -Text $_.Exception.Message -LogLevel "Error"
-            Break
-        }
-
-        # Iterrate over finding list
-        $FindingList = Import-Csv -Path $FileFindingList -Delimiter ","
 
         # Verify the finding list against the signed official manifest before creating the GPO.
         # GPO is a write mode: refuse an unverified (custom / modified) list unless the operator
-        # explicitly accepts the risk with -AllowCustomList. This runs before New-GPO so a refused
-        # run does not leave an empty GPO behind.
+        # explicitly accepts the risk with -AllowCustomList.
         $ListStatus = Confirm-FindingListIntegrity -ListPath $FileFindingList `
+            -ListBytes $FindingListSnapshot.Bytes `
             -ManifestPath (Join-Path -Path $PSScriptRoot -ChildPath "lists\$HardeningKittyListManifestName") `
             -SignaturePath (Join-Path -Path $PSScriptRoot -ChildPath "lists\$HardeningKittyListManifestName.p7s") `
             -PinnedThumbprint $HardeningKittyListSigningThumbprint
@@ -3604,10 +3857,69 @@
             Write-ProtocolEntry -Text "Applying an UNVERIFIED finding list at your own risk ($($ListStatus.Reason)). SHA-256: $($ListStatus.Hash)" -LogLevel "Warning"
         } Else {
             Write-ProtocolEntry -Text "Refusing to apply an unverified finding list in $Mode mode ($($ListStatus.Reason)). SHA-256: $($ListStatus.Hash). Re-run with -AllowCustomList to apply it at your own risk." -LogLevel "Error"
-            Break
+            Remove-HardeningKittyTempDirectory -LiteralPath $HardeningKittyTempDir
+            Return
+        }
+
+        $SchemaStatus = Test-FindingListWriteSchema -Snapshot $FindingListSnapshot
+        If (-not($SchemaStatus.Valid)) {
+            Write-ProtocolEntry -Text "Refusing to create a GPO from a finding list with an invalid remediation schema ($($SchemaStatus.Reason))." -LogLevel "Error"
+            Remove-HardeningKittyTempDirectory -LiteralPath $HardeningKittyTempDir
+            Return
+        }
+
+        # Check if the user has admin rights only after the read-only preflight succeeded.
+        If (-not($IsAdmin)) {
+            Write-NotAdminError -FindingID "0" -FindingName "GPO Mode" -FindingMethod "Create a GPO"
+            Remove-HardeningKittyTempDirectory -LiteralPath $HardeningKittyTempDir
+            Return
+        }
+
+        # Check if the New-GPO cmdlet is available.
+        try {
+            $CheckRsatStatus = Get-Command New-GPO -ErrorAction Stop
+        } catch {
+            Write-BinaryError -Binary "Group Policy Management PowerShell Module" -FindingID "0" -FindingName "GPO Mode" -FindingMethod "Create a GPO"
+            Remove-HardeningKittyTempDirectory -LiteralPath $HardeningKittyTempDir
+            Return
+        }
+
+        # Should check if user is domain admin
+        try {
+            New-GPO -Name $GPOname -ErrorAction Stop | Out-Null
+        }
+        catch [System.ArgumentException] {
+            # Control if the Name of the GPO is ok
+            Write-ProtocolEntry -Text $_.Exception.Message -LogLevel "Error"
+            Remove-HardeningKittyTempDirectory -LiteralPath $HardeningKittyTempDir
+            Return
         }
 
         ForEach ($Finding in $FindingList) {
+            If ($Finding.Method -eq "Registry" -and @("!=", "notcontains") -contains [String]$Finding.Operator) {
+                $ResultText = "GPO remediation skipped because operator $($Finding.Operator) requires a distinct remediation value"
+                $Message = "ID " + $Finding.ID + ", " + $Finding.Name + ", " + $ResultText
+                $MessageSeverity = "High"
+                $TestResult = "Failed"
+                Write-ResultEntry -Text $Message -SeverityLevel $MessageSeverity
+                If ($Log) {
+                    Add-MessageToFile -Text $Message -File $LogFile
+                }
+                If ($Report) {
+                    $ReportResult = [ordered] @{
+                        ID = $Finding.ID
+                        Category = $Finding.Category
+                        Name = $Finding.Name
+                        Severity = $MessageSeverity
+                        Result = $ResultText
+                        Recommended = $Finding.RecommendedValue
+                        TestResult = $TestResult
+                        SeverityFinding = $Finding.Severity
+                    }
+                    $ReportAllResults += $ReportResult
+                }
+                Continue
+            }
             #
             # Only Registry Method Policies
             #
@@ -3706,9 +4018,7 @@
     }
 
     # Remove the private working directory and any remaining temporary files
-    If ($HardeningKittyTempDir -and (Test-Path -LiteralPath $HardeningKittyTempDir)) {
-        Remove-Item -LiteralPath $HardeningKittyTempDir -Recurse -Force -ErrorAction SilentlyContinue
-    }
+    Remove-HardeningKittyTempDirectory -LiteralPath $HardeningKittyTempDir
 
     Write-ProtocolEntry -Text "HardeningKitty is done" -LogLevel "Info"
 }
