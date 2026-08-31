@@ -1,0 +1,4 @@
+# These files are authenticated byte for byte. Git must never rewrite line endings.
+lists/*.csv -text
+lists/hardeningkitty_lists_manifest.psd1 -text
+lists/hardeningkitty_lists_manifest.psd1.p7s binary

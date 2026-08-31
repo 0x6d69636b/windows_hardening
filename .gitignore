@@ -1,0 +1,4 @@
+# Private key material used to sign the finding-list manifest.
+*.key
+*.p12
+*.pfx
