@@ -599,6 +599,18 @@
             [System.Security.AccessControl.AccessControlType]::Allow
         )
         $Acl.AddAccessRule($AccessRule)
+
+        # secedit.exe /configure opens its database through the Security Configuration Engine,
+        # which runs as SYSTEM. Without this rule it fails with "Access is denied" (issue #214).
+        $SystemSid = New-Object System.Security.Principal.SecurityIdentifier([System.Security.Principal.WellKnownSidType]::LocalSystemSid, $null)
+        $AccessRuleSystem = New-Object System.Security.AccessControl.FileSystemAccessRule(
+            $SystemSid,
+            [System.Security.AccessControl.FileSystemRights]::FullControl,
+            ([System.Security.AccessControl.InheritanceFlags]::ContainerInherit -bor [System.Security.AccessControl.InheritanceFlags]::ObjectInherit),
+            [System.Security.AccessControl.PropagationFlags]::None,
+            [System.Security.AccessControl.AccessControlType]::Allow
+        )
+        $Acl.AddAccessRule($AccessRuleSystem)
         Set-Acl -Path $Directory.FullName -AclObject $Acl
 
         Return $Directory.FullName
@@ -614,7 +626,8 @@
             The random file name comes from a cryptographically strong source. With
             -CreateFile an empty file is created, mirroring the GetTempFileName() behaviour.
             Without it only a path is returned, which is required by auditpol.exe
-            as it refuses to back up into an existing file.
+            as it refuses to back up into an existing file. -Extension replaces the
+            random extension, e.g. ".sdb" for a secedit.exe database.
         #>
 
         [CmdletBinding()]
@@ -623,10 +636,16 @@
             [String]
             $Directory,
             [Switch]
-            $CreateFile
+            $CreateFile,
+            [String]
+            $Extension
         )
         Do {
-            $FilePath = Join-Path -Path $Directory -ChildPath ([System.IO.Path]::GetRandomFileName())
+            $FileName = [System.IO.Path]::GetRandomFileName()
+            If ($Extension) {
+                $FileName = [System.IO.Path]::ChangeExtension($FileName, $Extension)
+            }
+            $FilePath = Join-Path -Path $Directory -ChildPath $FileName
         } Until (-Not (Test-Path -LiteralPath $FilePath))
         If ($CreateFile) {
             New-Item -Path $FilePath -ItemType File -ErrorAction Stop | Out-Null
@@ -2519,7 +2538,9 @@
                 }
 
                 $TempFileName = New-HardeningKittyTempFile -Directory $HardeningKittyTempDir -CreateFile
-                $TempDbFileName = New-HardeningKittyTempFile -Directory $HardeningKittyTempDir -CreateFile
+                # secedit.exe must create the database itself: a pre-created empty file fails with
+                # "Error 9: The storage control block address is invalid" (issue #214)
+                $TempDbFileName = New-HardeningKittyTempFile -Directory $HardeningKittyTempDir -Extension ".sdb"
 
                 &$BinarySecedit /export /cfg $TempFileName /areas $Area | Out-Null
 
@@ -2554,7 +2575,7 @@
                         $ReportAllResults += $ReportResult
                     }
                     Remove-Item $TempFileName
-                    Remove-Item $TempDbFileName
+                    Remove-Item $TempDbFileName -ErrorAction SilentlyContinue
                     Continue
                 }
 
@@ -2582,7 +2603,7 @@
                 }
 
                 Remove-Item $TempFileName
-                Remove-Item $TempDbFileName
+                Remove-Item $TempDbFileName -ErrorAction SilentlyContinue
             }
 
             #
@@ -2754,7 +2775,9 @@
                 }
 
                 $TempFileName = New-HardeningKittyTempFile -Directory $HardeningKittyTempDir -CreateFile
-                $TempDbFileName = New-HardeningKittyTempFile -Directory $HardeningKittyTempDir -CreateFile
+                # secedit.exe must create the database itself: a pre-created empty file fails with
+                # "Error 9: The storage control block address is invalid" (issue #214)
+                $TempDbFileName = New-HardeningKittyTempFile -Directory $HardeningKittyTempDir -Extension ".sdb"
 
                 &$BinarySecedit /export /cfg $TempFileName /areas $Area | Out-Null
 
@@ -2819,7 +2842,7 @@
                         $ReportAllResults += $ReportResult
                     }
                     Remove-Item $TempFileName
-                    Remove-Item $TempDbFileName
+                    Remove-Item $TempDbFileName -ErrorAction SilentlyContinue
                     Continue
                 }
 
@@ -2847,7 +2870,7 @@
                 }
 
                 Remove-Item $TempFileName
-                Remove-Item $TempDbFileName
+                Remove-Item $TempDbFileName -ErrorAction SilentlyContinue
             }
 
             #
