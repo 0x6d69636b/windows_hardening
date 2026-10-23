@@ -2186,6 +2186,28 @@
         $ProcessmitigationDisableArray = @()
 
         #
+        # Stop before changing anything if admin rights are missing
+        # Without admin rights these findings would be skipped one by one, leaving the system
+        # partially hardened (issue #206). HKCU registry findings, e.g. a user list applied by
+        # the user themselves, work without admin rights.
+        #
+        If (-not($IsAdmin)) {
+            $AdminMethods = @('secedit', 'auditpol', 'accountpolicy', 'accesschk', 'WindowsOptionalFeature', 'MpPreference', 'MpPreferenceAsr', 'Processmitigation', 'bcdedit', 'FirewallRule', 'ScheduledTask')
+            $AdminFindings = @($FindingList | Where-Object {
+                ($AdminMethods -contains $_.Method) -or
+                (($_.Method -eq 'Registry' -or $_.Method -eq 'RegistryList') -and -not($_.RegistryPath.StartsWith("HKCU:\")))
+            })
+            If ($AdminFindings.Count -gt 0) {
+                $Message = "HailMary requires admin privileges for $($AdminFindings.Count) finding(s) in this list. Nothing has been changed. Please run HardeningKitty as administrator."
+                Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                If ($HardeningKittyTempDir -and (Test-Path -LiteralPath $HardeningKittyTempDir)) {
+                    Remove-Item -LiteralPath $HardeningKittyTempDir -Recurse -Force -ErrorAction SilentlyContinue
+                }
+                Return
+            }
+        }
+
+        #
         # Create a System Restore Point
         #
 
