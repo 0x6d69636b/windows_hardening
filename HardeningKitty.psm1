@@ -848,7 +848,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.5-1784609417"
+    $HardeningKittyVersion = "0.9.5-1792740671"
 
     #
     # Finding list integrity
