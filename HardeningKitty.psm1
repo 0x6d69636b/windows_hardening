@@ -2181,6 +2181,15 @@
             Break
         }
 
+        If ($Filter) {
+            $FindingList = $FindingList | Where-Object -FilterScript $Filter
+            If ($FindingList.Length -eq 0) {
+                $Message = "Your filter did not return any results, please adjust the filter so that HardeningKitty has something to work with."
+                Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                Break
+            }
+        }
+
         $LastCategory = ""
         $ProcessmitigationEnableArray = @()
         $ProcessmitigationDisableArray = @()
@@ -3650,6 +3659,15 @@
         } Else {
             Write-ProtocolEntry -Text "Refusing to apply an unverified finding list in $Mode mode ($($ListStatus.Reason)). SHA-256: $($ListStatus.Hash). Re-run with -AllowCustomList to apply it at your own risk." -LogLevel "Error"
             Break
+        }
+
+        If ($Filter) {
+            $FindingList = $FindingList | Where-Object -FilterScript $Filter
+            If ($FindingList.Length -eq 0) {
+                $Message = "Your filter did not return any results, please adjust the filter so that HardeningKitty has something to work with."
+                Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                Break
+            }
         }
 
         ForEach ($Finding in $FindingList) {
