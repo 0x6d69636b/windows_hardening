@@ -599,6 +599,18 @@
             [System.Security.AccessControl.AccessControlType]::Allow
         )
         $Acl.AddAccessRule($AccessRule)
+
+        # secedit.exe /configure opens its database through the Security Configuration Engine,
+        # which runs as SYSTEM. Without this rule it fails with "Access is denied" (issue #214).
+        $SystemSid = New-Object System.Security.Principal.SecurityIdentifier([System.Security.Principal.WellKnownSidType]::LocalSystemSid, $null)
+        $AccessRuleSystem = New-Object System.Security.AccessControl.FileSystemAccessRule(
+            $SystemSid,
+            [System.Security.AccessControl.FileSystemRights]::FullControl,
+            ([System.Security.AccessControl.InheritanceFlags]::ContainerInherit -bor [System.Security.AccessControl.InheritanceFlags]::ObjectInherit),
+            [System.Security.AccessControl.PropagationFlags]::None,
+            [System.Security.AccessControl.AccessControlType]::Allow
+        )
+        $Acl.AddAccessRule($AccessRuleSystem)
         Set-Acl -Path $Directory.FullName -AclObject $Acl
 
         Return $Directory.FullName
@@ -614,7 +626,8 @@
             The random file name comes from a cryptographically strong source. With
             -CreateFile an empty file is created, mirroring the GetTempFileName() behaviour.
             Without it only a path is returned, which is required by auditpol.exe
-            as it refuses to back up into an existing file.
+            as it refuses to back up into an existing file. -Extension replaces the
+            random extension, e.g. ".sdb" for a secedit.exe database.
         #>
 
         [CmdletBinding()]
@@ -623,10 +636,16 @@
             [String]
             $Directory,
             [Switch]
-            $CreateFile
+            $CreateFile,
+            [String]
+            $Extension
         )
         Do {
-            $FilePath = Join-Path -Path $Directory -ChildPath ([System.IO.Path]::GetRandomFileName())
+            $FileName = [System.IO.Path]::GetRandomFileName()
+            If ($Extension) {
+                $FileName = [System.IO.Path]::ChangeExtension($FileName, $Extension)
+            }
+            $FilePath = Join-Path -Path $Directory -ChildPath $FileName
         } Until (-Not (Test-Path -LiteralPath $FilePath))
         If ($CreateFile) {
             New-Item -Path $FilePath -ItemType File -ErrorAction Stop | Out-Null
@@ -829,7 +848,7 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.9.5-1784609417"
+    $HardeningKittyVersion = "0.9.5-1792740671"
 
     #
     # Finding list integrity
@@ -2162,9 +2181,40 @@
             Break
         }
 
+        If ($Filter) {
+            $FindingList = $FindingList | Where-Object -FilterScript $Filter
+            If ($FindingList.Length -eq 0) {
+                $Message = "Your filter did not return any results, please adjust the filter so that HardeningKitty has something to work with."
+                Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                Break
+            }
+        }
+
         $LastCategory = ""
         $ProcessmitigationEnableArray = @()
         $ProcessmitigationDisableArray = @()
+
+        #
+        # Stop before changing anything if admin rights are missing
+        # Without admin rights these findings would be skipped one by one, leaving the system
+        # partially hardened (issue #206). HKCU registry findings, e.g. a user list applied by
+        # the user themselves, work without admin rights.
+        #
+        If (-not($IsAdmin)) {
+            $AdminMethods = @('secedit', 'auditpol', 'accountpolicy', 'accesschk', 'WindowsOptionalFeature', 'MpPreference', 'MpPreferenceAsr', 'Processmitigation', 'bcdedit', 'FirewallRule', 'ScheduledTask')
+            $AdminFindings = @($FindingList | Where-Object {
+                ($AdminMethods -contains $_.Method) -or
+                (($_.Method -eq 'Registry' -or $_.Method -eq 'RegistryList') -and -not($_.RegistryPath.StartsWith("HKCU:\")))
+            })
+            If ($AdminFindings.Count -gt 0) {
+                $Message = "HailMary requires admin privileges for $($AdminFindings.Count) finding(s) in this list. Nothing has been changed. Please run HardeningKitty as administrator."
+                Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                If ($HardeningKittyTempDir -and (Test-Path -LiteralPath $HardeningKittyTempDir)) {
+                    Remove-Item -LiteralPath $HardeningKittyTempDir -Recurse -Force -ErrorAction SilentlyContinue
+                }
+                Return
+            }
+        }
 
         #
         # Create a System Restore Point
@@ -2519,7 +2569,9 @@
                 }
 
                 $TempFileName = New-HardeningKittyTempFile -Directory $HardeningKittyTempDir -CreateFile
-                $TempDbFileName = New-HardeningKittyTempFile -Directory $HardeningKittyTempDir -CreateFile
+                # secedit.exe must create the database itself: a pre-created empty file fails with
+                # "Error 9: The storage control block address is invalid" (issue #214)
+                $TempDbFileName = New-HardeningKittyTempFile -Directory $HardeningKittyTempDir -Extension ".sdb"
 
                 &$BinarySecedit /export /cfg $TempFileName /areas $Area | Out-Null
 
@@ -2554,7 +2606,7 @@
                         $ReportAllResults += $ReportResult
                     }
                     Remove-Item $TempFileName
-                    Remove-Item $TempDbFileName
+                    Remove-Item $TempDbFileName -ErrorAction SilentlyContinue
                     Continue
                 }
 
@@ -2582,7 +2634,7 @@
                 }
 
                 Remove-Item $TempFileName
-                Remove-Item $TempDbFileName
+                Remove-Item $TempDbFileName -ErrorAction SilentlyContinue
             }
 
             #
@@ -2754,7 +2806,9 @@
                 }
 
                 $TempFileName = New-HardeningKittyTempFile -Directory $HardeningKittyTempDir -CreateFile
-                $TempDbFileName = New-HardeningKittyTempFile -Directory $HardeningKittyTempDir -CreateFile
+                # secedit.exe must create the database itself: a pre-created empty file fails with
+                # "Error 9: The storage control block address is invalid" (issue #214)
+                $TempDbFileName = New-HardeningKittyTempFile -Directory $HardeningKittyTempDir -Extension ".sdb"
 
                 &$BinarySecedit /export /cfg $TempFileName /areas $Area | Out-Null
 
@@ -2819,7 +2873,7 @@
                         $ReportAllResults += $ReportResult
                     }
                     Remove-Item $TempFileName
-                    Remove-Item $TempDbFileName
+                    Remove-Item $TempDbFileName -ErrorAction SilentlyContinue
                     Continue
                 }
 
@@ -2847,7 +2901,7 @@
                 }
 
                 Remove-Item $TempFileName
-                Remove-Item $TempDbFileName
+                Remove-Item $TempDbFileName -ErrorAction SilentlyContinue
             }
 
             #
@@ -3605,6 +3659,15 @@
         } Else {
             Write-ProtocolEntry -Text "Refusing to apply an unverified finding list in $Mode mode ($($ListStatus.Reason)). SHA-256: $($ListStatus.Hash). Re-run with -AllowCustomList to apply it at your own risk." -LogLevel "Error"
             Break
+        }
+
+        If ($Filter) {
+            $FindingList = $FindingList | Where-Object -FilterScript $Filter
+            If ($FindingList.Length -eq 0) {
+                $Message = "Your filter did not return any results, please adjust the filter so that HardeningKitty has something to work with."
+                Write-ProtocolEntry -Text $Message -LogLevel "Error"
+                Break
+            }
         }
 
         ForEach ($Finding in $FindingList) {
