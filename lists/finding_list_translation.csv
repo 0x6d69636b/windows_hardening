@@ -18,6 +18,8 @@ Id,CategoryEN,NameEN,Language,Category,Name
 343,"Account Policies","Relax minimum password length limits",,,
 4,"Account Policies","Reset account lockout counter",DE,Kontorichtlinien,"Zurücksetzungsdauer des Kontosperrungszählers"
 344,"Account Policies","Store passwords using reversible encryption",DE,Kontorichtlinien,"Kennwort mit umkehrbarer Verschlüsselung speichern"
+1937,"Administrative Templates: Center for Internet Security (CIS)","Additional Benchmark Settings: Disable HTTP proxy features: Disable WPAD",,,
+1938,"Administrative Templates: Center for Internet Security (CIS)","Additional Benchmark Settings: Disable HTTP proxy features: Disable proxy authentication",,,
 530,"Administrative Templates: Control Panel","Allow Online Tips",DE,"Administrative Vorlagen: Systemsteuerung","Onlinetipps zulassen"
 735,"Administrative Templates: Control Panel","Enable screen saver",DE,"Administrative Vorlagen: Systemsteuerung","Bildschirmschoner aktivieren"
 801,"Administrative Templates: Control Panel","Force specific screen saver: Screen saver executable name",DE,"Administrative Vorlagen: Systemsteuerung","Bestimmten Bildschirmschoner erzwingen"
@@ -116,6 +118,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 1703,"Administrative Templates: Printers","Configure RPC over TCP port",,,
 1844,"Administrative Templates: Printers","Configure RPC packet level privacy setting for incoming connections",,,
 1698,"Administrative Templates: Printers","Configure Redirection Guard",,,
+1930,"Administrative Templates: Printers","Configure Windows Ready Print driver ranking",,,
 1889,"Administrative Templates: Printers","Configure Windows protected print",,,
 1704,"Administrative Templates: Printers","Limits print driver installation to Administrators",,,
 1705,"Administrative Templates: Printers","Manage processing of Queue-specific files",,,
@@ -126,6 +129,11 @@ Id,CategoryEN,NameEN,Language,Category,Name
 1643,"Administrative Templates: Printers","Point and Print Restrictions: When installing drivers for a new connection (CVE-2021-34527)",,,
 1669,"Administrative Templates: Printers","Point and Print Restrictions: When updating drivers for an existing connection",,,
 1644,"Administrative Templates: Printers","Point and Print Restrictions: When updating drivers for an existing connection (CVE-2021-34527)",,,
+1931,"Administrative Templates: Printers","Require IPPS for IPP printers",,,
+1932,"Administrative Templates: Printers","Set TLS/SSL security policy for IPP printers: Disallow invalid certificate authority",,,
+1934,"Administrative Templates: Printers","Set TLS/SSL security policy for IPP printers: Disallow invalid certificate common name",,,
+1935,"Administrative Templates: Printers","Set TLS/SSL security policy for IPP printers: Disallow invalid certificate date",,,
+1933,"Administrative Templates: Printers","Set TLS/SSL security policy for IPP printers: Disallow non-server certificates",,,
 298,"Administrative Templates: Start Menu and Taskbar","Notifications: Turn off notifications network usage",,,
 577,"Administrative Templates: Start Menu and Taskbar","Notifications: Turn off notifications network usage",DE,"Administrative Vorlagen: Startmenü und Taskleiste","Benachrichtigungen: Netzwerkverwendung für Benachrichtigungen deaktivieren"
 299,"Administrative Templates: Start Menu and Taskbar","Notifications: Turn off toast notifications on the lock screen",DE,"Administrative Vorlagen: Startmenü und Taskleiste","Benachrichtigungen: Popupbenachrichtigungen auf gesperrtem Bildschirm deaktivieren"
@@ -153,7 +161,6 @@ Id,CategoryEN,NameEN,Language,Category,Name
 581,"Administrative Templates: System","Device Guard: Virtualization Based Protection of Code Integrity (Policy)",,,
 112,"Administrative Templates: System","Device Guard: Virtualization Based Security Status",,,
 121,"Administrative Templates: System","Device Guard: Windows Defender Application Control deployed (Policy)",,,
-1684,"Administrative Templates: System","Device Installation: Device Installation Restrictions: Prevent device metadata retrieval from the Internet",,,
 107,"Administrative Templates: System","Device Installation: Device Installation Restrictions: Prevent installation of devices that match ID PCI\CC_0C0010 (Firewire)",,,
 108,"Administrative Templates: System","Device Installation: Device Installation Restrictions: Prevent installation of devices that match ID PCI\CC_0C0A (Thunderbolt)",DE,"Administrative Vorlagen: System","Geräteinstallation: Einschränkungen bei der Geräteinstallation: Installation von Geräten mit diesen Geräte-IDs verhindern PCI\CC_0C0A (Thunderbolt)"
 105,"Administrative Templates: System","Device Installation: Device Installation Restrictions: Prevent installation of devices that match an ID",DE,"Administrative Vorlagen: System","Geräteinstallation: Einschränkungen bei der Geräteinstallation: Installation von Geräten mit diesen Geräte-IDs verhindern"
@@ -164,7 +171,9 @@ Id,CategoryEN,NameEN,Language,Category,Name
 110,"Administrative Templates: System","Device Installation: Device Installation Restrictions: Prevent installation of devices using drivers that match an device setup class (Retroactive)",DE,"Administrative Vorlagen: System","Geräteinstallation: Einschränkungen bei der Geräteinstallation: Installation von Geräten mit Treibern verhindern, die diesen Gerätesetupklassen entsprechen (Retroactive)"
 585,"Administrative Templates: System","Device Installation: Device Installation Restrictions: Prevent installation of devices using drivers that match c06ff265-ae09-48f0-812c-16753d7cba83 (SBP-2 drive)",DE,"Administrative Vorlagen: System","Geräteinstallation: Einschränkungen bei der Geräteinstallation: Installation von Geräten mit Treibern verhindern, die diesen Gerätesetupklassen entsprechen c06ff265-ae09-48f0-812c-16753d7cba83 (SBP-2 drive)"
 111,"Administrative Templates: System","Device Installation: Device Installation Restrictions: Prevent installation of devices using drivers that match d48179be-ec20-11d1-b6b8-00c04fa372a7 (SBP-2 drive)",DE,"Administrative Vorlagen: System","Geräteinstallation: Einschränkungen bei der Geräteinstallation: Installation von Geräten mit Treibern verhindern, die diesen Gerätesetupklassen entsprechen d48179be-ec20-11d1-b6b8-00c04fa372a7 (SBP-2 drive)"
+1684,"Administrative Templates: System","Device Installation: Prevent automatic download of applications associated with device metadata",,,
 122,"Administrative Templates: System","Early Launch Antimalware: Boot-Start Driver Initialization Policy",DE,"Administrative Vorlagen: System","Antischadsoftware-Frühstart: Richtlinie für Bootstarttreiber-Initialisierung"
+1936,"Administrative Templates: System","Filesystem: Enable / disable CLFS logfile authentication",,,
 1802,"Administrative Templates: System","Group Policy: Configure security policy processing: Do not apply during periodic background processing",,,
 1688,"Administrative Templates: System","Group Policy: Configure security policy processing: Process even if the Group Policy objects have not changed",,,
 587,"Administrative Templates: System","Group Policy: Continue experiences on this device",DE,"Administrative Vorlagen: System","Gruppenrichtlinie: Auf der Oberfläche dieses Geräts weiterverarbeiten"
@@ -736,7 +745,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 719,"Administrative Templates: Windows Components","Store: Turn off the Store application",DE,"Administrative Vorlagen: Windows-Komponenten","Store: Store-Anwendung deaktivieren"
 718,"Administrative Templates: Windows Components","Store: Turn off the offer to update to the latest version of Windows",DE,"Administrative Vorlagen: Windows-Komponenten","Store: Deaktivieren des Angebots zum Update auf die aktuelle Version von Windows"
 1554,"Administrative Templates: Windows Components","Text Input: Improve inking and typing recognition",DE,"Administrative Vorlagen: Windows-Komponenten","Texteingabe: Freihand- und Eingabeerkennung verbessern"
-1677,"Administrative Templates: Windows Components","Widgest: Allow widgets",,,
+1677,"Administrative Templates: Windows Components","Widgets: Allow widgets",,,
 203,"Administrative Templates: Windows Components","WinRM Client: Allow Basic authentication",DE,"Administrative Vorlagen: Windows-Komponenten","WinRM-Client: Basic-Authentifizierung zulassen"
 204,"Administrative Templates: Windows Components","WinRM Client: Allow unencrypted traffic",DE,"Administrative Vorlagen: Windows-Komponenten","WinRM-Client: Unverschlüsselten Verkehr zulassen"
 205,"Administrative Templates: Windows Components","WinRM Client: Disallow Digest authentication",DE,"Administrative Vorlagen: Windows-Komponenten","WinRM-Client: Digest-Authentifizierung nicht zulassen"
