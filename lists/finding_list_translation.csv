@@ -220,6 +220,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 1810,"Administrative Templates: System","LAPS: Post-authentication actions: Grace period (hours)",,,
 1707,"Administrative Templates: System","Local Security Authority: Allow Custom SSPs and APs to be loaded into LSASS",,,
 1708,"Administrative Templates: System","Local Security Authority: Configures LSASS to run as a protected process",,,
+1946,"Administrative Templates: System","Local Security Authority: Configures LSASS to run as a protected process",,,
 600,"Administrative Templates: System","Locale Services: Disallow copying of user input methods to the system account for sign-in",DE,"Administrative Vorlagen: System","Gebietsschemadienste: Kopieren von Benutzereingabemethoden ins Systemkonto für die Anmeldung nicht zulassen"
 1777,"Administrative Templates: System","Logon: Always use classic logon",,,
 601,"Administrative Templates: System","Logon: Block user from showing account details on sign-in",DE,"Administrative Vorlagen: System","Anmelden: Benutzer darf keine Kontodetails auf dem Anmeldebildschirm anzeigen"
@@ -625,23 +626,30 @@ Id,CategoryEN,NameEN,Language,Category,Name
 1794,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Real-time Protection: Monitor file and program activity on your computer",,,
 959,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Real-time Protection: Scan all downloaded files and attachments",,,
 960,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Real-time Protection: Turn off real-time protection",,,
-679,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Real-time Protection: Turn on behavior monitoring (Policy)",DE,"Microsoft Defender Antivirus","Aktivieren der Verhaltensüberwachung"
+679,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Real-time Protection: Turn on behavior monitoring",DE,"Microsoft Defender Antivirus","Aktivieren der Verhaltensüberwachung"
 1796,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Real-time Protection: Turn on process scanning whenever real-time protection is enabled",,,
 1653,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Real-time Protection: Turn on script scanning",,,
 1899,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Remediation: Behavioral Network Blocks: Brute-Force Protection: Configure Brute-Force Protection aggressiveness",,,
 1900,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Remediation: Behavioral Network Blocks: Brute-Force Protection: Configure Remote Encryption Protection Mode",,,
+1939,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Remediation: Behavioral Network Blocks: Remote Encryption Protection: Configure Remote Encryption Protection Mode",,,
 1901,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Remediation: Behavioral Network Blocks: Remote Encryption Protection: Configure how aggressively Remote Encryption Protection blocks threats",,,
 680,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Reporting: Configure Watson events",DE,"Microsoft Defender Antivirus","Konfigurieren von Watson-Ereignissen"
 1861,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Reporting: Configure whether to report Dynamic Signature dropped events",,,
+1940,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Scan: Check for the latest virus and spyware security intelligence before running a scheduled scan",,,
+1941,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Scan: Scan archive files",,,
 1862,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Scan: Scan excluded files and directories during quick scans",,,
 1795,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Scan: Scan packed executables",,,
 681,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Scan: Scan removable drives",DE,"Microsoft Defender Antivirus","Scan: Scannen von Wechseldatenträgern"
 1526,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Scan: Specify the day of the week to run a scheduled scan",,,
+1943,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Scan: Specify the scan type to use for a scheduled scan",,,
+1944,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Scan: Specify the time for a daily quick scan",,,
+1942,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Scan: Specify the time of day to run a scheduled scan",,,
 1902,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Scan: Trigger a quick scan after X days without any scans",,,
 682,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Scan: Turn on e-mail scanning",DE,"Microsoft Defender Antivirus","Scan: Aktivieren von E-Mail-Scans"
 1527,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Security Intelligence Updates: Define the number of days before spyware security intelligence is considered out of date",,,
 1528,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Security Intelligence Updates: Define the number of days before virus security intelligence is considered out of date",,,
 1529,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Security Intelligence Updates: Specify the day of the week to check for security intelligence updates",,,
+1945,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Security Intelligence Updates: Specify the interval to check for security intelligence updates",,,
 1863,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Select the channel for Microsoft Defender daily security intelligence updates",,,
 1864,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Select the channel for Microsoft Defender monthly engine updates",,,
 1865,"Administrative Templates: Windows Components","Microsoft Defender Antivirus: Select the channel for Microsoft Defender monthly platform updates",,,
@@ -1635,7 +1643,7 @@ Id,CategoryEN,NameEN,Language,Category,Name
 32,"Security Options","Shutdown: Allow system to be shut down without having to log on",,,
 420,"Security Options","System cryptography: Force strong key protection for user keys stored on the computer",DE,Sicherheitseinstellungen,"Systemkryptografie: Starken Schlüsselschutz für auf dem Computer gespeicherte Benutzerschlüssel erzwingen"
 1321,"Security Options","System cryptography: Use FIPS compliant algorithms for encryption, hashing, and signing",,,
-421,"Security Options","System objects: Require case insensitivity for non-Windows subsystem",DE,Sicherheitseinstellungen,"Systemobjekte: Groß-/Kleinschreibung für Nicht-Windows-Subsysteme ignorieren"
+421,"Security Options","System objects: Require case insensitivity for non-Windows subsystems",DE,Sicherheitseinstellungen,"Systemobjekte: Groß-/Kleinschreibung für Nicht-Windows-Subsysteme ignorieren"
 422,"Security Options","System objects: Strengthen default permissions of internal system objects (e.g. Symbolic Links)",DE,Sicherheitseinstellungen,"Systemobjekte: Standardberechtigungen interner Systemobjekte (z. B. symbolischer Verknüpfungen) verstärken"
 1559,"Security Options","System settings: Optional subsystems",DE,Sicherheitseinstellungen,"Systemeinstellungen: Optionale Subsysteme"
 33,"Security Options","User Account Control: Admin Approval Mode for the Built-in Administrator account",DE,Sicherheitseinstellungen,"Benutzerkontensteuerung: Administratorgenehmigungsmodus für das integrierte Administratorkonto"
@@ -1691,10 +1699,10 @@ Id,CategoryEN,NameEN,Language,Category,Name
 458,"System Services","Peer Networking Identity Manager (p2pimsvc)",DE,Systemdienste,"Peernetzwerkidentitäts-Manager (p2pimsvc)"
 459,"System Services","Peer Networking Identity Manager (p2pimsvc) (Service Startup type)",DE,Systemdienste,"Peernetzwerkidentitäts-Manager (p2pimsvc) (Dienst Starttyp)"
 1664,"System Services","Print Spooler (Spooler)",,,
-1680,"System Services","Print Spooler (Spooler) (DC only) ",,,
+1680,"System Services","Print Spooler (Spooler) (DC only)",,,
 1682,"System Services","Print Spooler (Spooler) (MS only)",,,
 1665,"System Services","Print Spooler (Spooler) (Service Startup type)",,,
-1681,"System Services","Print Spooler (Spooler) (Service Startup type) (DC only) ",,,
+1681,"System Services","Print Spooler (Spooler) (Service Startup type) (DC only)",,,
 1683,"System Services","Print Spooler (Spooler) (Service Startup type) (MS only)",,,
 462,"System Services","Problem Reports and Solutions Control Panel Support (wercplsupport)",DE,Systemdienste,"Unterstützung in der Systemsteuerung unter Lösungen für Probleme (wercplsupport)"
 463,"System Services","Problem Reports and Solutions Control Panel Support (wercplsupport) (Service Startup type)",DE,Systemdienste,"Unterstützung in der Systemsteuerung unter Lösungen für Probleme (wercplsupport) (Dienst Starttyp)"
