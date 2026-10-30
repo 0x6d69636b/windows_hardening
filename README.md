@@ -262,6 +262,7 @@ HardeningKitty can be used to audit systems against the following baselines / be
 | BSI SiSyPHuS Windows 10 normaler Schutzbedarf Domänenmitglied (User) | 1809| 1.0 |
 | BSI SiSyPHuS Windows 10 normaler Schutzbedarf Einzelrechner (Machine) | 1809| 1.0 |
 | BSI SiSyPHuS Windows 10 normaler Schutzbedarf Einzelrechner (User) | 1809 | 1.0 |
+| CIS Microsoft Defender Antivirus | 25H2 | 1.0.0 |
 | CIS Microsoft Windows 10 Enterprise (Machine) | 1809 | 1.6.1 |
 | CIS Microsoft Windows 10 Enterprise (User) | 1809 | 1.6.1 |
 | CIS Microsoft Windows 10 Enterprise (Machine) | 1903 | 1.7.1 |
@@ -290,6 +291,8 @@ HardeningKitty can be used to audit systems against the following baselines / be
 | CIS Microsoft Windows 11 Enterprise (User) | 24H2 | 4.0.0 |
 | CIS Microsoft Windows 11 Enterprise (Machine) | 25H2 | 5.1.0 |
 | CIS Microsoft Windows 11 Enterprise (User) | 25H2 | 5.1.0 |
+| CIS Microsoft Windows 11 Stand-alone (Machine) | 25H2 | 5.0.0 |
+| CIS Microsoft Windows 11 Stand-alone (User) | 25H2 | 5.0.0 |
 | CIS Microsoft Windows Server 2012 R2 (Machine) | R2 | 2.4.0 |
 | CIS Microsoft Windows Server 2012 R2 (User) | R2 | 2.4.0 |
 | CIS Microsoft Windows Server 2012 R2 (Machine) | R2 | 2.6.0 |
@@ -322,6 +325,10 @@ HardeningKitty can be used to audit systems against the following baselines / be
 | CIS Microsoft Windows Server 2022 (User) | 22H2 | 4.0.0 |
 | CIS Microsoft Windows Server 2025 (Machine) | 24H2 | 1.0.0 |
 | CIS Microsoft Windows Server 2025 (User) | 24H2 | 1.0.0 |
+| CIS Microsoft Windows Server 2025 (Machine) | 25H2 | 2.1.0 |
+| CIS Microsoft Windows Server 2025 (User) | 25H2 | 2.1.0 |
+| CIS Microsoft Windows Server 2025 Stand-alone (Machine) | 25H2 | 2.0.0 |
+| CIS Microsoft Windows Server 2025 Stand-alone (User) | 25H2 | 2.0.0 |
 | DoD Microsoft Windows 10 STIG (Machine) | 20H2 | v2r1 |
 | DoD Microsoft Windows 10 STIG (User) | 20H2 | v2r1 |
 | DoD Windows Server 2019 Domain Controller STIG (Machine) | 20H2 | v2r1 |
