@@ -248,6 +248,10 @@ The formula for the HardeningKitty Score is _(Points achieved / Maximum points) 
 
 [Yair](https://github.com/Y8765) took care of presenting HardeningKitty results for sysadmins and even management in the form of a beautiful Excel spreadsheet containing Security Assessment Dashboards and a Dashboard with Dynamic Updates based on the status of findings, as well as an HTML Report Overview. He publishes his work in the [KittyPorter](https://github.com/Y8765/KittyPorter) repo.
 
+### HardeningKitty-Panski-UI
+
+[Maximilian](https://github.com/drw1337) has developed a Windows GUI for HardeningKitty, based on C#/.NET Framework 4.8. The tool can be used to check, fix, and roll back Windows hardening. He publishes his work in the [HardeningKitty-Panski-UI](https://github.com/drw1337/HardeningKitty-Panski-UI) repository.
+
 ### Last Update
 
 HardeningKitty can be used to audit systems against the following baselines / benchmarks:
